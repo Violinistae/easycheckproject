@@ -1,0 +1,153 @@
+*
+{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+.modalreg
+{
+	display: none;
+	position: fixed;
+	z-index: 15;
+	top:0;
+	left:0;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	background-color: rgba(0, 0, 0, 0);
+	transition: transform 300ms ease-in-out;
+}
+#modalregitems
+{
+	background-color: rgba(232, 232, 232, 1);
+	color: black;
+	position: relative;
+	margin: 6% auto;
+	width: 90%;
+	height: 73%;
+	border-radius: 6px;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	align-content: space-around;
+}
+.subcontmodal
+{
+	display: inline-block;
+	width: 100%;
+}
+#instruccregistro#FFFFFF
+{
+	display: grid;
+	grid-template-columns: [first] 30% [line2] auto [line3] 30%; 
+	grid-template-rows: [row1] 30% [row2] auto [row3] auto [row4] 1%;
+	height: 15%;
+}
+#sub1instrucreg
+{
+	grid-column-start: 2;
+	grid-column-end: 3;
+	grid-row-start: 2;
+	grid-row-end: 3;
+
+	color: black;
+	font-family: Times New Roman;
+	font-size: 34px;
+	text-align: center;
+}
+#sub2instrucreg
+{
+	grid-column-start: 2;
+	grid-column-end: 3;
+	grid-row-start: 3;
+	grid-row-end: 4;
+
+	color: black;
+	font-family: Times New Roman;
+	font-size: 24px;
+	text-align: center;
+}
+#ingresarpart
+{
+	padding: 1.5%;
+	padding-left: 5%; 
+	height: 15%;
+}
+#containerusertypes
+{
+	display: grid;	
+	padding: 2%;
+	height: 70%;
+	grid-template-columns: 32% 32% 32%;
+	grid-column-gap: 2%;
+}
+.subcontainerusertypes
+{
+	border-radius: 10px;
+	cursor: pointer;
+	transition: all 400ms ease-in-out;
+}
+.subcontainerusertypes:hover
+{
+	transform: scale(1.06);
+}
+#coordacad
+{
+	background-color: rgba(147, 186, 249, 1);
+	border-color: rgba(147, 186, 249, 1);
+}
+#prof
+{
+	background-color: rgba(255, 207, 66, 1);
+	border-color: rgba(255, 207, 66, 1);
+}
+#alum
+{
+	background-color: rgba(255, 84, 84, 1);
+	border-color: rgba(255, 84, 84, 1);
+}
+.subcontainerusertypes
+{
+	display: inline-grid;
+	grid-template-columns: [first] 10% [line2] auto [line3] 10%;
+	grid-template-rows: [row1] 0% [row2] 60% [row3] auto [row4] 0%;
+	grid-row-gap: 7%;
+}
+.imgusertype
+{
+	grid-row-start: 2;
+	grid-row-end: 3;
+	grid-column-start: 2;
+	grid-column-end: 3;
+	border-radius: 3px;
+}
+.infousertype
+{
+	grid-row-start: 3;
+	grid-row-end: 4;
+	grid-column-start: 2;
+	grid-column-end: 3;
+	color: black;
+	font-family: Bahnschrift;
+	text-align: center;
+	display: inline-grid;
+	justify-content: center;
+}
+.boldletter
+{
+	font-weight: bold;
+}
+#ingresarpart button
+{
+	color: blue;
+	background-color: transparent;
+	border-color: transparent;
+	cursor: pointer;
+	transition: all 400ms ease-in-out;
+	font-weight: bold;
+}
+#ingresarpart button:hover
+{
+	text-decoration: underline;
+	color: blue;
+}

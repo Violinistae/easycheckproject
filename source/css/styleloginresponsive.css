@@ -1,0 +1,413 @@
+*
+{
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+body
+{
+	background-image: url("../img/loginimgbig.jpeg");
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+	background-color: rgb(232, 232, 232);
+	z-index: 0;
+}
+#login
+{
+	min-height: 100vh;
+	display: flex;
+}
+.containerlogin
+{
+	margin: auto;
+	width: 80%;
+}
+.maincontainer
+{
+	background-color: rgba(255, 255, 255, 0.2);
+	border-radius: 10px;
+	width: 100%;
+	padding: 25px;
+	display: grid;
+	grid-template-columns: 55% 45%;
+}
+.containeritem
+{
+	margin: 8%;
+}
+#mainprj
+{
+	margin-left: 11%;
+	margin-bottom: 15%;
+}
+#prjname
+{
+	color: white;
+	font-family: Times New Roman;
+	transition: all 400ms ease-in-out;
+
+	font-size: 48px;
+}
+#inputtxt
+{
+	margin-top: 5%;
+}
+.info
+{
+	position: absolute;
+	display:block;
+	color: white;
+	font-weight: bold;
+	font-family: Times New Roman;
+	transition: all 400ms ease-in-out;
+	margin-left: 1.6%;
+	margin-top: -2.6%;
+	z-index: 2;
+
+	font-size: 20px;
+}
+.moveinfo
+{
+	margin-top: -5.6%;
+}
+.textinput:focus + .info
+{
+	margin-top: -5.6%;
+}
+.textinput
+{
+	position: relative;
+	background-color: rgba(0, 0, 0, .25);
+	border-color: rgba(0, 0, 0, .0);
+	border-radius: 8px;
+	outline: none;
+	color: white;
+	text-align: justify;
+
+	text-indent: 4.6%;
+	padding-top: 2%;
+	padding-bottom: 3%;
+	width: 100%;
+	z-index: 5;
+	font-size: 19px;
+}
+.btnsubmit
+{
+	background-color: #80bfff;
+	border-color: #80bfff;
+	color: black;
+	font-weight: bold;
+	border-radius: 16px;
+	transition: background 400ms ease-in-out;
+
+	font-size: 17px;
+	margin-left: 25%;
+	width: 50%;
+	padding-top: 2%;
+	padding-bottom: 2%;
+	cursor: pointer;
+}
+.btnsubmit:hover
+{
+	z-index: 1;
+	background-color: rgb(113, 159, 249);
+	border-color:rgb(113, 159, 249);
+}
+.btnsubmit:active
+{
+	transform: scale(.97)
+}
+.eslogan
+{
+	margin-top: 20%;
+	margin-left: 18%;
+	font-family: Times New Roman;
+	font-weight: bold;
+	color: white;
+	transition: all 400ms ease-in-out;
+
+	font-size: 20px;
+}
+.crearcuenta
+{
+	margin-top: 20%;
+	padding-left: 18%;
+	color: black;
+	font-weight: bold;
+	transition: all 400ms ease-in-out;
+
+	font-size: 20px;
+}
+.crearcuenta button
+{
+	color: blue;
+	background-color: transparent;
+	border-color: transparent;
+	cursor: pointer;
+	transition: all 400ms ease-in-out;
+	font-weight: bold;
+}
+.crearcuenta button:hover
+{
+	transform: scale(1.1);
+	text-decoration: underline;
+	color: blue;
+}
+@media (max-width: 1200px)
+{
+	.containerlogin
+	{
+		width: 85%;
+	}
+	#prjname
+	{
+		font-size: 40px;
+	}
+	.info
+	{
+		font-size: 20px;
+		margin-top: -3.2%;
+		margin-left: 1.9%;
+	}
+	.moveinfo
+	{
+		margin-top: -6.8%;
+	}
+	.textinput:focus + .info
+	{
+		margin-top: -6.8%;
+	}
+	.textinput
+	{
+		font-size: 15px;
+	}
+	.btnsubmit
+	{
+		font-size: 16px;
+	}
+	.eslogan
+	{
+		font-size: 18px;
+	}
+	.crearcuenta
+	{
+		font-size: 18px;
+	}
+}
+@media (max-width: 900px)
+{
+	.containerlogin
+	{
+		width: 85%;
+	}
+	#prjname
+	{
+		font-size: 30px;
+	}
+	.info
+	{
+		font-size: 16px;
+		margin-top: -3.4%;
+		margin-left: 1.8%;
+	}
+	.moveinfo
+	{
+		margin-top: -7%;
+	}
+	.textinput:focus + .info
+	{
+		margin-top: -7%;
+	}
+	.textinput
+	{
+		font-size: 15px;
+	}
+	.btnsubmit
+	{
+		font-size: 16px;
+	}
+	.eslogan
+	{
+		font-size: 14px;
+	}
+	.crearcuenta
+	{
+		font-size: 14px;
+	}
+}
+@media (max-width: 768px)
+{
+	.containerlogin
+	{
+		width: 85%;
+	}
+	#prjname
+	{
+		font-size: 30px;
+	}
+	.info
+	{
+		font-size: 16px;
+		margin-top: -3.5%;
+		margin-left: 1.8%;
+	}
+	.moveinfo
+	{
+		margin-top: -7.2%;
+	}
+	.textinput:focus + .info
+	{
+		margin-top: -7.2%;
+	}
+	.textinput
+	{
+		font-size: 15px;
+	}
+	.btnsubmit
+	{
+		font-size: 16px;
+	}
+	.eslogan
+	{
+		font-size: 14px;
+	}
+	.crearcuenta
+	{
+		font-size: 14px;
+	}
+}
+@media (max-width: 670px)
+{
+	.maincontainer
+	{
+		padding: 25px;
+		grid-template-columns: 80%;
+	}
+	.containerlogin
+	{
+		width: 90%;
+	}
+	#mainprj
+	{
+		margin-left: 40%;
+		margin-bottom: 15%;
+	}
+	.info
+	{
+		margin-left: 9%;
+		margin-top: -10%;
+		font-size: 16px;
+	}
+	.moveinfo
+	{
+		margin-top: -10%;
+	}
+	.textinput:focus + .info
+	{
+		margin-top: -10%;
+	}
+	.textinput
+	{
+		text-indent: 4.6%;
+		padding-top: 2%;
+		padding-bottom: 3%;
+		margin-left: 13%;
+	}
+	.btnsubmit
+	{
+		font-size: 15px;
+		margin-left: 36%;
+		width: 50%;
+		padding-top: 2%;
+		padding-bottom: 2%;
+		cursor: pointer;
+	}
+	.btnsubmit:hover
+	{
+		z-index: 1;
+		background-color: #80bfff;
+		border-color: #80bfff;
+	}
+	.btnsubmit:active
+	{
+		transform: scale(1)
+	}
+	.eslogan
+	{
+		margin-top: 0%;
+		margin-left: 24%;
+		color: black;
+
+		font-size: 20px;
+	}
+	.crearcuenta
+	{
+		margin-top: 10%;
+		margin-left: 3%;
+		color: black;
+		font-weight: bold;
+		text-align: center;
+		width: 100%;
+		font-size: 20px;
+	}
+}
+@media (max-width: 530px)
+{
+	.maincontainer
+	{
+		padding: 25px;
+		grid-template-columns: 80%;
+	}
+	.containerlogin
+	{
+		width: 90%;
+	}
+	#mainprj
+	{
+		margin-left: 38%;
+		margin-bottom: 15%;
+	}
+	.info
+	{
+		margin-left: 9%;
+		margin-top: -11%;
+		font-size: 14px;
+	}
+	.moveinfo
+	{
+		margin-top: -11%;
+	}
+	.textinput:focus + .info
+	{
+		margin-top: -11%;
+	}
+	.textinput
+	{
+		text-indent: 4.6%;
+		padding-top: 2%;
+		padding-bottom: 3%;
+		margin-left: 13%;
+	}
+	.btnsubmit
+	{
+		font-size: 15px;
+	}
+	.eslogan
+	{
+		width: 100%;
+		font-size: 17px;
+	}
+	.crearcuenta
+	{
+		margin-top: 10%;
+		margin-left: 3%;
+		color: black;
+		font-weight: bold;
+		text-align: center;
+		transition: all 400ms ease-in-out;
+		width: 100%;
+		font-size: 17px;
+	}
+}
