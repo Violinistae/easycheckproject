@@ -10,12 +10,12 @@
 			<div class="inputsform">
 				<form action="" method="POST">
 				  <div id="inputtxt">
-					<input class="textinput" type="text" name="registrousuario" autocomplete="off" required>
+					<input class="textinput" type="text" name="registrousuario" autocomplete="off">
 					<label class="info">Registro de Usuario</label><br><br>        
 				  </div>
 				  <br>
 				  <div id="inputtxt">
-					<input class="textinput" type="password" name="password" autocomplete="off" required>
+					<input class="textinput" type="password" name="password" autocomplete="off">
 					<label class="info">Contraseña</label><br><br>     
 				  </div>
 				  <br><br>
@@ -35,3 +35,4 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript" src="./source/js/applogin.js"></script>

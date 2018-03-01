@@ -16,7 +16,7 @@
 	    public function executeSQL($query)
 	    {
 			$qresult = $this->con->query($query);
-			return $result;
+			return $qresult;
 	    }
 	}
 ?>

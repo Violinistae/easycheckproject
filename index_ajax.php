@@ -5,25 +5,29 @@
 
 	$connection = new Connection();
 	$connection->select_db();
-	$con = $connection->con;
+	$con = $connection->getCon();
 
 	$security = new Security($con);
-	$controller = $security->controller;
-	$action = $security->action;
+	$controller = $security->getController();
+	$action = $security->getAction();
 
 	$masterController = false;
 
-	if($con){
+	if($con)
+	{
 		$validate = new ActionsModel($con);
 
 		//Validación de que la acción a realizar si es válida
-		//Valida con tabla de BD
+		//Valida con tabla acciones de BD
 		$continue = $validate->validation($controller, $action);
-		if($continue){
+		
+		if($continue)
+		{
+
 			$name_controller = $controller.'Controller';
 			$masterController = new $name_controller($con);
-			$masterController->$action();
-			//$masterController->view = './views/'.$controller.'/'.$action.'.php';
+			$masterController->$action();			//Se realiza el método que contenga la variable $action
+			$masterController->view = './views/'.$controller.'/'.$action.'.php';
 		}
 	}
 ?>

@@ -18,7 +18,7 @@
             /** 
              * Verificamos si recibimos un controlador 
              */
-            if(isset($_GET["controller"]))
+            if(isset($_POST["controller"]))
             {
                 $this->controller = mysqli_real_escape_string($this->con, $_GET["controller"]);
             }
@@ -30,7 +30,7 @@
             /**
              * Verificamos si recibimos un metodo
              */
-            if(isset($_GET["action"]))
+            if(isset($_POST["action"]))
             {
                 $this->action = mysqli_real_escape_string($this->con, $_GET["action"]);
             }

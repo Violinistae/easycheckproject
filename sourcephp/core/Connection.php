@@ -40,6 +40,10 @@
 		public function getCon()
 		{
 			return $this->con;
-		}	    
+		}	  
+		public function setCon()
+		{
+			return $this->con;
+		}	  
 	}
 ?>
