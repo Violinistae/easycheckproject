@@ -23,6 +23,7 @@
 	    		$password = mysqli_real_escape_string($this->con, $POST["password"]);
 	    		$user_res = $this->con->query("select Registro_U from usuario where Registro_U = '$userreg' and Contrasena = '$password'");
 	    		$query = mysqli_num_rows($user_res);
+	    		echo $userreg;
 
 	    		if($query != 1)
 	    		{

@@ -21,7 +21,7 @@ $(document).ready(function($){
 		setTimeout(function(){
 			err.removeClass('active');
 			btn.removeClass("disabled").prop("disabled", false);
-			btn.val("Iniciar Sesión");
+			btn.val("Ingresar");
 		}, 2500);
 	}
 
@@ -43,7 +43,7 @@ $(document).ready(function($){
 			//Añadir que hacer cuando se está enviando
 		}).done(function(response)
 		{
-			console.log("Fin");
+			console.log(response);
 			if(!response.error)
 			{
 				alert("Exito al logerase");

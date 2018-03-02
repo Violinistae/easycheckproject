@@ -13,6 +13,7 @@
 
 	$masterController = false;
 
+echo json_encode(array('controll' => $controller));
 	if($con)
 	{
 		$validate = new ActionsModel($con);
