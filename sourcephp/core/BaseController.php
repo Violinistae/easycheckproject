@@ -9,14 +9,13 @@
 	     */
 	    private $table;
 	    private $db;
-	    private $con;
+	    public $con;
 	    public $result;
 	    public $view;
 
-	    public function __construct($con, $table)
+	    public function __construct($con)
 	    {
 	        $this->con = $con;
-	        $this->table = $table;
 	    }
 
 	    public function getCon()

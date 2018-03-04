@@ -7,8 +7,8 @@
 	    /**
 	     * 
 	     */
-	    private $table;
-	   	private $con;
+	    public $table;
+	   	public $con;
 	    public function __construct($con)
 	    {
 	        $this->con = $con;

@@ -18,12 +18,12 @@
 	    {
 	    	//Recibir datos de ajax y verificar si existe ese usuario
 	    	if (isset($_POST["userreg"]) && isset($_POST["password"]))
-	    	{
-	    		$userreg = mysqli_real_escape_string($this->con, $POST["username"]);
-	    		$password = mysqli_real_escape_string($this->con, $POST["password"]);
+	    	{	    		
+	    		$userreg = mysqli_real_escape_string($this->con, $_POST["userreg"]);
+	    		$password = mysqli_real_escape_string($this->con, $_POST["password"]);
 	    		$user_res = $this->con->query("select Registro_U from usuario where Registro_U = '$userreg' and Contrasena = '$password'");
 	    		$query = mysqli_num_rows($user_res);
-	    		echo $userreg;
+	    	
 
 	    		if($query != 1)
 	    		{

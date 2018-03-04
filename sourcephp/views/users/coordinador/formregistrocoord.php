@@ -12,10 +12,10 @@
 		<input type="text" name="nombre_institucion" id="">
 		<label>Ciclo Escolar</label>
 		<select name="ciclo" multiple>
-			<option value="feb_jun">Feb - Jun</option>
-			<option value="ago_dic">Ago - Dic</option>
+			<option value="Feb_Jun">Feb - Jun</option>
+			<option value="Ago_Dic">Ago - Dic</option>
 		</select>
-		<select name="" multiple>
+		<select name="year" multiple>
 			<?php 
 				for ($i = 1995; $i < 2019; ++$i):
 			?>

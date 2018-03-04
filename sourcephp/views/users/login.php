@@ -8,7 +8,7 @@
 				<p id="prjname">Easy Check</p>
 			</div>
 			<div class="inputsform">
-				<form action="" method="POST">
+				<form>
 				  <div id="inputtxt">
 					<input class="textinput" type="text" name="registrousuario" autocomplete="off">
 					<label class="info">Registro de Usuario</label><br><br>        
@@ -30,7 +30,7 @@
 				<p class="eslogan">Revisa mejor, califica mejor.</p>
 			</div>
 			<div>
-				<p class="crearcuenta">¿Aún no tienes una cuenta? &nbsp <button onclick="gotoregist();">Registrate</button></p>
+				<p class="crearcuenta">¿Aún no tienes una cuenta? &nbsp; <button onclick="gotoregist();">Registrate</button></p>
 			</div>
 		</div>
 	</div>

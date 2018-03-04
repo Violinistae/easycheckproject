@@ -11,6 +11,7 @@
 	/** Para abrir todos lo modelos que se requerirán
 	 *  
 	 */
+	
 	$mod = "./sourcephp/models/";
 	if (is_dir($mod))
 	{
@@ -37,6 +38,7 @@
 	/** Para abrir todos lo controladores que se requerirán
 	 *  
 	 */
+
 	$cont = "./sourcephp/controllers/";
 	if (is_dir($cont))
 	{

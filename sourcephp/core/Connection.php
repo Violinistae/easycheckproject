@@ -7,9 +7,9 @@
 	    /**
 	     * summary
 	     */
-	    private $driver;
-	    private $user, $host, $password, $database, $charset;
-	    private $con;
+	    public $driver;
+	    public $user, $host, $password, $database, $charset;
+	    public $con;
 
 	    public function __construct()
 	    {

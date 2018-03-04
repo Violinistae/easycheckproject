@@ -13,22 +13,18 @@
 
 	$masterController = false;
 
-echo json_encode(array('controll' => $controller));
 	if($con)
 	{
 		$validate = new ActionsModel($con);
+		$flagtocontinue = $validate->validation($controller, $action);
 
-		//Validación de que la acción a realizar si es válida
-		//Valida con tabla acciones de BD
-		$continue = $validate->validation($controller, $action);
-		
-		if($continue)
+		if($flagtocontinue)
 		{
-
-			$name_controller = $controller.'Controller';
-			$masterController = new $name_controller($con);
+			$nameController = $controller.'Controller';
+			$masterController = new $nameController($con);
 			$masterController->$action();			//Se realiza el método que contenga la variable $action
-			$masterController->view = './views/'.$controller.'/'.$action.'.php';
+			$masterController->view = './sourcephp/views/'.$controller.'/'.$action.'.php';
+			//Continuar con login y verificar para usuario una vez que entre
 		}
 	}
 ?>

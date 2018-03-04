@@ -11,8 +11,8 @@
 
 <?php
 
-	require_once('sourcephp/config/Security.php');
-	require_once('sourcephp/requires.php');
+	require_once('./sourcephp/config/Security.php');
+	require_once('./sourcephp/requires.php');
 
 	$conexion = new Connection();
 	$conexion->select_db();

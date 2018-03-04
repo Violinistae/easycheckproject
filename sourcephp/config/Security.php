@@ -2,10 +2,10 @@
     
     class Security {
 
-        private $username;
-        private $controller;
-        private $action;
-        private $con;
+        public $username;
+        public $controller;
+        public $action;
+        public $con;
 
         public function __construct($con)
         {

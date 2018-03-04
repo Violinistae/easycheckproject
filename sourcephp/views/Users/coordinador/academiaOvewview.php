@@ -2,17 +2,24 @@
 	<nav>
 		<ul>
 			<li>
-				<label>Instrumentos de Evaluación</label>
+				<label><?php echo 'Academia Query'; ?></label>
 			</li>
 			<li>
 				<span></span>
 			</li>
-			<li>
-				<input type="text" name="" value="">
-				<button class="filtrar"><span></span></button>
-			</li>
 		</ul>
 	</nav>
+	<div>
+		<button>
+			<label>Configuración de Grupo</label>
+		</button>
+		<button>
+			<label>Información de Grupo</label>
+		</button>
+		<button>
+			<label>Administrar integrantes</label>
+		</button>
+	</div>
 	<div>
 		<?php
 			/*
@@ -21,7 +28,7 @@
 			- Filtro principal --> materia alfabéticamente
 			*/
 			$long = 9;			//Query de cantidad de instrumentos que cumplen con el filtro
-			//Grid de 4 horizontales
+			//Grid de 3 horizontales
 			for ($i = 0; $i < $long; $i++):
 			?>
 				<div>
