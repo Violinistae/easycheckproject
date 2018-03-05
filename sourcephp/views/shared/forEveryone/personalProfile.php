@@ -34,10 +34,13 @@
 			</div>
 
 			<div>
+				<?php if (true /*Cuenta tipo Coordinador o Profesor*/): ?>
 					<div>
 						<label>Escolaridad</label>
 						<p><?php echo "Escolaridad"; ?></p>
-					</div>
+					</div>	
+				<?php endif ?>
+					
 				<?php
 					if(true/*Cuenta es tipo Coordinador*/):
 				?>

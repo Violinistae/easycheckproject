@@ -1,4 +1,4 @@
-<div class = "modal error">
+<div class = "modalerror">
 	<span></span>
 </div>
 <div class="containerlogin">
@@ -10,7 +10,7 @@
 			<div class="inputsform">
 				<form>
 				  <div id="inputtxt">
-					<input class="textinput" type="text" name="registrousuario" autocomplete="off">
+					<input class="textinput" type="text" name="registrousuario" autocomplete="off" m>
 					<label class="info">Registro de Usuario</label><br><br>        
 				  </div>
 				  <br>
@@ -35,4 +35,3 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript" src="./source/js/applogin.js"></script>

@@ -10,15 +10,20 @@
 		</ul>
 	</nav>
 	<div>
-		<button>
+		<button class="acadOverbtn1">
 			<label>Configuración de Grupo</label>
 		</button>
-		<button>
+		<button class="acadOverbtn2">
 			<label>Información de Grupo</label>
 		</button>
-		<button>
-			<label>Administrar integrantes</label>
-		</button>
+		<?php if(true /*Cuenta Coordinador Academia*/):?>
+			<button class="acadOverbtn3">
+				<label>Administrar integrantes</label>
+			</button>
+		<?php endif; ?>
+	</div>
+	<div>
+		<span></span>
 	</div>
 	<div>
 		<?php

@@ -3,7 +3,7 @@
 	<div>
 		<label>Academia</label>
 		<button>
-			<label>Ver Grupo<?php if(/*CuentaProfesor*/) echo "s"; ?></label>
+			<label>Ver Grupo<?php if(true/*CuentaProfesor*/) echo "s"; ?></label>
 		</button>
 	</div>
 	<div>

@@ -3,7 +3,7 @@ $(document).ready(function($){
 	/**
 	*	Objetos para controlar cuando hay error y también el boton
 	**/
-	var err = $(".error"),
+	var err = $(".modalerror"),
 		span = err.children("span"), 
 		btn = $(".btn"),
 		flag = false;
@@ -52,14 +52,15 @@ $(document).ready(function($){
 			else
 			{
 				showError(response.message);
-				alert("No se pudo logear");
+				alert("No se pudo loggear");
 			}
 		});
 	}
 
 
 	/**
-	 * Función para verificar campos vacíos
+	 * Función que verifica si existen campos del form
+	 *  login que se encuentren vacios
 	 */
 	$('form').submit(function (event)
 	{
@@ -74,13 +75,10 @@ $(document).ready(function($){
 				return;
 			if($(this).val().length==0)
 			{
-				/*
 				var message = $(this).attr("data-error-message-empty");
 				$(this).addClass("error");
 				showError(message);
 				flag = true;
-				*/
-				console.log("Error al login");
 			}
 		})
 		if(!flag)
@@ -118,5 +116,5 @@ $(document).ready(function($){
 			}
 		);
 	}
-
 });
+
