@@ -48,7 +48,7 @@
 			//Verificar que cuenta es y poner barra de navegación
 			if (!$masterController)
 			{
-				include("sourcephp/views/users/login.php");
+				include("sourcephp/views/Users/login.php");
 			}
 			else
 			{
