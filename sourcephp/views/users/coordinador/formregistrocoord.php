@@ -3,10 +3,26 @@
 	<label>Registro Coordinador Academia</label>
 	<label>Ingrese los datos que se solicitan.</label>
 	<form action="" method="POST">
-		<input type="text" name="registro_usuario">
-		<input type="text" name="email">
-		<input type="password" name="password">
-		<input type="text" name="academia_coordina">
+		<div>
+			<label>Registro de Usuario</label>
+			<input type="text" name="registro_usuario">
+		</div>
+		<div>
+			<label>Correo Electrónico</label>
+			<input type="text" name="email">
+		</div>
+		<div>
+			<label>Contraseña</label>
+			<input type="password" name="password">
+		</div>
+		<div>
+			<label>Academia</label>
+			<input type="text" name="academia_coordina">
+		</div>
+		<div>
+			<label>Carr</label>
+		</div>
+		
 		<input type="text" name="carrera_academia">
 		<input type="text" name="clave_unica_acceso">
 		<input type="text" name="nombre_institucion">

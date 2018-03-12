@@ -52,6 +52,7 @@
 	     */
 	    public function verifyUser()
 	    {
+	    	
 	    	if(isset($_SESSION["userreg"]))
 	    	{
 	    		$aux = $_SESSION["userreg"];

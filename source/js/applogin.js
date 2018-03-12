@@ -48,7 +48,7 @@ $(document).ready(function($){
 		{
 			if(!response.error)
 			{	 
-				$:$.ajax({
+				$.ajax({
 					url: './index_ajax.php?controller=Users&action=verifyUser',
 					type: 'POST',
 					dataType: 'json',
@@ -57,7 +57,12 @@ $(document).ready(function($){
 				.done(function(res) {
 					if(!res.error)
 					{
-						
+						if(res.type == 1)
+							alert("Coordinador de Academia");	
+						else if (res.type == 2)
+							alert("Profesor");
+						else if (res.type == 3)
+							alert("Alumno");
 					}
 					else
 						showError(res.message);
