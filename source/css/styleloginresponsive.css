@@ -162,15 +162,14 @@ body
 	width: 100%;
 	position: fixed;
 	left: .5vw;
-	height: 14vh;
+	height: 10vh;
 	top: -110;
 	border-radius: 3px;
 	background-color: rgba(240, 0, 0, .6);
 	color: white;
-}
-.modalerror.active
-{
-
+	text-align: center;
+	vertical-align: middle;
+	font-size: 2vh;
 }
 @media (max-width: 1200px)
 {

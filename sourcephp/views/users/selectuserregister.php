@@ -7,7 +7,7 @@
 	</div>
 </div>
 <div class="subcontmodal" id="containerusertypes">
-	<div onclick="checkuserregist()" class="subcontainerusertypes" id="coordacad">
+	<div onclick="checkuserregist(1)" class="subcontainerusertypes" id="coordacad">
 		<div class="imgusertype" id="imgcoodacad"></div>
 		<div class="infousertype" id="infocoodacad">
 			<div>
@@ -18,7 +18,7 @@
 			</div>
 		</div>
 	</div>
-	<div onclick="checkuserregist();" class="subcontainerusertypes" id="prof">
+	<div onclick="checkuserregist(2);" class="subcontainerusertypes" id="prof">
 		<div class="imgusertype" id="imgprof"></div>
 		<div class="infousertype" id="infoprof">
 			<div>
@@ -29,7 +29,7 @@
 			</div>
 		</div>
 	</div>
-	<div onclick="checkuserregist()" class="subcontainerusertypes" id="alum">
+	<div onclick="checkuserregist(3)" class="subcontainerusertypes" id="alum">
 		<div class="imgusertype" id="imgalum"></div>
 		<div class="infousertype" id="infoalum">
 			<div>

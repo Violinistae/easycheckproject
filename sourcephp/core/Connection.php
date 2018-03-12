@@ -20,7 +20,8 @@
             $this->password = $db_conf["password"];
             $this->database = $db_conf["database"];
             //$this->charset = $db_conf["charset"];
-            $this->con = mysqli_connect($this->host, $this->user, $this->password);
+            //$this->con = mysqli_connect($this->host, $this->user, $this->password);
+            $this->con = new mysqli($this->host, $this->user, $this->password, $this->database);
             mysqli_set_charset($this->con, $this->charset);
 	    }
 

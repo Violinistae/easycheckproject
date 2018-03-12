@@ -3,6 +3,7 @@
 	 * Este controllador contiene todos los métodos que se necesiten realizar
 	 * cuando el usuario ineractue con el sistema
 	 */
+	session_start();
 	class UsersController extends BaseController
 	{
 	    /**
@@ -21,7 +22,7 @@
 	    	{	    		
 	    		$userreg = mysqli_real_escape_string($this->con, $_POST["userreg"]);
 	    		$password = mysqli_real_escape_string($this->con, $_POST["password"]);
-	    		$user_res = $this->con->query("select Registro_U from usuario where Registro_U = '$userreg' and Contrasena = '$password'");
+	    		$user_res = $this->con->query("SELECT Registro_U from usuario where Registro_U = '$userreg' and Contrasena = '$password'");
 	    		$query = mysqli_num_rows($user_res);
 	    	
 
@@ -31,6 +32,7 @@
 	    		}
 	    		else if ($query == 1)
 	    		{
+
 	    			$_SESSION["userreg"] = $userreg;
 	    			echo json_encode(array('error' => false));
 	    		}
@@ -41,6 +43,34 @@
 	    {
 	    	session_destroy();
 	    	header('Location: index.php');
+	    }
+
+	    /**
+	     * Verificar que tipo de usuario esta iniciando sesión en el sistema
+	     * @param null
+	     * @return array(bandera de éxito, mensaje de error si es necesaio o tipo de usuario que hace login)
+	     */
+	    public function verifyUser()
+	    {
+	    	if(isset($_SESSION["userreg"]))
+	    	{
+	    		$aux = $_SESSION["userreg"];
+	    		//$query = "SELECT 'tiposusuarios.Tipo_Usuario' FROM tiposusuarios JOIN usuario ON 'tiposusuarios.Id_TipoUsuario' = 'usuario.Tipo_Usuario' where 'usuario.Registro_U' = '$aux'";
+	    		$query = "SELECT Tipo_Usuario from usuario where Registro_U = ".$aux;
+
+	    		$user_type = $this->con->query($query);
+	    		$queryrows = mysqli_num_rows($user_type);
+	    		if($queryrows != 1)
+	    			echo json_encode(array('error' => true, 'message' => 'No se pudo encontrar una respuesta a su petición, favor de crear una cuenta de algún tipo válido para el sistema'));
+	    		else if($queryrows == 1)
+	    		{
+	    			$resultado = $user_type->fetch_array();
+		    		$_SESSION["usertype"] = $user_type;
+		    		echo json_encode(array('error' => false, 'type' => $resultado[0]));
+		    	}
+	    	}
+	    	else
+	    		echo json_encode(array('error' => true, 'message' => 'No se pudo encontrar alguna sesión abierta, favor de iniciar sesión de nuevo'));
 	    }
 	}
 ?>
