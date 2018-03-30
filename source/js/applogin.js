@@ -1,5 +1,8 @@
 $(document).ready(function($){
 	
+	//Variable para controlar si hay modal de registro
+	var regva = false;
+
 	/**
 	*	Objetos para controlar cuando hay error y también el boton
 	**/
@@ -80,12 +83,12 @@ $(document).ready(function($){
 	 * Función que verifica si existen campos del form
 	 *  login que se encuentren vacios
 	 */
-	$('form').submit(function (event)
+	$('#flogin').submit(function (event)
 	{
 		flag = false;
 		event.preventDefault();
 
-		var inputs = $("form input:not(input[type=submit])");
+		var inputs = $("#flogin input:not(input[type=submit])");
 
 		$(inputs).each(function()
 		{
@@ -119,9 +122,34 @@ $(document).ready(function($){
 					this.nextElementSibling.classList.remove('moveinfo');
 			}
 		);
-	}
+	}	
+
+});
 
 
+$('body').on('click','#submitreg', function(){
+		regflag = false;
+		//event.preventDefault();
+
+console.log("NO");
+		var inputs = $("#freg input:not(input[type=button])");
+		$(inputs).each(function()
+		{
+			if(regflag)
+				return;
+			if($(this).val().length==0)
+			{
+				var message = "Por favor llene todos los campos del formulario";
+				$(this).addClass("error");
+				showError(message);
+				regflag = true;
+				console.log("NO");
+			}
+		})
+		if(!regflag)
+		{
+			console.log("Correcto");
+		}
 });
 
 /**Esta función realiza una peticion AJAX para mostrar un modal
@@ -159,6 +187,7 @@ function outsideclick(e)
 	if(e.target == document.getElementById('mymodalreg'))
 	{
 		$('#mymodalreg').fadeOut('600', function() {});
+		regva = false;
 	}
 }
 window.addEventListener('click', outsideclick);
@@ -169,7 +198,7 @@ window.addEventListener('click', outsideclick);
 function hidetologin()
 {
 	$('#mymodalreg').fadeOut('600', function() {});
-	//
+	regva = false;
 }
 
 /**
@@ -208,4 +237,6 @@ function checkuserregist(type)
 			peticion_http.open('GET', './sourcephp/views/users/alumno/formRegistroAlumno.php', true);
 		peticion_http.send();
 	}, 300);
+	regva = true;
+	//console.log(regva);
 }

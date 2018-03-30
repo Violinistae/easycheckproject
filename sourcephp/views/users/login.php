@@ -8,7 +8,7 @@
 				<p id="prjname">Easy Check</p>
 			</div>
 			<div class="inputsform">
-				<form>
+				<form id="flogin">
 				  <div id="inputtxt">
 					<input class="textinput" type="text" name="registrousuario" autocomplete="off" m>
 					<label class="info">Registro de Usuario</label><br><br>        

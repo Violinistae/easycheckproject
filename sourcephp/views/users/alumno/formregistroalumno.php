@@ -1,8 +1,9 @@
-<div>
+<script type="text/javascript" src="./source/js/appreg.js"></script>
+<div id="fromregcomm">
 	<h3>Easy Check</h3>
 	<label>Registro de Cuenta Alumno</label>
 	<label>Ingrese los datos que se solicitan.</label>
-	<form action="" method="POST">
+	<form id="freg">
 		<div>
 			<label>Registro de Usuario</label>
 			<input type="text" name="registro_usuario">
@@ -12,21 +13,17 @@
 			<input type="text" name="email">
 		</div>
 		<div>
-			<label>Contraeña</label>
+			<label>Contraseña</label>
 			<input type="password" name="password">
-		</div>
-		<div>
-			<label>Nombre de Institción</label>
-			<input type="text" name="nombre_institucion">
-		</div>
+		</div>		
 		<div>
 			<label>Nombre(s)</label>
-			<input type="text" name="nombre">
+			<input type="text" name="nombres">
 		</div>
 		<div>
 			<label>Apellidos</label>
 			<input type="text" name="apellidos">
 		</div>	
-		<input type="submit" name="Registrarse" value="Registrarse">
+		<input id="submitreg" type="button" name="Registrarse" value="Registrarse">
 	</form>	
 </div>

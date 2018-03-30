@@ -23,6 +23,7 @@
 			$nameController = $controller.'Controller';
 			$masterController = new $nameController($con);
 			$masterController->$action();			//Se realiza el método que contenga la variable $action
+
 			$masterController->view = './sourcephp/views/'.$controller.'/'.$action.'.php';
 			//Continuar con login y verificar para usuario una vez que entre
 		}

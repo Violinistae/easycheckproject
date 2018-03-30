@@ -10,7 +10,7 @@
 	     */
 	    public function validation($controller, $action)
 	    {
-	    	$toexe = "SELECT * FROM acciones WHERE acciones.Controlador = '$controller' AND acciones.Metodo = '$action'";
+	    	$toexe = "SELECT * FROM acciones WHERE Controlador = '$controller' AND Metodo = '$action'";
 	    	$qresult = $this->executeSQL($toexe);
 	    	$nrows = mysqli_num_rows($qresult);
 
