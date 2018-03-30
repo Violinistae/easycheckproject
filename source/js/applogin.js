@@ -123,33 +123,6 @@ $(document).ready(function($){
 			}
 		);
 	}	
-
-});
-
-
-$('body').on('click','#submitreg', function(){
-		regflag = false;
-		//event.preventDefault();
-
-console.log("NO");
-		var inputs = $("#freg input:not(input[type=button])");
-		$(inputs).each(function()
-		{
-			if(regflag)
-				return;
-			if($(this).val().length==0)
-			{
-				var message = "Por favor llene todos los campos del formulario";
-				$(this).addClass("error");
-				showError(message);
-				regflag = true;
-				console.log("NO");
-			}
-		})
-		if(!regflag)
-		{
-			console.log("Correcto");
-		}
 });
 
 /**Esta función realiza una peticion AJAX para mostrar un modal
@@ -204,8 +177,8 @@ function hidetologin()
 /**
  * Esta función realiza una petición AJAX al servidor para insertar la
  * interfaz modal para realizar un registro en la BD.
- * @param  {[type]} type [description]
- * @return {[type]}      [description]
+ * @param  int type Tipo de usuario
+ * @return null
  */
 function checkuserregist(type)
 {
@@ -239,4 +212,81 @@ function checkuserregist(type)
 	}, 300);
 	regva = true;
 	//console.log(regva);
+}
+
+/**
+ * Esta función realiza una petición AJAX al servidor para registrar una 
+ * cuenta de usuario en la BD.
+ * @param  int typeu Tipo de usuario
+ * @return null
+ */
+function checkreg(typeu)
+{
+	regflag = false;
+	var inputs = $("#freg input:not(input[type=button])");
+	$(inputs).each(function()
+	{
+		if(regflag)
+			return;
+		if($(this).val().length==0)
+		{
+			var message = "Por favor llene todos los campos del formulario";
+			$(this).addClass("error");
+			showError(message);
+			regflag = true;		
+		}
+	})
+	if(!regflag)
+	{		
+		if(typeu == 1)		//Coordinador
+		{			
+			var param = {
+				userreg: $("input[name=registro_usuario]").val(),
+				email: $("input[name=email]").val(),			
+				password: $("input[name=password]").val(),
+				academia: $("input[name=academia_coordina]").val(),
+				claveaccess: $("input[name=clave_unica_acceso]").val(),
+				ciclomeses: $("input[name=ciclo]").val(),
+				ciclomeses: $("input[name=year]").val(),
+				escolaridad: $("input[name=escolaridad]").val(),
+				nombres: $("input[name=nombres]").val(),
+				apellidos: $("input[name=apellidos]").val()
+			};	
+		}
+		else if(typeu == 2)
+		{
+			var param = {
+				userreg: $("input[name=registro_usuario]").val(),
+				email: $("input[name=email]").val(),			
+				password: $("input[name=password]").val(),				
+				escolaridad: $("input[name=escolaridad]").val(),
+				nombres: $("input[name=nombres]").val(),
+				apellidos: $("input[name=apellidos]").val()
+			};	
+		}
+		else if(typeu == 3)
+		{
+			var param = {
+				userreg: $("input[name=registro_usuario]").val(),
+				email: $("input[name=email]").val(),			
+				password: $("input[name=password]").val(),			
+				nombres: $("input[name=nombres]").val(),
+				apellidos: $("input[name=apellidos]").val()
+			};	
+		}
+		else
+		{
+			alert("OPERACION NO PERMITIDA");
+			return;
+		}
+		$.ajax(
+		{
+			url: "./index_ajax.php?controller=Users&action=registerUser",
+			type: 'POST',
+			dataType: 'json',
+			data: param
+		}).done(function(response){
+			
+		});
+	}
 }

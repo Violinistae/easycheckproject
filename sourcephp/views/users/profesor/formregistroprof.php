@@ -1,4 +1,3 @@
-<script type="text/javascript" src="./source/js/appreg.js"></script>
 <div id="fromregcomm">
 	<h3>Easy Check</h3>
 	<label>Registro Profesor</label>
@@ -29,7 +28,7 @@
 			<input type="text" name="apellidos">
 		</div>
 		<div>			
-			<input id="submitreg" type="button" name="Registrarse" value="Registrarse">			
+			<input id="submitreg" onclick="checkreg(2);" type="button" name="Registrarse" value="Registrarse">			
 		</div>
 	</form>	
 </div>

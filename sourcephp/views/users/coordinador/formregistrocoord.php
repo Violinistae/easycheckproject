@@ -1,4 +1,3 @@
-<script type="text/javascript" src="./source/js/appreg.js"></script>
 <div id="fromregcomm">
 	<h3>Easy Check</h3>
 	<label>Registro Coordinador Academia</label>
@@ -29,13 +28,14 @@
 		</div>
 		<div>
 			<label>Ciclo Escolar</label>
-			<select name="ciclo" multiple>
+			<select name="ciclo">
 				<option value="Feb_Jun">Feb - Jun</option>
 				<option value="Ago_Dic">Ago - Dic</option>
 			</select>
-			<select name="year" multiple>
+			<select name="year">
 				<?php 
-					for ($i = 1995; $i < 2019; ++$i):
+					$year = 2019;
+					for ($i = $year; $i > $year-10; $i--):
 				?>
 					<option value="<?php echo $i;?>"><?php echo $i;?></option>
 				<?php endfor; ?>
@@ -53,6 +53,6 @@
 			<label>Apellidos</label>
 			<input type="text" name="apellidos">
 		</div>		
-		<input id="submitreg" type="button" name="Registrarse" value="Registrarse">
+		<input id="submitreg" onclick="checkreg(1);" type="button" name="Registrarse" value="Registrarse">
 	</form>	
 </div>
