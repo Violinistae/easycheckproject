@@ -31,6 +31,26 @@ $(document).ready(function($){
 	}
 
 	/**
+	*	Función para mostrar una barra de éxito cuando suceda
+	**/
+	showSuccess = function (message) {
+		span.html(message);
+		//Css
+		err.fadeIn('400', function() {
+		});
+
+		/**
+		*	Efecto de espera para quitar mensaje de error
+		**/
+		setTimeout(function(){
+			err.fadeOut('400', function() {
+			});
+			btn.prop("disabled", false);
+			btn.val("Ingresar");
+		}, 3500);
+	}
+
+	/**
 	*	Función que realiza una petición Ajax para llamar al método
 	*	login del controlador Users, desde una pagina php por envió de 
 	*	parámetros por GET
@@ -76,6 +96,9 @@ $(document).ready(function($){
 			}
 			else 			//Si no hubo éxito en login
 				showError(response.message);
+		})
+		.fail(function(){
+			alert("No funca");
 		});
 	}
 
@@ -247,10 +270,11 @@ function checkreg(typeu)
 				academia: $("input[name=academia_coordina]").val(),
 				claveaccess: $("input[name=clave_unica_acceso]").val(),
 				ciclomeses: $("input[name=ciclo]").val(),
-				ciclomeses: $("input[name=year]").val(),
+				cicloy: $("input[name=year]").val(),
 				escolaridad: $("input[name=escolaridad]").val(),
 				nombres: $("input[name=nombres]").val(),
-				apellidos: $("input[name=apellidos]").val()
+				apellidos: $("input[name=apellidos]").val(),
+				tuser : typeu
 			};	
 		}
 		else if(typeu == 2)
@@ -261,8 +285,9 @@ function checkreg(typeu)
 				password: $("input[name=password]").val(),				
 				escolaridad: $("input[name=escolaridad]").val(),
 				nombres: $("input[name=nombres]").val(),
-				apellidos: $("input[name=apellidos]").val()
-			};	
+				apellidos: $("input[name=apellidos]").val(),
+				tuser : typeu
+			};
 		}
 		else if(typeu == 3)
 		{
@@ -271,8 +296,9 @@ function checkreg(typeu)
 				email: $("input[name=email]").val(),			
 				password: $("input[name=password]").val(),			
 				nombres: $("input[name=nombres]").val(),
-				apellidos: $("input[name=apellidos]").val()
-			};	
+				apellidos: $("input[name=apellidos]").val(),
+				tuser : typeu
+			};
 		}
 		else
 		{
@@ -286,7 +312,12 @@ function checkreg(typeu)
 			dataType: 'json',
 			data: param
 		}).done(function(response){
-			
+			if(!response.error)
+			{
+				showSuccess(response.message);
+			}
+			else
+				showError(response.message);
 		});
 	}
 }

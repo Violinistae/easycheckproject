@@ -12,7 +12,7 @@
 	    {
 	    	$toexe = "SELECT * FROM acciones WHERE Controlador = '$controller' AND Metodo = '$action'";
 	    	$qresult = $this->executeSQL($toexe);
-	    	$nrows = mysqli_num_rows($qresult);
+	    	$nrows = (int)$qresult->rowCount();
 
 	    	if($nrows == 1)
 	    		return true;

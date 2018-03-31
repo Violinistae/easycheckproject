@@ -5,23 +5,22 @@
         public $username;
         public $controller;
         public $action;
-        public $con;
+        public $pdo;
 
-        public function __construct($con)
+        public function __construct($pdo)
         {
 
             /** 
              * Recibimos Conexión 
              */
-            $this->con = $con;
+            $this->pdo = $pdo;
 
             /** 
              * Verificamos si recibimos un controlador 
              */
             if(isset($_GET["controller"]))
             {
-                $this->controller = mysqli_real_escape_string($this->con, $_GET["controller"]);
-
+                $this->controller = $this->pdo->quote($_GET["controller"]);
             }
             else
             {
@@ -33,7 +32,7 @@
              */
             if(isset($_GET["action"]))
             {
-                $this->action = mysqli_real_escape_string($this->con, $_GET["action"]);
+                $this->action = $this->pdo->quote($_GET["action"]);
             }
             else
             {
@@ -41,7 +40,7 @@
             }
 
             /** 
-             * Verificamos si ya existe un usuario logueado 
+             * Verificamos si ya existe un usuario logeado 
              */
             if(isset($_SESSION["username"]))
             {
@@ -52,20 +51,5 @@
                 $this->username = false;
             }            
         }
-
-        public function getController()
-        {
-            return $this->controller;
-        }
-
-        public function getAction()
-        {
-            return $this->action;
-        }
-
-        /**
-         * NOTAS: mysqli_real_escape_string sirve para evitar inyeccion sql en la base de datos del sistema.
-         */
     }
-
 ?>

@@ -9,7 +9,7 @@
 	     */
 	    public $driver;
 	    public $user, $host, $password, $database, $charset;
-	    public $con;
+	    public $pdo;
 
 	    public function __construct()
 	    {
@@ -19,32 +19,11 @@
             $this->user = $db_conf["user"];
             $this->password = $db_conf["password"];
             $this->database = $db_conf["database"];
-            //$this->charset = $db_conf["charset"];
-            //$this->con = mysqli_connect($this->host, $this->user, $this->password);
-            $this->con = new mysqli($this->host, $this->user, $this->password, $this->database);
-            mysqli_set_charset($this->con, $this->charset);
-	    }
+            $this->charset = $db_conf["charset"];           
 
-	    public function select_db()
-	    {
-	    	$sql = "use ".$this->database;
-	    	$this->con->query($sql);
-	    	if($this->con->error)
-	    	{
-	    		echo $this->con->error;
-	    		return false;
-	    	}
-	    	else
-	    		return true;
+            $dsn = 'mysql:host='.$this->host.';dbname='.$this->database.';charset='.$this->charset;            
+             $this->pdo = new PDO($dsn, $this->user, $this->password);   
+            $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
 	    }
-
-		public function getCon()
-		{
-			return $this->con;
-		}	  
-		public function setCon()
-		{
-			return $this->con;
-		}	  
 	}
 ?>

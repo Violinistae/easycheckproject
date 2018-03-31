@@ -16,23 +16,25 @@
 	require_once('./sourcephp/requires.php');
 
 	$conexion = new Connection();
-	$conexion->select_db();
-	$con = $conexion->getCon();
+	$con = $conexion->pdo;
 
 
 	$security = new Security($con);
-	$controller = $security->getController();
-	$action = $security->getAction();
+	$controller = $security->controller;
+	$action = $security->action;
 
 	$masterController = false;
 
-	if($con)
+	if($con && $controller && $action)
 	{
 		$validate = new ActionsModel($con);
 		$flagtocontinue = $validate->validation($controller, $action);
 
 		if($flagtocontinue)
 		{
+			$controller = str_replace("'","", $controller);
+			$action = str_replace("'","", $action);
+
 			$nameController = $controller.'Controller';
 			$masterController = new $nameController($con);
 			$masterController->$action();			//Se realiza el método que contenga la variable $action
