@@ -2,7 +2,7 @@
 	<h3>Easy Check</h3>
 	<label>Registro Profesor</label>
 	<label>Ingrese los datos que se solicitan.</label>
-	<form id="freg">
+	<form id="freg" data-user="2">
 		<div>
 			<label>Registro de Usuario</label>
 			<input type="text" name="registro_usuario">
@@ -28,7 +28,7 @@
 			<input type="text" name="apellidos">
 		</div>
 		<div>			
-			<input id="submitreg" onclick="checkreg(2);" type="button" name="Registrarse" value="Registrarse">			
+			<input id="submitreg" type="submit" name="Registrarse" value="Registrarse">			
 		</div>
 	</form>	
 </div>

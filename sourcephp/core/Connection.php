@@ -21,8 +21,8 @@
             $this->database = $db_conf["database"];
             $this->charset = $db_conf["charset"];           
 
-            $dsn = 'mysql:host='.$this->host.';dbname='.$this->database.';charset='.$this->charset;            
-             $this->pdo = new PDO($dsn, $this->user, $this->password);   
+            $dsn = 'mysql:host='.$this->host.';dbname='.$this->database.';charset='.$this->charset;            			 
+			$this->pdo = new PDO($dsn, $this->user, $this->password);
             $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
 	    }
 	}

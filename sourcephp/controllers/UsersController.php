@@ -13,7 +13,7 @@
 	    /**
 	     * Iniciar sesión
 	     * @param null
-	     * @return array(bandera de éxito, mensaje (solo si se requiere))
+	     * @return array(bandera de exito, mensaje (solo si se requiere))
 	     */
 	    public function Login()
 	    {
@@ -48,7 +48,7 @@
 	    /**
 	     * Verificar que tipo de usuario esta iniciando sesión en el sistema
 	     * @param null
-	     * @return array(bandera de éxito, mensaje de error si es necesaio o tipo de usuario que hace login)
+	     * @return array(bandera de exito, mensaje de error si es necesaio o tipo de usuario que hace login)
 	     */
 	    public function verifyUser()
 	    {   
@@ -58,15 +58,17 @@
 	    		//$query = "SELECT 'tiposusuarios.Tipo_Usuario' FROM tiposusuarios JOIN usuario ON 'tiposusuarios.Id_TipoUsuario' = 'usuario.Tipo_Usuario' where 'usuario.Registro_U' = '$aux'";
 	    		$query = "SELECT Tipo_Usuario from usuario where Registro_U = ".$aux;
 
-	    		$user_type = $this->con->query($query);
-	    		$queryrows = mysqli_num_rows($user_type);
+				$user_type = $this->pdo->prepare($query);
+				$user_type -> execute();
+				$queryrows = (int)$user_type->rowCount();
+				
 	    		if($queryrows != 1)
 	    			echo json_encode(array('error' => true, 'message' => 'No se pudo encontrar una respuesta a su petición, favor de crear una cuenta de algún tipo válido para el sistema'));
 	    		else if($queryrows == 1)
 	    		{
-	    			$resultado = $user_type->fetch_array();
-		    		$_SESSION["usertype"] = $user_type;
-		    		echo json_encode(array('error' => false, 'type' => $resultado[0]));
+	    			$resultado = $user_type->fetch(PDO::FETCH_ASSOC);
+					$_SESSION["usertype"] = $resultado['Tipo_Usuario'];					
+		    		echo json_encode(array('error' => false, 'usertype' => $_SESSION["usertype"]));
 		    	}
 	    	}
 	    	else
@@ -84,62 +86,96 @@
 			if(isset($_POST["tuser"]))
 			{		
 
-				$userreg = mysqli_real_escape_string($this->con, $_POST["userreg"]);
-				$verfusuarios = $this->con->query("SELECT Registro_U from usuario where Registro_U = '$userreg'");
-				$numveru = mysqli_num_rows($verfusuarios);
+				$userreg = $_POST["userreg"];
+				$verfusuarios = $this->pdo->prepare("SELECT Registro_U from usuario where Registro_U = '$userreg'");
+				$verfusuarios->execute();
+				$numveru = $verfusuarios->rowCount();
 
 				if($numveru > 0)	//Ya hay un usuario con ese registro
 				{
-					echo json_encode(array('error' => false, 'message' => "Ya existe un usuario en el sistema con ese registro."));
+					echo json_encode(array('error' => true, 'message' => "Ya existe un usuario en el sistema con ese registro."));
 				}
 				else if ($numveru == 0)	//No hay usuario con ese registro
 				{
 
-					$typeuser = mysqli_real_escape_string($this->con, $_POST["tuser"]);
-					$email = mysqli_real_escape_string($this->con, $_POST["email"]);
-					$password = mysqli_real_escape_string($this->con, $_POST["password"]);
-					$nombres = mysqli_real_escape_string($this->con, $_POST["nombres"]);
-					$apellidos = mysqli_real_escape_string($this->con, $_POST["apellidos"]);
+					$typeuser = $_POST["tuser"];
+					$email = $_POST["email"];
+					$password = $_POST["password"];
+					$nombres = $_POST["nombres"];
+					$apellidos = $_POST["apellidos"];
+
+					if($typeuser == 1 || $typeuser == 2)			//Coord o Profesor
+						$escolaridad = $_POST["escolaridad"];
+					else if($typeuser == 3)							//Alumno
+						$escolaridad = null;
+					else 						//Error
+			    	{
+						echo json_encode(array('error' => true));
+						return;
+					}
+
+					$insercion = $this->pdo->prepare(
+						"INSERT into usuario (
+								Registro_U, 
+								Nombres, 
+								Apellidos, 
+								Email, 
+								Password, 
+								Tipo_Usuario,
+								Escolaridad
+							) values (
+								'$userreg', 
+								'$nombres', 
+								'$apellidos', 
+								'$email', 
+								'$password',
+								'$typeuser', 
+								'$escolaridad'
+							)"
+					);
+					$insercion->execute();
+					$countinsert = $insercion->rowCount();						
 
 					if($typeuser == 1)	//Coordinador de Academia
 			    	{
-			    		$academia = mysqli_real_escape_string($this->con, $_POST["academia"]);
-			    		$claveaccess = mysqli_real_escape_string($this->con, $_POST["claveaccess"]);
-			    		$ciclo = mysqli_real_escape_string($this->con, $_POST["ciclomeses"])." ".mysqli_real_escape_string($this->con, $_POST["cicloy"]);
+						$academia = $_POST["academia"];
+						$carrera = $_POST["carrera"];
+			    		$claveaccess = $_POST["claveaccess"];
+						$ciclo = $_POST["ciclomeses"]." ".$_POST["cicloy"];
+						$listaprof = null;
+						$escolaridad = $_POST["escolaridad"];
 
-						echo json_encode(array('error' => false, 'message' => "Registro completado satisfactoriamente."));
-			    	}
-			    	else if($typeuser == 2)	//Profesor
-			    	{
-						$escolaridad = mysqli_real_escape_string($this->con, $_POST["escolaridad"]);
+						$insertacad = $this->pdo->prepare(
+							"INSERT INTO academia (
+									Academia, 
+									Clave_Acceso, 
+									Ciclo_Periodo,
+									Lista_Prof, 
+									Coordinador_Acad, 
+									Carrera
+								) values (
+									'$academia', 								
+									'$claveaccess',
+									'$ciclo',
+									'$listaprof',
+									'$escolaridad',
+									'$carrera'
+								);");
+						$insertacad->exceute();
+						$insertedacad = $insertacad->rowCount();
 
-						echo json_encode(array('error' => false, 'message' => "Registro completado satisfactoriamente."));
-			    	}
-			    	else if ($typeuser == 3)	//Alumno
-			    	{
-			    		$this->con->query(
-			    			"INSERT into usuario (
-									Registro_U, 
-									Nombres, 
-									Apellidos, 
-									Email, 
-									Password, 
-									Tipo_Usuario
-			    				) values (
-			    					'$userreg', 
-			    					'$nombres', 
-			    					'$apellidos', 
-			    					'$email', 
-			    					'$password',
-			    					'$typeuser'
-			    				)"
-			    		);
-			    		echo json_encode(array('error' => false, 'message' => "Registro completado satisfactoriamente."));
-			    	}
-			    	else 							//Error
-			    	{
-			    		echo json_encode(array('error' => true));
-			    	}
+						if($insertedacad > 0 && $countinsert > 0)
+							echo json_encode(array('error' => false, 'message' => "Registro completado satisfactoriamente."));
+						else
+							echo json_encode(array('error' => true, 'message' => 'Error al registrase'));			    	
+					}							    	
+					else if ($typeuser == 2 || $typeuser == 3)
+					{
+						if($countinsert > 0)
+							echo json_encode(array('error' => false, 'message' => "Registro completado satisfactoriamente."));
+						else
+							echo json_encode(array('error' => true, 'message' => 'Error al registrase', 'ins' => $countinsert));
+					}
 				}
 			}	    		   
 	    }

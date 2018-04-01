@@ -15,16 +15,15 @@ $(document).ready(function($){
 	*	Función para mostrar una barra de error cuando este exista
 	**/
 	showError = function (message) {
-		span.html(message);
-		err.fadeIn('400', function() {
-		});
+		err.css({ "background-color": "rgba(240, 0, 0, .6)" });
+		span.html(message);		
+		err.fadeIn('400', function() {});
 
 		/**
 		*	Efecto de espera para quitar mensaje de error
 		**/
 		setTimeout(function(){
-			err.fadeOut('400', function() {
-			});
+			err.fadeOut('400', function() {});
 			btn.prop("disabled", false);
 			btn.val("Ingresar");
 		}, 3500);
@@ -34,17 +33,15 @@ $(document).ready(function($){
 	*	Función para mostrar una barra de éxito cuando suceda
 	**/
 	showSuccess = function (message) {
+		err.css({ "background-color": "rgba(0, 175, 0, .5)" });
 		span.html(message);
-		//Css
-		err.fadeIn('400', function() {
-		});
+		err.fadeIn('400', function() {});
 
 		/**
 		*	Efecto de espera para quitar mensaje de error
 		**/
 		setTimeout(function(){
-			err.fadeOut('400', function() {
-			});
+			err.fadeOut('400', function() {});
 			btn.prop("disabled", false);
 			btn.val("Ingresar");
 		}, 3500);
@@ -98,7 +95,7 @@ $(document).ready(function($){
 				showError(response.message);
 		})
 		.fail(function(){
-			alert("No funca");
+			console.log("No funca");
 		});
 	}
 
@@ -146,7 +143,16 @@ $(document).ready(function($){
 			}
 		);
 	}	
+
+	$("body").on('submit', '#freg', function (e) 
+	{				
+		e.preventDefault();
+		typeu = $('#freg').attr("data-user");
+		console.log(typeu);
+		checkreg(typeu);
+	})
 });
+
 
 /**Esta función realiza una peticion AJAX para mostrar un modal
 * con la inforamación necesaria para crear una cuenta en el sistema
@@ -226,7 +232,25 @@ function checkuserregist(type)
 			}
 		}
 		if(type == 1)	//Coordinador de academia
+		{
 			peticion_http.open('GET', './sourcephp/views/users/coordinador/formRegistroCoord.php', true);
+			
+			$.ajax(
+			{
+				url: "./index_ajax.php?controller=Carrera&action=printCarrtoRegist",
+				type: 'POST',
+				dataType: 'json'				
+			}).done(function (response) {
+				if (!response.error) 
+				{															
+					$('#carrerascombo').html = response.carreras;		
+				}
+				else
+					console.log(response.message);
+			}).fail(function () {
+				console.log("No funca");
+			});
+		}
 		else if (type == 2)			//Profesor
 			peticion_http.open('GET', './sourcephp/views/users/profesor/formRegistroProf.php', true);
 		else if(type > 2)			//Alumno
@@ -268,6 +292,7 @@ function checkreg(typeu)
 				email: $("input[name=email]").val(),			
 				password: $("input[name=password]").val(),
 				academia: $("input[name=academia_coordina]").val(),
+				carrera: $("input[name=carrera_acad]").val(),
 				claveaccess: $("input[name=clave_unica_acceso]").val(),
 				ciclomeses: $("input[name=ciclo]").val(),
 				cicloy: $("input[name=year]").val(),
@@ -313,8 +338,10 @@ function checkreg(typeu)
 			data: param
 		}).done(function(response){
 			if(!response.error)
-			{
-				showSuccess(response.message);
+			{	
+				showSuccess(response.message);				
+				hidetologin();
+				//NO SIRVE Y SEGUIR CON LOS REGISTROS EN HTML Y EL CSS			
 			}
 			else
 				showError(response.message);

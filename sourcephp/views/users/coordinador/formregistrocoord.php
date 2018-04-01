@@ -2,7 +2,7 @@
 	<h3>Easy Check</h3>
 	<label>Registro Coordinador Academia</label>
 	<label>Ingrese los datos que se solicitan.</label>
-	<form id="freg">
+	<form id="freg" data-user="1">
 		<div>
 			<label>Registro de Usuario</label>
 			<input type="text" name="registro_usuario">
@@ -21,6 +21,9 @@
 		</div>
 		<div>
 			<label>Carrera</label>
+			<select id="carrerascombo" name="carrera_acad">
+				
+			</select>
 		</div>
 		<div>
 			<label>Clave Unica de Acceso a Academia</label>
@@ -53,6 +56,6 @@
 			<label>Apellidos</label>
 			<input type="text" name="apellidos">
 		</div>		
-		<input id="submitreg" onclick="checkreg(1);" type="button" name="Registrarse" value="Registrarse">
+		<input id="submitreg" type="submit" name="Registrarse" value="Registrarse">
 	</form>	
 </div>

@@ -12,8 +12,7 @@ class BaseModel {
 	}
 
 	public function executeSQL($consulta){
-		$result = $this->pdo->prepare($consulta);
-		$result->execute();
+		$result = $this->pdo->query($consulta);	
 		return $result;
 	}
 	
