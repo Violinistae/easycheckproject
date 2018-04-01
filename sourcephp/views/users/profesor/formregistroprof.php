@@ -13,11 +13,11 @@
 		</div>
 		<div>
 			<label>Contraseña</label>
-			<input type="password" name="passwordreg" id="inputpswd">
+			<input type="password" name="password">
 		</div>
 		<div>
 			<label>Confirmar Contraseña</label>
-			<input type="password" name="passwordreg2" id="inputpswd2">
+			<input type="password" name="password2">
 		</div>	
 		<div>
 			<label>Escolaridad</label>

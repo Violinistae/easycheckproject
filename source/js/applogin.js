@@ -75,11 +75,11 @@ $(document).ready(function($){
 				.done(function(res)
 				{
 					if(!res.error) {
-						if(res.type == 1)
+						if(res.usertype == 1)
 							alert("Coordinador de Academia");	
-						else if (res.type == 2)
+						else if (res.usertype == 2)
 							alert("Profesor");
-						else if (res.type == 3)
+						else if (res.usertype == 3)
 							alert("Alumno");
 					}
 					else
@@ -261,7 +261,7 @@ function checkuserregist(type) {
 function checkreg(typeu) {
 
 	regflag = false;
-	var inputs = $("#freg input:not(input[type=button])");
+	var inputs = $("#freg input:not(input[type=submit])");
 	$(inputs).each(function() {
 		if(regflag)
 			return;
@@ -276,9 +276,8 @@ function checkreg(typeu) {
 	if(!regflag)					//Todos los campos están llenas
 	{		
 
-		pass = document.getElementById('inputpswd').value;
-		pass2 = document.getElementById('inputpswd2').value;
-		
+		pass = $('#freg input[name=password]').val();
+		pass2 = $('#freg input[name=password2]').val();
 
 		if (pass.length < 8 || pass.length > 20) {
 			showError("Ingrese una contraseña mayor a 7 caracteres y menor a 21");
@@ -288,61 +287,60 @@ function checkreg(typeu) {
 			return;
 		}
 
-		console.log(typeu);
-
 		switch (typeu) {
-			case 1:
+			case "1":
 				
-				claveacad = document.getElementById('inputclaveacad').value;
-				claveacad2 = document.getElementById('inputclaveacad2').value;
+				claveacad = $('#freg input[name=clave_unica_acceso]').val();
+				claveacad2 = $('#freg input[name=clave_unica_acceso2]').val();
+
 				if (claveacad.length < 8 || claveacad.length > 20) {
 					showError("Ingrese una clave única de acceso mayor a 7 caracteres y menor que 21 caracteres");
 					return;
 				} if (claveacad != claveacad2) {
 					showError("Las claves únicas de acceso no coinciden");
 					return;
-				} if ($("input[name=carrera_acad]").val() == null) {
+				} if ($("#freg input[name=carrera_acad]").val() == "null") {
 					showError("Seleccione una carrera");
 					return;
 				}
 
 				var param = {
-					userreg: $("input[name=registro_usuario]").val(),
-					email: $("input[name=email]").val(),
-					password: $("input[name=passwordreg]").val(),
-					academia: $("input[name=academia_coordina]").val(),
-					carrera: $("input[name=carrera_acad]").val(),
-					claveaccess: $("input[name=clave_unica_acceso]").val(),
-					ciclomeses: $("input[name=ciclo]").val(),
-					cicloy: $("input[name=year]").val(),
-					escolaridad: $("input[name=escolaridad]").val(),
-					nombres: $("input[name=nombres]").val(),
-					apellidos: $("input[name=apellidos]").val(),
+					userreg: $("#freg input[name=registro_usuario]").val(),
+					email: $("#freg input[name=email]").val(),
+					password: $("#freg input[name=password]").val(),
+					academia: $("#freg input[name=academia_coordina]").val(),
+					carrera: $("#freg select[name=carrera_acad]").val(),
+					claveaccess: $("#freg input[name=clave_unica_acceso]").val(),
+					ciclomeses: $("#freg select[name=ciclo]").val(),
+					cicloy: $("#freg select[name=year]").val(),
+					escolaridad: $("#freg input[name=escolaridad]").val(),
+					nombres: $("#freg input[name=nombres]").val(),
+					apellidos: $("#freg input[name=apellidos]").val(),
+					tuser: typeu
+				};
+				
+				break;
+			case "2":
+				
+				var param = {
+					userreg: $("#freg input[name=registro_usuario]").val(),
+					email: $("#freg input[name=email]").val(),
+					password: $("#freg input[name=password]").val(),
+					escolaridad: $("#freg input[name=escolaridad]").val(),
+					nombres: $("#freg input[name=nombres]").val(),
+					apellidos: $("#freg input[name=apellidos]").val(),
 					tuser: typeu
 				};
 
 				break;
-			case 2:
+			case "3":
 				
 				var param = {
-					userreg: $("input[name=registro_usuario]").val(),
-					email: $("input[name=email]").val(),
-					password: $("input[name=passwordreg]").val(),
-					escolaridad: $("input[name=escolaridad]").val(),
-					nombres: $("input[name=nombres]").val(),
-					apellidos: $("input[name=apellidos]").val(),
-					tuser: typeu
-				};
-
-				break;
-			case 3:
-				
-				var param = {
-					userreg: $("input[name=registro_usuario]").val(),
-					email: $("input[name=email]").val(),
-					password: $("input[name=passwordreg]").val(),
-					nombres: $("input[name=nombres]").val(),
-					apellidos: $("input[name=apellidos]").val(),
+					userreg: $("#freg input[name=registro_usuario]").val(),
+					email: $("#freg input[name=email]").val(),
+					password: $("#freg input[name=password]").val(),
+					nombres: $("#freg input[name=nombres]").val(),
+					apellidos: $("#freg input[name=apellidos]").val(),
 					tuser: typeu
 				};
 

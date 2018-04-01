@@ -143,7 +143,6 @@
 			    		$claveaccess = $_POST["claveaccess"];
 						$ciclo = $_POST["ciclomeses"]." ".$_POST["cicloy"];
 						$listaprof = null;
-						$escolaridad = $_POST["escolaridad"];
 
 						$insertacad = $this->pdo->prepare(
 							"INSERT INTO academia (
@@ -158,16 +157,19 @@
 									'$claveaccess',
 									'$ciclo',
 									'$listaprof',
-									'$escolaridad',
+									'$userreg',
 									'$carrera'
 								);");
-						$insertacad->exceute();
+						$insertacad->execute();
 						$insertedacad = $insertacad->rowCount();
 
 						if($insertedacad > 0 && $countinsert > 0)
 							echo json_encode(array('error' => false, 'message' => "Registro completado satisfactoriamente."));
 						else
+						{
 							echo json_encode(array('error' => true, 'message' => 'Error al registrase'));			    	
+							//Delete ambos si se crearon
+						}
 					}							    	
 					else if ($typeuser == 2 || $typeuser == 3)
 					{

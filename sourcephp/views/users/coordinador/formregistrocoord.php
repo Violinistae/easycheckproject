@@ -13,11 +13,11 @@
 		</div>
 		<div>
 			<label>Contraseña</label>
-			<input type="password" name="passwordreg" id="inputpswd">
+			<input type="password" name="password">
 		</div>
 		<div>
 			<label>Confirmar Contraseña</label>
-			<input type="password" name="passwordreg2" id="inputpswd2">
+			<input type="password" name="password2">
 		</div>
 		<div>
 			<label>Academia</label>
@@ -26,22 +26,21 @@
 		<div>
 			<label>Carrera</label>
 			<select id="carrerascombo" name="carrera_acad">
-				
 			</select>
 		</div>
 		<div>
 			<label>Clave Unica de Acceso a Academia</label>
-			<input type="password" name="clave_unica_acceso" id="inputclaveacad">
+			<input type="password" name="clave_unica_acceso">
 		</div>
 		<div>
 			<label>Confirmar Clave Unica de Acceso a Academia</label>
-			<input type="password" name="clave_unica_acceso2" id="inputclaveacad2">
+			<input type="password" name="clave_unica_acceso2">
 		</div>
 		<div>
 			<label>Ciclo Escolar</label>
 			<select name="ciclo">
-				<option value="Feb_Jun">Feb - Jun</option>
-				<option value="Ago_Dic">Ago - Dic</option>
+				<option value="Feb - Jun">Feb - Jun</option>
+				<option value="Ago - Dic">Ago - Dic</option>
 			</select>
 			<select name="year">
 				<?php 
