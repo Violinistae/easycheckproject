@@ -1,7 +1,6 @@
 $(document).ready(function($){
 	
-	//Variable para controlar si hay modal de registro
-	var regva = false;
+	//Variable para controlar si hay modal de registro	
 
 	/**
 	*	Objetos para controlar cuando hay error y también el boton
@@ -22,7 +21,7 @@ $(document).ready(function($){
 		/**
 		*	Efecto de espera para quitar mensaje de error
 		**/
-		setTimeout(function(){
+		setTimeout(function() {
 			err.fadeOut('400', function() {});
 			btn.prop("disabled", false);
 			btn.val("Ingresar");
@@ -40,7 +39,7 @@ $(document).ready(function($){
 		/**
 		*	Efecto de espera para quitar mensaje de error
 		**/
-		setTimeout(function(){
+		setTimeout(function() {
 			err.fadeOut('400', function() {});
 			btn.prop("disabled", false);
 			btn.val("Ingresar");
@@ -52,8 +51,7 @@ $(document).ready(function($){
 	*	login del controlador Users, desde una pagina php por envió de 
 	*	parámetros por GET
 	**/
-	ajaxLogin = function()
-	{
+	ajaxLogin = function() {
 		var parametros = {
 			userreg: $("input[name=registrousuario]").val(),
 			password: $("input[name=password]").val()
@@ -66,17 +64,17 @@ $(document).ready(function($){
 			data: parametros
 		}).done(function(response)
 		{
-			if(!response.error)
-			{	 
-				$.ajax({
+			if(!response.error)	{	 
+				$.ajax(
+				{
 					url: './index_ajax.php?controller=Users&action=verifyUser',
 					type: 'POST',
 					dataType: 'json',
 					data: {param1: 'value1'},
 				})
-				.done(function(res) {
-					if(!res.error)
-					{
+				.done(function(res)
+				{
+					if(!res.error) {
 						if(res.type == 1)
 							alert("Coordinador de Academia");	
 						else if (res.type == 2)
@@ -94,8 +92,8 @@ $(document).ready(function($){
 			else 			//Si no hubo éxito en login
 				showError(response.message);
 		})
-		.fail(function(){
-			console.log("No funca");
+		.fail(function() {
+			console.log("No funciona");
 		});
 	}
 
@@ -103,15 +101,13 @@ $(document).ready(function($){
 	 * Función que verifica si existen campos del form
 	 *  login que se encuentren vacios
 	 */
-	$('#flogin').submit(function (event)
-	{
+	$('#flogin').submit(function (event) {
 		flag = false;
 		event.preventDefault();
 
 		var inputs = $("#flogin input:not(input[type=submit])");
 
-		$(inputs).each(function()
-		{
+		$(inputs).each(function() {
 			if(flag)
 				return;
 			if($(this).val().length==0)
@@ -122,33 +118,33 @@ $(document).ready(function($){
 				flag = true;
 			}
 		})
-		if(!flag)
-		{
-			ajaxLogin();
-		}
+		if(!flag)		
+			ajaxLogin();		
 	})
 
-	/**Procedimineto para mantener la etiqueta de usuario
-	* o contraseña fija si hay texto
+	/**
+	 * Procedimineto para mantener la etiqueta de usuario
+	 * o contraseña fija si hay texto
 	*/
 	var inputs = document.getElementsByClassName('textinput');
-	for (var i = 0; i < inputs.length; ++i)
-	{
-		inputs[i].addEventListener("keyup", function()
-			{
+	for (var i = 0; i < inputs.length; ++i)	{
+		inputs[i].addEventListener("keyup", function() {
 				if (this.value.length > 0)
 					this.nextElementSibling.classList.add('moveinfo');
 				else
 					this.nextElementSibling.classList.remove('moveinfo');
-			}
-		);
+		});
 	}	
 
-	$("body").on('submit', '#freg', function (e) 
-	{				
+	/**
+	 * Función on submit de formularios de registro que llama a la función 
+	 * checkreg envíandole el tipo de usuario para realizar el registro de
+	 * un usuario en la BD
+	 * 
+	 */
+	$("body").on('submit', '#freg', function (e) {				
 		e.preventDefault();
 		typeu = $('#freg').attr("data-user");
-		console.log(typeu);
 		checkreg(typeu);
 	})
 });
@@ -159,24 +155,18 @@ $(document).ready(function($){
 */
 function gotoregist()
 {
-	if(window.XMLHttpRequest)
-	{			
-		peticion_http = new XMLHttpRequest();
-	}
-	else if (window.ActiveXObject) 
-	{
+	if(window.XMLHttpRequest)	
+		peticion_http = new XMLHttpRequest();	
+	else if (window.ActiveXObject) 	
 		peticion_http = new ActiveXObject("Microsoft.XMLHTTP");
-	}
 
-	peticion_http.onreadystatechange = function ()
-	{
-		if (this.readyState == 4 && this.status == 200)
-		{	
+	peticion_http.onreadystatechange = function () {
+		if (this.readyState == 4 && this.status == 200) {	
 			document.getElementById('modalregitems').innerHTML = this.responseText;
-			$("#mymodalreg").fadeIn('600', function() {
-			});
+			$("#mymodalreg").fadeIn('600', function() {});
 		}
 	}
+
 	peticion_http.open('GET', './sourcephp/views/users/selectuserregister.php', true);
 	peticion_http.send();
 }
@@ -184,12 +174,10 @@ function gotoregist()
 /**Función para esconder el modal de registro cuando el usuario 
 * dé un click fuera de la zona del modal
 */
-function outsideclick(e)
-{
-	if(e.target == document.getElementById('mymodalreg'))
-	{
+function outsideclick(e) {
+	if(e.target == document.getElementById('mymodalreg')) {
 		$('#mymodalreg').fadeOut('600', function() {});
-		regva = false;
+		//
 	}
 }
 window.addEventListener('click', outsideclick);
@@ -197,10 +185,9 @@ window.addEventListener('click', outsideclick);
 /**Función para esconder el modal de registro cuando el usuario
 * presione el boton ingresar
 */
-function hidetologin()
-{
+function hidetologin() {
 	$('#mymodalreg').fadeOut('600', function() {});
-	regva = false;
+	//
 }
 
 /**
@@ -209,56 +196,60 @@ function hidetologin()
  * @param  int type Tipo de usuario
  * @return null
  */
-function checkuserregist(type)
-{
+function checkuserregist(type) {
 	$("#mymodalreg").fadeOut('300', function() {});
-	setTimeout(function(){ 
-		if(window.XMLHttpRequest)
-		{			
-			peticion_http = new XMLHttpRequest();
-		}
-		else if (window.ActiveXObject) 
-		{
-			peticion_http = new ActiveXObject("Microsoft.XMLHTTP");
-		}
+	setTimeout(function() { 
 
-		peticion_http.onreadystatechange = function ()
-		{
-			if (this.readyState == 4 && this.status == 200)
-			{	
+		if(window.XMLHttpRequest)		
+			peticion_http = new XMLHttpRequest();		
+		else if (window.ActiveXObject) 		
+			peticion_http = new ActiveXObject("Microsoft.XMLHTTP");		
+
+		peticion_http.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {	
 				document.getElementById('modalregitems').innerHTML = this.responseText;
-				$("#mymodalreg").fadeIn('600', function() {
-				});
+				$("#mymodalreg").fadeIn('600', function() {});
 			}
 		}
-		if(type == 1)	//Coordinador de academia
-		{
-			peticion_http.open('GET', './sourcephp/views/users/coordinador/formRegistroCoord.php', true);
-			
-			$.ajax(
-			{
-				url: "./index_ajax.php?controller=Carrera&action=printCarrtoRegist",
-				type: 'POST',
-				dataType: 'json'				
-			}).done(function (response) {
-				if (!response.error) 
-				{															
-					$('#carrerascombo').html = response.carreras;		
-				}
-				else
-					console.log(response.message);
-			}).fail(function () {
-				console.log("No funca");
-			});
-		}
-		else if (type == 2)			//Profesor
-			peticion_http.open('GET', './sourcephp/views/users/profesor/formRegistroProf.php', true);
-		else if(type > 2)			//Alumno
-			peticion_http.open('GET', './sourcephp/views/users/alumno/formRegistroAlumno.php', true);
+
+		switch (type) {
+			case 1:
+				
+				peticion_http.open('GET', './sourcephp/views/users/coordinador/formRegistroCoord.php', true);
+
+				$.ajax({
+					url: "./index_ajax.php?controller=Carrera&action=getCarreras",
+					type: 'POST',
+					dataType: 'json'
+				}).done(function (response) {
+					if (!response.error) {
+						combocarreras = document.getElementById("carrerascombo");
+						numcarreras = response.carreras.length;
+						for (i = 0; i < numcarreras + 1; ++i)
+							combocarreras.insertAdjacentHTML('beforeend', response.carreras[i]);
+					}
+					else
+						console.log(response.message);
+				}).fail(function () {
+					console.log("No funciona");
+				});
+
+				break;
+
+			case 2:
+				peticion_http.open('GET', './sourcephp/views/users/profesor/formRegistroProf.php', true);
+				break;
+
+			case 3:
+				peticion_http.open('GET', './sourcephp/views/users/alumno/formRegistroAlumno.php', true);
+				break;
+		
+			default:
+				return;
+				break;
+		}			
 		peticion_http.send();
 	}, 300);
-	regva = true;
-	//console.log(regva);
 }
 
 /**
@@ -267,71 +258,104 @@ function checkuserregist(type)
  * @param  int typeu Tipo de usuario
  * @return null
  */
-function checkreg(typeu)
-{
+function checkreg(typeu) {
+
 	regflag = false;
 	var inputs = $("#freg input:not(input[type=button])");
-	$(inputs).each(function()
-	{
+	$(inputs).each(function() {
 		if(regflag)
 			return;
-		if($(this).val().length==0)
-		{
+		if($(this).val().length==0) {
 			var message = "Por favor llene todos los campos del formulario";
 			$(this).addClass("error");
 			showError(message);
 			regflag = true;		
 		}
 	})
-	if(!regflag)
+
+	if(!regflag)					//Todos los campos están llenas
 	{		
-		if(typeu == 1)		//Coordinador
-		{			
-			var param = {
-				userreg: $("input[name=registro_usuario]").val(),
-				email: $("input[name=email]").val(),			
-				password: $("input[name=password]").val(),
-				academia: $("input[name=academia_coordina]").val(),
-				carrera: $("input[name=carrera_acad]").val(),
-				claveaccess: $("input[name=clave_unica_acceso]").val(),
-				ciclomeses: $("input[name=ciclo]").val(),
-				cicloy: $("input[name=year]").val(),
-				escolaridad: $("input[name=escolaridad]").val(),
-				nombres: $("input[name=nombres]").val(),
-				apellidos: $("input[name=apellidos]").val(),
-				tuser : typeu
-			};	
-		}
-		else if(typeu == 2)
-		{
-			var param = {
-				userreg: $("input[name=registro_usuario]").val(),
-				email: $("input[name=email]").val(),			
-				password: $("input[name=password]").val(),				
-				escolaridad: $("input[name=escolaridad]").val(),
-				nombres: $("input[name=nombres]").val(),
-				apellidos: $("input[name=apellidos]").val(),
-				tuser : typeu
-			};
-		}
-		else if(typeu == 3)
-		{
-			var param = {
-				userreg: $("input[name=registro_usuario]").val(),
-				email: $("input[name=email]").val(),			
-				password: $("input[name=password]").val(),			
-				nombres: $("input[name=nombres]").val(),
-				apellidos: $("input[name=apellidos]").val(),
-				tuser : typeu
-			};
-		}
-		else
-		{
-			alert("OPERACION NO PERMITIDA");
+
+		pass = document.getElementById('inputpswd').value;
+		pass2 = document.getElementById('inputpswd2').value;
+		
+
+		if (pass.length < 8 || pass.length > 20) {
+			showError("Ingrese una contraseña mayor a 7 caracteres y menor a 21");
+			return;
+		} if (pass != pass2) {
+			showError("Las contraseñas ingresadas no coinciden");
 			return;
 		}
-		$.ajax(
-		{
+
+		console.log(typeu);
+
+		switch (typeu) {
+			case 1:
+				
+				claveacad = document.getElementById('inputclaveacad').value;
+				claveacad2 = document.getElementById('inputclaveacad2').value;
+				if (claveacad.length < 8 || claveacad.length > 20) {
+					showError("Ingrese una clave única de acceso mayor a 7 caracteres y menor que 21 caracteres");
+					return;
+				} if (claveacad != claveacad2) {
+					showError("Las claves únicas de acceso no coinciden");
+					return;
+				} if ($("input[name=carrera_acad]").val() == null) {
+					showError("Seleccione una carrera");
+					return;
+				}
+
+				var param = {
+					userreg: $("input[name=registro_usuario]").val(),
+					email: $("input[name=email]").val(),
+					password: $("input[name=passwordreg]").val(),
+					academia: $("input[name=academia_coordina]").val(),
+					carrera: $("input[name=carrera_acad]").val(),
+					claveaccess: $("input[name=clave_unica_acceso]").val(),
+					ciclomeses: $("input[name=ciclo]").val(),
+					cicloy: $("input[name=year]").val(),
+					escolaridad: $("input[name=escolaridad]").val(),
+					nombres: $("input[name=nombres]").val(),
+					apellidos: $("input[name=apellidos]").val(),
+					tuser: typeu
+				};
+
+				break;
+			case 2:
+				
+				var param = {
+					userreg: $("input[name=registro_usuario]").val(),
+					email: $("input[name=email]").val(),
+					password: $("input[name=passwordreg]").val(),
+					escolaridad: $("input[name=escolaridad]").val(),
+					nombres: $("input[name=nombres]").val(),
+					apellidos: $("input[name=apellidos]").val(),
+					tuser: typeu
+				};
+
+				break;
+			case 3:
+				
+				var param = {
+					userreg: $("input[name=registro_usuario]").val(),
+					email: $("input[name=email]").val(),
+					password: $("input[name=passwordreg]").val(),
+					nombres: $("input[name=nombres]").val(),
+					apellidos: $("input[name=apellidos]").val(),
+					tuser: typeu
+				};
+
+				break;
+
+			default:
+				alert("OPERACION NO PERMITIDA");
+				return;
+				break;
+
+		}
+
+		$.ajax({
 			url: "./index_ajax.php?controller=Users&action=registerUser",
 			type: 'POST',
 			dataType: 'json',
@@ -340,11 +364,12 @@ function checkreg(typeu)
 			if(!response.error)
 			{	
 				showSuccess(response.message);				
-				hidetologin();
-				//NO SIRVE Y SEGUIR CON LOS REGISTROS EN HTML Y EL CSS			
+				hidetologin();						
 			}
 			else
 				showError(response.message);
 		});
+
 	}
+
 }

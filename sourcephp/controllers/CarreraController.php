@@ -9,10 +9,9 @@
 
             $i = 1;
             $c = array();
-            //<option value="null">Seleccione una Carrera</option>
+            $c[0] = '<option value="null">Seleccione una Carrera</option>';
             while($carrera = $query->fetch()):
-                $c[$i] = '<option value="'.$carrera->Id_Carrera.'">'.$carrera->Carrera.'></option>';
-                //<option value=" $carrera->Id_Carrera;"> echo $carrera->Carrera></option>
+                $c[$i] = '<option value="'.$carrera->Id_Carrera.'">'.$carrera->Carrera.'</option>';
                 $i++;
             endwhile;
             if($numcarreras > 0)

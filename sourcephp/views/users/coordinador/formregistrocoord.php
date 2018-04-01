@@ -13,7 +13,11 @@
 		</div>
 		<div>
 			<label>Contraseña</label>
-			<input type="password" name="password">
+			<input type="password" name="passwordreg" id="inputpswd">
+		</div>
+		<div>
+			<label>Confirmar Contraseña</label>
+			<input type="password" name="passwordreg2" id="inputpswd2">
 		</div>
 		<div>
 			<label>Academia</label>
@@ -27,7 +31,11 @@
 		</div>
 		<div>
 			<label>Clave Unica de Acceso a Academia</label>
-			<input type="text" name="clave_unica_acceso">
+			<input type="password" name="clave_unica_acceso" id="inputclaveacad">
+		</div>
+		<div>
+			<label>Confirmar Clave Unica de Acceso a Academia</label>
+			<input type="password" name="clave_unica_acceso2" id="inputclaveacad2">
 		</div>
 		<div>
 			<label>Ciclo Escolar</label>

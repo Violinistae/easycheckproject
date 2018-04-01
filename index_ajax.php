@@ -23,6 +23,8 @@
 			$controller = str_replace("'","", $controller);
 			$action = str_replace("'","", $action);
 
+			//echo json_encode(array('action' => $action, 'controller' => $controller));
+
 			$nameController = $controller.'Controller';	
 			$masterController = new $nameController($con);
 			$masterController->$action();					//Se realiza el método que contenga la variable $action
