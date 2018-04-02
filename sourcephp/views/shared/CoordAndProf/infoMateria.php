@@ -15,7 +15,7 @@
 					<?php echo "#Semestre" ?>
 					<?php for ($i = 1; $i < 9; $i++):?>
 						<option value="<?php echo $i ?>"><?php echo $i; ?></option>
-					<?php endif; ?>
+						<?php endfor; ?>
 				</select>
 				<label>Grupo</label>
 				<input name="grupo" type="text" value='<?php echo "GRupo"; ?>'>

@@ -14,7 +14,7 @@ $(document).ready(function($){
 	*	Función para mostrar una barra de error cuando este exista
 	**/
 	showError = function (message) {
-		err.css({ "background-color": "rgba(240, 0, 0, .6)" });
+		err.css({ "background-color": " rgba(180, 0, 0, 0.6)" });
 		span.html(message);		
 		err.fadeIn('400', function() {});
 
@@ -166,7 +166,8 @@ function gotoregist()
 			$("#mymodalreg").fadeIn('600', function() {});
 		}
 	}
-
+	$("#modalregitems").css({ "color": "black" });
+	$("#modalregitems").css({ "background-color": "rgba(232, 232, 232, 1)" });
 	peticion_http.open('GET', './sourcephp/views/users/selectuserregister.php', true);
 	peticion_http.send();
 }
@@ -176,7 +177,7 @@ function gotoregist()
 */
 function outsideclick(e) {
 	if(e.target == document.getElementById('mymodalreg')) {
-		$('#mymodalreg').fadeOut('600', function() {});
+		$('#mymodalreg').fadeOut('400', function() {});
 		//
 	}
 }
@@ -186,7 +187,7 @@ window.addEventListener('click', outsideclick);
 * presione el boton ingresar
 */
 function hidetologin() {
-	$('#mymodalreg').fadeOut('600', function() {});
+	$('#mymodalreg').fadeOut('400', function() {});
 	//
 }
 
@@ -238,18 +239,21 @@ function checkuserregist(type) {
 
 			case 2:
 				peticion_http.open('GET', './sourcephp/views/users/profesor/formRegistroProf.php', true);
+				$("#modalregitems").css({"color": "rgb(247, 218, 37)"});
+				$("#modalregitems").css({"background-color": "rgb(50, 50, 50"});
 				break;
 
 			case 3:
 				peticion_http.open('GET', './sourcephp/views/users/alumno/formRegistroAlumno.php', true);
+				$("#modalregitems").css({"color": "rgb(240, 240, 240)"});
+				$("#modalregitems").css({"background-color": "rgb(171, 49, 49)"});
 				break;
-		
 			default:
 				return;
 				break;
 		}			
 		peticion_http.send();
-	}, 300);
+	}, 350);
 }
 
 /**

@@ -9,7 +9,7 @@
 		</li>
 		<li>
 			<?php
-			if (/*Checar tipo de usuario que sea Coord o Porf*/):?>
+			if (true/*Checar tipo de usuario que sea Coord o Porf*/):?>
 				
 					<button></button>
 					<div>	

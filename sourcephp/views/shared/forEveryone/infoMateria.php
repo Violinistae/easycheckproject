@@ -14,7 +14,7 @@
 				<select name="semestre" multiple>
 					<?php for ($i = 1; $i < 9; $i++):?>
 						<option value="<?php echo $i ?>"><?php echo $i; ?></option>
-					<?php endif; ?>
+						<?php endfor; ?>
 				</select>
 				<label>Grupo</label>
 				<input type="text">

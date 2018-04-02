@@ -17,8 +17,7 @@
 				if (true/*"Cuenta Coordinador"*/):?>
 					<input type="text" name="nombreAcad" value='<?php echo $acadqueryresult;?>' placeholder="">
 			<?php
-				endif;
-				else:?>
+				else: ?>
 					<label><?php echo $acadqueryresult; ?></label>
 			<?php 
 				endif;?>
@@ -43,7 +42,6 @@
 						<?php endfor; ?>
 					</select>
 			<?php 
-				endif;
 				else:?>
 					<label><?php echo $acadqueryresult; ?></label>
 					<label><?php echo $acadqueryresult; ?></label>
@@ -59,7 +57,6 @@
 				<input type="text" name="claveAccesoAcad" value='<?php echo $acadqueryresult; ?>' placeholder="">
 			
 			<?php
-				endif;
 				else:?>
 					<label><?php echo $acadqueryresult; ?></label>
 			<?php
@@ -73,7 +70,6 @@
 				<input type="file" name="listaProfesores">
 				<button id="loadlista" value="Subir" onclick="handleFileSelect();"></button>
 			<?php
-				endif;
 				else:?>
 					<label>Creador de Grupo Academia</label>
 					<label><?php echo $creadoracad; ?></label>
@@ -85,7 +81,6 @@
 				<?php if(true/*"Coordinador de Academia"*/):?>
 				<input type="text" name="numintegAcad" value='<?php echo $acadqueryresult; ?>' placeholder="">
 			<?php
-				endif;
 				else:?>
 					<label><?php echo $acadqueryresult; ?></label>
 			<?php
@@ -95,7 +90,6 @@
 				<?php if(true/*"Coordinador de Academia"*/):?>
 				<button name="updateAcadInfo" class="upadateAcadInfo">Actualizar Información</button>
 			<?php
-				endif;
 				else:?>
 					<button name="leaveAcad" class="leaveAcad">Actualizar Información</button>
 			<?php

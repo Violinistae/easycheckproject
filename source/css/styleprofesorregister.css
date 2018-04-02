@@ -1,0 +1,88 @@
+#formregcomm {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;   
+}
+
+#easycheck{
+    margin-top: 3%;
+    font-size: 2.6vw;
+    font-family: 'Noto Sans', sans-serif;
+    text-align: center;
+}
+#formcontainer {
+    margin-top: 3.5vh;
+}
+
+#labelsreg{
+    font-size: 1.6vw;
+    padding-right: 5%;
+    margin-left: 15%;
+    font-family: 'Noto Sans', sans-serif;   
+}
+
+#freg {
+    display: grid;
+    grid-template-columns: 40% 40%;
+    grid-template-rows: auto;
+    grid-column-gap: 8%;
+    grid-row-gap: 6vh;
+    justify-items: center;
+    align-items: center;
+    
+    margin-left: 10%;
+    margin-top: 6vh;
+}
+
+#freg>div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 7vh;
+
+    padding: 0;
+    margin: 0;
+    width: 100%;
+
+    justify-content: center;
+}
+
+#freg>div>label{
+    width: 100%;
+    text-indent: 2.6vw;
+    font-size: 1.2vw;
+
+    font-family: 'Noto Sans', sans-serif;
+}
+
+#freg>div>input{
+    margin-top: 10px;
+    width: 80%;
+    border-radius: 2px;
+    height: 3vh;
+    background-color: transparent;
+
+    border-top: transparent;
+    border-left: transparent;
+    border-right: transparent;
+    border-bottom: rgb(247, 218, 37) 2px solid;
+
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 1.2vw;
+    color: rgb(247, 218, 37);
+    outline: none;
+}
+
+#submitreg {
+    background-color: transparent;
+    border: rgb(247, 218, 37) 2px solid;
+    border-radius: 10px;
+    color: rgb(247, 218, 37);
+    font-size: 1.4vw;
+    width: 70%;
+    height: 5.5vh;
+
+    font-family: 'Noto Sans', sans-serif;
+    cursor: pointer;
+    outline: none;
+}

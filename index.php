@@ -5,6 +5,7 @@
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="./source/css/styleloginresponsive.css">
 	<link rel="stylesheet" type="text/css" href="./source/css/stylemodalregistrogral.css">
+	<link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
 	<script type="text/javascript" src="./source/js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="./source/js/ajaxpagesfunctions.js"></script>
 	<script type="text/javascript" src="./source/js/applogin.js"></script>

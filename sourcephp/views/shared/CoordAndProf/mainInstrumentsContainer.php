@@ -32,7 +32,6 @@
 						?></p>
 					</span>
 				</div>
-			<?php?endfor;
-		?>
+			<?php endfor;?>
 	</div>
 </div>
