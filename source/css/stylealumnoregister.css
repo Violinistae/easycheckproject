@@ -69,9 +69,11 @@
     border-bottom: white 2px solid;
 
     font-family: 'Noto Sans', sans-serif;
+    text-indent: 1.4vw;
     font-size: 1.4vw;
     color: whitesmoke;
     outline: none;
+   
 }
 
 #submitreg {
@@ -87,4 +89,8 @@
     font-family: 'Noto Sans', sans-serif;
     cursor: pointer;
     outline: none;
+    transition: all 300ms ease-in-out;
+}
+#submitreg:hover {
+    transform: scale(1.1);
 }

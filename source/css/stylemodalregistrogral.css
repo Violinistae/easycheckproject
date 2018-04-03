@@ -19,7 +19,7 @@
 }
 #modalregitems
 {
-	background-color: rgba(232, 232, 232, 1);
+	background-color: rgb(50, 50, 50);
 	position: relative;
 	margin: 6% auto;
 	width: 90%;
@@ -49,7 +49,7 @@
 	grid-row-start: 2;
 	grid-row-end: 3;
 
-	color: black;
+	color: white;
 	font-family: Times New Roman;
 	font-size: 34px;
 	text-align: center;
@@ -61,7 +61,7 @@
 	grid-row-start: 3;
 	grid-row-end: 4;
 
-	color: black;
+	color: white;
 	font-family: Times New Roman;
 	font-size: 24px;
 	text-align: center;
@@ -92,18 +92,18 @@
 }
 #coordacad
 {
-	background-color: rgba(147, 186, 249, 1);
-	border-color: rgba(147, 186, 249, 1);
+	background-color: rgb(90, 144, 232);
+	border-color: rgb(90, 144, 232);
 }
 #prof
 {
-	background-color: rgba(255, 207, 66, 1);
-	border-color: rgba(255, 207, 66, 1);
+	background-color: rgb(247, 218, 37);
+	border-color: rgb(247, 218, 37);
 }
 #alum
 {
-	background-color: rgba(255, 84, 84, 1);
-	border-color: rgba(255, 84, 84, 1);
+	background-color: rgb(171, 49, 49);
+	border-color: rgb(171, 49, 49);
 }
 .subcontainerusertypes
 {
@@ -138,7 +138,7 @@
 }
 #ingresarpart button
 {
-	color: blue;
+	color: white;
 	background-color: transparent;
 	border-color: transparent;
 	cursor: pointer;
@@ -148,5 +148,5 @@
 #ingresarpart button:hover
 {
 	text-decoration: underline;
-	color: blue;
+	color: white;
 }

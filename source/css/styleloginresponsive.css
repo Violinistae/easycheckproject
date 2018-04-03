@@ -10,7 +10,7 @@ body
 	background-repeat: no-repeat;
 	background-attachment: fixed;
 	background-size: cover;
-	background-color: rgb(232, 232, 232);
+	background-color: rgb(136, 127, 127);
 	z-index: 0;
 }
 #login
@@ -25,7 +25,7 @@ body
 }
 .maincontainer
 {
-	background-color: rgba(0, 0, 0, 0.45);
+	background-color: rgba(0, 0, 0, 0.8);
 	border-radius: 10px;
 	width: 100%;
 	padding: 25px;
@@ -78,12 +78,17 @@ body
 .textinput
 {
 	position: relative;
-	background-color: rgba(0, 0, 0, .25);
-	border-color: rgba(0, 0, 0, .0);
-	border-radius: 8px;
+	background-color: transparent;
+
+	border-top: transparent;
+	border-left: transparent;
+	border-right: transparent;
+	border-bottom: solid white 2px;
+	border-radius: 2px;
 	outline: none;
 	color: white;
 	text-align: justify;
+	font-family: 'Noto Sans', sans-serif;
 
 	text-indent: 4.6%;
 	padding-top: 2%;
@@ -94,16 +99,16 @@ body
 }
 .btnsubmit
 {
-	background-color: #80bfff;
-	border-color: #80bfff;
-	color: black;
+	background-color: transparent;
+	border: solid 3px white;
+	color: white;
 	font-weight: bold;
 	border-radius: 16px;
-	transition: background 400ms ease-in-out;
+	transition: all 400ms ease-in-out;
 
-	font-size: 17px;
+	font-size: 1.7vw;
 	margin-left: 25%;
-	width: 50%;
+	width: 45%;
 	padding-top: 2%;
 	padding-bottom: 2%;
 	cursor: pointer;
@@ -112,8 +117,7 @@ body
 .btnsubmit:hover
 {
 	z-index: 1;
-	background-color: rgb(113, 159, 249);
-	border-color:rgb(113, 159, 249);
+	transform: scale(1.1);
 }
 .btnsubmit:active
 {
@@ -134,7 +138,7 @@ body
 {
 	margin-top: 20%;
 	padding-left: 18%;
-	color: black;
+	color: white;
 	font-weight: bold;
 	transition: all 400ms ease-in-out;
 	font-size: 20px;
@@ -143,7 +147,7 @@ body
 }
 .crearcuenta button
 {
-	color: blue;
+	color: white;
 	background-color: transparent;
 	font-family: 'Noto Sans', sans-serif;
 	border-color: transparent;
@@ -155,7 +159,7 @@ body
 {
 	transform: scale(1.1);
 	text-decoration: underline;
-	color: blue;
+	color: white;
 }
 .modalerror
 {
@@ -163,17 +167,18 @@ body
 	z-index: 10;
 	width: 100%;
 	position: fixed;
-	left: .5vw;
 	height: 10vh;
 	top: -110;
-	border-radius: 3px;
+	border-radius: 1px;
 	background-color: rgba(255, 0, 0, 0.37);
 	color: white;
 	text-align: center;
-	vertical-align: middle;
 	font-size: 2vh;
 
 	font-family: 'Noto Sans', sans-serif;
+}
+.modalerror>p{
+	margin-top: 2.5vh;
 }
 @media (max-width: 1200px)
 {
@@ -347,8 +352,6 @@ body
 	.btnsubmit:hover
 	{
 		z-index: 1;
-		background-color: #80bfff;
-		border-color: #80bfff;
 	}
 	.btnsubmit:active
 	{
@@ -358,7 +361,7 @@ body
 	{
 		margin-top: 0%;
 		margin-left: 24%;
-		color: black;
+		color: white;
 
 		font-size: 20px;
 	}
@@ -366,7 +369,7 @@ body
 	{
 		margin-top: 10%;
 		margin-left: 3%;
-		color: black;
+		color: white;
 		font-weight: bold;
 		text-align: center;
 		width: 100%;
@@ -423,7 +426,7 @@ body
 	{
 		margin-top: 10%;
 		margin-left: 3%;
-		color: black;
+		color: white;
 		font-weight: bold;
 		text-align: center;
 		transition: all 400ms ease-in-out;

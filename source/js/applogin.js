@@ -166,8 +166,8 @@ function gotoregist()
 			$("#mymodalreg").fadeIn('600', function() {});
 		}
 	}
-	$("#modalregitems").css({ "color": "black" });
-	$("#modalregitems").css({ "background-color": "rgba(232, 232, 232, 1)" });
+	$("#modalregitems").css({ "color": "white" });
+	$("#modalregitems").css({ "background-color": "rgb(30, 30, 30" });
 	peticion_http.open('GET', './sourcephp/views/users/selectuserregister.php', true);
 	peticion_http.send();
 }
@@ -235,12 +235,15 @@ function checkuserregist(type) {
 					console.log("No funciona");
 				});
 
+				$("#modalregitems").css({"color": "white"});
+				$("#modalregitems").css({"background-color": "rgb(90, 144, 232)"});
+				
 				break;
 
 			case 2:
 				peticion_http.open('GET', './sourcephp/views/users/profesor/formRegistroProf.php', true);
 				$("#modalregitems").css({"color": "rgb(247, 218, 37)"});
-				$("#modalregitems").css({"background-color": "rgb(50, 50, 50"});
+				$("#modalregitems").css({"background-color": "rgb(30, 30, 30"});
 				break;
 
 			case 3:
