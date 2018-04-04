@@ -39,7 +39,7 @@
 {
 	display: grid;
 	grid-template-columns: [first] 30% [line2] auto [line3] 30%; 
-	grid-template-rows: [row1] 30% [row2] auto [row3] auto [row4] 1%;
+	grid-template-rows: [row1] 20% [row2] auto [row3] auto [row4] 1%;
 	height: 15%;
 }
 #sub1instrucreg
@@ -50,8 +50,8 @@
 	grid-row-end: 3;
 
 	color: white;
-	font-family: Times New Roman;
-	font-size: 34px;
+	font-family: 'Noto Sans', sans-serif;
+	font-size: 3vw;
 	text-align: center;
 }
 #sub2instrucreg
@@ -62,8 +62,8 @@
 	grid-row-end: 4;
 
 	color: white;
-	font-family: Times New Roman;
-	font-size: 24px;
+	font-family: 'Noto Sans', sans-serif;
+	font-size: 2vw;
 	text-align: center;
 }
 #ingresarpart
@@ -71,6 +71,8 @@
 	padding: 1.5%;
 	padding-left: 5%; 
 	height: 15%;
+	font-size: 1.3vw;
+	font-family: 'Noto Sans', sans-serif;
 }
 #containerusertypes
 {
@@ -88,7 +90,7 @@
 }
 .subcontainerusertypes:hover
 {
-	transform: scale(1.06);
+	transform: scale(1.05);
 }
 #coordacad
 {
@@ -127,10 +129,11 @@
 	grid-column-start: 2;
 	grid-column-end: 3;
 	color: black;
-	font-family: Bahnschrift;
+	font-family: 'Noto Sans', sans-serif;
 	text-align: center;
 	display: inline-grid;
 	justify-content: center;
+	font-size: 1.4vw;
 }
 .boldletter
 {
@@ -144,9 +147,11 @@
 	cursor: pointer;
 	transition: all 400ms ease-in-out;
 	font-weight: bold;
+	text-decoration: underline;
 }
 #ingresarpart button:hover
 {
+	transform: scale(1.1);
 	text-decoration: underline;
 	color: white;
 }

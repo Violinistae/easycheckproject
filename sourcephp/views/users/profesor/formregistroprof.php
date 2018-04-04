@@ -7,31 +7,31 @@
 		<form id="freg" data-user="2">
 			<div>
 				<label>Registro de Usuario</label>
-				<input type="text" name="registro_usuario">
+				<input type="text" name="registro_usuario" autocomplete="off">
 			</div>
 			<div>
 				<label>Correo Electrónico</label>
-				<input type="text" name="email">
+				<input type="text" name="email" autocomplete="off">
 			</div>
 			<div>
 				<label>Contraseña</label>
-				<input type="password" name="password">
+				<input type="password" name="password" autocomplete="off">
 			</div>
 			<div>
 				<label>Confirmar Contraseña</label>
-				<input type="password" name="password2">
+				<input type="password" name="password2" autocomplete="off">
 			</div>	
 			<div>
 				<label>Escolaridad</label>
-				<input type="text" name="escolaridad">
+				<input type="text" name="escolaridad" autocomplete="off">
 			</div>
 			<div>
 				<label>Nombre(s)</label>
-				<input type="text" name="nombres">
+				<input type="text" name="nombres" autocomplete="off">
 			</div>
 			<div>
 				<label>Apellidos</label>
-				<input type="text" name="apellidos">
+				<input type="text" name="apellidos" autocomplete="off">
 			</div>
 			<input id="submitreg" type="submit" name="Registrarse" value="Registrarse">
 		</form>	

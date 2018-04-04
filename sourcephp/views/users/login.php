@@ -30,7 +30,7 @@
 				<p class="eslogan">Revisa mejor, califica mejor.</p>
 			</div>
 			<div>
-				<p class="crearcuenta">¿Aún no tienes una cuenta? &nbsp; <button onclick="gotoregist();">Registrate</button></p>
+				<p class="crearcuenta">¿Aún no tienes una cuenta? &nbsp; <button onclick="gotoregist();">Registrate aquí</button></p>
 			</div>
 		</div>
 	</div>

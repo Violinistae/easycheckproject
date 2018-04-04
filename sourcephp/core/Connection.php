@@ -7,8 +7,7 @@
 	    /**
 	     * summary
 	     */
-	    public $driver;
-	    public $user, $host, $password, $database, $charset;
+	    private $driver, $user, $host, $password, $database, $charset;
 	    public $pdo;
 
 	    public function __construct()

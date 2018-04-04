@@ -14,7 +14,7 @@
 	if($con && $controller && $action)
 	{
 		
-		$validate = new ActionsModel($con);
+		$validate = new ActionsController($con);
 		$flagtocontinue = $validate->validation($controller, $action);
 		
 		if($flagtocontinue)

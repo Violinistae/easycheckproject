@@ -2,13 +2,12 @@
 	/**
 	 * summary
 	 */
-	class ActionsModel extends BaseModel
+	class ActionsController extends BaseController
 	{
 	    /**
 	     * Esta función verifica si de verdad existe una accion que le pertenezca
 	     * al controlador para que la pueda realizar.
 	     */
-		/*
 	    public function validation($controller, $action)
 	    {
 	    	$toexe = "SELECT * FROM acciones WHERE Controlador = $controller AND Metodo = $action";
@@ -19,7 +18,6 @@
 	    		return true;
 	    	else
 	    		return false;
-		}
-		*/
+	    }
 	}
 ?>
