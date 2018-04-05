@@ -1,34 +1,27 @@
 <nav>
-	<ul>
-		<li>
+	<ul class="allnavcontent">
+		<li class="sysimg">
 			<span></span>
 		</li>
-		<li>
-			<input type="text" name="" value="">
-			<button class="click"><span></span></button>
+		<li class="searcher">
+			<input class="searchinput" type="text" name="" value="" placeholder="Buscar">
 		</li>
-		<li>
-			<?php
-			if (true/*Checar tipo de usuario que sea Coord o Porf*/):?>
-				
-					<button></button>
-					<div>	
-						<ul>
-							<li><a href="#" title="">Nuevo Instrumento de Evaluación</a></li>
-						</ul>
-					</div>			
-			<?php endif;?>
+		<li class="newbutton">
 		</li>
-		<li>
+		<li class="usermenu">
 			<label>Bienvenido <?php echo "Nombre Usuario"; ?></label>
 			<span></span>
 			<button><span></span></button>
-			<div>
+			<div class="subdrop">
 				<ul>
-					<li></li>
+					<li>
+						<button></button>
+					</li>
+					<li>
+						<button id="closesession">Cerrar Sesión</button>
+					</li>
 				</ul>
 			</div>
 		</li>
 	</ul>
-
 </nav>

@@ -26,6 +26,6 @@
 		public function executeSQL($consulta){
             $result = $this->pdo->query($consulta);
             return $result;
-        }
+		}
 	}
 ?>

@@ -1,10 +1,10 @@
-<!DOCTYPE html>
 <html>
 <head>
 	<title>Easy Check - Evalúa mejor</title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="./source/css/styleloginresponsive.css">
 	<link rel="stylesheet" type="text/css" href="./source/css/stylemodalregistrogral.css">
+	<link rel="shortcut icon" href="./source/img/easycheckico.png" type="image/x-icon">
 	<link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
 	<script type="text/javascript" src="./source/js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="./source/js/ajaxpagesfunctions.js"></script>
@@ -52,12 +52,7 @@
 			if (!$masterController)
 			{
 				include("sourcephp/views/Users/login.php");
-			}
-			else
-			{
-				//header("Location: ./sourcephp/views/Users/CheckUserType.php");
-				echo "Cambiar";
-			}		
+			}	
 		 ?>
 	</div>
 	<div class="modalreg" id="mymodalreg">

@@ -24,15 +24,14 @@
 				$password = $_POST["password"];
 				$user_res = $this->pdo->prepare("SELECT Registro_U from usuario where Registro_U = ? and Password = ?");
 				$user_res->execute([$userreg, $password]);
-				
-	    		$query = $user_res->rowCount();	    
+
+	    		$query = $user_res->rowCount();
 	    		if($query != 1)
 	    		{
 	    			echo json_encode(array ('error' => true, 'message' => 'El nombre de usuario o password son incorrectos.'));
 	    		}
 	    		else if ($query == 1)
 	    		{
-
 	    			$_SESSION["userreg"] = $userreg;
 	    			echo json_encode(array('error' => false, 'user' => $_SESSION['userreg']));
 	    		}
@@ -42,7 +41,11 @@
 	    public function Logout()
 	    {
 	    	session_destroy();
-	    	header('Location: index.php');
+			//header('Location: index.php');
+			if(session_status() == 1)
+				echo json_encode(array('error' => false, 'message' => "Cerrando Sesión"));
+			else if (session_status() == 2)
+				echo json_encode(array('error' => true, 'message' => "Error al cerrar Sesión"));
 	    }
 
 	    /**
@@ -180,6 +183,14 @@
 					}
 				}
 			}	    		   
-	    }
+		}
+		
+		public function getSessionVariables()
+		{
+			if(isset($_SESSION["userreg"]) && isset($_SESSION["usertype"]))
+				echo json_encode(array('error' => false, 'userreg' => $_SESSION["userreg"], 'usertype' => $_SESSION["usertype"]));
+			else
+				echo json_encode(array('error' => true));
+		}
 	}
 ?>

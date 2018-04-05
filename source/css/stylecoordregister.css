@@ -55,7 +55,7 @@
     font-family: 'Noto Sans', sans-serif;
 }
 
-#freg>div>input{
+#freg>div>input {
     margin-top: 10px;
     width: 80%;
     border-radius: 2px;
@@ -71,6 +71,29 @@
     font-size: 1.2vw;
     color: white;
     outline: none;
+}
+
+
+#freg>div select {
+    margin-top: 15px;
+    border-radius: 2px;
+    height: 3vh;
+    background-color: transparent;
+
+    border-top: transparent;
+    border-left: transparent;
+    border-right: transparent;
+    border-bottom: white 2px solid;
+
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 1.2vw;
+    color: white;
+    outline: none;
+    cursor: pointer;
+}
+
+#freg>div select>option {
+    color: black;
 }
 
 #cicloinputs {

@@ -74,15 +74,9 @@ $(document).ready(function($){
 				})
 				.done(function(res)
 				{
-					if(!res.error) {
-						if(res.usertype == 1)
-							alert("Coordinador de Academia");	
-						else if (res.usertype == 2)
-							alert("Profesor");
-						else if (res.usertype == 3)
-							alert("Alumno");
-					}
-					else
+					if(!res.error) {				
+						window.location.replace("./sourcephp/views/main.php");
+					} else
 						showError(res.message);
 				})
 				.fail(function() {
@@ -369,7 +363,7 @@ function checkreg(typeu) {
 			if(!response.error)
 			{	
 				showSuccess(response.message);				
-				hidetologin();						
+				hidetologin();				
 			}
 			else
 				showError(response.message);
