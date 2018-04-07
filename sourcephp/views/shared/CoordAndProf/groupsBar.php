@@ -1,14 +1,13 @@
-<div>
-	<label>GRUPOS</label>
-	<div>
+<div id="groupbarcontent">
+	<div id="academiapart">
 		<label>Academia</label>
-		<button>
-			<label>Ver Grupo<?php if(true/*CuentaProfesor*/) echo "s"; ?></label>
-		</button>
+		<button>Ver Academia(s)</button>
 	</div>
-	<div>
-		<label>Materias</label>
-		<button>Crear nuevo grupo</button>
-		<button>Ver grupos</button>
+	<div id="materiaspart">
+	</div>
+	<div id="gruposperiodopart">
+		<label>Grupos-Periodo</label>
+		<button>Crear Grupo-Periodo</button>
+		<button>Ver mis Grupos-Periodo</button>
 	</div>
 </div>

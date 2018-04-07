@@ -6,13 +6,13 @@
 		<li class="searcher">
 			<input class="searchinput" type="text" name="" value="" placeholder="Buscar">
 		</li>
-		<li class="newbutton">
+		<li class="newbutton" id="newbutton">
 		</li>
 		<li class="usermenu">
 			<label>Bienvenido <?php echo "Nombre Usuario"; ?></label>
 			<span></span>
 			<button><span></span></button>
-			<div class="subdrop">
+			<div class="subdrop" id="subdropusermenu">
 				<ul>
 					<li>
 						<button></button>

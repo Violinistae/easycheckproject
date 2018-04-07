@@ -10,11 +10,11 @@
 </head>
 <body>
 	<div class="allcontainer">
-		<div class="mainnavbar">
+		<div class="mainnavbar" id="mainnavbar">
 		</div>
-		<div class="groupsbar">
+		<div class="groupsbar" id="groupsbar">
 		</div>
-		<div class="maincontainer">
+		<div class="maincontainer" id="maincontainer">
 		</div>
 	</div>
 </body>
