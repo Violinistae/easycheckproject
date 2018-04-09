@@ -14,7 +14,7 @@ $(document).ready(function($){
 	*	Función para mostrar una barra de error cuando este exista
 	**/
 	showError = function (message) {
-		err.css({ "background-color": " rgba(180, 0, 0, 0.6)" });
+		err.css({ "background-color": " rgba(180, 0, 0, 0.9)" });
 		span.html(message);		
 		err.fadeIn('400', function() {});
 
@@ -32,7 +32,7 @@ $(document).ready(function($){
 	*	Función para mostrar una barra de éxito cuando suceda
 	**/
 	showSuccess = function (message) {
-		err.css({ "background-color": "rgba(0, 175, 0, .5)" });
+		err.css({ "background-color": "rgba(0, 175, 0, .9)" });
 		span.html(message);
 		err.fadeIn('400', function() {});
 
