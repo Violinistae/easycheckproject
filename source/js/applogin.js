@@ -113,7 +113,7 @@ $(document).ready(function($){
 			}
 		})
 		if(!flag)		
-			ajaxLogin();		
+			ajaxLogin();	
 	})
 
 	/**
@@ -287,6 +287,10 @@ function checkreg(typeu) {
 			showError("Las contraseñas ingresadas no coinciden");
 			return;
 		}
+		if (!/^([0-9])*$/.test($("#freg input[name=registro_usuario]").val())) {
+     		showError("El registro de usuario debe ser un número");
+      		return;
+    	}
 
 		switch (typeu) {
 			case "1":

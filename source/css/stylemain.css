@@ -87,7 +87,7 @@
     outline: none;
 }
 
-.buttonnewinst.active> #subdropnewbutton {
+.buttonnewinst.active+ #subdropnewbutton {
     display: block;
 }
 
@@ -194,7 +194,7 @@
     margin-bottom: 1vh;
     border-bottom: rgb(90, 144, 232) solid 2px;
     border-radius: 2px;
-    font-size: 2vh;
+    font-size: 1.7vw;
     font-weight: bold;
 }
 

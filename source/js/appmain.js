@@ -25,6 +25,33 @@ $(document).ready(function ($) {
 		});
 	});
 
+	$("body").on("click", "#userprofile", function(e) {
+		$.ajax({
+			url: '../../sourcephp/views/shared/forEveryone/personalProfile.php',
+			type: 'POST'
+		}).done(function (response) {
+			$('#maincontainer').html(response);
+			setTimeout(function () {
+				$(".personalprofile").fadeIn("400", function() {});
+			}, 280);
+		}).fail(function () {  
+			console.log("No funciona cargar perfil");
+		})
+	});
+
+	$("body").on("click", "#homebtn", function(e) {
+    $.ajax({
+      url: "../../sourcephp/views/shared/forEveryone/principal.php",
+      type: "POST"
+    }).done(function(response) {
+		$(".personalprofile").fadeOut("400", function() {
+			$("#maincontainer").html(response);
+		}); 
+    })
+      .fail(function() {
+        console.log("No funciona cargar perfil");
+    });
+  });
 });
 
 
