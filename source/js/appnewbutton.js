@@ -2,9 +2,7 @@ $(".buttonnewinst").ready(newbuttonfunc);
 
 function newbuttonfunc() {
     setnewButtonStyle();
-    alert("s");
     $("body").on('click', ".buttonnewinst", function () {
-        //alert("S2");
         $(".buttonnewinst").toggleClass('active').siblings().removeClass('active');
     });
 }
@@ -15,7 +13,7 @@ function setnewButtonStyle() {
         type: 'POST',
         dataType: 'json'
     }).done(function (res) {
-        alert("x");
+        //console.log("Style añadido correctamente");
         if (!res.error) {
             if (res.usertype == 1) {
                 $(".buttonnewinst").css({

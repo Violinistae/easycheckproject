@@ -33,22 +33,18 @@ $(document).ready(function ($) {
  * mediante una petición XMLHttp.
  */
 function insertnav() {
-	if (window.XMLHttpRequest)
-		peticion_http = new XMLHttpRequest();
-	else if (window.ActiveXObject)
-		peticion_http = new ActiveXObject("Microsoft.XMLHTTP");
-
-	peticion_http.onreadystatechange = function () {
-		if (this.readyState == 4 && this.status == 200) {
-			$('.mainnavbar').html(this.responseText);
-		}
-	}
-	peticion_http.open('GET', '../../sourcephp/views/shared/forEveryone/navbar.php', true);
-	peticion_http.send();
-
-	var ut = getSessionVariables();
-	console.log(ut);
+	$.ajax({
+		url: '../../sourcephp/views/shared/forEveryone/navbar.php',
+		type: 'POST'
+	}).done(function (response) {
+		//console.log(response);
+		mainnavbar = document.getElementById('mainnavbar');
+		mainnavbar.insertAdjacentHTML('beforeend', response);
+	}).fail(function () {
+		console.log("Fallo en AJAX");
+	});
 	
+	getSessionVariables();	
 }
 
 function getSessionVariables() {
@@ -61,16 +57,16 @@ function getSessionVariables() {
 			ut = response.usertype;
 			if (ut == 1) {
 				$(".mainnavbar").css({ "background-color": "rgb(90, 144, 232)" });
-				insertnewbuttondiv();
+				setTimeout(insertnewbuttondiv, 1);
 				insertgroupsbar();
-				insertMateriapart();
+				setTimeout(insertMateriapart, 15);
+				//insertMateriapart();
 
 				insertCoordStyles();
 			} else if (ut == 2) {
 				$(".mainnavbar").css({ "background-color": "rgb(30, 30, 30" });
-				insertnewbuttondiv();
+				setTimeout(insertnewbuttondiv, 1);
 				insertgroupsbar();
-				//$('#materiaspart').css({ "display": "none" });
 				insertProfStyles();
 			} else if (ut == 3) {
 				$(".mainnavbar").css({ "background-color": "rgb(171, 49, 49)" });
@@ -86,48 +82,48 @@ function getSessionVariables() {
 }
 
 function insertnewbuttondiv() {
-	if (window.XMLHttpRequest)
-		peticion_http = new XMLHttpRequest();
-	else if (window.ActiveXObject)
-		peticion_http = new ActiveXObject("Microsoft.XMLHTTP");
+	$.ajax({
+		url: '../../sourcephp/views/shared/CoordAndProf/newbuttondiv.php',
+		type: 'POST'
+	}).done(function (btnres) {
+		newbutton = document.getElementById('newbutton');
+		//newbutton.insertAdjacentHTML('beforeend', btnres);
+		newbutton.innerHTML = btnres;
 
-	peticion_http.onreadystatechange = function () {
-		if (this.readyState == 4 && this.status == 200) {
-			document.getElementById('newbutton').innerHTML = this.responseText;
-		}
-	}
-	peticion_http.open('GET', '../../sourcephp/views/shared/CoordAndProf/newbuttondiv.php', true);
-	peticion_http.send();
+		scpt = newbutton.getElementsByTagName('script');
+
+		$.getScript(scpt[0].src, function () {
+			//alert("Script loaded but not necessarily executed.");
+		});		
+	}).fail(function () {
+		console.log("Fallo en AJAX para insertar boton NUEVO");
+	});
 }
 
 function insertgroupsbar() {
-	if (window.XMLHttpRequest)
-		peticion_http = new XMLHttpRequest();
-	else if (window.ActiveXObject)
-		peticion_http = new ActiveXObject("Microsoft.XMLHTTP");
-
-	peticion_http.onreadystatechange = function () {
-		if (this.readyState == 4 && this.status == 200) {
-			document.getElementById('groupsbar').innerHTML = this.responseText;
-		}
-	}
-	peticion_http.open('GET', '../../sourcephp/views/shared/CoordAndProf/groupsBar.php', true);
-	peticion_http.send();
+	$.ajax({
+		url: '../../sourcephp/views/shared/CoordAndProf/groupsBar.php',
+		type: 'POST'
+	}).done(function (gpsbarres) {
+		groupsbar = document.getElementById('groupsbar');
+		groupsbar.innerHTML = gpsbarres;
+		//groupsbar.insertAdjacentHTML('beforeend', gpsbarres);
+	}).fail(function () {
+		console.log("Fallo en AJAX para insertar 'GROUPS BAR'");
+	});
 }
 
 function insertMateriapart() {
-	if (window.XMLHttpRequest)
-		peticion_http = new XMLHttpRequest();
-	else if (window.ActiveXObject)
-		peticion_http = new ActiveXObject("Microsoft.XMLHTTP");
-
-	peticion_http.onreadystatechange = function () {
-		if (this.readyState == 4 && this.status == 200) {
-			document.getElementById('materiaspart').innerHTML = this.responseText;
-		}
-	}
-	peticion_http.open('GET', '../../sourcephp/views/Users/coordinador/gposbarmateriapart.php', true);
-	peticion_http.send();
+	$.ajax({
+		url: '../../sourcephp/views/Users/coordinador/gposbarmateriapart.php',
+		type: 'POST'
+	}).done(function (gpsbarmateriapartres) {
+		materiaspart = document.getElementById('materiaspart');
+		materiaspart.innerHTML = gpsbarmateriapartres;
+		//materiaspart.insertAdjacentHTML('beforeend', gpsbarmateriapartres);
+	}).fail(function () {
+		console.log("Fallo en AJAX para insertar 'GROUPS BAR'");
+	});
 }
 
 function insertCoordStyles() {

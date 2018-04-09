@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="shortcut icon" href="../../source/img/easycheckico.png" type="image/x-icon">
 	<link rel="stylesheet" type="text/css" href="../../source/css/stylemain.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script type="text/javascript" src="../../source/js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="../../source/js/appmain.js"></script>
 </head>
