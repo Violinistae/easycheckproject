@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-03-2018 a las 20:11:02
--- Versión del servidor: 10.1.21-MariaDB
--- Versión de PHP: 7.1.1
+-- Tiempo de generación: 09-04-2018 a las 06:09:01
+-- Versión del servidor: 10.1.31-MariaDB
+-- Versión de PHP: 7.1.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -36,6 +38,13 @@ CREATE TABLE `academia` (
   `Carrera` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `academia`
+--
+
+INSERT INTO `academia` (`Id_Academia`, `Academia`, `Clave_Acceso`, `Ciclo_Periodo`, `Lista_Prof`, `Coordinador_Acad`, `Carrera`) VALUES
+(1, 'Informática', '12345678', 'Feb - Jun 2018', '', 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -55,7 +64,10 @@ CREATE TABLE `acciones` (
 INSERT INTO `acciones` (`Id_Acciones`, `Controlador`, `Metodo`) VALUES
 (1, 'Users', 'Login'),
 (2, 'Users', 'verifyUser'),
-(3, 'Users', 'registerUser');
+(3, 'Users', 'registerUser'),
+(4, 'Carrera', 'getCarreras'),
+(5, 'Users', 'getSessionVariables'),
+(6, 'Users', 'Logout');
 
 -- --------------------------------------------------------
 
@@ -128,6 +140,21 @@ CREATE TABLE `cuestionario` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `evaluacionfilaguiaobs`
+--
+
+CREATE TABLE `evaluacionfilaguiaobs` (
+  `Id_EvFilaGuiaObs` int(11) NOT NULL,
+  `Evaluador` int(11) NOT NULL,
+  `Evaluado` int(11) NOT NULL,
+  `FilaGuiaObs` int(11) NOT NULL,
+  `Cumplimiento` tinyint(1) NOT NULL,
+  `Puntaje` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `evaluacionfilalistac`
 --
 
@@ -151,21 +178,6 @@ CREATE TABLE `evaluacionfilarubrica` (
   `Evaluado` int(11) NOT NULL,
   `FilaRubrica` int(11) NOT NULL,
   `CriterioSeleccionado` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `evaluacionfilasguiaobs`
---
-
-CREATE TABLE `evaluacionfilasguiaobs` (
-  `Id_EvFilaGuiaObs` int(11) NOT NULL,
-  `Evaluador` int(11) NOT NULL,
-  `Evaluado` int(11) NOT NULL,
-  `FilaGuiaObs` int(11) NOT NULL,
-  `Cumplimiento` tinyint(1) NOT NULL,
-  `Puntaje` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -513,6 +525,8 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`Registro_U`, `Nombres`, `Apellidos`, `Email`, `Password`, `Escolaridad`, `Tipo_Usuario`, `Foto`) VALUES
+(1, 'Andrés', 'Figueroa Flores', 'academia@gmail.com', '12345678', 'Maestría', 1, ''),
+(12, 'Carlos', 'Molina Martínez', 'profesor@gmail.com', '12345678', 'Maestría', 2, ''),
 (14300281, 'Emiliano', 'Moreno Salazar', 'ssbbemis@gmail.com', '12345678', '-', 3, '');
 
 --
@@ -562,6 +576,15 @@ ALTER TABLE `cuestionario`
   ADD KEY `AspectoEv` (`AspectoEv`);
 
 --
+-- Indices de la tabla `evaluacionfilaguiaobs`
+--
+ALTER TABLE `evaluacionfilaguiaobs`
+  ADD PRIMARY KEY (`Id_EvFilaGuiaObs`),
+  ADD KEY `Evaluador` (`Evaluador`),
+  ADD KEY `Evaluado` (`Evaluado`),
+  ADD KEY `FilaGuiaObs` (`FilaGuiaObs`);
+
+--
 -- Indices de la tabla `evaluacionfilalistac`
 --
 ALTER TABLE `evaluacionfilalistac`
@@ -579,15 +602,6 @@ ALTER TABLE `evaluacionfilarubrica`
   ADD KEY `Evaluado` (`Evaluado`),
   ADD KEY `FilaRubrica` (`FilaRubrica`),
   ADD KEY `CriterioSeleccionado` (`CriterioSeleccionado`);
-
---
--- Indices de la tabla `evaluacionfilasguiaobs`
---
-ALTER TABLE `evaluacionfilasguiaobs`
-  ADD PRIMARY KEY (`Id_EvFilaGuiaObs`),
-  ADD KEY `Evaluador` (`Evaluador`),
-  ADD KEY `Evaluado` (`Evaluado`),
-  ADD KEY `FilaGuiaObs` (`FilaGuiaObs`);
 
 --
 -- Indices de la tabla `evaluacioninstrumento`
@@ -772,157 +786,188 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `academia`
 --
 ALTER TABLE `academia`
-  MODIFY `Id_Academia` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Academia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT de la tabla `acciones`
 --
 ALTER TABLE `acciones`
-  MODIFY `Id_Acciones` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Id_Acciones` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT de la tabla `aspectoevaluacion`
 --
 ALTER TABLE `aspectoevaluacion`
   MODIFY `Id_Aspecto` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT de la tabla `carrera`
 --
 ALTER TABLE `carrera`
   MODIFY `Id_Carrera` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT de la tabla `criteriosfilarubrica`
 --
 ALTER TABLE `criteriosfilarubrica`
   MODIFY `Id_CriterioFilaR` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `cuestionario`
 --
 ALTER TABLE `cuestionario`
   MODIFY `Id_FilaCues` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `evaluacionfilaguiaobs`
+--
+ALTER TABLE `evaluacionfilaguiaobs`
+  MODIFY `Id_EvFilaGuiaObs` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `evaluacionfilalistac`
 --
 ALTER TABLE `evaluacionfilalistac`
   MODIFY `Id_EvFilaListaCot` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `evaluacionfilarubrica`
 --
 ALTER TABLE `evaluacionfilarubrica`
   MODIFY `Id_EvFilaRubrica` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `evaluacionfilasguiaobs`
---
-ALTER TABLE `evaluacionfilasguiaobs`
-  MODIFY `Id_EvFilaGuiaObs` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `evaluacioninstrumento`
 --
 ALTER TABLE `evaluacioninstrumento`
   MODIFY `Id_EvInstr` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `evaluacionrespuestacues`
 --
 ALTER TABLE `evaluacionrespuestacues`
   MODIFY `Id_EvRespCues` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `grupo`
 --
 ALTER TABLE `grupo`
   MODIFY `Id_Grupo` tinyint(4) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `grupoperiodo`
 --
 ALTER TABLE `grupoperiodo`
   MODIFY `Id_GpoPeriodo` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `guiadeobservacion`
 --
 ALTER TABLE `guiadeobservacion`
   MODIFY `Id_FilaGuiadO` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `instrumento`
 --
 ALTER TABLE `instrumento`
   MODIFY `Id_Instrumento` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `instrumentoscompartidos`
 --
 ALTER TABLE `instrumentoscompartidos`
   MODIFY `Id_SharedInstr` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `integrantesacademia`
 --
 ALTER TABLE `integrantesacademia`
   MODIFY `Id_IntegAcad` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `listacotejo`
 --
 ALTER TABLE `listacotejo`
   MODIFY `Id_FilaListaC` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `listagrupo`
 --
 ALTER TABLE `listagrupo`
   MODIFY `Id_ListaGrupo` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `materia`
 --
 ALTER TABLE `materia`
   MODIFY `Id_Materia` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `opcionespregunta`
 --
 ALTER TABLE `opcionespregunta`
   MODIFY `Id_OpcionesP` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `parciales`
 --
 ALTER TABLE `parciales`
   MODIFY `Id_Periodo` mediumint(9) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `permisosllenado`
 --
 ALTER TABLE `permisosllenado`
   MODIFY `Id_PermisoLlenado` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `respuestacuestionario`
 --
 ALTER TABLE `respuestacuestionario`
   MODIFY `Id_RespuestaFilaC` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `rubrica`
 --
 ALTER TABLE `rubrica`
   MODIFY `Id_FilaRubrica` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `solicitudesacademia`
 --
 ALTER TABLE `solicitudesacademia`
   MODIFY `Id_SolicitudAcad` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `solicitudeslistagrupo`
 --
 ALTER TABLE `solicitudeslistagrupo`
   MODIFY `Id_SolicitudLGpo` int(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `tipoevaluacion`
 --
 ALTER TABLE `tipoevaluacion`
   MODIFY `Id_TipoEv` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT de la tabla `tipoinstrumento`
 --
 ALTER TABLE `tipoinstrumento`
-  MODIFY `Id_TipoInstr` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `Id_TipoInstr` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT de la tabla `tipopregunta`
 --
 ALTER TABLE `tipopregunta`
   MODIFY `Id_TipoPregunta` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT de la tabla `tiposusuarios`
 --
 ALTER TABLE `tiposusuarios`
   MODIFY `Id_TipoUsuario` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- Restricciones para tablas volcadas
 --
@@ -949,6 +994,14 @@ ALTER TABLE `cuestionario`
   ADD CONSTRAINT `cuestionario_ibfk_3` FOREIGN KEY (`Instrumento`) REFERENCES `instrumento` (`Id_Instrumento`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `evaluacionfilaguiaobs`
+--
+ALTER TABLE `evaluacionfilaguiaobs`
+  ADD CONSTRAINT `evaluacionfilaguiaobs_ibfk_1` FOREIGN KEY (`FilaGuiaObs`) REFERENCES `guiadeobservacion` (`Id_FilaGuiadO`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `evaluacionfilaguiaobs_ibfk_2` FOREIGN KEY (`Evaluador`) REFERENCES `usuario` (`Registro_U`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `evaluacionfilaguiaobs_ibfk_3` FOREIGN KEY (`Evaluado`) REFERENCES `usuario` (`Registro_U`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `evaluacionfilalistac`
 --
 ALTER TABLE `evaluacionfilalistac`
@@ -964,14 +1017,6 @@ ALTER TABLE `evaluacionfilarubrica`
   ADD CONSTRAINT `evaluacionfilarubrica_ibfk_2` FOREIGN KEY (`Evaluador`) REFERENCES `usuario` (`Registro_U`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `evaluacionfilarubrica_ibfk_3` FOREIGN KEY (`Evaluado`) REFERENCES `usuario` (`Registro_U`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `evaluacionfilarubrica_ibfk_4` FOREIGN KEY (`CriterioSeleccionado`) REFERENCES `criteriosfilarubrica` (`Id_CriterioFilaR`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `evaluacionfilasguiaobs`
---
-ALTER TABLE `evaluacionfilasguiaobs`
-  ADD CONSTRAINT `evaluacionfilasguiaobs_ibfk_1` FOREIGN KEY (`FilaGuiaObs`) REFERENCES `guiadeobservacion` (`Id_FilaGuiadO`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `evaluacionfilasguiaobs_ibfk_2` FOREIGN KEY (`Evaluador`) REFERENCES `usuario` (`Registro_U`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `evaluacionfilasguiaobs_ibfk_3` FOREIGN KEY (`Evaluado`) REFERENCES `usuario` (`Registro_U`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `evaluacioninstrumento`
@@ -1093,6 +1138,7 @@ ALTER TABLE `solicitudeslistagrupo`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`Tipo_Usuario`) REFERENCES `tiposusuarios` (`Id_TipoUsuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
