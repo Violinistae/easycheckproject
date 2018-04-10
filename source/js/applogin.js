@@ -52,43 +52,7 @@ $(document).ready(function($){
 	*	parámetros por GET
 	**/
 	ajaxLogin = function() {
-		var parametros = {
-			userreg: $("input[name=registrousuario]").val(),
-			password: $("input[name=password]").val()
-		};
-		$.ajax(
-		{
-			url: "./index_ajax.php?controller=Users&action=Login",
-			type: 'POST',
-			dataType: 'json',
-			data: parametros
-		}).done(function(response)
-		{
-			if(!response.error)	{	 
-				$.ajax(
-				{
-					url: './index_ajax.php?controller=Users&action=verifyUser',
-					type: 'POST',
-					dataType: 'json',
-					data: {param1: 'value1'},
-				})
-				.done(function(res)
-				{
-					if(!res.error) {				
-						window.location.replace("./sourcephp/views/main.php");
-					} else
-						showError(res.message);
-				})
-				.fail(function() {
-					showError("No se pudo iniciar sesión, por favor inténtelo mas tarde");
-				})	
-			}
-			else 			//Si no hubo éxito en login
-				showError(response.message);
-		})
-		.fail(function() {
-			console.log("No funciona");
-		});
+		
 	}
 
 	/**
@@ -142,6 +106,49 @@ $(document).ready(function($){
 		checkreg(typeu);
 	})
 });
+
+function AJAXpetitionError(str) {
+	alert("La petición de " + " no ha funcionado");
+}
+
+function loginActionResponse(response) {
+	if (!response.error) {
+		$.ajax(
+			{
+				url: './index_ajax.php?controller=Users&action=verifyUser',
+				type: 'POST',
+				dataType: 'json',
+				data: { param1: 'value1' },
+			})
+			.done(function (res) {
+				if (!res.error) {
+					window.location.replace("./sourcephp/views/main.php");
+				} else
+					showError(res.message);
+			})
+			.fail(function () {
+				showError("No se pudo iniciar sesión, por favor inténtelo mas tarde");
+			})
+	}
+	else 			//Si no hubo éxito en login
+		showError(response.message);
+}
+
+function AJAXLogin() {
+	var parametros = {
+		userreg: $("input[name=registrousuario]").val(),
+		password: $("input[name=password]").val()
+	};
+
+	$.ajax({
+		url: "./index_ajax.php?controller=Users&action=Login",
+		type: 'POST',
+		dataType: 'json',
+		data: parametros
+	}).done(loginActionResponse(response)).fail(function () {
+		console.log("No funciona");
+	});
+}
 
 
 /**Esta función realiza una peticion AJAX para mostrar un modal
