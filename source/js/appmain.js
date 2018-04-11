@@ -1,10 +1,6 @@
 $(document).ready(function ($) {
 	$('#mainnavbar').ready(insertnav);
 	
-
-	//$('#groupsbar').ready(insertgroupsbar);
-	//insertnav();
-
 	/**
 	 * Para cerrar sesión cuando el usuario presione el botón de cerrar sesión
 	 */
@@ -18,6 +14,7 @@ $(document).ready(function ($) {
 				window.location.replace("../../index.php");
 			} else if (response.error) {
 				//Pedir que cierre sesión de nuevo y preguntar a Rojas que onda
+				window.location.replace("../../index.php");
 				console.log("Cerrar Sesión");
 			}
 		}).fail(function () {
@@ -52,6 +49,11 @@ $(document).ready(function ($) {
         console.log("No funciona cargar perfil");
     });
   });
+
+	$("body").on("click", "#dropusermen", function (e) {
+		//console.log($("#dropusermen").val());
+		$("#dropusermen").toggleClass('actives').siblings().removeClass('actives');
+	});
 });
 
 
@@ -102,6 +104,8 @@ function getSessionVariables() {
 		} else if (response.error) {
 			//Cerrar sesión y redirigir a login
 			console.log("Cerrar Sesión");
+			window.location.replace("../../index.php");
+	
 		}
 	}).fail(function () {
 		console.log("No Funciona petición de variables de Sesión");

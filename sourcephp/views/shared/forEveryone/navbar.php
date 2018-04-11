@@ -9,12 +9,8 @@
 		<li class="newbutton" id="newbutton">
 		</li>
 		<li class="usermenu">
-			<div class="usericowelcome">
-				<label>Bienvenido <?php echo "Nombre Usuario"; ?></label>
-				<i class="fa fa-user-circle-o"></i>
-			</div>
-			<div>
-				<div><i class="drop fa fa-angle-down"></i></div>
+			<div id="dropuserpart">
+				<div id="todropmenubtn"><i id="dropusermen" class="drop fa fa-angle-down"></i></div>
 				<div class="subdrop" id="subdropusermenu">
 					<ul>
 						<li>
@@ -25,6 +21,10 @@
 						</li>
 					</ul>
 				</div>
+			</div>
+			<div class="usericowelcome">
+				<i class="fa fa-user-circle-o"></i>
+				<label>Bienvenido <?php echo "Nombre Usuario"; ?></label>
 			</div>
 		</li>
 	</ul>
