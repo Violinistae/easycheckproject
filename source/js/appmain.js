@@ -22,20 +22,6 @@ $(document).ready(function ($) {
 		});
 	});
 
-	$("body").on("click", "#userprofile", function(e) {
-		$.ajax({
-			url: '../../sourcephp/views/shared/forEveryone/personalProfile.php',
-			type: 'POST'
-		}).done(function (response) {
-			$('#maincontainer').html(response);
-			setTimeout(function () {
-				$(".personalprofile").fadeIn("400", function() {});
-			}, 280);
-		}).fail(function () {  
-			console.log("No funciona cargar perfil");
-		})
-	});
-
 	$("body").on("click", "#homebtn", function(e) {
     $.ajax({
       url: "../../sourcephp/views/shared/forEveryone/principal.php",
@@ -53,6 +39,26 @@ $(document).ready(function ($) {
 	$("body").on("click", "#dropusermen", function (e) {
 		//console.log($("#dropusermen").val());
 		$("#dropusermen").toggleClass('actives').siblings().removeClass('actives');
+	});
+
+	$("body").on("click", "#userprofile", function (e) {
+		$.ajax({
+			url: '../../sourcephp/views/shared/forEveryone/personalProfile.php',
+			type: 'POST'
+		}).done(function (response) {
+			$('#submaincontainer').html(response);
+			
+			setTimeout(function () {		
+				$(".personalprofile").fadeIn("400", function () { });
+				$(".personalprofile").css({
+					'display' : 'grid',
+					'grid-template-columns' : '1fr',
+					'grid-template-rows': '1fr 9fr',
+				});
+			}, 280);
+		}).fail(function () {
+			console.log("No funciona cargar perfil");
+		})
 	});
 });
 

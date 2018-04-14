@@ -142,6 +142,7 @@
     width: auto;
     height: auto;
     margin-top: 3.3vh;
+    z-index: 20;
 }
 
 #dropusermen.actives+ #subdropusermenu {
@@ -163,7 +164,7 @@
     background-color: transparent;
     border: transparent;
     color: white;
-    transition: 500ms all ease-in-out;
+    transition: 300ms all ease-in-out;
     outline: none;
 }
 
@@ -242,4 +243,10 @@
     border: solid rgba(173, 169, 169, 0.041) 2px;
     border-radius: 10px;
     background-color: rgba(173, 169, 169, 0.356);
+    position: relative;
+}
+
+#submaincontainer {
+    width: 100%;
+    height: 100%;
 }

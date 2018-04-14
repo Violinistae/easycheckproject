@@ -16,6 +16,7 @@
 		<div class="groupsbar" id="groupsbar">
 		</div>
 		<div class="maincontainer" id="maincontainer">
+			<div id="submaincontainer"></div>
 		</div>
 	</div>
 </body>
