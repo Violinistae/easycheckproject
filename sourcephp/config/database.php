@@ -2,14 +2,13 @@
 	function dbdata()
 	{
 		return array(
-		    "driver"    	=> "mysql",
-		    //"host"      	=>"sql100.260mb.net",
-		    "host" 			=> "localhost",
-		    "user"     		=> "root",
-		    //"user" 		=> "id4805844_admine99",
-		    "password"      => "",
-		    //"password" 	=> "admin99Emi",
-		    "database"  	=> "id4805844_easycheckdb",
+		    //"host" 			=> "localhost",
+
+			"host"      	=>"den1.mysql2.gear.host",
+			"user" 		=> "easycheckdb",
+			"password" 	=> "Ox61_b2xx-9z",
+			"database"  	=> "easycheckdb",
+			"driver"    	=> "mysql",
 		    "charset"   	=> "utf8"
 		);
 	}
