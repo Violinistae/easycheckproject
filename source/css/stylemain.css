@@ -1,0 +1,252 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.allcontainer {
+    position: relative;
+    display: grid;
+    grid-template-columns: 2vw 20vw 3vw 73vw 2vw;
+    grid-template-rows: 9vh 2vh 84vh 5vh;
+    grid-template-areas: 
+    "mainnavbar mainnavbar mainnavbar mainnavbar mainnavbar"
+    ". . . . ."
+    ". groupsbar . maincontainer ."
+    ". . . . ."
+}
+
+/* ------------------ Navbar de cada página --------------------*/
+
+.mainnavbar {
+    grid-area: mainnavbar;
+}
+.mainnavbar>nav {
+    width: 100%;
+    height: 100%;
+}
+
+.mainnavbar>nav>ul {
+    margin-top: 2.3vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    height: auto;
+    font-family: 'Noto Sans', sans-serif;
+    justify-content: space-around;    
+}
+
+.mainnavbar>nav>ul>li { 
+    height: 100%;
+    align-content: center;
+}
+
+.sysimg {
+    flex-grow: 1.3;
+    text-align: center;
+}
+
+.mainnavbar>nav>ul>li>i {
+    font-size: 3vw;
+    cursor: pointer;
+}
+
+.searcher {
+    flex-grow: 3.5;
+}
+
+.searcher>input {
+    font-size: 1.4vw;
+    outline: none;
+    text-indent: .8vw;
+    width: 90%;
+    height: 3vh;
+}
+
+.searcher>input::placeholder {
+    font-size: 1.4vw;
+    text-indent: .8vw;
+}
+.whiteplaceholder::placeholder {
+    color: white;
+}
+.yellowplaceholder::placeholder {
+    color: rgb(247, 218, 37);
+}
+
+.newbutton {
+    flex-grow: 3;
+}
+.buttonnewinst {
+    border-radius: 10px;
+    background-color: transparent;
+    cursor: pointer;
+    width: 35%;
+    height: 4.8vh;
+    font-size: 1.2vw;
+    outline: none;
+}
+
+.buttonnewinst.active+ #subdropnewbutton {
+    display: block;
+}
+
+.yellowfontandborder {
+	border: solid rgb(247, 218, 37) 2px;
+	color : rgb(247, 218, 37);
+}
+
+.usermenu {
+    flex-grow: 1.2;
+    display: flex;
+}
+
+#dropuserpart {
+    flex-grow: 4;
+}
+
+.usericowelcome {
+    flex-grow: 3;
+    display: grid;
+    grid-template-columns: .2fr .8fr;
+    grid-template-rows: auto;
+    grid-column-gap: 2vw;
+    text-align: right;
+}
+
+.usermenu>div>i {
+    font-size: 3vw;
+}
+
+.usermenu>div>div>i {
+    font-size: 2vw;    
+    text-align: right;
+    cursor: pointer;
+}
+
+.usermenu>div>ul {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+#subdropnewbutton {
+    position: absolute;
+    display: none;
+    margin-top: 3.3vh;
+}
+
+#subdropusermenu {
+    position: absolute;
+    display: block;
+    width: auto;
+    height: auto;
+    margin-top: 3.3vh;
+    z-index: 20;
+}
+
+#dropusermen.actives+ #subdropusermenu {
+    display: block;
+}
+
+#subdropusermenu>ul {
+    border-radius: 3px;
+    width: 16vw;
+    height: auto;
+    background-color: rgb(150, 145, 145);
+}
+
+#subdropusermenu button {
+    cursor: pointer;
+    width: 100%;
+    height: 6vh;
+    font-size: 1vw;
+    background-color: transparent;
+    border: transparent;
+    color: white;
+    transition: 300ms all ease-in-out;
+    outline: none;
+}
+
+#subdropusermenu button:hover { 
+    border: solid rgb(150, 145, 145) 1px;
+    background-color: rgb(228, 226, 226);
+    color:black;
+}
+
+.mainnavbar>nav li {
+    list-style: none;
+}
+
+/* ---------------------- Barra lateral de grupos -------------------*/
+
+.groupsbar {
+    grid-area: groupsbar;
+
+    border: solid rgba(173, 169, 169, 0.041) 2px;
+    border-radius: 10px;
+    background-color: rgba(173, 169, 169, 0.356);
+}
+
+
+#groupbarcontent {
+    margin-left: 1.5vw;
+    margin-top: 4vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    width: 85%;
+    grid-row-gap: 3.3vh;
+    height: 50vh;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+#groupbarcontent>div {
+    
+}
+
+#groupbarcontent>div {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-row-gap: .2vh;
+}
+
+#groupbarcontent>div>label {
+    text-indent: .5vw;
+    margin-bottom: 1vh;
+    border-bottom: rgb(90, 144, 232) solid 2px;
+    border-radius: 2px;
+    font-size: 1.7vw;
+    font-weight: bold;
+}
+
+#groupbarcontent>div>button {
+    cursor: pointer;
+    background-color: transparent;
+    border: transparent;
+    border-radius: 1px;
+    text-align: justify;
+    text-indent: 1.4vw;
+}
+
+#groupbarcontent>div>button:hover {
+    background-color: seashell;
+}
+
+/* ------------------- Contenedor principal de pagina ----------------*/
+
+.maincontainer {
+    grid-area: maincontainer;
+
+    border: solid rgba(173, 169, 169, 0.041) 2px;
+    border-radius: 10px;
+    background-color: rgba(173, 169, 169, 0.356);
+    position: relative;
+}
+
+#submaincontainer {
+    width: 100%;
+    height: 100%;
+}
