@@ -18,6 +18,7 @@
 	        $this->pdo = $pdo;
 	    }
 
+		//Este método no se utiliza
 	    public function getCon()
 	    {
 	    	return $this->pdo;

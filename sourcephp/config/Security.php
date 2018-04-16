@@ -2,7 +2,7 @@
     
     class Security {
 
-        public $username;
+        private $userreg;
         public $controller;
         public $action;
         public $pdo;
