@@ -8,7 +8,7 @@
 			<div id="profilesubgridconfig">
 				<span id="fotoperfil"></span>
 				<button>Cambiar Foto Perfil</button>
-				<button>Editar Perfil</button>
+				<button id="editprofile">Editar Perfil</button>
 				<button>Eliminar Cuenta</button>
 			</div>
 			<div id="profilesubgridforall">
@@ -29,28 +29,11 @@
 					<input id="apellidosinput" type="text" name="apellidos" autocomplete="off">
 				</div>
 				<div id="escolaridaddiv">
-					<label>Escolaridad</label>
-					<input id="escolaridadinput" type="text" name="escolaridad" autocomplete="off">
+					
 				</div>	
 			</div>
 
 			<div id="profilesubgridvariable">
-				<div id="idacademiadiv">
-					<label>Clave de Academia</label>
-					<label id="idacademialbl" type="text" name="idacademia"></label>
-				</div>
-				<div id="academiadiv">
-					<label>Academia</label>
-					<input id="academiainput" type="text" name="academia" autocomplete="off">
-				</div>
-				<div id="carreradiv">
-					<label>Carrera</label>
-					<input id="carrerainput" type="text" name="carrera" autocomplete="off">
-				</div>
-				<div id="cicloescolardiv">
-					<label>Ciclo Escolar</label>
-					<input id="cicloescolarinput" type="text" name="cicloescolar" autocomplete="off">
-				</div>
 			</div>
 		</div>
 	</form>

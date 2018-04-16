@@ -13,7 +13,7 @@
     height: 100%;
     width: 100%;
     display: grid;
-    grid-template-columns: 3fr 4fr 3fr;
+    grid-template-columns: 2fr 4fr 4fr;
     grid-template-rows: 1fr;
 }
 
@@ -31,12 +31,27 @@
     transition: 100ms all ease-in-out;
     border-radius: 1px;
     font-size: 1.1vw;
+    outline: none;
 }
 .profilegrid button:hover {
     background-color: white;
 }
 
 .profilegrid input {
+    background-color: transparent;
+    border-top: transparent;
+    border-right: transparent;
+    border-left: transparent;
+    border-bottom: black solid 2px;
+    border-radius: 2px;
+    color: black;
+    outline: none;
+    text-indent: 1vw;
+    padding-bottom: .5vh;
+    font-size: 1.3vw;
+}
+
+.profilegrid select {
     background-color: transparent;
     border-top: transparent;
     border-right: transparent;
@@ -75,6 +90,10 @@
 #profilesubgridforall>div>input {
     width: 80%;
 }
+#profilesubgridforall>div>select {
+    width: 80%;
+    cursor: pointer;
+}
 
 #profilesubgridvariable {
     display: grid;
@@ -93,6 +112,28 @@
     width: 100%;
 }
 
+#profilesubgridvariable>div>label {
+    width: 80%;
+    text-align: left;
+}
 #profilesubgridvariable>div>input {
     width: 80%;
+}
+#profilesubgridvariable>div>select {
+    width: 80%;
+    cursor: pointer;
+}
+#profilesubgridvariable>div>div {
+    width: 100%;
+    cursor: pointer;
+}
+
+#cicloselects {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    justify-items: center;
+}
+#cicloselects>select {
+    width: 60%;
 }

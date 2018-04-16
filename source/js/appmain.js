@@ -66,25 +66,68 @@ $(document).ready(function ($) {
 				document.getElementById("emailinput").value = response.userinfo.Email;
 				document.getElementById("nombresinput").value = response.userinfo.Nombres;
 				document.getElementById("apellidosinput").value = response.userinfo.Apellidos;
-				if (response.userinfo.Tipo_Usuario == 2 || response.userinfo.Tipo_Usuario == 3) {
-					//Insertar escolaridad
-				}
-				if (response.userinfo.Tipo_Usuario == 3) {
+				if (response.userinfo.Tipo_Usuario == 2 || response.userinfo.Tipo_Usuario == 1) {
 					$.ajax({
-						
-					}).done(function insertacadbasicinfo(res) {
-						
+						url: '../../sourcephp/views/shared/CoordAndProf/escolaridaddiv.php',
+						type: 'POST'
+					}).done(function insertEscolaridad(respuesta) {
+						var escdiv = document.getElementById("escolaridaddiv");
+						escdiv.insertAdjacentHTML('beforeend', respuesta);
+
+						var escselect = document.getElementById("escolaridadinput");
+						escselect.value = response.userinfo.Escolaridad;
+
 					}).fail(function () {  
-						
+						console.log("Error al insertar escolaridad");
 					});
+				}
+				if (response.userinfo.Tipo_Usuario == 1) {
+					$.ajax({
+						url: '../../sourcephp/views/Users/coordinador/perprofilebasicacadinfo.php',
+						type: 'POST'
+					}).done(function insertacadbasicinfo(res) {
+						var subgridvariable = document.getElementById("profilesubgridvariable");
+						subgridvariable.insertAdjacentHTML('beforeend', res);
+
+						document.getElementById("idacademialbl").innerHTML = response.basicacadinfo.Id_Academia;
+						document.getElementById("academiainput").value = response.basicacadinfo.Academia;
+
+						//Get todas las carreras y poner en un for para insertar
+						var carrinput = document.getElementById("carrerainput");
+						var carroption = document.createElement("option");
+						carroption.text = response.basicacadinfo.Carrera;
+						carrinput.add(carroption);
+
+						var ciclosplited = response.basicacadinfo.Ciclo_Periodo.split(" ");
+						var cicloperiodo = ciclosplited[0] + " " + ciclosplited[1] + " " + ciclosplited[2];
+						
+						var cicloperselect = document.getElementById("cicloperiodoselect");
+						cicloperselect.value = cicloperiodo;
+
+						var cicloyselect = document.getElementById("cicloyearselect");
+						var year = document.createElement("option");
+						year.text = ciclosplited[3];
+						cicloyselect.add(year);
+						cicloyselect.value = ciclosplited[3];
+
+					}).fail(function () {  
+						console.log("Fallo en inserción de div academia");
+					});			
 				}	
-			}).fail(function (params) {
+			}).fail(function () {
 				console.log("Fallo en obtención de info de usuario");
 			});
 		}).fail(function () {
 			console.log("No funciona cargar perfil");
 		})
 	});
+
+	$("body").on("click", "#editprofile", function (e) {
+		e.preventDefault();
+		console.log($("#profileform input[name=userreg]").val());
+		
+	});
+	
 });
 
 /**

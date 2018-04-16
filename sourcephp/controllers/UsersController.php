@@ -204,7 +204,7 @@
 				} else if ($queryrows == 1) {
 					$userinfores = $user_info->fetch(PDO::FETCH_ASSOC);
 					if($_SESSION["usertype"] == 1) {
-						$acadquery = "SELECT Academia, Clave_Acceso, Ciclo_Periodo, carrera.Carrera FROM 
+						$acadquery = "SELECT Id_Academia, Academia, Ciclo_Periodo, carrera.Carrera FROM 
 							easycheckdb.academia join easycheckdb.carrera on academia.Carrera =
 							carrera.Id_Carrera where Coordinador_Acad =".$_SESSION["userreg"];
 						$acadinfo = $this->pdo->prepare($acadquery);
