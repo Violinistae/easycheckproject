@@ -192,5 +192,37 @@
 			else
 				echo json_encode(array('error' => true));
 		}
+
+		public function getUserInfo() {
+			if(isset($_SESSION["userreg"]) && isset($_SESSION["usertype"])) {
+				$query = "SELECT * from usuario where Registro_U =".$_SESSION['userreg'];
+				$user_info = $this->pdo->prepare($query);
+				$user_info -> execute();
+				$queryrows = $user_info->rowCount();
+				if($queryrows != 1) {
+					echo json_encode(array('error' => true, 'message' => "Error al obtener información de usuario, favor de intentar más tarde."));
+				} else if ($queryrows == 1) {
+					$userinfores = $user_info->fetch(PDO::FETCH_ASSOC);
+					if($_SESSION["usertype"] == 1) {
+						$acadquery = "SELECT Academia, Clave_Acceso, Ciclo_Periodo, carrera.Carrera FROM 
+							easycheckdb.academia join easycheckdb.carrera on academia.Carrera =
+							carrera.Id_Carrera where Coordinador_Acad =".$_SESSION["userreg"];
+						$acadinfo = $this->pdo->prepare($acadquery);
+						$acadinfo -> execute();
+						$acadqryrows = $acadinfo->rowCount();
+						if($acadqryrows != 1) {
+							echo json_encode(array('error' => true, 'message' => "Error al obtener información básica de academia, favor de intentar más tarde."));
+						} else if ($acadqryrows == 1){
+							$basicacadinfo = $acadinfo->fetch(PDO::FETCH_ASSOC);
+							echo json_encode (array('error' => false, 'userinfo' => $userinfores, 'basicacadinfo' => $basicacadinfo));
+						}
+					} else {
+						echo json_encode (array('error' => false, 'userinfo' => $userinfores));
+					}
+				}
+			} else {
+				echo json_encode (array('error' => true, 'closesess' => true));
+			}
+		}
 	}
 ?>

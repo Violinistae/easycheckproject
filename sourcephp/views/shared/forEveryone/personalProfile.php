@@ -3,63 +3,55 @@
 	<nav>
 		<p>Perfil</p>
 	</nav>
-	<div class="profilegrid">
-		<div id="profilesubgridconfig">
-			<span id="fotoperfil"></span>
-			<button>Cambiar Foto Perfil</button>
-			<button>Editar Perfil</button>
-			<button>Eliminar Cuenta</button>
-		</div>
-		<div id="profilesubgridforall">
-			<div>
-				<label>Registro de Usuario</label>
-				<p><?php echo "Registro de Usuario";?></p>
+	<form id="profileform" action="" method="post">
+		<div class="profilegrid">
+			<div id="profilesubgridconfig">
+				<span id="fotoperfil"></span>
+				<button>Cambiar Foto Perfil</button>
+				<button>Editar Perfil</button>
+				<button>Eliminar Cuenta</button>
 			</div>
-			<div>
-				<label>Correo Electrónico</label>
-				<p><?php echo "Correo Electrónico";?></p>
-			</div>
-			<div>
-				<label>Nombre(s)</label>
-				<p><?php echo "Nombres";?></p>
-			</div>
-			<div>
-				<label>Apellidos</label>
-				<p><?php echo "Apellidos";?></p>
-			</div>
-			<div>
-				<label>Escuela/Institución</label>
-				<p><?php echo "CETI";?></p>
-			</div>
-		</div>
-
-		<div id="profilesubgridforall">
-			<?php if (true /*Cuenta tipo Coordinador o Profesor*/): ?>
+			<div id="profilesubgridforall">
 				<div>
+					<label>Registro de Usuario</label>
+					<input id="userreginput" type="text" name="userreg" autocomplete="off">
+				</div>
+				<div>
+					<label>Correo Electrónico</label>
+					<input id="emailinput" type="text" name="email" autocomplete="off">
+				</div>
+				<div>
+					<label>Nombre(s)</label>
+					<input id="nombresinput" type="text" name="nombres" autocomplete="off">
+				</div>
+				<div>
+					<label>Apellidos</label>
+					<input id="apellidosinput" type="text" name="apellidos" autocomplete="off">
+				</div>
+				<div id="escolaridaddiv">
 					<label>Escolaridad</label>
-					<p><?php echo "Escolaridad"; ?></p>
+					<input id="escolaridadinput" type="text" name="escolaridad" autocomplete="off">
 				</div>	
-			<?php endif ?>
-				
-			<?php
-				if(true/*Cuenta es tipo Coordinador*/):
-			?>
-				<div>
+			</div>
+
+			<div id="profilesubgridvariable">
+				<div id="idacademiadiv">
+					<label>Clave de Academia</label>
+					<label id="idacademialbl" type="text" name="idacademia"></label>
+				</div>
+				<div id="academiadiv">
 					<label>Academia</label>
-					<p><?php echo "Academia"; ?></p>
+					<input id="academiainput" type="text" name="academia" autocomplete="off">
 				</div>
-				<div>
+				<div id="carreradiv">
 					<label>Carrera</label>
-					<p><?php echo "Carrera"; ?></p>
+					<input id="carrerainput" type="text" name="carrera" autocomplete="off">
 				</div>
-				<div>
+				<div id="cicloescolardiv">
 					<label>Ciclo Escolar</label>
-					<p><?php
-						echo "Ciclo Escolar";
-						//Realizar la consulta y de ahí determinar que string imprimir
-					?></p>
+					<input id="cicloescolarinput" type="text" name="cicloescolar" autocomplete="off">
 				</div>
-			<?php endif;?>
+			</div>
 		</div>
-	</div>
+	</form>
 </div>

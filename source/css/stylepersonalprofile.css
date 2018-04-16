@@ -1,8 +1,10 @@
 .personalprofile {
     display: none;
+    font-family: 'Noto Sans', sans-serif;
 }
 
 .personalprofile>nav {
+    position: relative;
     width: 100%;
     height: 100%;
     border: solid red 2px;
@@ -10,14 +12,12 @@
 .profilegrid {
     height: 100%;
     width: 100%;
-    border: red solid 2px;
     display: grid;
     grid-template-columns: 3fr 4fr 3fr;
     grid-template-rows: 1fr;
 }
 
 .profilegrid>div {
-    border: solid green 2px;
     display: grid;
     grid-template-columns: 1fr;
 }
@@ -36,9 +36,63 @@
     background-color: white;
 }
 
+.profilegrid input {
+    background-color: transparent;
+    border-top: transparent;
+    border-right: transparent;
+    border-left: transparent;
+    border-bottom: black solid 2px;
+    border-radius: 2px;
+    color: black;
+    outline: none;
+    text-indent: 1vw;
+    padding-bottom: .5vh;
+    font-size: 1.3vw;
+}
+
 #profilesubgridconfig {
     grid-template-rows: 3fr 1fr 1fr 1fr;
     grid-row-gap: 1vh;
 }
 
-    
+#profilesubgridforall {
+    display: grid;
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-columns: auto;
+    grid-row-gap: 1.4em;
+    align-items: center;
+    font-size: 1.3vw;
+}
+#profilesubgridforall>div {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: auto;
+    grid-row-gap: .4em;
+    justify-items: center;
+    width: 100%;
+}
+
+#profilesubgridforall>div>input {
+    width: 80%;
+}
+
+#profilesubgridvariable {
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-columns: auto;
+    align-items: center;
+    grid-row-gap: 1.4em;
+    font-size: 1.3vw;
+}
+#profilesubgridvariable>div {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: auto;
+    grid-row-gap: .4em;
+    justify-items: center;
+    width: 100%;
+}
+
+#profilesubgridvariable>div>input {
+    width: 80%;
+}

@@ -29,3 +29,4 @@
 		</li>
 	</ul>
 </nav>
+<script type="text/javascript" src="../../source/js/appnavbar.js"></script>

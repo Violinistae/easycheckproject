@@ -23,18 +23,18 @@ $(document).ready(function ($) {
 	});
 
 	$("body").on("click", "#homebtn", function(e) {
-    $.ajax({
-      url: "../../sourcephp/views/shared/forEveryone/principal.php",
-      type: "POST"
-    }).done(function(response) {
-		$(".personalprofile").fadeOut("400", function() {
-			$("#maincontainer").html(response);
-		}); 
-    })
-      .fail(function() {
-        console.log("No funciona cargar perfil");
-    });
-  });
+		$.ajax({
+		url: "../../sourcephp/views/shared/forEveryone/principal.php",
+		type: "POST"
+		}).done(function(response) {
+			$(".personalprofile").fadeOut("400", function() {
+				$("#maincontainer").html(response);
+			}); 
+		})
+		.fail(function() {
+			console.log("No funciona cargar perfil");
+		});
+	});
 
 	$("body").on("click", "#dropusermen", function (e) {
 		//console.log($("#dropusermen").val());
@@ -56,12 +56,36 @@ $(document).ready(function ($) {
 					'grid-template-rows': '1fr 9fr',
 				});
 			}, 280);
+			$.ajax({
+				url: '../../index_ajax.php?controller=Users&action=getUserInfo',
+				type: 'POST',
+				dataType: 'json'
+			}).done(function getUserInfo(response) {
+				console.log(response);
+				document.getElementById("userreginput").value = response.userinfo.Registro_U;
+				document.getElementById("emailinput").value = response.userinfo.Email;
+				document.getElementById("nombresinput").value = response.userinfo.Nombres;
+				document.getElementById("apellidosinput").value = response.userinfo.Apellidos;
+				if (response.userinfo.Tipo_Usuario == 2 || response.userinfo.Tipo_Usuario == 3) {
+					//Insertar escolaridad
+				}
+				if (response.userinfo.Tipo_Usuario == 3) {
+					$.ajax({
+						
+					}).done(function insertacadbasicinfo(res) {
+						
+					}).fail(function () {  
+						
+					});
+				}	
+			}).fail(function (params) {
+				console.log("Fallo en obtención de info de usuario");
+			});
 		}).fail(function () {
 			console.log("No funciona cargar perfil");
 		})
 	});
 });
-
 
 /**
  * Esta función inserta la vista de la barra de navegación principal de la página
