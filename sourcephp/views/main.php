@@ -10,6 +10,22 @@
 	<script type="text/javascript" src="../../source/js/appmain.js"></script>
 </head>
 <body>
+	<div class="modalwarning" id="modwarning">
+		<div id="modalwarningcontent">
+			<div id="warningtitle">
+				<p>Favor de confirmar la acción</p>
+			</div>
+			<div id="warningtexts">
+				<p id="warningprincipaltext">¿Seguro que desear modificar información de perfil?</p>
+				<p id="warningsecondaytext">La información anterior se perderá completamente</p>
+			</div>
+			<div id="confirmbtns">
+				<button id="confirmbtn">Continuar</button>
+				<button id="cancelbtn">Cancelar</button>
+			</div>
+		</div>
+	</div>
+
 	<div class="allcontainer">
 		<div class="mainnavbar" id="mainnavbar">
 		</div>

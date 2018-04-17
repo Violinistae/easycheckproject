@@ -57,7 +57,14 @@
 			</div>			
 			<div>
 				<label>Escolaridad</label>
-				<input type="text" name="escolaridad" autocomplete="off">
+				<select name="escolaridad">
+					<option value="null"> - Seleccione Escolaridad -</option>
+					<option value="Bachillerato">Bachillerato</option>
+					<option value="Licenciatura">Licenciatura</option>
+					<option value="Ingeniería">Ingeniería</option>
+					<option value="Maestría">Maestría</option>
+					<option value="Doctorado">Doctorado</option>
+				</select>
 			</div>
 			<div>
 				<label>Nombre(s)</label>

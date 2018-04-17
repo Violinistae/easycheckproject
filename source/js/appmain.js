@@ -1,5 +1,7 @@
 $(document).ready(function ($) {
+
 	$('#mainnavbar').ready(insertnav);
+
 	
 	/**
 	 * Para cerrar sesión cuando el usuario presione el botón de cerrar sesión
@@ -28,7 +30,7 @@ $(document).ready(function ($) {
 		type: "POST"
 		}).done(function(response) {
 			$(".personalprofile").fadeOut("400", function() {
-				$("#maincontainer").html(response);
+				$("#submaincontainer").html(response);
 			}); 
 		})
 		.fail(function() {
@@ -129,6 +131,13 @@ $(document).ready(function ($) {
 	});
 	
 });
+
+function outsideclick(e) {
+	if (e.target == document.getElementById('modwarning')) {
+		$('#modwarning').fadeOut('400', function () { });
+	}
+}
+window.addEventListener('click', outsideclick);
 
 /**
  * Esta función inserta la vista de la barra de navegación principal de la página
@@ -246,6 +255,16 @@ function insertCoordStyles() {
 		"padding-bottom": ".5vh"
 	});
 	$(".searcher input").addClass('whiteplaceholder');
+	/*
+	$('#modalwarningcontent').css({
+		"background-color": "rgb(90, 144, 232)",
+		"color": "white"
+	});
+	*/
+	$('#confirmbtn').css({
+		"background-color": "rgb(90, 144, 232)", 
+		"color" : "white"
+	});
 }
 
 function insertProfStyles() {
@@ -264,6 +283,15 @@ function insertProfStyles() {
 		"padding-bottom": ".5vh"
 	});
 	$(".searcher input").addClass('yellowplaceholder');
+	$(".searcher input").addClass('whiteplaceholder');
+	$('#modalwarningcontent').css({
+		"background-color": "rgb(30, 30, 30)",
+		"color": "rgb(247, 218, 37)"
+	});
+	$('#confirmbtn').css({
+		"color": "rgb(30, 30, 30)", 
+		"background-color": "rgb(247, 218, 37)"
+	});
 }
 
 function insertAlumnoStyles() {
@@ -282,4 +310,13 @@ function insertAlumnoStyles() {
 		"padding-bottom": ".5vh"
 	});
 	$(".searcher input").addClass('whiteplaceholder');
+	/*
+	$('#modalwarningcontent').css({ 
+		"background-color": "rgb(171, 49, 49)"
+	});
+	*/
+	$('#confirmbtn').css({
+		"background-color": "rgb(171, 49, 49)",
+		"color" : "white"
+	});
 }

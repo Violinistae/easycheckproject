@@ -135,5 +135,6 @@
     justify-items: center;
 }
 #cicloselects>select {
-    width: 60%;
+    width: 75%;
+    cursor: pointer;
 }

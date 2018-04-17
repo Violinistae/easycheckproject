@@ -28,11 +28,8 @@
 					<label>Apellidos</label>
 					<input id="apellidosinput" type="text" name="apellidos" autocomplete="off">
 				</div>
-				<div id="escolaridaddiv">
-					
-				</div>	
+				<div id="escolaridaddiv"></div>
 			</div>
-
 			<div id="profilesubgridvariable">
 			</div>
 		</div>

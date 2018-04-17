@@ -334,6 +334,9 @@ function checkreg(typeu) {
 				} if ($("#freg input[name=carrera_acad]").val() == "null") {
 					showError("Seleccione una carrera");
 					return;
+				} if ($("#freg select[name=escolaridad]").val() == "null") {
+					showError("Seleccione Escolaridad");
+					return;
 				}
 
 				var param = {
@@ -345,7 +348,7 @@ function checkreg(typeu) {
 					claveaccess: $("#freg input[name=clave_unica_acceso]").val(),
 					ciclomeses: $("#freg select[name=ciclo]").val(),
 					cicloy: $("#freg select[name=year]").val(),
-					escolaridad: $("#freg input[name=escolaridad]").val(),
+					escolaridad: $("#freg select[name=escolaridad]").val(),
 					nombres: $("#freg input[name=nombres]").val(),
 					apellidos: $("#freg input[name=apellidos]").val(),
 					tuser: typeu
