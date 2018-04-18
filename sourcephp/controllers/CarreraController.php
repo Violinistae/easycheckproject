@@ -17,7 +17,7 @@
             if($numcarreras > 0)
                 echo json_encode(array('error' => false, 'carreras' => $c));
             else
-                echo json_encode(array('error' => true, 'message' => "No hay carrera"));
+                echo json_encode(array('error' => true, 'message' => "No hay carreras que mostrar"));
         }
     }    
 ?>

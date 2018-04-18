@@ -44,17 +44,6 @@ $(document).ready(function($){
 	}
 
 	/**
-	 * Método para mostrar en consola (para comodidad del desarrollador) un mensaje en caso de que una petición
-	 * $.ajax falle.
-	 * 
-	 * @param str => Mensaje a mostrar en consola
-	 * @returns null
-	 */
-	AJAXpetitionError = function (str) {
-		console.log(str);
-	}
-
-	/**
 	 * Método para redirigir a la página principal de un usuario del sistema  una vez de haber llenado el 
 	 * formulario de Login y haber realizado la verificación de tipo de usuario del sistema.
 	 * 
@@ -104,15 +93,15 @@ $(document).ready(function($){
 						window.location.replace("./sourcephp/views/main.php");
 					} else
 						showError(res.message);
-				}).fail(
-					AJAXpetitionError("No se pudo iniciar sesión, por favor inténtelo mas tarde")
-				);
+				}).fail(function () {  
+					AJAXrequestFailed("No se pudo iniciar sesión, por favor inténtelo mas tarde");
+				});
 			}
 			else 								//Si no hubo éxito en login
 				showError(response.message);
-		}).fail(
-			AJAXpetitionError("La petición de 'Login AJAX' no ha funcionado")
-		);
+		}).fail(function () {  
+			AJAXrequestFailed("La petición de 'Login AJAX' no ha funcionado");
+		});
 	}
 
 	
@@ -254,9 +243,9 @@ function checkuserregist(type) {
 					}
 					else
 						console.log(response.message);
-				}).fail(
-					AJAXpetitionError("Error al insertar carreras en combo registro de coordinador")
-				);
+				}).fail(function () {
+					AJAXrequestFailed("Error al insertar carreras en combo registro de coordinador");
+				});
 
 				$("#modalregitems").css({"color": "white"});
 				$("#modalregitems").css({"background-color": "rgb(90, 144, 232)"});
@@ -394,6 +383,8 @@ function checkreg(typeu) {
 			}
 			else
 				showError(response.message);
+		}).fail(function () {  
+			AJAXrequestFailed("No se pudo registrar al usuario");
 		});
 	}
 }

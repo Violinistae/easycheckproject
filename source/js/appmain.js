@@ -1,12 +1,328 @@
 $(document).ready(function ($) {
+// ---------------------------------------------------------------------------------------------------------------------------------
+// ------------------------------------------------ FUNCTIONS TO CALL --------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------------------
 
-	$('#mainnavbar').ready(insertnav);
+	maincontentFadeAnimation = function (responsePage) {  
+		$("#submaincontainer").fadeOut("300", function () {
+			$("#submaincontainer").html(responsePage);
+		});
+		$("#submaincontainer").fadeIn("300");
+	}
 
+	insertMainNavbar = function () {
+		$.ajax({
+			url: '../../sourcephp/views/shared/forEveryone/navbar.php',
+			type: 'POST'
+		}).done(function setNavbar(mainNavbar) {
+			document.getElementById('mainnavbar').insertAdjacentHTML('beforeend', mainNavbar);
+			getSessionVariables(setStyleAndInfoToNavbar);
+		}).fail( function () {
+			AJAXrequestFailed("Fallo en petición AJAX para insertar navbar principal");
+		});
+	}
+
+		setStyleAndInfoToNavbar = function (sessionVariables) {
+			if (!sessionVariables.error) {
+				if (sessionVariables.usertype == 1) {
+					$(".mainnavbar").css({ "background-color": "rgb(90, 144, 232)" });
+					insertnewbuttondiv();
+					insertgroupsbar();
+					insertMateriapart();
+					insertCoordStyles();
+				} else if (sessionVariables.usertype == 2) {
+					$(".mainnavbar").css({ "background-color": "rgb(30, 30, 30" });
+					insertnewbuttondiv();
+					insertgroupsbar();
+					insertProfStyles();
+				} else if (sessionVariables.usertype == 3) {
+					$(".mainnavbar").css({ "background-color": "rgb(171, 49, 49)" });
+					insertAlumnoStyles();
+				}
+			} else if (sessionVariables.error) {
+				console.log("Cerrar Sesión");
+				window.location.replace("../../index.php");
+			}
+		}
+
+			insertnewbuttondiv = function () {
+				$.ajax({
+					url: '../../sourcephp/views/shared/CoordAndProf/newbuttondiv.php',
+					type: 'POST'
+				}).done(function (btnres) {
+					insertNewInstrumentoBtn(btnres);
+					getSessionVariables(setnewButtonStyle);
+				}).fail(function () {
+					AJAXrequestFailed("Fallo en petición AJAX para insertar botón de nuevo instrmento");
+				});
+			}
+
+				insertNewInstrumentoBtn = function (btnres) {
+					newbtn = document.getElementById('newbutton');
+					newbtn.innerHTML = btnres;
+					getAndExecuteNewInsertedScript(newbtn);
+				}
+
+				setnewButtonStyle = function(sessionVariables) {
+					if (sessionVariables.usertype == 1) {
+						$(".buttonnewinst").css({
+							"border": "solid white 2px",
+							"color": "white"
+						});
+					} else if (sessionVariables.usertype == 2) {
+						$(".buttonnewinst").css({
+							"border": "solid rgb(247, 218, 37) 2px",
+							"color": "rgb(247, 218, 37)"
+						});
+					}
+				}
+			
+			insertgroupsbar = function () {
+				$.ajax({
+					url: '../../sourcephp/views/shared/CoordAndProf/groupsBar.php',
+					type: 'POST'
+				}).done(function (gpsBarRes) {
+					insgroupsbar(gpsBarRes);
+				}).fail(function () {
+					AJAXrequestFailed("Fallo en petición AJAX para insertar 'GROUPS BAR'");
+				});
+			}
+
+				insgroupsbar = function (gpsBarRes) {
+					groupsbar = document.getElementById('groupsbar');
+					groupsbar.innerHTML = gpsBarRes;
+				}
+
+			insertMateriapart = function () {
+				$.ajax({
+					url: '../../sourcephp/views/Users/coordinador/gposbarmateriapart.php',
+					type: 'POST'
+				}).done(function (gpsBarMateriaPartRes) {
+					insMateriaPartOnGroupsBar(gpsBarMateriaPartRes);
+				}).fail(function () {
+					AJAXrequestFailed("Fallo en petición AJAX para insertar parte de materia en 'GROUPS BAR'");
+				});
+			}
+				insMateriaPartOnGroupsBar = function (gpsBarMateriaPartRes) {
+					materiaspart = document.getElementById('materiaspart');
+					materiaspart.innerHTML = gpsBarMateriaPartRes;
+				}
+				
+
+			insertCoordStyles = function() {
+				$(".allnavcontent").css({
+					"color": "white"
+				});
+				$(".searchinput").css({
+					"background-color": "transparent",
+					"border-top": "transparent",
+					"border-right": "transparent",
+					"border-left": "transparent",
+					"border-bottom": "solid white 2px",
+					"border-top": "transparent",
+					"color": "white",
+					"border-radius": "2px",
+					"padding-bottom": ".5vh"
+				});
+				$(".searcher input").addClass('whiteplaceholder');
+				$('#confirmbtn').css({
+					"background-color": "rgb(90, 144, 232)",
+					"color": "white"
+				});
+			}
+
+			insertProfStyles = function() {
+				$(".allnavcontent").css({
+					"color": "rgb(247, 218, 37)"
+				});
+				$(".searchinput").css({
+					"background-color": "transparent",
+					"border-top": "transparent",
+					"border-right": "transparent",
+					"border-left": "transparent",
+					"border-bottom": "solid rgb(247, 218, 37) 2px",
+					"border-top": "transparent",
+					"color": "rgb(247, 218, 37)",
+					"border-radius": "2px",
+					"padding-bottom": ".5vh"
+				});
+				$(".searcher input").addClass('yellowplaceholder');
+				$(".searcher input").addClass('whiteplaceholder');
+				$('#modalwarningcontent').css({
+					"background-color": "rgb(30, 30, 30)",
+					"color": "rgb(247, 218, 37)"
+				});
+				$('#confirmbtn').css({
+					"color": "rgb(30, 30, 30)",
+					"background-color": "rgb(247, 218, 37)"
+				});
+			}
+
+			insertAlumnoStyles = function () {
+				$(".allnavcontent").css({
+					"color": "white"
+				});
+				$(".searchinput").css({
+					"background-color": "transparent",
+					"border-top": "transparent",
+					"border-right": "transparent",
+					"border-left": "transparent",
+					"border-bottom": "solid white 2px",
+					"border-top": "transparent",
+					"color": "white",
+					"border-radius": "2px",
+					"padding-bottom": ".5vh"
+				});
+				$(".searcher input").addClass('whiteplaceholder');
+				$('#confirmbtn').css({
+					"background-color": "rgb(171, 49, 49)",
+					"color": "white"
+				});
+			}
+
+
+	gotoMainPage = function (e) {
+		$.ajax({
+			url: "../../sourcephp/views/shared/forEveryone/principal.php",
+			type: "POST"
+		}).done(function (mainPage) {
+			maincontentFadeAnimation(mainPage);
+		}).fail( function () {
+			AJAXrequestFailed("Fallo en petición AJAX para volver a página principal");
+		});
+	}
+
+	gotoPersonalProfilePage = function () {
+		$.ajax({
+			url: '../../sourcephp/views/shared/forEveryone/personalProfile.php',
+			type: 'POST'
+		}).done(function (personalProfilePage) {
+			maincontentFadeAnimation(personalProfilePage);
+			$.ajax({
+				url: '../../index_ajax.php?controller=Users&action=getUserInfo',
+				type: 'POST',
+				dataType: 'json'
+			}).done(function (userinfoRes) {
+				getUserInfo(userinfoRes);			
+			}).fail( function () {
+				AJAXrequestFailed("Fallo en petición AJAX para obtención de información de usuario.");		 
+			});
+		}).fail( function () {
+			AJAXrequestFailed("Fallo en petición AJAX para cargar perfil personal de usuario.");
+		});
+	}
+
+		getUserInfo = function (userinfoRes) {
+			//Se imprime en los campos adecuados la információn básica de un usuario
+			document.getElementById("userreginput").value = userinfoRes.userinfo.Registro_U;
+			document.getElementById("emailinput").value = userinfoRes.userinfo.Email;
+			document.getElementById("nombresinput").value = userinfoRes.userinfo.Nombres;
+			document.getElementById("apellidosinput").value = userinfoRes.userinfo.Apellidos;
+
+			//Insertar escolaridad en caso de que el usuario se de tipo Coordinador o profesor
+			if (userinfoRes.userinfo.Tipo_Usuario == 2 || userinfoRes.userinfo.Tipo_Usuario == 1) {
+				$.ajax({
+					url: '../../sourcephp/views/shared/CoordAndProf/escolaridaddiv.php',
+					type: 'POST'
+				}).done(function (escolaridadPart) {
+					insertEscolaridadintoProfile(userinfoRes, escolaridadPart);
+				}).fail(function () {
+					AJAXrequestFailed("Fallo en Petición AJAX para insertar información escolaridad de usuario.");
+				});
+			}
+			//Si el usuario es de tipo Coordinador insertar la información básica de academia
+			if (userinfoRes.userinfo.Tipo_Usuario == 1) {
+				$.ajax({
+					url: '../../sourcephp/views/Users/coordinador/perprofilebasicacadinfo.php',
+					type: 'POST'
+				}).done(function (academiaPart) {
+					insertAcadBasicInfoToProfile(userinfoRes, academiaPart);
+				}).fail(function () {
+					AJAXrequestFailed("Fallo petición AJAX para inserción de información básica de academia.")
+				});
+			}
+		}
+
+			insertEscolaridadintoProfile = function (userinfoRes, escolaridadPart) {
+				document.getElementById("escolaridaddiv").insertAdjacentHTML('beforeend', escolaridadPart);
+				document.getElementById("escolaridadinput").value = userinfoRes.userinfo.Escolaridad;
+			}
+			
+			insertAcadBasicInfoToProfile = function (userinfoRes, academiaPart) {
+				document.getElementById("profilesubgridvariable").insertAdjacentHTML('beforeend', academiaPart);
+				document.getElementById("idacademialbl").innerHTML = userinfoRes.basicacadinfo.Id_Academia;
+				document.getElementById("academiainput").value = userinfoRes.basicacadinfo.Academia;
+
+				$.ajax({
+					url: "../../index_ajax.php?controller=Carrera&action=getCarreras",
+					type: 'POST',
+					dataType: 'json'
+				}).done(function (resCarreras) {
+					insertCarrerasComboToProfile(userinfoRes, resCarreras);
+				}).fail(function () {
+					AJAXrequestFailed("Fallo en petición AJAX para obtener carreras de la base de datos.");
+				});
+
+				var ciclosplited = userinfoRes.basicacadinfo.Ciclo_Periodo.split(" ");
+
+				//String Periodo de un ciclo escolar
+				var cicloperiodo = ciclosplited[0] + " " + ciclosplited[1] + " " + ciclosplited[2];
+				document.getElementById("cicloperiodoselect").value = cicloperiodo;
+
+				//Año de un Ciclo escolar
+				var actualyear = 2018;
+				for (i = actualyear; i > actualyear - 10; i--) {
+					var newyearoption = document.createElement("option");
+					newyearoption.text = i;
+					newyearoption.value = i.toString();
+					document.getElementById("cicloyearselect").add(newyearoption);
+				}
+				document.getElementById("cicloyearselect").value = ciclosplited[3];
+
+				//Ver si no hay un bug después cuando no haya un año coherente o existente
+				//por el limite de la fecha *****
+			}
+
+				insertCarrerasComboToProfile = function (userinfoRes, resCarreras) {
+					if (!resCarreras.error) {
+
+						numcarreras = resCarreras.carreras.length;
+						for (i = 1; i < numcarreras + 1; ++i)
+							document.getElementById("carrerainput").insertAdjacentHTML('beforeend', resCarreras.carreras[i]);
+
+						document.getElementById("carrerainput").value = userinfoRes.basicacadinfo.Carrera;
+					}
+					else
+						console.log(resCarreras.message);
+				}
+
+
+
+	editProfileInfo = function () {
+		console.log($("#profileform input[name=userreg]").val());
+	}
+
+
+	getAndExecuteNewInsertedScript = function (loadedPageByAJAX) {
+		scpts = loadedPageByAJAX.getElementsByTagName('script');
+		$.getScript(scpts[0].src, function () {
+			console.log("New Button Script loaded but not necessarily executed.");
+		});
+	}
+
+	getSessionVariables = function (methodToDo) {
+		$.ajax({
+			url: '../../index_ajax.php?controller=Users&action=getSessionVariables',
+			type: 'POST',
+			dataType: 'json'
+		}).done(function (sessionVariables) {
+			methodToDo(sessionVariables);
+		}).fail(function () {
+			AJAXrequestFailed("Fallo en Petición AJAX para obtener variables de sesión");
+		});
+	}
 	
-	/**
-	 * Para cerrar sesión cuando el usuario presione el botón de cerrar sesión
-	 */
-	$('body').on('click', '#closesession', function () {
+	closeUserSession = function () {
 		$.ajax({
 			url: '../../index_ajax.php?controller=Users&action=Logout',
 			type: 'POST',
@@ -19,304 +335,38 @@ $(document).ready(function ($) {
 				window.location.replace("../../index.php");
 				console.log("Cerrar Sesión");
 			}
-		}).fail(function () {
-			console.log("No Funciona petición cerrar sesión");
+		}).fail( function () {
+			AJAXrequestFailed("No funciona petición AJAX para cerrar sesión");
 		});
-	});
-
-	$("body").on("click", "#homebtn", function(e) {
-		$.ajax({
-		url: "../../sourcephp/views/shared/forEveryone/principal.php",
-		type: "POST"
-		}).done(function(response) {
-			$(".personalprofile").fadeOut("400", function() {
-				$("#submaincontainer").html(response);
-			}); 
-		})
-		.fail(function() {
-			console.log("No funciona cargar perfil");
-		});
-	});
-
-	$("body").on("click", "#dropusermen", function (e) {
-		//console.log($("#dropusermen").val());
-		$("#dropusermen").toggleClass('actives').siblings().removeClass('actives');
-	});
-
-	$("body").on("click", "#userprofile", function (e) {
-		$.ajax({
-			url: '../../sourcephp/views/shared/forEveryone/personalProfile.php',
-			type: 'POST'
-		}).done(function (response) {
-			$('#submaincontainer').html(response);
-			
-			setTimeout(function () {		
-				$(".personalprofile").fadeIn("400", function () { });
-				$(".personalprofile").css({
-					'display' : 'grid',
-					'grid-template-columns' : '1fr',
-					'grid-template-rows': '1fr 9fr',
-				});
-			}, 280);
-			$.ajax({
-				url: '../../index_ajax.php?controller=Users&action=getUserInfo',
-				type: 'POST',
-				dataType: 'json'
-			}).done(function getUserInfo(response) {
-				console.log(response);
-				document.getElementById("userreginput").value = response.userinfo.Registro_U;
-				document.getElementById("emailinput").value = response.userinfo.Email;
-				document.getElementById("nombresinput").value = response.userinfo.Nombres;
-				document.getElementById("apellidosinput").value = response.userinfo.Apellidos;
-				if (response.userinfo.Tipo_Usuario == 2 || response.userinfo.Tipo_Usuario == 1) {
-					$.ajax({
-						url: '../../sourcephp/views/shared/CoordAndProf/escolaridaddiv.php',
-						type: 'POST'
-					}).done(function insertEscolaridad(respuesta) {
-						var escdiv = document.getElementById("escolaridaddiv");
-						escdiv.insertAdjacentHTML('beforeend', respuesta);
-
-						var escselect = document.getElementById("escolaridadinput");
-						escselect.value = response.userinfo.Escolaridad;
-
-					}).fail(function () {  
-						console.log("Error al insertar escolaridad");
-					});
-				}
-				if (response.userinfo.Tipo_Usuario == 1) {
-					$.ajax({
-						url: '../../sourcephp/views/Users/coordinador/perprofilebasicacadinfo.php',
-						type: 'POST'
-					}).done(function insertacadbasicinfo(res) {
-						var subgridvariable = document.getElementById("profilesubgridvariable");
-						subgridvariable.insertAdjacentHTML('beforeend', res);
-
-						document.getElementById("idacademialbl").innerHTML = response.basicacadinfo.Id_Academia;
-						document.getElementById("academiainput").value = response.basicacadinfo.Academia;
-
-						//Get todas las carreras y poner en un for para insertar
-						var carrinput = document.getElementById("carrerainput");
-						var carroption = document.createElement("option");
-						carroption.text = response.basicacadinfo.Carrera;
-						carrinput.add(carroption);
-
-						var ciclosplited = response.basicacadinfo.Ciclo_Periodo.split(" ");
-						var cicloperiodo = ciclosplited[0] + " " + ciclosplited[1] + " " + ciclosplited[2];
-						
-						var cicloperselect = document.getElementById("cicloperiodoselect");
-						cicloperselect.value = cicloperiodo;
-
-						var cicloyselect = document.getElementById("cicloyearselect");
-						var year = document.createElement("option");
-						year.text = ciclosplited[3];
-						cicloyselect.add(year);
-						cicloyselect.value = ciclosplited[3];
-
-					}).fail(function () {  
-						console.log("Fallo en inserción de div academia");
-					});			
-				}	
-			}).fail(function () {
-				console.log("Fallo en obtención de info de usuario");
-			});
-		}).fail(function () {
-			console.log("No funciona cargar perfil");
-		})
-	});
-
-	$("body").on("click", "#editprofile", function (e) {
-		e.preventDefault();
-		console.log($("#profileform input[name=userreg]").val());
-		
-	});
-	
-});
-
-function outsideclick(e) {
-	if (e.target == document.getElementById('modwarning')) {
-		$('#modwarning').fadeOut('400', function () { });
 	}
-}
-window.addEventListener('click', outsideclick);
 
-/**
- * Esta función inserta la vista de la barra de navegación principal de la página
- * mediante una petición XMLHttp.
- */
-function insertnav() {
-	$.ajax({
-		url: '../../sourcephp/views/shared/forEveryone/navbar.php',
-		type: 'POST'
-	}).done(function (response) {
-		//console.log(response);
-		mainnavbar = document.getElementById('mainnavbar');
-		mainnavbar.insertAdjacentHTML('beforeend', response);
-	}).fail(function () {
-		console.log("Fallo en AJAX");
-	});
+	dropMenuInOut = function (e) {
+		$("#dropusermen").toggleClass('actives').siblings().removeClass('actives');
+	}
+
+
 	
-	getSessionVariables();	
-}
 
-function getSessionVariables() {
-	var x =	$.ajax({
-		url: '../../index_ajax.php?controller=Users&action=getSessionVariables',
-		type: 'POST',
-		dataType: 'json'
-	}).done(function (response) {
-		if (!response.error) {
-			ut = response.usertype;
-			if (ut == 1) {
-				$(".mainnavbar").css({ "background-color": "rgb(90, 144, 232)" });
-				setTimeout(insertnewbuttondiv, 1);
-				insertgroupsbar();
-				setTimeout(insertMateriapart, 15);
-				//insertMateriapart();
 
-				insertCoordStyles();
-			} else if (ut == 2) {
-				$(".mainnavbar").css({ "background-color": "rgb(30, 30, 30" });
-				setTimeout(insertnewbuttondiv, 1);
-				insertgroupsbar();
-				insertProfStyles();
-			} else if (ut == 3) {
-				$(".mainnavbar").css({ "background-color": "rgb(171, 49, 49)" });
-				insertAlumnoStyles();
-			}
-		} else if (response.error) {
-			//Cerrar sesión y redirigir a login
-			console.log("Cerrar Sesión");
-			window.location.replace("../../index.php");
+// ---------------------------------------------------------------------------------------------------------------------------------
+// ------------------------------------------- USER INTERACTION TRIGGERS -----------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------------------
 	
-		}
-	}).fail(function () {
-		console.log("No Funciona petición de variables de Sesión");
-	});
-}
+		
 
-function insertnewbuttondiv() {
-	$.ajax({
-		url: '../../sourcephp/views/shared/CoordAndProf/newbuttondiv.php',
-		type: 'POST'
-	}).done(function (btnres) {
-		newbutton = document.getElementById('newbutton');
-		//newbutton.insertAdjacentHTML('beforeend', btnres);
-		newbutton.innerHTML = btnres;
+	$('body').on('click', '#userprofile', function (e) { gotoPersonalProfilePage(); });
+	$('body').on('click', '#editprofile', function (e) { e.preventDefault(); editProfileInfo();	});
 
-		scpt = newbutton.getElementsByTagName('script');
+	// --------------------------------- Interaction Elements on ALL SUBPAGES  --------------------------------------------------
+	$('body').on('click', '#homebtn', function (e) { gotoMainPage(e); });
+	$('body').on('click', '#dropusermen', function (e) { dropMenuInOut(e); });
+	$('body').on('click', '#closesession', function () { closeUserSession(); });
+	$('body').on('click', '#modwarning', function () { $('#modwarning').fadeOut('400'); })
 
-		$.getScript(scpt[0].src, function () {
-			//alert("Script loaded but not necessarily executed.");
-		});		
-	}).fail(function () {
-		console.log("Fallo en AJAX para insertar boton NUEVO");
-	});
-}
+// ---------------------------------------------------------------------------------------------------------------------------------
+// ----------------------------------------- MAIN PAGE ON LOAD/READY CALLS ---------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------------------
 
-function insertgroupsbar() {
-	$.ajax({
-		url: '../../sourcephp/views/shared/CoordAndProf/groupsBar.php',
-		type: 'POST'
-	}).done(function (gpsbarres) {
-		groupsbar = document.getElementById('groupsbar');
-		groupsbar.innerHTML = gpsbarres;
-		//groupsbar.insertAdjacentHTML('beforeend', gpsbarres);
-	}).fail(function () {
-		console.log("Fallo en AJAX para insertar 'GROUPS BAR'");
-	});
-}
+	$('#mainnavbar').ready(insertMainNavbar);
 
-function insertMateriapart() {
-	$.ajax({
-		url: '../../sourcephp/views/Users/coordinador/gposbarmateriapart.php',
-		type: 'POST'
-	}).done(function (gpsbarmateriapartres) {
-		materiaspart = document.getElementById('materiaspart');
-		materiaspart.innerHTML = gpsbarmateriapartres;
-		//materiaspart.insertAdjacentHTML('beforeend', gpsbarmateriapartres);
-	}).fail(function () {
-		console.log("Fallo en AJAX para insertar 'GROUPS BAR'");
-	});
-}
-
-function insertCoordStyles() {
-	$(".allnavcontent").css({
-		"color": "white"
-	});
-	$(".searchinput").css({
-		"background-color": "transparent",
-		"border-top": "transparent",
-		"border-right": "transparent",
-		"border-left": "transparent",
-		"border-bottom": "solid white 2px",
-		"border-top": "transparent",
-		"color": "white",
-		"border-radius": "2px",
-		"padding-bottom": ".5vh"
-	});
-	$(".searcher input").addClass('whiteplaceholder');
-	/*
-	$('#modalwarningcontent').css({
-		"background-color": "rgb(90, 144, 232)",
-		"color": "white"
-	});
-	*/
-	$('#confirmbtn').css({
-		"background-color": "rgb(90, 144, 232)", 
-		"color" : "white"
-	});
-}
-
-function insertProfStyles() {
-	$(".allnavcontent").css({
-		"color": "rgb(247, 218, 37)"
-	});
-	$(".searchinput").css({
-		"background-color": "transparent",
-		"border-top": "transparent",
-		"border-right": "transparent",
-		"border-left": "transparent",
-		"border-bottom": "solid rgb(247, 218, 37) 2px",
-		"border-top": "transparent",
-		"color": "rgb(247, 218, 37)",
-		"border-radius": "2px",
-		"padding-bottom": ".5vh"
-	});
-	$(".searcher input").addClass('yellowplaceholder');
-	$(".searcher input").addClass('whiteplaceholder');
-	$('#modalwarningcontent').css({
-		"background-color": "rgb(30, 30, 30)",
-		"color": "rgb(247, 218, 37)"
-	});
-	$('#confirmbtn').css({
-		"color": "rgb(30, 30, 30)", 
-		"background-color": "rgb(247, 218, 37)"
-	});
-}
-
-function insertAlumnoStyles() {
-	$(".allnavcontent").css({
-		"color": "white"
-	});
-	$(".searchinput").css({
-		"background-color": "transparent",
-		"border-top": "transparent",
-		"border-right": "transparent",
-		"border-left": "transparent",
-		"border-bottom": "solid white 2px",
-		"border-top": "transparent",
-		"color": "white",
-		"border-radius": "2px",
-		"padding-bottom": ".5vh"
-	});
-	$(".searcher input").addClass('whiteplaceholder');
-	/*
-	$('#modalwarningcontent').css({ 
-		"background-color": "rgb(171, 49, 49)"
-	});
-	*/
-	$('#confirmbtn').css({
-		"background-color": "rgb(171, 49, 49)",
-		"color" : "white"
-	});
-}
+});

@@ -40,7 +40,7 @@
 	<link rel="shortcut icon" href="./source/img/easycheckico.png" type="image/x-icon">
 	<link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
 	<script type="text/javascript" src="./source/js/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript" src="./source/js/ajaxpagesfunctions.js"></script>
+	<script type="text/javascript" src="./source/js/generalapp.js"></script>
 	<script type="text/javascript" src="./source/js/applogin.js"></script>
 </head>	
 <body>
