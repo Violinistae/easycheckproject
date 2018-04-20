@@ -18,10 +18,10 @@
 			</div>
 			<div id="warningtexts">
 				<p id="warningprincipaltext">¿Seguro que desear modificar información de perfil?</p>
-				<p id="warningsecondaytext">La información anterior se perderá completamente</p>
+				<p id="warningsecondarytext">La información anterior se perderá completamente</p>
 			</div>
 			<div id="confirmbtns">
-				<button id="confirmbtn">Continuar</button>
+				<button id="confirmbtn">Aceptar</button>
 				<button id="cancelbtn">Cancelar</button>
 			</div>
 		</div>

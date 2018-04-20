@@ -126,7 +126,7 @@ $(document).ready(function($){
 				return;
 			if ($(this).val().length == 0) {
 				var message = "Por favor llene todos los campos del formulario";
-				$(this).addClass("error");
+				//$(this).addClass("error");
 				showError(message);
 				flag = true;
 			}

@@ -20,7 +20,7 @@
 
 .modalwarning {
     position: fixed;
-    display: block;
+    display: none;
     z-index: 14;
     top: 0;
     left: 0;

@@ -3,11 +3,24 @@ $(document).ready(function ($) {
 // ------------------------------------------------ FUNCTIONS TO CALL --------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------
 
-	maincontentFadeAnimation = function (responsePage) {  
-		$("#submaincontainer").fadeOut("300", function () {
-			$("#submaincontainer").html(responsePage);
+								/* Funciones de "uso único" */
+
+	closeUserSession = function () {
+		$.ajax({
+			url: '../../index_ajax.php?controller=Users&action=Logout',
+			type: 'POST',
+			dataType: 'json'
+		}).done(function (response) {
+			if (!response.error) {
+				window.location.replace("../../index.php");
+			} else if (response.error) {
+				//Pedir que cierre sesión de nuevo y preguntar a Rojas que onda
+				window.location.replace("../../index.php");
+				console.log("Cerrar Sesión");
+			}
+		}).fail(function () {
+			AJAXrequestFailed("No funciona petición AJAX para cerrar sesión");
 		});
-		$("#submaincontainer").fadeIn("300");
 	}
 
 	insertMainNavbar = function () {
@@ -180,6 +193,10 @@ $(document).ready(function ($) {
 				});
 			}
 
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+							/* Funciones para Cargar Páginas */
+				//Siempre establecer el valor de la cookie de lOaDeDpAgE_ajax
 
 	gotoMainPage = function (e) {
 		$.ajax({
@@ -297,11 +314,43 @@ $(document).ready(function ($) {
 				}
 
 
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-	editProfileInfo = function () {
-		console.log($("#profileform input[name=userreg]").val());
+					/* Funciones de interacción con la página */
+
+
+	clickEditProfile = function () {
+		mainStr = "¿Seguro que desea modificar la información de su perfil?";
+		secStr = "Al aceptar la acción, la información anterior no podrá ser recuperada."
+		showMessage(1, mainStr, secStr);
+
+			var flag = false;
+			var inputsToUpdateUserInfo = $("#profileform input");
+
+			$(inputsToUpdateUserInfo).each(function verifyUpdateUserInputs(params) {
+				if(flag)
+					return;
+				if($(this).val().length == 0) {
+					var message = "Por favor llene todos los campos del formulario para actualizar su perfil.";
+
+				}
+			});
 	}
 
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+						/* Funciones más utilizadas/invocadas*/
+
+	dropMenuInOut = function (e) {
+		$("#dropusermen").toggleClass('actives').siblings().removeClass('actives');
+	}
+
+	maincontentFadeAnimation = function (responsePage) {
+		$("#submaincontainer").fadeOut("300", function () {
+			$("#submaincontainer").html(responsePage);
+		});
+		$("#submaincontainer").fadeIn("300");
+	}
 
 	getAndExecuteNewInsertedScript = function (loadedPageByAJAX) {
 		scpts = loadedPageByAJAX.getElementsByTagName('script');
@@ -321,32 +370,32 @@ $(document).ready(function ($) {
 			AJAXrequestFailed("Fallo en Petición AJAX para obtener variables de sesión");
 		});
 	}
-	
-	closeUserSession = function () {
-		$.ajax({
-			url: '../../index_ajax.php?controller=Users&action=Logout',
-			type: 'POST',
-			dataType: 'json'
-		}).done(function (response) {
-			if (!response.error) {
-				window.location.replace("../../index.php");
-			} else if (response.error) {
-				//Pedir que cierre sesión de nuevo y preguntar a Rojas que onda
-				window.location.replace("../../index.php");
-				console.log("Cerrar Sesión");
-			}
-		}).fail( function () {
-			AJAXrequestFailed("No funciona petición AJAX para cerrar sesión");
-		});
-	}
+		
+	showMessage = function (cookieValue, mainMessage, secondMessage) {
+		$("#modwarning").fadeIn("400");
+		$("#warningprincipaltext").html(mainMessage);
+		$("#warningsecondarytext").html(secondMessage);
 
-	dropMenuInOut = function (e) {
-		$("#dropusermen").toggleClass('actives').siblings().removeClass('actives');
+		//Set 1 to wArNinGbTn_AcTiOn Cookie
+		setCookie("wArNinGbTn_AcTiOn", 1);
 	}
 
 
-	
+	doConfirmAction = function () {
+		var warCookie = getCookie("wArNinGbTn_AcTiOn");
+		alert(warCookie);
+	}
 
+	setCookie = function (cookieName, cookieValue) {
+		$.cookie(cookieName, cookieValue, { expires: 7, path: '/' });
+	}
+
+	getCookie = function (cookieName) {
+		return $.cookie(cookieName);
+	}
+
+	//Cambiar lo de cookies por Vanilla JS
+	
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 // ------------------------------------------- USER INTERACTION TRIGGERS -----------------------------------------------------------
@@ -355,13 +404,14 @@ $(document).ready(function ($) {
 		
 
 	$('body').on('click', '#userprofile', function (e) { gotoPersonalProfilePage(); });
-	$('body').on('click', '#editprofile', function (e) { e.preventDefault(); editProfileInfo();	});
+	$('body').on('click', '#editprofile', function (e) { e.preventDefault(); clickEditProfile();	});
 
 	// --------------------------------- Interaction Elements on ALL SUBPAGES  --------------------------------------------------
 	$('body').on('click', '#homebtn', function (e) { gotoMainPage(e); });
 	$('body').on('click', '#dropusermen', function (e) { dropMenuInOut(e); });
 	$('body').on('click', '#closesession', function () { closeUserSession(); });
-	$('body').on('click', '#modwarning', function () { $('#modwarning').fadeOut('400'); })
+	$('body').on('click', '#confirmbtn', function () { $('#modwarning').fadeOut('400'); doConfirmAction();});
+	$('body').on('click', '#cancelbtn', function () { $('#modwarning').fadeOut('400'); });
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 // ----------------------------------------- MAIN PAGE ON LOAD/READY CALLS ---------------------------------------------------------
