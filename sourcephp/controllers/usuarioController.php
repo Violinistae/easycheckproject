@@ -4,7 +4,7 @@
 	 * cuando el usuario ineractue con el sistema
 	 */
 	session_start();
-	class UsersController extends BaseController
+	class usuarioController extends BaseController
 	{
 	    /**
 	     * summary

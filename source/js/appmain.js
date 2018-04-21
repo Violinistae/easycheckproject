@@ -5,9 +5,9 @@ $(document).ready(function ($) {
 
 								/* Funciones de "uso único" */
 
-	closeUserSession = function () {
+	closeUserSession = () => {
 		$.ajax({
-			url: '../../index_ajax.php?controller=Users&action=Logout',
+			url: '../../index_ajax.php?controller=usuario&action=Logout',
 			type: 'POST',
 			dataType: 'json'
 		}).done(function (response) {
@@ -23,7 +23,7 @@ $(document).ready(function ($) {
 		});
 	}
 
-	insertMainNavbar = function () {
+	insertMainNavbar = () => {
 		$.ajax({
 			url: '../../sourcephp/views/shared/forEveryone/navbar.php',
 			type: 'POST'
@@ -35,12 +35,13 @@ $(document).ready(function ($) {
 		});
 	}
 
-		setStyleAndInfoToNavbar = function (sessionVariables) {
+		setStyleAndInfoToNavbar = (sessionVariables) => {
 			if (!sessionVariables.error) {
 				if (sessionVariables.usertype == 1) {
 					$(".mainnavbar").css({ "background-color": "rgb(90, 144, 232)" });
 					insertnewbuttondiv();
 					insertgroupsbar();
+					sleep(50);
 					insertMateriapart();
 					insertCoordStyles();
 				} else if (sessionVariables.usertype == 2) {
@@ -58,7 +59,7 @@ $(document).ready(function ($) {
 			}
 		}
 
-			insertnewbuttondiv = function () {
+			insertnewbuttondiv = () => {
 				$.ajax({
 					url: '../../sourcephp/views/shared/CoordAndProf/newbuttondiv.php',
 					type: 'POST'
@@ -70,13 +71,13 @@ $(document).ready(function ($) {
 				});
 			}
 
-				insertNewInstrumentoBtn = function (btnres) {
+				insertNewInstrumentoBtn = (btnres) => {
 					newbtn = document.getElementById('newbutton');
 					newbtn.innerHTML = btnres;
 					getAndExecuteNewInsertedScript(newbtn);
 				}
 
-				setnewButtonStyle = function(sessionVariables) {
+				setnewButtonStyle =(sessionVariables) => {
 					if (sessionVariables.usertype == 1) {
 						$(".buttonnewinst").css({
 							"border": "solid white 2px",
@@ -90,7 +91,7 @@ $(document).ready(function ($) {
 					}
 				}
 			
-			insertgroupsbar = function () {
+			insertgroupsbar = () => {
 				$.ajax({
 					url: '../../sourcephp/views/shared/CoordAndProf/groupsBar.php',
 					type: 'POST'
@@ -101,12 +102,12 @@ $(document).ready(function ($) {
 				});
 			}
 
-				insgroupsbar = function (gpsBarRes) {
+				insgroupsbar = (gpsBarRes) => {
 					groupsbar = document.getElementById('groupsbar');
 					groupsbar.innerHTML = gpsBarRes;
 				}
 
-			insertMateriapart = function () {
+			insertMateriapart = () => {
 				$.ajax({
 					url: '../../sourcephp/views/Users/coordinador/gposbarmateriapart.php',
 					type: 'POST'
@@ -116,13 +117,13 @@ $(document).ready(function ($) {
 					AJAXrequestFailed("Fallo en petición AJAX para insertar parte de materia en 'GROUPS BAR'");
 				});
 			}
-				insMateriaPartOnGroupsBar = function (gpsBarMateriaPartRes) {
+				insMateriaPartOnGroupsBar = (gpsBarMateriaPartRes) => {
 					materiaspart = document.getElementById('materiaspart');
 					materiaspart.innerHTML = gpsBarMateriaPartRes;
 				}
 				
 
-			insertCoordStyles = function() {
+			insertCoordStyles = () => {
 				$(".allnavcontent").css({
 					"color": "white"
 				});
@@ -144,7 +145,7 @@ $(document).ready(function ($) {
 				});
 			}
 
-			insertProfStyles = function() {
+			insertProfStyles = () => {
 				$(".allnavcontent").css({
 					"color": "rgb(247, 218, 37)"
 				});
@@ -171,7 +172,7 @@ $(document).ready(function ($) {
 				});
 			}
 
-			insertAlumnoStyles = function () {
+			insertAlumnoStyles =  () => {
 				$(".allnavcontent").css({
 					"color": "white"
 				});
@@ -193,12 +194,12 @@ $(document).ready(function ($) {
 				});
 			}
 
-	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 							/* Funciones para Cargar Páginas */
 				//Siempre establecer el valor de la cookie de lOaDeDpAgE_ajax
 
-	gotoMainPage = function (e) {
+	gotoMainPage = (e) => {
 		$.ajax({
 			url: "../../sourcephp/views/shared/forEveryone/principal.php",
 			type: "POST"
@@ -209,14 +210,14 @@ $(document).ready(function ($) {
 		});
 	}
 
-	gotoPersonalProfilePage = function () {
+	gotoPersonalProfilePage = () => {
 		$.ajax({
 			url: '../../sourcephp/views/shared/forEveryone/personalProfile.php',
 			type: 'POST'
 		}).done(function (personalProfilePage) {
-			maincontentFadeAnimation(personalProfilePage);
+			maincontentFadeAnimation(personalProfilePage);			
 			$.ajax({
-				url: '../../index_ajax.php?controller=Users&action=getUserInfo',
+				url: '../../index_ajax.php?controller=usuario&action=getUserInfo',
 				type: 'POST',
 				dataType: 'json'
 			}).done(function (userinfoRes) {
@@ -229,7 +230,7 @@ $(document).ready(function ($) {
 		});
 	}
 
-		getUserInfo = function (userinfoRes) {
+		getUserInfo = (userinfoRes) => {
 			//Se imprime en los campos adecuados la információn básica de un usuario
 			document.getElementById("userreginput").value = userinfoRes.userinfo.Registro_U;
 			document.getElementById("emailinput").value = userinfoRes.userinfo.Email;
@@ -260,18 +261,18 @@ $(document).ready(function ($) {
 			}
 		}
 
-			insertEscolaridadintoProfile = function (userinfoRes, escolaridadPart) {
+			insertEscolaridadintoProfile = (userinfoRes, escolaridadPart) => {
 				document.getElementById("escolaridaddiv").insertAdjacentHTML('beforeend', escolaridadPart);
 				document.getElementById("escolaridadinput").value = userinfoRes.userinfo.Escolaridad;
 			}
 			
-			insertAcadBasicInfoToProfile = function (userinfoRes, academiaPart) {
+			insertAcadBasicInfoToProfile = (userinfoRes, academiaPart) => {
 				document.getElementById("profilesubgridvariable").insertAdjacentHTML('beforeend', academiaPart);
 				document.getElementById("idacademialbl").innerHTML = userinfoRes.basicacadinfo.Id_Academia;
 				document.getElementById("academiainput").value = userinfoRes.basicacadinfo.Academia;
 
 				$.ajax({
-					url: "../../index_ajax.php?controller=Carrera&action=getCarreras",
+					url: "../../index_ajax.php?controller=carrera&action=getCarreras",
 					type: 'POST',
 					dataType: 'json'
 				}).done(function (resCarreras) {
@@ -300,7 +301,7 @@ $(document).ready(function ($) {
 				//por el limite de la fecha *****
 			}
 
-				insertCarrerasComboToProfile = function (userinfoRes, resCarreras) {
+				insertCarrerasComboToProfile = (userinfoRes, resCarreras) => {
 					if (!resCarreras.error) {
 
 						numcarreras = resCarreras.carreras.length;
@@ -314,54 +315,60 @@ $(document).ready(function ($) {
 				}
 
 
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 					/* Funciones de interacción con la página */
 
 
-	clickEditProfile = function () {
+	clickEditProfile = () => {
 		mainStr = "¿Seguro que desea modificar la información de su perfil?";
 		secStr = "Al aceptar la acción, la información anterior no podrá ser recuperada."
-		showMessage(1, mainStr, secStr);
 
-			var flag = false;
-			var inputsToUpdateUserInfo = $("#profileform input");
+		//Set 1 to wArNinGbTn_AcTiOn Cookie
+		var flag = false;
+		var inputsToUpdateUserInfo = $("#profileform input");
 
-			$(inputsToUpdateUserInfo).each(function verifyUpdateUserInputs(params) {
-				if(flag)
-					return;
-				if($(this).val().length == 0) {
-					var message = "Por favor llene todos los campos del formulario para actualizar su perfil.";
+		$(inputsToUpdateUserInfo).each(function verifyUpdateUserInputs(params) {
+			if(flag)
+				return;
+			if($(this).val().length == 0) {
+				var mainmessage = "Por favor llene todos los campos del formulario para actualizar su perfil.";
+				var secmessage = "Presione algún botón para continuar";
+				showMessage("wArNinGbTn_AcTiOn", 0, mainStr, secStr);
+			}
+		});
 
-				}
-			});
+		if(!flag) {
+			showMessage("wArNinGbTn_AcTiOn", 1, mainStr, secStr);
+		}
+		
 	}
 
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-						/* Funciones más utilizadas/invocadas*/
+						/* Funciones más utilizadas/invocadas */
 
-	dropMenuInOut = function (e) {
+	dropMenuInOut = (e) => {
 		$("#dropusermen").toggleClass('actives').siblings().removeClass('actives');
 	}
 
-	maincontentFadeAnimation = function (responsePage) {
-		$("#submaincontainer").fadeOut("300", function () {
-			$("#submaincontainer").html(responsePage);
-		});
+	maincontentFadeAnimation = (responsePage) => {
+		$("#submaincontainer").fadeOut("300");
+		sleep(370);
+		$("#submaincontainer").html(responsePage);
 		$("#submaincontainer").fadeIn("300");
 	}
 
-	getAndExecuteNewInsertedScript = function (loadedPageByAJAX) {
+	getAndExecuteNewInsertedScript = (loadedPageByAJAX) => {
 		scpts = loadedPageByAJAX.getElementsByTagName('script');
 		$.getScript(scpts[0].src, function () {
 			console.log("New Button Script loaded but not necessarily executed.");
 		});
 	}
 
-	getSessionVariables = function (methodToDo) {
+	getSessionVariables = (methodToDo) => {
 		$.ajax({
-			url: '../../index_ajax.php?controller=Users&action=getSessionVariables',
+			url: '../../index_ajax.php?controller=usuario&action=getSessionVariables',
 			type: 'POST',
 			dataType: 'json'
 		}).done(function (sessionVariables) {
@@ -371,46 +378,140 @@ $(document).ready(function ($) {
 		});
 	}
 		
-	showMessage = function (cookieValue, mainMessage, secondMessage) {
+	showMessage = (cookieName, cookieValue, mainMessage, secondMessage) => {
 		$("#modwarning").fadeIn("400");
 		$("#warningprincipaltext").html(mainMessage);
 		$("#warningsecondarytext").html(secondMessage);
-
-		//Set 1 to wArNinGbTn_AcTiOn Cookie
-		setCookie("wArNinGbTn_AcTiOn", 1);
+		setCookie(cookieName, cookieValue, 10);											//Ver cuántos días se debe de almacenar
 	}
 
 
-	doConfirmAction = function () {
-		var warCookie = getCookie("wArNinGbTn_AcTiOn");
-		alert(warCookie);
+	doConfirmAction = () => {
+		cookieName = "wArNinGbTn_AcTiOn";
+		var warningCookieValue = getCookie(cookieName);
+		//alert(warningCookieValue);
+
+		//Switch for function calling
+		switch (warningCookieValue) {
+			case "0":							//Solo mostrar información	???
+				break;
+			case "1":							//Modificar información de usuario
+				updateUserInfo();
+				break;
+			default:
+				console.log("Acción inválida. Logout?");
+				//closeUserSession();
+				break;
+		}
+
+		deleteCookie(cookieName);
 	}
 
-	setCookie = function (cookieName, cookieValue) {
-		$.cookie(cookieName, cookieValue, { expires: 7, path: '/' });
+	setCookie = (cookieName, cookieValue, exDays) => {
+		var d = new Date();
+		d.setTime(d.getTime() + (exDays*24*60*60*1000));
+		var expires = "expires=" + d.toGMTString();
+		document.cookie = cookieName + "=" + cookieValue + ";" + "expires" + ";path=/"
 	}
 
-	getCookie = function (cookieName) {
-		return $.cookie(cookieName);
+	deleteCookie = (cookieName) => {
+		document.cookie = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
 	}
 
-	//Cambiar lo de cookies por Vanilla JS
-	
+	getCookie = (cookieName) => {
+		var cname = cookieName + "=";
+		var decodedCookie = decodeURIComponent(document.cookie);
+		var ca = decodedCookie.split(';');
+		for(var i = 0; i < ca.length; i++) {
+			var c = ca[i];
+			while (c.charAt(0) == ' ') {
+				c = c.substring(1);
+			}
+			if(c.indexOf(cname) == 0)
+				return c.substring(cname.length, c.length);
+		}
+		return null;
+	}
+
+	sleep = (miliseconds) =>  {
+		var start = new Date().getTime();
+		for(var i = 0; i < 1e7; i++) {
+			if((new Date().getTime() - start) > miliseconds)
+				break;
+		}
+	}	
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+					/* Funciones para modificar o insertar registros en la base de datos */
+
+	updateUserInfo = () => {
+		newUserreg = $("#profileform input[name=userreg]").val();
+		newEmail = $("#profileform input[name=email]").val();
+		newNombres = $("#profileform input[name=nombres]").val();
+		newApellidos = $("#profileform input[name=apellidos]").val();
+		
+		getSessionVariables(updateUserInfoSecondFase);
+	}
+
+		updateUserInfoSecondFase = (sessionVariables) => {
+			if (!sessionVariables.error) {
+				var dataToUpdateUserInfo = null;
+				if (sessionVariables.usertype == 1) {
+					var dataToUpdateUserInfo = {
+						userreg: newUserreg,
+						email: newEmail,
+						nombres: newNombres,
+						apellidos: newApellidos,
+						escolaridad: $("#profileform select[name=escolaridadselect]").val(),
+						idacad: parseInt($("#idacademialbl").html()),
+						academia: $("#profileform input[name=academia]").val(),
+						carrera: parseInt($("#profileform select[name=carrera]").val()), 
+						cicloperiodo: $("#profileform select[name=cicloperiodo]").val(),
+						cicloyear: $("#profileform select[name=cicloyear]").val(), 
+						utype: parseInt(sessionVariables.usertype)
+					}
+				} else if (sessionVariables.usertype == 2) {
+					dataToUpdateUserInfo = {
+						userreg: newUserreg,
+						email: newEmail,
+						nombres: newNombres,
+						apellidos: newApellidos,
+						escolaridad: $("#profileform select[name=escolaridadselect]").val(),
+						utype: parseInt(sessionVariables.usertype)
+					}
+				} else if (sessionVariables.usertype == 3) {
+					dataToUpdateUserInfo = {
+						userreg: newUserreg,
+						email: newEmail,
+						nombres: newNombres,
+						apellidos: newApellidos,
+						utype: parseInt(sessionVariables.usertype)
+					}
+				}				
+				//Call AJAX function to update
+			} else if (sessionVariables.error) {
+				console.log("Cerrar Sesión");
+				window.location.replace("../../index.php");
+			}
+		}
+
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 // ------------------------------------------- USER INTERACTION TRIGGERS -----------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------
-	
 		
-
 	$('body').on('click', '#userprofile', function (e) { gotoPersonalProfilePage(); });
-	$('body').on('click', '#editprofile', function (e) { e.preventDefault(); clickEditProfile();	});
+	$('body').on('click', '#editprofile', function (e) { e.preventDefault(); clickEditProfile(); });
 
 	// --------------------------------- Interaction Elements on ALL SUBPAGES  --------------------------------------------------
+
 	$('body').on('click', '#homebtn', function (e) { gotoMainPage(e); });
 	$('body').on('click', '#dropusermen', function (e) { dropMenuInOut(e); });
 	$('body').on('click', '#closesession', function () { closeUserSession(); });
-	$('body').on('click', '#confirmbtn', function () { $('#modwarning').fadeOut('400'); doConfirmAction();});
+	$('body').on('click', '#confirmbtn', function () { $('#modwarning').fadeOut('400'); doConfirmAction(); });
 	$('body').on('click', '#cancelbtn', function () { $('#modwarning').fadeOut('400'); });
 
 // ---------------------------------------------------------------------------------------------------------------------------------
@@ -418,5 +519,7 @@ $(document).ready(function ($) {
 // ---------------------------------------------------------------------------------------------------------------------------------
 
 	$('#mainnavbar').ready(insertMainNavbar);
+
+	//Check cookie of last page and redirect to that page
 
 });

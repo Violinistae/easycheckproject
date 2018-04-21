@@ -5,8 +5,6 @@
 	 */
 	require_once('config/database.php');
 	require_once('core/Connection.php');
-
-	require_once('core/BaseModel.php');
 	
 	/** Para abrir todos lo modelos que se requerirán
 	 *  

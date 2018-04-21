@@ -2,9 +2,9 @@
 	function dbdata()
 	{
 		return array(
-		    //"host" 			=> "localhost",
+		    "host" 			=> "127.0.0.1",
 
-			"host"      	=>"den1.mysql2.gear.host",
+			//"host"      	=>"den1.mysql2.gear.host",
 			"user" 		=> "easycheckdb",
 			"password" 	=> "Ox61_b2xx-9z",
 			"database"  	=> "easycheckdb",

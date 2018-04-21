@@ -77,14 +77,14 @@ $(document).ready(function($){
 		};
 
 		$.ajax({
-			url: "./index_ajax.php?controller=Users&action=Login",
+			url: "./index_ajax.php?controller=usuario&action=Login",
 			type: 'POST',
 			dataType: 'json',
 			data: parametros
 		}).done(function loginActionResponse (response) {
 			if (!response.error) {
 				$.ajax({
-					url: './index_ajax.php?controller=Users&action=verifyUser',
+					url: './index_ajax.php?controller=usuario&action=verifyUser',
 					type: 'POST',
 					dataType: 'json',
 					data: { param1: 'value1' },
@@ -231,7 +231,7 @@ function checkuserregist(type) {
 				peticion_http.open('GET', './sourcephp/views/users/coordinador/formRegistroCoord.php', true);
 
 				$.ajax({
-					url: "./index_ajax.php?controller=Carrera&action=getCarreras",
+					url: "./index_ajax.php?controller=carrera&action=getCarreras",
 					type: 'POST',
 					dataType: 'json'
 				}).done(function insertCarrerasCombo(response) {
@@ -371,7 +371,7 @@ function checkreg(typeu) {
 		}
 
 		$.ajax({
-			url: "./index_ajax.php?controller=Users&action=registerUser",
+			url: "./index_ajax.php?controller=usuario&action=registerUser",
 			type: 'POST',
 			dataType: 'json',
 			data: param
