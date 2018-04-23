@@ -18,91 +18,168 @@
 
 /* ------------------ Warning modal style --------------------*/
 
-.modalwarning {
-    position: fixed;
-    display: none;
-    z-index: 14;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    background-color: rgba(48, 45, 45, 0.651);
-    font-family: 'Noto Sans', sans-serif;
-}
+    .modalwarning {
+        position: fixed;
+        display: none;
+        z-index: 14;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        background-color: rgba(48, 45, 45, 0.651);
+        font-family: 'Noto Sans', sans-serif;
+    }
 
-#modalwarningcontent {
-    background-color: rgb(233, 233, 233);
-    color: black;
-	position: absolute;
-	margin: 4% auto;
-	width: 58%;
-	height: 64%;
-    border-radius: 20px;
-    top:42%;
-    left:50%;
-    transform:translate(-50%,-50%);
+    #modalwarningcontent {
+        background-color: rgb(233, 233, 233);
+        color: black;
+        position: absolute;
+        margin: 4% auto;
+        width: 58%;
+        height: 64%;
+        border-radius: 20px;
+        top:42%;
+        left:50%;
+        transform:translate(-50%,-50%);
 
-    display: grid;
-    grid-template-rows: 2fr 5.5fr 2.75fr;
-    grid-template-columns: auto;
-    z-index: 24;
+        display: grid;
+        grid-template-rows: 2fr 5.5fr 2.75fr;
+        grid-template-columns: auto;
+        z-index: 24;
 
-}
+    }
+
+    #warningtitle {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+    #warningtitle>p {
+        font-size: 1.6vw;
+    }
+
+    #warningtexts {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    #warningprincipaltext {
+        font-size: 3.2vw; 
+        margin-bottom: 3vh;
+    }
+    #warningsecondaytext {
+        font-size: 1.6vw;
+    }
+
+    #confirmbtns {
+        position: relative;
+        display: grid;
+        grid-template-columns: 2fr 3fr 3fr 2fr;
+        grid-template-rows: 1fr;
+        
+        border-radius: 0px 0px 20px 20px;
+    }
+    #confirmbtns>button {
+        height: 100%;
+        cursor: pointer;
+        outline: none;
+        color: white;
+        font-size: 1.8vw;
+    }
+    #confirmbtn {
+        grid-column-start: 2;
+        border: transparent;
+    }
+
+    #cancelbtn {
+        grid-column-start: 3;
+        border: transparent;
+        background-color: rgb(150, 145, 145);
+    }
 
 
-#warningtitle {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
-#warningtitle>p {
-    font-size: 1.6vw;
-}
+/* ------------------ Information modal style --------------------*/
 
-#warningtexts {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-#warningprincipaltext {
-    font-size: 3.2vw; 
-    margin-bottom: 3vh;
-}
-#warningsecondaytext {
-    font-size: 1.6vw;
-}
+    .modalInformation {
+        position: fixed;
+        display: none;
+        z-index: 14;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        background-color: rgba(48, 45, 45, 0.651);
+        font-family: 'Noto Sans', sans-serif;
+    }
 
-#confirmbtns {
-    position: relative;
-    display: grid;
-    grid-template-columns: 2fr 3fr 3fr 2fr;
-    grid-template-rows: 1fr;
-    
-    border-radius: 0px 0px 20px 20px;
-}
-#confirmbtns>button {
-    height: 100%;
-    cursor: pointer;
-    outline: none;
-    color: white;
-    font-size: 1.8vw;
-}
-#confirmbtn {
-    grid-column-start: 2;
-    border: transparent;
-}
+    #modalInformationcontent {
+        background-color: rgb(233, 233, 233);
+        color: black;
+        position: absolute;
+        margin: 4% auto;
+        width: 58%;
+        height: 64%;
+        border-radius: 20px;
+        top:42%;
+        left:50%;
+        transform:translate(-50%,-50%);
 
-#cancelbtn {
-    grid-column-start: 3;
-    border: transparent;
-    background-color: rgb(150, 145, 145);
-}
+        display: grid;
+        grid-template-rows: 2fr 5.5fr 2.75fr;
+        grid-template-columns: auto;
+        z-index: 24;
 
+    }
 
+    #Informationtitle {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+    #Informationtitle>p {
+        font-size: 1.6vw;
+    }
+
+    #Informationtexts {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+    #Informationprincipaltext {
+        font-size: 2.6vw; 
+        margin-bottom: 3vh;
+    }
+    #Informationsecondaytext {
+        font-size: 2.2vw;
+    }
+
+    #continuebtns {
+        position: relative;
+        display: grid;
+        grid-template-columns: 2fr 6fr 2fr;
+        grid-template-rows: 1fr;
+        
+        border-radius: 0px 0px 20px 20px;
+    }
+    #continuebtns>button {
+        height: 100%;
+        cursor: pointer;
+        outline: none;
+        color: white;
+        font-size: 1.8vw;
+    }
+    #continuebtn {
+        grid-column-start: 2;
+        border: transparent;
+    }
 
 /* ------------------ Navbar de cada página --------------------*/
 
@@ -226,14 +303,14 @@
 
 #subdropusermenu {
     position: absolute;
-    display: block;
+    display: none;
     width: auto;
     height: auto;
     margin-top: 3.3vh;
     z-index: 12;
 }
 
-#dropusermen.actives+ #subdropusermenu {
+.subdropumen.active + #subdropusermenu {
     display: block;
 }
 

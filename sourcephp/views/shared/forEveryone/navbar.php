@@ -10,8 +10,8 @@
 		</li>
 		<li class="usermenu">
 			<div id="dropuserpart">
-				<div id="todropmenubtn"><i id="dropusermen" class="drop fa fa-angle-down"></i></div>
-				<div class="subdrop" id="subdropusermenu">
+				<div class="subdropumen" id="todropmenubtn"><i id="dropusermen" class="drop fa fa-angle-down"></i></div>
+				<div id="subdropusermenu">
 					<ul>
 						<li>
 							<button id="userprofile">Mi Perfil</button>

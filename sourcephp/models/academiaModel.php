@@ -1,5 +1,6 @@
 <?php
     class academiaModel {
+        
         private $Id_Academia;
         private $Academia;
         private $Clave_Accceso;
@@ -8,6 +9,46 @@
         private $Coordinador_Acad;
         private $Carrera;
         
+        public function __construct() {}
+
+        public function setAcademia ($Academia) {
+            $this->Academia = $Academia;
+        }
+        public function setClave_Acceso ($Clave_Acceso) {
+            $this->Clave_Accceso = $Clave_Accceso;
+        }
+        public function setCiclo_Periodo ($Ciclo_Periodo) {
+            $this->Ciclo_Periodo = $Ciclo_Periodo;
+        }
+        public function setLista_Prof ($Lista_Prof) {
+            $this->$Lista_Prof = $Lista_Prof;
+        }
+        public function setCoordinador_Acad ($Coordinador_Acad) {
+            $this->$Coordinador_Acad = $Coordinador_Acad;
+        }
+        public function setCarrera ($Carrera) {
+            $this->$Carrera = $Carrera;
+        }
+
+        public function getAcademia () {
+            return $this->Academia;
+        }
+        public function getClave_Acceso () {
+            return $this->Clave_Accceso;
+        }
+        public function getCiclo_Periodo () {
+            return $this->Ciclo_Periodo;
+        }
+        public function getLista_Prof ($Lista_Prof) {
+            return $this->$Lista_Prof;
+        }
+        public function getCoordinador_Acad () {
+            return $this->$Coordinador_Acad;
+        }
+        public function getCarrera () {
+            return $this->$Carrera;
+        }
+
 
     }
     

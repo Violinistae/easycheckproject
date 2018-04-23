@@ -224,5 +224,114 @@
 				echo json_encode (array('error' => true, 'closesess' => true));
 			}
 		}
+
+		public function updateUserInfo()
+	    {	    		    	
+			if(isset($_POST["tuser"]))
+			{		
+
+				$olduserreg = $_SESSION["userreg"];		//Cambiar variable de sesión al update
+				$verfusuarios = $this->pdo->prepare("SELECT Registro_U from usuario where Registro_U = '$olduserreg'");
+				$verfusuarios->execute();
+				$numveru = $verfusuarios->rowCount();
+
+				if($numveru > 0)
+				{
+					$newuserreg = $_POST["newuserreg"];
+					$verfnewuserreg = $this->pdo->prepare("SELECT Registro_U from usuario where Registro_U = '$newuserreg'");
+					$verfnewuserreg->execute();
+					$newusernum = $verfnewuserreg->rowCount();
+					
+					$email = $_POST["email"];
+				}
+				else if ($numveru == 0)	//No hay usuario con ese registro
+				{
+
+					echo json_encode(array('error' => true, 'message' => "Error no hay usuario que actualizar."));
+
+					$typeuser = $_POST["tuser"];
+					$email = $_POST["email"];
+					$password = $_POST["password"];
+					$nombres = $_POST["nombres"];
+					$apellidos = $_POST["apellidos"];
+
+					if($typeuser == 1 || $typeuser == 2)			//Coord o Profesor
+						$escolaridad = $_POST["escolaridad"];
+					else if($typeuser == 3)							//Alumno
+						$escolaridad = null;
+					else 						//Error
+			    	{
+						echo json_encode(array('error' => true));
+						return;
+					}
+
+					$insercion = $this->pdo->prepare(
+						"INSERT into usuario (
+								Registro_U, 
+								Nombres, 
+								Apellidos, 
+								Email, 
+								Password, 
+								Tipo_Usuario,
+								Escolaridad
+							) values (
+								'$userreg', 
+								'$nombres', 
+								'$apellidos', 
+								'$email', 
+								'$password',
+								'$typeuser', 
+								'$escolaridad'
+							)"
+					);
+					$insercion->execute();
+					$countinsert = $insercion->rowCount();						
+
+					if($typeuser == 1)	//Coordinador de Academia
+			    	{
+						$academia = $_POST["academia"];
+						$carrera = $_POST["carrera"];
+			    		$claveaccess = $_POST["claveaccess"];
+						$ciclo = $_POST["ciclomeses"]." ".$_POST["cicloy"];
+						$listaprof = null;
+
+						$insertacad = $this->pdo->prepare(
+							"INSERT INTO academia (
+									Academia, 
+									Clave_Acceso, 
+									Ciclo_Periodo,
+									Lista_Prof, 
+									Coordinador_Acad, 
+									Carrera
+								) values (
+									'$academia', 								
+									'$claveaccess',
+									'$ciclo',
+									'$listaprof',
+									'$userreg',
+									'$carrera'
+								);");
+						$insertacad->execute();
+						$insertedacad = $insertacad->rowCount();
+
+						if($insertedacad > 0 && $countinsert > 0)
+							echo json_encode(array('error' => false, 'message' => "Registro completado satisfactoriamente."));
+						else
+						{
+							echo json_encode(array('error' => true, 'message' => 'Error al registrase'));			    	
+							//Delete ambos si se crearon
+						}
+					}							    	
+					else if ($typeuser == 2 || $typeuser == 3)
+					{
+						if($countinsert > 0)
+							echo json_encode(array('error' => false, 'message' => "Registro completado satisfactoriamente."));
+						else
+							echo json_encode(array('error' => true, 'message' => 'Error al registrase', 'ins' => $countinsert));
+					}
+				}
+			}	    		   
+		}
+
 	}
 ?>

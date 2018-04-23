@@ -17,12 +17,27 @@
 				<p>Favor de confirmar la acción</p>
 			</div>
 			<div id="warningtexts">
-				<p id="warningprincipaltext">¿Seguro que desear modificar información de perfil?</p>
-				<p id="warningsecondarytext">La información anterior se perderá completamente</p>
+				<p id="warningprincipaltext"></p>
+				<p id="warningsecondarytext"></p>
 			</div>
 			<div id="confirmbtns">
 				<button id="confirmbtn">Aceptar</button>
 				<button id="cancelbtn">Cancelar</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="modalinformation" id="modinformation">
+		<div id="modalinformationcontent">
+			<div id="informationtitle">
+				<p></p>
+			</div>
+			<div id="informationtexts">
+				<p id="informationprincipaltext"></p>
+				<p id="informationsecondarytext"></p>
+			</div>
+			<div id="continuebtns">
+				<button id="continuebtn">Continuar</button>
 			</div>
 		</div>
 	</div>
