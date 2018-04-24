@@ -5,24 +5,7 @@ $(document).ready(function ($) {
 
 								/* Funciones de "uso único" */
 
-	closeUserSession = () => {
-		$(".subdropumen").removeClass('active');
-		$.ajax({
-			url: '../../index_ajax.php?controller=usuario&action=Logout',
-			type: 'POST',
-			dataType: 'json'
-		}).done(function (response) {
-			if (!response.error) {
-				window.location.replace("../../index.php");
-			} else if (response.error) {
-				//Pedir que cierre sesión de nuevo y preguntar a Rojas que onda
-				window.location.replace("../../index.php");
-				console.log("Cerrar Sesión");
-			}
-		}).fail(function () {
-			AJAXrequestFailed("No funciona petición AJAX para cerrar sesión");
-		});
-	}
+	
 
 	insertMainNavbar = () => {
 		$.ajax({
@@ -98,6 +81,7 @@ $(document).ready(function ($) {
 					type: 'POST'
 				}).done(function (gpsBarRes) {
 					insgroupsbar(gpsBarRes);
+					
 				}).fail(function () {
 					AJAXrequestFailed("Fallo en petición AJAX para insertar 'GROUPS BAR'");
 				});
@@ -106,6 +90,7 @@ $(document).ready(function ($) {
 				insgroupsbar = (gpsBarRes) => {
 					groupsbar = document.getElementById('groupsbar');
 					groupsbar.innerHTML = gpsBarRes;
+					getAndExecuteNewInsertedScript(groupsbar);
 				}
 
 			insertMateriapart = () => {
@@ -124,88 +109,7 @@ $(document).ready(function ($) {
 				}
 				
 
-			insertCoordStyles = () => {
-				$(".allnavcontent").css({
-					"color": "white"
-				});
-				$(".searchinput").css({
-					"background-color": "transparent",
-					"border-top": "transparent",
-					"border-right": "transparent",
-					"border-left": "transparent",
-					"border-bottom": "solid white 2px",
-					"border-top": "transparent",
-					"color": "white",
-					"border-radius": "2px",
-					"padding-bottom": ".5vh"
-				});
-				$(".searcher input").addClass('whiteplaceholder');
-				$('#confirmbtn').css({
-					"background-color": "rgb(90, 144, 232)",
-					"color": "white"
-				});
-				$('#continuebtn').css({
-					"background-color": "rgb(90, 144, 232)",
-					"color": "white"
-				});
-			}
-
-			insertProfStyles = () => {
-				$(".allnavcontent").css({
-					"color": "rgb(247, 218, 37)"
-				});
-				$(".searchinput").css({
-					"background-color": "transparent",
-					"border-top": "transparent",
-					"border-right": "transparent",
-					"border-left": "transparent",
-					"border-bottom": "solid rgb(247, 218, 37) 2px",
-					"border-top": "transparent",
-					"color": "rgb(247, 218, 37)",
-					"border-radius": "2px",
-					"padding-bottom": ".5vh"
-				});
-				$(".searcher input").addClass('yellowplaceholder');
-				$(".searcher input").addClass('whiteplaceholder');
-				$('#modalwarningcontent').css({
-					"background-color": "rgb(30, 30, 30)",
-					"color": "rgb(247, 218, 37)"
-				});
-				$('#confirmbtn').css({
-					"color": "rgb(30, 30, 30)",
-					"background-color": "rgb(247, 218, 37)"
-				});
-				$('#continuebtn').css({
-					"color": "rgb(30, 30, 30)",
-					"background-color": "rgb(247, 218, 37)"
-				});
-			}
-
-			insertAlumnoStyles =  () => {
-				$(".allnavcontent").css({
-					"color": "white"
-				});
-				$(".searchinput").css({
-					"background-color": "transparent",
-					"border-top": "transparent",
-					"border-right": "transparent",
-					"border-left": "transparent",
-					"border-bottom": "solid white 2px",
-					"border-top": "transparent",
-					"color": "white",
-					"border-radius": "2px",
-					"padding-bottom": ".5vh"
-				});
-				$(".searcher input").addClass('whiteplaceholder');
-				$('#confirmbtn').css({
-					"background-color": "rgb(171, 49, 49)",
-					"color": "white"
-				});
-				$('#continuebtn').css({
-					"background-color": "rgb(171, 49, 49)",
-					"color": "white"
-				});
-			}
+			
 
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -213,6 +117,7 @@ $(document).ready(function ($) {
 				//Siempre establecer el valor de la cookie de lOaDeDpAgE_ajax
 
 	gotoMainPage = (e) => {
+		setCookie("lOaDeDpAgE_ajax", "gotoMainPage", 7);
 		$(".subdropumen").removeClass('active');
 		$.ajax({
 			url: "../../sourcephp/views/shared/forEveryone/principal.php",
@@ -225,6 +130,7 @@ $(document).ready(function ($) {
 	}
 
 	gotoPersonalProfilePage = () => {
+		setCookie("lOaDeDpAgE_ajax", "gotoPersonalProfilePage", 7);
 		$(".subdropumen").removeClass('active');
 		$.ajax({
 			url: '../../sourcephp/views/shared/forEveryone/personalProfile.php',
@@ -236,7 +142,7 @@ $(document).ready(function ($) {
 				type: 'POST',
 				dataType: 'json'
 			}).done(function (userinfoRes) {
-				getUserInfo(userinfoRes);			
+				getUserInfo(userinfoRes);
 			}).fail( function () {
 				AJAXrequestFailed("Fallo en petición AJAX para obtención de información de usuario.");		 
 			});
@@ -349,7 +255,7 @@ $(document).ready(function ($) {
 				return;
 			if($(this).val().length == 0) {
 				var mainmessage = "Por favor llene todos los campos del formulario para actualizar su perfil.";
-				var secmessage = "Presione algún botón para continuar";
+				var secmessage = "Presione el botón para continuar";
 				showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
 				flag = true;
 			}
@@ -359,111 +265,7 @@ $(document).ready(function ($) {
 			showMessage("wArNinGbTn_AcTiOn", 1, mainStr, secStr);
 		}
 		
-	}
-
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-						/* Funciones más utilizadas/invocadas */
-
-	dropMenuInOut = (e) => {
-		//console.log($(".subdropumen").children());
-		$(".subdropumen").toggleClass('active').siblings().removeClass('active');
-	}
-
-	maincontentFadeAnimation = (responsePage) => {
-		$("#submaincontainer").fadeOut("300");
-		sleep(370);
-		$("#submaincontainer").html(responsePage);
-		$("#submaincontainer").fadeIn("300");
-	}
-
-	getAndExecuteNewInsertedScript = (loadedPageByAJAX) => {
-		scpts = loadedPageByAJAX.getElementsByTagName('script');
-		$.getScript(scpts[0].src, function () {
-			console.log("New Button Script loaded but not necessarily executed.");
-		});
-	}
-
-	getSessionVariables = (methodToDo) => {
-		$.ajax({
-			url: '../../index_ajax.php?controller=usuario&action=getSessionVariables',
-			type: 'POST',
-			dataType: 'json'
-		}).done(function (sessionVariables) {
-			methodToDo(sessionVariables);
-		}).fail(function () {
-			AJAXrequestFailed("Fallo en Petición AJAX para obtener variables de sesión");
-		});
-	}
-		
-	showMessage = (cookieName, cookieValue, mainMessage, secondMessage) => {
-		if (cookieValue == 0) {
-			$("#modinformation").fadeIn("400");
-			$("#informationprincipaltext").html(mainMessage);
-			$("#informationsecondarytext").html(secondMessage); 
-		}
-		else {
-			$("#modwarning").fadeIn("400");
-			$("#warningprincipaltext").html(mainMessage);
-			$("#warningsecondarytext").html(secondMessage);
-		}
-		setCookie(cookieName, cookieValue, 10);												//Ver cuántos días se debe de almacenar
-	}
-
-
-	doConfirmAction = () => {
-		cookieName = "wArNinGbTn_AcTiOn";
-		var warningCookieValue = getCookie(cookieName);
-
-		//Switch for function calling
-		switch (warningCookieValue) {
-			case "0":							//Solo mostrar información
-				break;
-			case "1":							//Modificar información de usuario
-				updateUserInfo();
-				break;
-			default:
-				console.log("Acción inválida. Logout?");
-				//closeUserSession();
-				break;
-		}
-
-		deleteCookie(cookieName);
-	}
-
-	setCookie = (cookieName, cookieValue, exDays) => {
-		var d = new Date();
-		d.setTime(d.getTime() + (exDays*24*60*60*1000));
-		var expires = "expires=" + d.toGMTString();
-		document.cookie = cookieName + "=" + cookieValue + ";" + "expires" + ";path=/"
-	}
-
-	deleteCookie = (cookieName) => {
-		document.cookie = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
-	}
-
-	getCookie = (cookieName) => {
-		var cname = cookieName + "=";
-		var decodedCookie = decodeURIComponent(document.cookie);
-		var ca = decodedCookie.split(';');
-		for(var i = 0; i < ca.length; i++) {
-			var c = ca[i];
-			while (c.charAt(0) == ' ') {
-				c = c.substring(1);
-			}
-			if(c.indexOf(cname) == 0)
-				return c.substring(cname.length, c.length);
-		}
-		return null;
-	}
-
-	sleep = (miliseconds) =>  {
-		var start = new Date().getTime();
-		for(var i = 0; i < 1e7; i++) {
-			if((new Date().getTime() - start) > miliseconds)
-				break;
-		}
-	}	
+	}		
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -480,55 +282,128 @@ $(document).ready(function ($) {
 
 		updateUserInfoSecondFase = (sessionVariables) => {
 			if (!sessionVariables.error) {
+
+				var exp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+				if (!/^([0-9])*$/.test(newUserreg)) {
+					var mainmessage = "Por favor ingrese solo números en el campo de registro de usuario.";
+					var secmessage = "Presione el botón para continuar";
+					showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
+					return;
+				} if (!exp.test(newEmail)) {
+					var mainmessage = "Por favor ingrese un correo electrónico válido.";
+					var secmessage = "Presione el botón para continuar";
+					showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
+					return;
+				}
+
 				var dataToUpdateUserInfo = null;
-				if (sessionVariables.usertype == 1) {
-					dataToUpdateUserInfo = {
-						userreg: newUserreg,
-						email: newEmail,
-						nombres: newNombres,
-						apellidos: newApellidos,
-						escolaridad: $("#profileform select[name=escolaridadselect]").val(),
-						idacad: parseInt($("#idacademialbl").html()),
-						academia: $("#profileform input[name=academia]").val(),
-						carrera: parseInt($("#profileform select[name=carrera]").val()), 
-						cicloperiodo: $("#profileform select[name=cicloperiodo]").val(),
-						cicloyear: $("#profileform select[name=cicloyear]").val(), 
-						utype: parseInt(sessionVariables.usertype)
-					}
-				} else if (sessionVariables.usertype == 2) {
-					dataToUpdateUserInfo = {
-						userreg: newUserreg,
-						email: newEmail,
-						nombres: newNombres,
-						apellidos: newApellidos,
-						escolaridad: $("#profileform select[name=escolaridadselect]").val(),
-						utype: parseInt(sessionVariables.usertype)
-					}
-				} else if (sessionVariables.usertype == 3) {
-					dataToUpdateUserInfo = {
-						userreg: newUserreg,
-						email: newEmail,
-						nombres: newNombres,
-						apellidos: newApellidos,
-						utype: parseInt(sessionVariables.usertype)
-					}
-				}				
+
+				switch (parseInt(sessionVariables.usertype)) {
+					case 1:
+						switch ($("#profileform select[name=escolaridadselect]").val()) {
+							case "Bachillerato": break;
+							case "Licenciatura": break;
+							case "Ingeniería": break;
+							case "Maestría": break;
+							case "Doctorado": break;
+							default:
+								var mainmessage = "Por favor seleccione una escolaridad válida.";
+								var secmessage = "Presione el botón para continuar";
+								showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
+								return;							
+						}
+
+						if (parseInt($("#profileform select[name=carrera]").val()) == null) {
+							showError("Seleccione una carrera");
+							var mainmessage = "Por favor seleccione una carrera válida para la academia.";
+							var secmessage = "Presione el botón para continuar";
+							showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
+							return;		
+						}
+
+						dataToUpdateUserInfo = {
+							newuserreg: newUserreg,
+							email: newEmail,
+							nombres: newNombres,
+							apellidos: newApellidos,
+							escolaridad: $("#profileform select[name=escolaridadselect]").val(),
+							idacad: parseInt($("#idacademialbl").html()),
+							academia: $("#profileform input[name=academia]").val(),
+							carrera: parseInt($("#profileform select[name=carrera]").val()),
+							ciclomeses: $("#profileform select[name=cicloperiodo]").val(),
+							cicloy: $("#profileform select[name=cicloyear]").val(),
+							utype: parseInt(sessionVariables.usertype)
+						}
+						break;
+					case 2:
+						switch ($("#profileform select[name=escolaridadselect]").val()) {
+							case "Bachillerato": break;
+							case "Licenciatura": break;
+							case "Ingeniería": break;
+							case "Maestría": break;
+							case "Doctorado": break;
+							default:
+								var mainmessage = "Por favor ingrese seleccione una escolaridad válida.";
+								var secmessage = "Presione el botón para continuar";
+								showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
+								return;
+						}
+
+						dataToUpdateUserInfo = {
+							newuserreg: newUserreg,
+							email: newEmail,
+							nombres: newNombres,
+							apellidos: newApellidos,
+							escolaridad: $("#profileform select[name=escolaridadselect]").val(),
+							utype: parseInt(sessionVariables.usertype)
+						}
+						break;
+					case 3:
+						dataToUpdateUserInfo = {
+							newuserreg: newUserreg,
+							email: newEmail,
+							nombres: newNombres,
+							apellidos: newApellidos,
+							utype: parseInt(sessionVariables.usertype)
+						}
+						break;				
+					default:
+						alert("OPERACION NO PERMITIDA");
+						//closeUserSession();
+						break;
+				}			
 				
 				$.ajax ({
-					url: "../../index_ajax.php?controller=usuario&action=registerUser",
+					url: "../../index_ajax.php?controller=usuario&action=updateUserInfo",
 					type: 'POST',
 					dataType: 'json',
 					data: dataToUpdateUserInfo
 				}).done(function (responseUpdateUserInfo) {
-					
-				}).fail(function () {
+					//Verificar que onda
+					if(!responseUpdateUserInfo.logout) {
+						if (!responseUpdateUserInfo.error) {
+							var mainmessage = responseUpdateUserInfo.message;
+							var secmessage = "Presione el botón para continuar";
+							showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
+						} else {
+							var mainmessage = responseUpdateUserInfo.message;
+							var secmessage = "Presione el botón para continuar";
+							showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
+							console.log(responseUpdateUserInfo.x);
+							return;
+						}
+					} else {
+						//closeUserSession();
+						console.log("Cerrar Sesión User");
+					}
+					}).fail(function () {
 					AJAXrequestFailed("Fallo en Petición AJAX para actualizar información de usuario");
 				});
 				//Call AJAX function to update
 
 			} else if (sessionVariables.error) {
-				console.log("Cerrar Sesión");
-				window.location.replace("../../index.php");
+				closeUserSession();
 			}
 		}
 
@@ -557,9 +432,10 @@ $(document).ready(function ($) {
 // ---------------------------------------------------------------------------------------------------------------------------------
 // ----------------------------------------- MAIN PAGE ON LOAD/READY CALLS ---------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------
-
+	
+	
 	$('#mainnavbar').ready(insertMainNavbar);
+	openLastPage();
 
 	//Check cookie of last page and redirect to that page
-
 });

@@ -344,6 +344,10 @@ function checkreg(typeu) {
 				};
 				break;
 			case "2":
+				if ($("#freg select[name=escolaridad]").val() == "null") {
+					showError("Seleccione Escolaridad");
+					return;	
+				}
 				var param = {
 					userreg: $("#freg input[name=registro_usuario]").val(),
 					email: $("#freg input[name=email]").val(),

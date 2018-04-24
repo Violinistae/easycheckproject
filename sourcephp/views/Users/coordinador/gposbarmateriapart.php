@@ -1,3 +1,3 @@
 <label>Materias</label>
-<button>Crear Materia</button>
-<button>Ver Materias</button>
+<button id="creategpoperiodobtn">Crear Materia</button>
+<button id="showgrposperiodobtn">Ver Materias</button>

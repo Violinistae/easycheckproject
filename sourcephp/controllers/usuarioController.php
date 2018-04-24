@@ -15,8 +15,7 @@
 	     * @param null
 	     * @return array(bandera de exito, mensaje (solo si se requiere))
 	     */
-	    public function Login()
-	    {
+	    public function Login() {
 			//Recibir datos de ajax y verificar si existe ese usuario
 	    	if (isset($_POST["userreg"]) && isset($_POST["password"]))
 	    	{
@@ -38,8 +37,7 @@
 	    	}
 	    }
 
-	    public function Logout()
-	    {
+	    public function Logout() {
 	    	session_destroy();
 			//header('Location: index.php');
 			if(session_status() == 1)
@@ -53,8 +51,7 @@
 	     * @param null
 	     * @return array(bandera de exito, mensaje de error si es necesaio o tipo de usuario que hace login)
 	     */
-	    public function verifyUser()
-	    {   
+	    public function verifyUser() {   
 	    	if(isset($_SESSION["userreg"]))
 	    	{	    			    	
 	    		$aux = $_SESSION["userreg"];
@@ -84,8 +81,7 @@
 	     * @param null
 	     * @return
 	     */
-	    public function registerUser()
-	    {	    		    	
+	    public function registerUser() {	    		    	
 			if(isset($_POST["tuser"]))
 			{		
 
@@ -179,14 +175,13 @@
 						if($countinsert > 0)
 							echo json_encode(array('error' => false, 'message' => "Registro completado satisfactoriamente."));
 						else
-							echo json_encode(array('error' => true, 'message' => 'Error al registrase', 'ins' => $countinsert));
+							echo json_encode(array('error' => true, 'message' => 'Error al registrarse', 'ins' => $countinsert));
 					}
 				}
 			}	    		   
 		}
 		
-		public function getSessionVariables()
-		{
+		public function getSessionVariables() {
 			if(isset($_SESSION["userreg"]) && isset($_SESSION["usertype"]))
 				echo json_encode(array('error' => false, 'userreg' => $_SESSION["userreg"], 'usertype' => $_SESSION["usertype"]));
 			else
@@ -227,111 +222,106 @@
 
 		public function updateUserInfo()
 	    {	    		    	
-			if(isset($_POST["tuser"]))
-			{		
+			if(isset($_POST["utype"])) {		
 
 				$olduserreg = $_SESSION["userreg"];		//Cambiar variable de sesión al update
 				$verfusuarios = $this->pdo->prepare("SELECT Registro_U from usuario where Registro_U = '$olduserreg'");
 				$verfusuarios->execute();
 				$numveru = $verfusuarios->rowCount();
 
-				if($numveru > 0)
-				{
+				if($numveru > 0) {
 					$newuserreg = $_POST["newuserreg"];
 					$verfnewuserreg = $this->pdo->prepare("SELECT Registro_U from usuario where Registro_U = '$newuserreg'");
 					$verfnewuserreg->execute();
-					$newusernum = $verfnewuserreg->rowCount();
-					
-					$email = $_POST["email"];
-				}
-				else if ($numveru == 0)	//No hay usuario con ese registro
-				{
 
-					echo json_encode(array('error' => true, 'message' => "Error no hay usuario que actualizar."));
+					if ($verfnewuserreg->rowCount() == 0) {			//No hay usuario con ese registro --> Se puede actualizar
 
-					$typeuser = $_POST["tuser"];
-					$email = $_POST["email"];
-					$password = $_POST["password"];
-					$nombres = $_POST["nombres"];
-					$apellidos = $_POST["apellidos"];
-
-					if($typeuser == 1 || $typeuser == 2)			//Coord o Profesor
-						$escolaridad = $_POST["escolaridad"];
-					else if($typeuser == 3)							//Alumno
-						$escolaridad = null;
-					else 						//Error
-			    	{
-						echo json_encode(array('error' => true));
-						return;
-					}
-
-					$insercion = $this->pdo->prepare(
-						"INSERT into usuario (
-								Registro_U, 
-								Nombres, 
-								Apellidos, 
-								Email, 
-								Password, 
-								Tipo_Usuario,
-								Escolaridad
-							) values (
-								'$userreg', 
-								'$nombres', 
-								'$apellidos', 
-								'$email', 
-								'$password',
-								'$typeuser', 
-								'$escolaridad'
-							)"
-					);
-					$insercion->execute();
-					$countinsert = $insercion->rowCount();						
-
-					if($typeuser == 1)	//Coordinador de Academia
-			    	{
-						$academia = $_POST["academia"];
-						$carrera = $_POST["carrera"];
-			    		$claveaccess = $_POST["claveaccess"];
-						$ciclo = $_POST["ciclomeses"]." ".$_POST["cicloy"];
-						$listaprof = null;
-
-						$insertacad = $this->pdo->prepare(
-							"INSERT INTO academia (
-									Academia, 
-									Clave_Acceso, 
-									Ciclo_Periodo,
-									Lista_Prof, 
-									Coordinador_Acad, 
-									Carrera
-								) values (
-									'$academia', 								
-									'$claveaccess',
-									'$ciclo',
-									'$listaprof',
-									'$userreg',
-									'$carrera'
-								);");
-						$insertacad->execute();
-						$insertedacad = $insertacad->rowCount();
-
-						if($insertedacad > 0 && $countinsert > 0)
-							echo json_encode(array('error' => false, 'message' => "Registro completado satisfactoriamente."));
-						else
-						{
-							echo json_encode(array('error' => true, 'message' => 'Error al registrase'));			    	
-							//Delete ambos si se crearon
+						$typeuser = $_POST["utype"];
+						$email = $_POST["email"];
+						$nombres = $_POST["nombres"];
+						$apellidos = $_POST["apellidos"];
+						if ($typeuser == 1 || $typeuser == 2) {			//Coord o Profesor
+							$escolaridad = $_POST["escolaridad"];
+						} else if ($typeuser == 3) {						//Alumno
+							$escolaridad = null;
+						} else { 											//Error, no es tipo de usuario
+							echo json_encode(array('error' => true, 'logout' => true));
+							return;
 						}
-					}							    	
-					else if ($typeuser == 2 || $typeuser == 3)
-					{
-						if($countinsert > 0)
-							echo json_encode(array('error' => false, 'message' => "Registro completado satisfactoriamente."));
-						else
-							echo json_encode(array('error' => true, 'message' => 'Error al registrase', 'ins' => $countinsert));
+
+						$updateuserstr =$this->pdo->prepare(
+							"UPDATE usuario
+								set Registro_U = ?,
+								Nombres = ?,
+								Apellidos = ?,
+								Email = ?,
+								Escolaridad = ?
+							where Registro_U = ?"
+						);
+
+						$updateuserstr->execute(array(
+							$newuserreg,
+							$nombres,
+							$apellidos,
+							$email,
+							$escolaridad,
+							$olduserreg
+						));
+
+						if($typeuser == 1) {
+
+							$idacad = $_POST["idacad"];
+							$academia = $_POST["academia"];
+							$carrera = $_POST["carrera"];
+							$ciclo = $_POST["ciclomeses"]." ".$_POST["cicloy"];
+
+							$updateacad = $this->pdo->prepare(
+								"UPDATE academia
+									set Academia = ?,
+									Ciclo_Periodo = ?,
+									Carrera = ?
+								where Id_Academia = ?"
+							);
+
+							$updateacad->execute(array(
+								$academia, 
+								$ciclo, 
+								$carrera, 
+								$idacad
+							));
+
+							$updateacadrows = $updateacad->rowCount();
+
+							if ($updateacadrows > 0 && $updateuserstr->rowCount() > 0) {
+								$_SESSION["userreg"] = $newuserreg;
+								echo json_encode(array('error' => false, 
+								'message' => "La actualización de su información se ha realizado satisfactoriamente.",
+								'logout' => false));
+								return;
+							} else {
+								echo json_encode(array('error' => true, 
+								'message' => 'Error al actualizar su información.', 'logout' => false));
+								return;
+							}
+						} else if ($typeuser == 2 || $typeuser == 3) {
+							if($updateuserstr->rowCount() > 0) {
+								$_SESSION["userreg"] = $newuserreg;
+								echo json_encode(array('error' => false,
+								'message' => "La actualización de su información se ha realizado satisfactoriamente.", 'logout' => false));
+							} else {
+								echo json_encode(array('error' => true, 'message' => 'Error al actualizar su información', 'logout' => false));
+							}
+						}
+
+					} else if ($verfnewuserreg->rowCount() != 0) {						//Ya hay usuario con ese registro
+						echo json_encode(array('error' => true, 'message' => "Ya hay un usuario registrado con ese número de registro.", 'logout' => false));
 					}
+				} else if ($numveru == 0) {				//No hay usuario con ese registro para actualizar
+					echo json_encode(array('error' => true, 'message' => "Error no hay usuario que actualizar.", 'logout' => true));
 				}
+			} else {
+				echo json_encode(array('error' => true, 'message' => "No hay tipo usuario.", 'logout' => true));
 			}	    		   
 		}
-
 	}
 ?>
