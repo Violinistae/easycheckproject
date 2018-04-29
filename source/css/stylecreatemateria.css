@@ -1,0 +1,26 @@
+#modalforactionscontainer {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 2.3fr 7.3fr;
+    grid-row-gap: .4em;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+#createmateriainstrucc {
+    color: black;
+    font-size: 2vw;
+    font-weight: bold;
+    text-align: center;
+
+}
+
+#createmateriainputs{
+    position: relative;
+    display: grid;
+    grid-template-columns: 5fr 5fr;
+    grid-template-rows: 5fr 5fr;
+    grid-template-areas: 
+    "nmateria nmateria"
+    "semestre valoresparciales";
+}

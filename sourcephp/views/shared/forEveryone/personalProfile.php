@@ -14,21 +14,21 @@
 			<div id="profilesubgridforall">
 				<div>
 					<label>Registro de Usuario</label>
-					<input id="userreginput" type="text" name="userreg" autocomplete="off">
+					<p id="userregp" type="text"></p>
+				</div>				
+				<div>
+					<label>Nombre(s)</label>
+					<p id="nombresp" type="text"></p>
+				</div>
+				<div>
+					<label>Apellidos</label>
+					<p id="apellidosp" type="text"></p>
 				</div>
 				<div>
 					<label>Correo Electrónico</label>
 					<input id="emailinput" type="text" name="email" autocomplete="off">
 				</div>
-				<div>
-					<label>Nombre(s)</label>
-					<input id="nombresinput" type="text" name="nombres" autocomplete="off">
-				</div>
-				<div>
-					<label>Apellidos</label>
-					<input id="apellidosinput" type="text" name="apellidos" autocomplete="off">
-				</div>
-				<div id="escolaridaddiv"></div>
+				<div id="escolaridaddiv"></div>				
 			</div>
 			<div id="profilesubgridvariable">
 			</div>

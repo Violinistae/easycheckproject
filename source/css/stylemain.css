@@ -101,7 +101,6 @@
         background-color: rgb(150, 145, 145);
     }
 
-
 /* ------------------ Information modal style --------------------*/
 
     .modalInformation {
@@ -180,6 +179,54 @@
         grid-column-start: 2;
         border: transparent;
     }
+
+/* -------------------- Modal actions style ------------------- */
+
+.modalforactions {
+    position: fixed;
+    display: none;
+    z-index: 12;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background-color: rgba(48, 45, 45, 0.651);
+    font-family: 'Noto Sans', sans-serif;
+}
+
+#modalforactionscontent {
+        background-color: rgb(233, 233, 233);
+        color: black;
+        position: absolute;
+        margin: 4% auto;
+        width: 70%;
+        height: 83%;
+        border-radius: 20px;
+        top:42%;
+        left:50%;
+        transform:translate(-50%,-50%);
+
+        display: grid;
+        grid-template-rows: .5fr 1fr 7fr .5fr;
+        grid-template-columns: .3fr 9.4fr .3fr;
+}
+
+#modalforactionsmainbtns {
+    grid-column-start: 2;
+    grid-row-start: 2;
+    text-align: right;
+}
+#modalforactionscontainer {
+    grid-column-start: 2;
+    grid-row-start: 3;
+}
+
+#exitmodalbtn {
+    color: rgb(63, 62, 62);
+    font-size: 4.5vw;
+    cursor: pointer;
+}
 
 /* ------------------ Navbar de cada página --------------------*/
 
@@ -307,7 +354,7 @@
     width: auto;
     height: auto;
     margin-top: 3.3vh;
-    z-index: 12;
+    z-index: 10;
 }
 
 .subdropumen.active + #subdropusermenu {
@@ -394,6 +441,7 @@
     border-radius: 1px;
     text-align: justify;
     text-indent: 1.4vw;
+    outline: none;
 }
 
 #groupbarcontent>div>button:hover {
@@ -404,7 +452,7 @@
 
 .maincontainer {
     grid-area: maincontainer;
-
+    height: 100%;
     border: solid rgba(173, 169, 169, 0.041) 2px;
     border-radius: 10px;
     background-color: rgba(173, 169, 169, 0.356);

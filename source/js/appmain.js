@@ -153,10 +153,10 @@ $(document).ready(function ($) {
 
 		getUserInfo = (userinfoRes) => {
 			//Se imprime en los campos adecuados la információn básica de un usuario
-			document.getElementById("userreginput").value = userinfoRes.userinfo.Registro_U;
+			document.getElementById("userregp").innerHTML = userinfoRes.userinfo.Registro_U;
 			document.getElementById("emailinput").value = userinfoRes.userinfo.Email;
-			document.getElementById("nombresinput").value = userinfoRes.userinfo.Nombres;
-			document.getElementById("apellidosinput").value = userinfoRes.userinfo.Apellidos;
+			document.getElementById("nombresp").innerHTML = userinfoRes.userinfo.Nombres;
+			document.getElementById("apellidosp").innerHTML = userinfoRes.userinfo.Apellidos;
 
 			//Insertar escolaridad en caso de que el usuario se de tipo Coordinador o profesor
 			if (userinfoRes.userinfo.Tipo_Usuario == 2 || userinfoRes.userinfo.Tipo_Usuario == 1) {
@@ -189,7 +189,7 @@ $(document).ready(function ($) {
 			
 			insertAcadBasicInfoToProfile = (userinfoRes, academiaPart) => {
 				document.getElementById("profilesubgridvariable").insertAdjacentHTML('beforeend', academiaPart);
-				document.getElementById("idacademialbl").innerHTML = userinfoRes.basicacadinfo.Id_Academia;
+				document.getElementById("idacademiap").innerHTML = userinfoRes.basicacadinfo.Id_Academia;
 				document.getElementById("academiainput").value = userinfoRes.basicacadinfo.Academia;
 
 				$.ajax({
@@ -210,7 +210,7 @@ $(document).ready(function ($) {
 
 				//Año de un Ciclo escolar
 				var actualyear = 2018;
-				for (i = actualyear; i > actualyear - 10; i--) {
+				for (i = actualyear; i > actualyear - 5; i--) {
 					var newyearoption = document.createElement("option");
 					newyearoption.text = i;
 					newyearoption.value = i.toString();
@@ -417,17 +417,19 @@ $(document).ready(function ($) {
 	$('body').on('click', '#userprofile', function (e) { gotoPersonalProfilePage(); });
 	$('body').on('click', '#editprofile', function (e) { e.preventDefault(); clickEditProfile(); });
 
-	// --------------------------------- Interaction Elements on ALL SUBPAGES  --------------------------------------------------
+	// --------------------------------- Interaction Elements on ALL SUBPAGES  ------------------------------------------------------
 
 	$('body').on('click', '#homebtn', function (e) { gotoMainPage(e); });
-	$('body').on('click', '#dropusermen', function (e) { dropMenuInOut(e); });
+	$('body').on('click', '#dropusermen', function (e) { dropMenuInOut(); });
 	$('body').on('click', '#closesession', function () { closeUserSession(); });
+	$('body').on('click', '#exitmodalbtn', function (e) { verifyModalActionChanges(e); });
 
-		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Interacción con botones de modal warning/information ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-			$('body').on('click', '#cancelbtn', function () { $('#modwarning').fadeOut('400'); });
+		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Interacción con botones de modal warning/information ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+			$('body').on('click', '#cancelbtn', function () { $('#modwarning').fadeOut('400'); deleteCookie("wArNinGbTn_AcTiOn"); });
 			$('body').on('click', '#confirmbtn', function () { $('#modwarning').fadeOut('400'); doConfirmAction(); });
 			$('body').on('click', '#continuebtn', function () { $('#modinformation').fadeOut('400'); doConfirmAction(); });
 
+	
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 // ----------------------------------------- MAIN PAGE ON LOAD/READY CALLS ---------------------------------------------------------

@@ -10,9 +10,26 @@ $(document).ready(function ($) {
         console.log(str);
 	}
 
-	dropMenuInOut = (e) => {
+	dropMenuInOut = () => {
 		//console.log($(".subdropumen").children());
 		$(".subdropumen").toggleClass('active').siblings().removeClass('active');
+	}
+
+	sleep = (miliseconds) => {
+		var start = new Date().getTime();
+		for (var i = 0; i < 1e7; i++) {
+			if ((new Date().getTime() - start) > miliseconds)
+				break;
+		}
+	}
+
+	openLastPage = () => {
+		var lastURL = getCookie("lOaDeDpAgE_ajax");
+		if (lastURL == null) {
+			lastURL = "gotoMainPage";
+			setCookie("lOaDeDpAgE_ajax", "gotoMainPage", 7);
+		}
+		window[lastURL]();
 	}
 
 	maincontentFadeAnimation = (responsePage) => {
@@ -27,6 +44,7 @@ $(document).ready(function ($) {
 		$.getScript(scpts[0].src, function () {
 			console.log("New Button Script loaded but not necessarily executed.");
 		});
+		//Hacer ciclico para cargar varios scripts
 	}
 
 	getSessionVariables = (methodToDo) => {
@@ -41,6 +59,32 @@ $(document).ready(function ($) {
 		});
 	}
 
+	setCookie = (cookieName, cookieValue, exDays) => {
+		var d = new Date();
+		d.setTime(d.getTime() + (exDays * 24 * 60 * 60 * 1000));
+		var expires = "expires=" + d.toGMTString();
+		document.cookie = cookieName + "=" + cookieValue + ";" + "expires" + ";path=/"
+	}
+
+	getCookie = (cookieName) => {
+		var cname = cookieName + "=";
+		var decodedCookie = decodeURIComponent(document.cookie);
+		var ca = decodedCookie.split(';');
+		for (var i = 0; i < ca.length; i++) {
+			var c = ca[i];
+			while (c.charAt(0) == ' ') {
+				c = c.substring(1);
+			}
+			if (c.indexOf(cname) == 0)
+				return c.substring(cname.length, c.length);
+		}
+		return null;
+	}
+
+	deleteCookie = (cookieName) => {
+		document.cookie = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+	}	
+
 	showMessage = (cookieName, cookieValue, mainMessage, secondMessage) => {
 		if (cookieValue == 0) {
 			$("#modinformation").fadeIn("400");
@@ -54,7 +98,6 @@ $(document).ready(function ($) {
 		}
 		setCookie(cookieName, cookieValue, 10);												//Ver cuántos días se debe de almacenar
 	}
-
 
 	doConfirmAction = () => {
 		cookieName = "wArNinGbTn_AcTiOn";
@@ -72,34 +115,7 @@ $(document).ready(function ($) {
 				//closeUserSession();
 				break;
 		}
-
 		deleteCookie(cookieName);
-	}
-
-	setCookie = (cookieName, cookieValue, exDays) => {
-		var d = new Date();
-		d.setTime(d.getTime() + (exDays * 24 * 60 * 60 * 1000));
-		var expires = "expires=" + d.toGMTString();
-		document.cookie = cookieName + "=" + cookieValue + ";" + "expires" + ";path=/"
-	}
-
-	deleteCookie = (cookieName) => {
-		document.cookie = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
-	}
-
-	getCookie = (cookieName) => {
-		var cname = cookieName + "=";
-		var decodedCookie = decodeURIComponent(document.cookie);
-		var ca = decodedCookie.split(';');
-		for (var i = 0; i < ca.length; i++) {
-			var c = ca[i];
-			while (c.charAt(0) == ' ') {
-				c = c.substring(1);
-			}
-			if (c.indexOf(cname) == 0)
-				return c.substring(cname.length, c.length);
-		}
-		return null;
 	}
 
 	closeUserSession = () => {
@@ -122,22 +138,4 @@ $(document).ready(function ($) {
 			AJAXrequestFailed("No funciona petición AJAX para cerrar sesión");
 		});
 	}
-
-	sleep = (miliseconds) => {
-		var start = new Date().getTime();
-		for (var i = 0; i < 1e7; i++) {
-			if ((new Date().getTime() - start) > miliseconds)
-				break;
-		}
-	}
-
-	openLastPage = () => {
-		var lastURL = getCookie("lOaDeDpAgE_ajax");
-		if(lastURL == null) {
-			lastURL = "gotoMainPage";
-			setCookie("lOaDeDpAgE_ajax", "gotoMainPage", 7);
-		}
-		window[lastURL]();
-	}
-
 });

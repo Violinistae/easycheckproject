@@ -1,6 +1,6 @@
 <div id="idacademiadiv">
     <label>Clave de Academia</label>
-    <label id="idacademialbl" type="text"></label>
+    <p id="idacademiap" type="text"></p>
 </div>
 <div id="academiadiv">
     <label>Academia</label>

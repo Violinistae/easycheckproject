@@ -1,0 +1,19 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+#acadOverview {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    display: grid;
+    grid-template-columns: 2fr 20fr 3fr 73fr 2fr;
+    grid-template-rows: 9vh 2vh 84vh 5vh;
+    grid-template-areas: 
+    "mainnavbar mainnavbar mainnavbar mainnavbar mainnavbar"
+    ". . . . ."
+    ". groupsbar . maincontainer ."
+    ". . . . .";
+}

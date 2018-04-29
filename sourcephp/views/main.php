@@ -42,6 +42,17 @@
 			</div>
 		</div>
 	</div>
+	
+	<div class="modalforactions" id="modforactions">
+		<div id="modalforactionscontent">
+			<div id="modalforactionsmainbtns">
+				<i class="fa fa-times-circle" id="exitmodalbtn"></i>
+			</div>
+			<div id="modalforactionscontainer">
+
+			</div>
+		</div>
+	</div>
 
 	<div class="allcontainer">
 		<div class="mainnavbar" id="mainnavbar">

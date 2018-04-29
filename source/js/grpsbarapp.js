@@ -25,5 +25,30 @@ $("#groupbarcontent").ready(function ($) {
         }
     }
 
+    createMateria = (e) => {
+        //Cookie name Action to do
+        cookieName = "aiCoTndDtoO";
+        setCookie(cookieName, "createMateria", 7);
+        $("#modforactions").fadeIn("400");
+        //Ajax con createMateria.php text
+    }
+
+    verifyModalActionChanges = (e) => {
+        if (true) {
+            $("#modforactions").fadeOut("400");
+            deleteCookie(cookieName);
+        } else {
+
+        }
+    }
+    
+// -------------------- Redirección a páginas ---------------
+    gotoMaterias = (e) => {
+        setCookie("lOaDeDpAgE_ajax", "gotoMaterias", 7);
+    }
+
+
     $('body').on('click', '#showacadbtn', function (e) { getSessionVariables(checkCoordProf); });
+    $('body').on('click', '#createmateria', function (e) { createMateria(e) });
+    $('body').on('click', '#showmaterias', function (e) { gotoMaterias(e) });
 });
