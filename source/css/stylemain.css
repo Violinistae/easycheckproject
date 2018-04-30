@@ -224,9 +224,16 @@
 
 #exitmodalbtn {
     color: rgb(63, 62, 62);
-    font-size: 4.5vw;
+    font-size: 4.3vw;
     cursor: pointer;
+
+    transition: 300ms all ease-in-out;
 }
+
+#exitmodalbtn:hover {
+    transform: scale(1.16);
+}
+
 
 /* ------------------ Navbar de cada página --------------------*/
 

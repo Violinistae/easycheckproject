@@ -27,11 +27,23 @@ $("#groupbarcontent").ready(function ($) {
 
     createMateria = (e) => {
         //Cookie name Action to do
-        cookieName = "aiCoTndDtoO";
-        setCookie(cookieName, "createMateria", 7);
+        actionsCookieName = "aiCoTndDtoO";        
+        setCookie(actionsCookieName, "createMateria", 7);
         $("#modforactions").fadeIn("400");
-        //Ajax con createMateria.php text
+
+        $.ajax({
+            url: "../../sourcephp/views/Users/coordinador/createMateria.php",
+            type: "POST"
+        }).done(function (resCreateMateriaForm) { 
+            insertCreateMateriaForm(resCreateMateriaForm);
+        }).fail(function () {
+            AJAXrequestFailed("Fallo en petición AJAX para insertar formulario de creación de materia");
+        });
     }
+
+        insertCreateMateriaForm = (resCreateMateriaForm) => {
+            document.getElementById("modalforactionscontainer").innerHTML = resCreateMateriaForm;
+        }
 
     verifyModalActionChanges = (e) => {
         if (true) {

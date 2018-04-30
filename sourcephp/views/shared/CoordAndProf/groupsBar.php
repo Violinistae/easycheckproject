@@ -11,4 +11,4 @@
 		<button id="showgrposperiodobtn">Ver mis Grupos-Periodo</button>
 	</div>
 </div>
-<script type="text/javascript" src="../../source/js/grpsbarapp.js"></script>
+<script type="text/javascript" src="../../source/js/appgrpsbar.js"></script>

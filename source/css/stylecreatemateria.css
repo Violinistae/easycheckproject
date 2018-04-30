@@ -2,25 +2,136 @@
     position: relative;
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 2.3fr 7.3fr;
-    grid-row-gap: .4em;
+    grid-template-rows: 1.6fr 8.6fr;
+    grid-row-gap: 2em;
     font-family: 'Noto Sans', sans-serif;
 }
 
 #createmateriainstrucc {
     color: black;
-    font-size: 2vw;
+    font-size: 2.4vw;
     font-weight: bold;
     text-align: center;
-
+    margin-top: 1%;
 }
 
-#createmateriainputs{
+#createmateriainputs {
     position: relative;
     display: grid;
     grid-template-columns: 5fr 5fr;
-    grid-template-rows: 5fr 5fr;
+    grid-template-rows: 3fr 3fr 2fr;
     grid-template-areas: 
     "nmateria nmateria"
-    "semestre valoresparciales";
+    "semestre valoresparciales"
+    "createmateriasubmit createmateriasubmit";
+    grid-row-gap: 1em;
+    grid-column-gap: .5em;
+    justify-items: center;
+}
+
+#nombremateria {
+    grid-area: nmateria;
+}
+#nombremateria>label {
+    font-weight: bold;
+    text-indent: 4%;
+}
+#nombremateria>input{
+    width: 60%;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom: black solid 2px;
+    border-radius: 2px;
+    outline: none;
+    background-color: transparent;
+    color: black;
+    margin-left: 5%;
+    text-indent: 2%;
+}
+
+#semestremateria {
+    grid-area: semestre;
+}
+#semestremateria>label {
+    font-weight: bold;
+    text-indent: 4%;
+}
+#semestremateria>select{
+    width: 80%;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom: black solid 2px;
+    border-radius: 2px;
+    outline: none;
+    background-color: transparent;
+    color: black;
+    margin-left: 5%;
+    text-indent: 2%;
+    cursor: pointer;
+}
+
+#valoresparcialesfile {
+    grid-area: valoresparciales;
+}
+#valoresparcialesfile>label {
+    font-weight: bold;
+    text-indent: 4%;
+}
+#valoresparcialesbtn {
+    margin-left: 5%;
+    width: 60%;
+    position: relative;
+    overflow: hidden;
+    border: solid black 2px;
+    border-radius: 10px;
+    background-color: transparent;
+    outline: none;
+
+    transition: 300ms all ease-in-out;
+}
+#valoresparcialesbtn:hover {
+    transform: scale(1.05)
+}
+
+#valoresparcialesbtn [type=file] {
+    cursor: pointer;
+    display: block;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    position: absolute;
+    left: 20%;
+    text-align: right;
+    top: 0;
+}
+
+
+#createmateriainputs>div {
+    display: grid;
+    grid-template-rows: 1fr 1.2fr 1.3fr;
+    grid-row-gap: .2em;
+    width: 100%;
+}
+
+#createmateriasubmit {
+    grid-area: createmateriasubmit;
+}
+#createmateriabtn {
+    grid-row-start: 1;
+    grid-row-end: 3;
+    width: 40%; 
+    font-size: 1.7vw;
+    justify-self: center;
+
+    background-color: transparent;
+    border: solid black 2px;
+    border-radius: 20px;
+    cursor: pointer;
+    outline: none;
+
+    transition: 300ms all ease-in-out;
+}
+#createmateriabtn:hover {
+    transform: scale(1.1);
 }
