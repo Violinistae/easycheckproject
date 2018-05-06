@@ -1,8 +1,8 @@
 <?php
 	class BaseController
-	{
-	    public $pdo;
-	    public $result;
+	{	    
+		public $result;
+		public $pdo;
 
 	    public function __construct($pdo) {
 	        $this->pdo = $pdo;

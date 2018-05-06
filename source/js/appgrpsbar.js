@@ -36,31 +36,30 @@ $("#groupbarcontent").ready(function ($) {
             type: "POST"
         }).done(function (resCreateMateriaForm) { 
             insertCreateMateriaForm(resCreateMateriaForm);
+            
         }).fail(function () {
             AJAXrequestFailed("Fallo en petición AJAX para insertar formulario de creación de materia");
         });
     }
 
-        insertCreateMateriaForm = (resCreateMateriaForm) => {
-            document.getElementById("modalforactionscontainer").innerHTML = resCreateMateriaForm;
+        insertCreateMateriaForm = (resCreateMateriaForm) => {            
+            document.getElementById("modalforactionscontainer").innerHTML = resCreateMateriaForm;            
+            formCreateMateria = document.getElementById("modalforactionscontainer");
+            getAndExecuteNewInsertedScript(formCreateMateria);
         }
-
-    verifyModalActionChanges = (e) => {
-        if (true) {
-            $("#modforactions").fadeOut("400");
-            deleteCookie(cookieName);
-        } else {
-
-        }
-    }
     
-// -------------------- Redirección a páginas ---------------
-    gotoMaterias = (e) => {
-        setCookie("lOaDeDpAgE_ajax", "gotoMaterias", 7);
-    }
 
+        
+// ---------------------------------------------------------------------------------------------------------------------------------
+// ------------------------------------------- USER INTERACTION TRIGGERS -----------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------------------
 
-    $('body').on('click', '#showacadbtn', function (e) { getSessionVariables(checkCoordProf); });
-    $('body').on('click', '#createmateria', function (e) { createMateria(e) });
-    $('body').on('click', '#showmaterias', function (e) { gotoMaterias(e) });
+    // ------------------------------- Redirección a páginas ----------------------------------------------
+
+    $('#showacadbtn').click(function (e) { getSessionVariables(checkCoordProf); });    
+    $('showmaterias').click(function (e) { gotoMaterias(e) });
+    
+    // --------------------------------- Cargar algún modal -----------------------------------------------
+    $('#createmateria').click(function (e) { createMateria(e) });
+
 });

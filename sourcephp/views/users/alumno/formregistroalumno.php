@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="./source/css/stylealumnoregister.css">
+<link rel="stylesheet" href="./source/css/styleAlumnoRegister.css">
 <div id="fromregcomm">
 	<p id="easycheck">Easy Check</p>
 	<div id="formcontainer">

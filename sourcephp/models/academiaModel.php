@@ -3,7 +3,7 @@
         
         private $Id_Academia;
         private $Academia;
-        private $Clave_Accceso;
+        private $Clave_Acceso;
         private $Ciclo_Periodo;
         private $Lista_Prof;
         private $Coordinador_Acad;
@@ -11,11 +11,14 @@
         
         public function __construct() {}
 
+        public function setId_Academia ($Id_Academia) {
+            $this->Id_Academia = $Id_Academia;
+        }
         public function setAcademia ($Academia) {
             $this->Academia = $Academia;
         }
         public function setClave_Acceso ($Clave_Acceso) {
-            $this->Clave_Accceso = $Clave_Accceso;
+            $this->Clave_Acceso = $Clave_Acceso;
         }
         public function setCiclo_Periodo ($Ciclo_Periodo) {
             $this->Ciclo_Periodo = $Ciclo_Periodo;
@@ -30,6 +33,9 @@
             $this->$Carrera = $Carrera;
         }
 
+        public function getId_Academia (){
+            return $this->Id_Academia;
+        }
         public function getAcademia () {
             return $this->Academia;
         }

@@ -18,8 +18,8 @@
 		$flagtocontinue = $validate->validation($controller, $action);
 		
 		if($flagtocontinue)
-		{
-
+		{		
+			
 			$controller = str_replace("'","", $controller);
 			$action = str_replace("'","", $action);
 

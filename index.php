@@ -35,12 +35,12 @@
 <head>
 	<title>Easy Check - Evalúa mejor</title>
 	<meta charset="utf-8">
-	<link rel="stylesheet" type="text/css" href="./source/css/styleloginresponsive.css">
-	<link rel="stylesheet" type="text/css" href="./source/css/stylemodalregistrogral.css">
+	<link rel="stylesheet" type="text/css" href="./source/css/styleLoginResponsive.css">
+	<link rel="stylesheet" type="text/css" href="./source/css/styleModalRegistroGral.css">
 	<link rel="shortcut icon" href="./source/img/easycheckico.png" type="image/x-icon">
 	<link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
 	<script type="text/javascript" src="./source/js/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript" src="./source/js/generalapp.js"></script>
+	<script type="text/javascript" src="./source/js/appgeneral.js"></script>
 	<script type="text/javascript" src="./source/js/applogin.js"></script>
 </head>	
 <body>

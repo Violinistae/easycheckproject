@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="./source/css/stylecoordregister.css">
+<link rel="stylesheet" href="./source/css/styleCoordRegister.css">
 <div id="fromregcomm">
 	<p id="easycheck">Easy Check</p>
 	<div id="formcontainer">

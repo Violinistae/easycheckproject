@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="../../source/css/styleacadOvewview.css">
+<link rel="stylesheet" type="text/css" href="../../source/css/styleAcadOvewview.css">
 <div id="acadOverview">
 	<nav>
 		<ul>

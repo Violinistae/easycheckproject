@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="../../source/css/stylepersonalprofile.css">
+<link rel="stylesheet" type="text/css" href="../../source/css/stylePersonalProfile.css">
 <div class="personalprofile">
 	<nav>
 		<p>Perfil</p>

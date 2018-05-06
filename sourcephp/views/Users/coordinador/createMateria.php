@@ -1,16 +1,16 @@
-<link rel="stylesheet" type="text/css" href="../../source/css/stylecreatemateria.css">
+<link rel="stylesheet" type="text/css" href="../../source/css/styleCreateMateria.css">
 <div id="createmateriainstrucc">
     <p>Ingrese los datos solicitados para crear una materia</p>
 </div>
 <div id="createmateriainputs">    
     <div id="nombremateria">
         <label>Nombre de la materia</label>
-        <input type="text">
+        <input type="text" name="nombremateria">
     </div>
     <div id="semestremateria">
         <label>Semestre</label>
         <select name="semestreselect">
-            <option value="0">Seleccione un Semestre</option>
+            <option value="0" selected>Seleccione un Semestre</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>

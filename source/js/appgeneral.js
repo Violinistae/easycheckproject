@@ -86,36 +86,28 @@ $(document).ready(function ($) {
 	}	
 
 	showMessage = (cookieName, cookieValue, mainMessage, secondMessage) => {
-		if (cookieValue == 0) {
+		var choose;
+
+		switch (cookieValue) {
+			case 0: choose = false;	break;
+			case 10: choose = false; break;
+
+
+			case 410: choose = false; break;
+
+			default: choose = true; break;
+		}
+
+		if (!choose) {
 			$("#modinformation").fadeIn("400");
 			$("#informationprincipaltext").html(mainMessage);
 			$("#informationsecondarytext").html(secondMessage);
-		}
-		else {
+		} else if (choose) {
 			$("#modwarning").fadeIn("400");
 			$("#warningprincipaltext").html(mainMessage);
 			$("#warningsecondarytext").html(secondMessage);
 		}
 		setCookie(cookieName, cookieValue, 10);												//Ver cuántos días se debe de almacenar
-	}
-
-	doConfirmAction = () => {
-		cookieName = "wArNinGbTn_AcTiOn";
-		var warningCookieValue = getCookie(cookieName);
-
-		//Switch for function calling
-		switch (warningCookieValue) {
-			case "0":							//Solo mostrar información
-				break;
-			case "1":							//Modificar información de usuario
-				updateUserInfo();
-				break;
-			default:
-				console.log("Acción inválida. Logout?");
-				//closeUserSession();
-				break;
-		}
-		deleteCookie(cookieName);
 	}
 
 	closeUserSession = () => {
@@ -138,4 +130,51 @@ $(document).ready(function ($) {
 			AJAXrequestFailed("No funciona petición AJAX para cerrar sesión");
 		});
 	}
+
+	verifyModalActionChanges = (e) => {
+		if (true) {
+			$("#modforactions").fadeOut("400");
+			document.getElementById("modalforactionscontainer").innerHTML = "";
+			//deleteCookie(cookieName);
+		} else {
+
+		}
+	}
+
+
+
+
+
+	doConfirmAction = () => {
+		cookieName = "wArNinGbTn_AcTiOn";
+		var warningCookieValue = getCookie(cookieName);
+
+		//Switch for function calling
+		switch (warningCookieValue) {
+			case "0":							//Solo mostrar información
+				break;
+			case "1":							//Modificar información de usuario
+				updateUserInfo();
+				break;
+			case "10":
+				$("#modforactions").fadeOut("400");
+				document.getElementById("modalforactionscontainer").innerHTML = "";
+				actionsCookieName = "aiCoTndDtoO";
+				deleteCookie(actionsCookieName);
+				$("#createmateriabtn").prop("disabled", false);
+				break;
+
+
+
+
+			case "410":
+				$("#createmateriabtn").prop("disabled", false);
+				break;
+			default:
+				console.log("Acción inválida. Logout?");
+			//closeUserSession();
+		}
+		deleteCookie(cookieName);
+	}
+	
 });
