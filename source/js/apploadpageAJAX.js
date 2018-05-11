@@ -125,16 +125,62 @@ $(document).ready(function ($) {
         setCookie("lOaDeDpAgE_ajax", "gotoMaterias", 7);
         $(".subdropumen").removeClass('active');
         $.ajax({
-            url: "../../sourcephp/views/shared/forEveryone/principal.php",
+            url: "../../sourcephp/views/Users/coordinador/listMaterias.php",
             type: "POST"
         }).done(function (mainPage) {
             maincontentFadeAnimation(mainPage);
             sleep(100);
             loadMateriasToTable();
         }).fail(function () {
-            AJAXrequestFailed("Fallo en petición AJAX para volver a página principal");
+            AJAXrequestFailed("Fallo en petición AJAX para cargar página de lista de materias de academia.");
         });
-    }
+	}
+
+		loadMateriasToTable = () => {
+			$.ajax({
+				url: '../../index_ajax.php?controller=materia&action=readMateria',
+				type: 'POST',
+				dataType: 'json'
+			}).done(function (materiasAcademia) {
+				insertMateriasToTable(materiasAcademia);				
+			}).fail(function () {
+				AJAXrequestFailed("Fallo en petición AJAX obtener materias de una academia");
+			});
+		}
+
+			insertMateriasToTable = (materiasAcademia) => {
+
+				if (!materiasAcademia.error) {
+					console.log(materiasAcademia.materias);
+
+					var tablaMaterias = document.getElementById("materiasTableContent");
+					
+					for (i = 0; i < materiasAcademia.numMaterias; ++i) {
+						var materiaRow = tablaMaterias.insertRow(-1);
+
+						var cellClaveMateria = materiaRow.insertCell(0);
+						var cellNombreMateria = materiaRow.insertCell(1);
+						var cellSemestre = materiaRow.insertCell(2);
+						var cellArchivo = materiaRow.insertCell(3);
+						var cellAcciones = materiaRow.insertCell(4);
+						
+						cellClaveMateria.innerHTML = materiasAcademia.materias[i].Id_Materia;
+						cellNombreMateria.innerHTML = materiasAcademia.materias[i].Materia;
+						cellSemestre.innerHTML = materiasAcademia.materias[i].Semestre;
+						cellArchivo.innerHTML = materiasAcademia.materias[i].Academia;
+						cellAcciones = "Hola";
+
+						materiaRow.classList.add("commonMateriaRow");
+
+						//commonMateriaRow						
+						
+					}
+
+				} else if (materiasAcademia.error) {
+
+				}				
+
+			}
     
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 });

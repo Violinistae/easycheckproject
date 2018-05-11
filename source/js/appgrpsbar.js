@@ -57,7 +57,7 @@ $("#groupbarcontent").ready(function ($) {
     // ------------------------------- Redirección a páginas ----------------------------------------------
 
     $('#showacadbtn').click(function (e) { getSessionVariables(checkCoordProf); });    
-    $('showmaterias').click(function (e) { gotoMaterias(e) });
+    $('#showmaterias').click(function (e) { gotoMaterias(e) });
     
     // --------------------------------- Cargar algún modal -----------------------------------------------
     $('#createmateria').click(function (e) { createMateria(e) });

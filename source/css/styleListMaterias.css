@@ -1,0 +1,120 @@
+#listMateriasPage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    display: grid;
+    grid-template-rows: 1.3fr 8.8fr;
+    grid-template-columns: auto;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+#listMateriasPage ul {
+    list-style: none;
+}
+
+#listMateriasPage>nav {
+    width: 100%;
+    height: 100%;
+}
+
+#listMateriasNav {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+#pathPage {
+    flex-grow: 3;
+
+}
+
+#inputNavMaterias {
+    flex-grow: 7;
+}
+
+#listMateriasPage>table {
+    width: 100%;
+    height: auto;
+}
+
+#topTableRow {
+    height: 20%;
+}
+
+#topTableRow > th{
+    background-color: rgb(90, 144, 232);
+    border: rgb(90, 144, 232) solid 2px;
+    color: white;
+    padding: 1.2rem 0%;
+}
+
+.commonMateriaRow > td {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding: 1rem 0%;
+    text-indent: 1.7rem;
+}
+
+#materiasTableContent tr:nth-child(even) > td {
+    background-color: rgb(197, 197, 197);
+}
+
+/*
+#materiasTable {
+    width: 100%;
+    height: 100%;
+
+    display: grid;
+    grid-template-rows: .8fr 9.2fr;
+    grid-template-columns: .1fr .1fr 9.6fr .1fr .1fr;
+    grid-row-gap: 1em;
+}
+
+#materiasTableTop {
+    grid-column-start: 3;
+    grid-column-end: 4;
+    width: 100%;
+    height: 100%;
+
+    display: grid;
+    grid-template-columns: 2fr 4fr 2fr 2fr;
+}
+
+#materiasTableTop > div {
+    text-align: center;
+    align-items: center;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: black solid 2px;
+    border-radius: 1px;
+}
+
+#materiasTableTop > div > label {
+    font-weight: bold;
+}
+
+#materiasTableContent {
+    grid-column-start: 2;
+    grid-column-end: 5;
+    width: 100%;
+    height: auto;
+    max-height: 99.6%;
+    border: solid red 1px;
+
+    display: grid;
+    grid-template-columns: 2fr 4fr 2fr 2fr;
+    overflow: auto;
+}
+
+#materiasTableContent > div {
+    height: 8%;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: black solid 2px;
+}
+*/
