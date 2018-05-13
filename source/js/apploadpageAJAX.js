@@ -13,7 +13,7 @@ $(document).ready(function ($) {
 		}).fail( function () {
 			AJAXrequestFailed("Fallo en petición AJAX para volver a página principal");
 		});
-	}
+	}	
         
 	gotoPersonalProfilePage = () => {
 		setCookie("lOaDeDpAgE_ajax", "gotoPersonalProfilePage", 7);
@@ -126,61 +126,94 @@ $(document).ready(function ($) {
         $(".subdropumen").removeClass('active');
         $.ajax({
             url: "../../sourcephp/views/Users/coordinador/listMaterias.php",
-            type: "POST"
+			type: "POST"
         }).done(function (mainPage) {
-            maincontentFadeAnimation(mainPage);
-            sleep(100);
-            loadMateriasToTable();
+			maincontentFadeAnimation(mainPage);
+			loadMateriasToTable();
         }).fail(function () {
             AJAXrequestFailed("Fallo en petición AJAX para cargar página de lista de materias de academia.");
         });
 	}
 
 		loadMateriasToTable = () => {
+			mainContainer = document.getElementById("submaincontainer");
+			getAndExecuteNewInsertedScript(mainContainer);
 			$.ajax({
 				url: '../../index_ajax.php?controller=materia&action=readMateria',
 				type: 'POST',
-				dataType: 'json'
+				dataType: 'json'				
 			}).done(function (materiasAcademia) {
-				insertMateriasToTable(materiasAcademia);				
+				insertMateriasToTable(materiasAcademia);
 			}).fail(function () {
 				AJAXrequestFailed("Fallo en petición AJAX obtener materias de una academia");
 			});
-		}
+		}		
 
 			insertMateriasToTable = (materiasAcademia) => {
 
-				if (!materiasAcademia.error) {
-					console.log(materiasAcademia.materias);
+				if (!materiasAcademia.error) {					
 
 					var tablaMaterias = document.getElementById("materiasTableContent");
 					
 					for (i = 0; i < materiasAcademia.numMaterias; ++i) {
-						var materiaRow = tablaMaterias.insertRow(-1);
+						var materiaRow = tablaMaterias.insertRow(-1);						
 
-						var cellClaveMateria = materiaRow.insertCell(0);
-						var cellNombreMateria = materiaRow.insertCell(1);
-						var cellSemestre = materiaRow.insertCell(2);
-						var cellArchivo = materiaRow.insertCell(3);
-						var cellAcciones = materiaRow.insertCell(4);
+						var fIcon = '<i id="f-' + materiasAcademia.materias[i].Id_Materia + '" title="Cambiar/Subir archivo" class="actionsIcon fas fa-file-excel"></i>';
+						var tIcon = '<i id="t-' + materiasAcademia.materias[i].Id_Materia + '" title="Eliminar" class="actionsIcon fas fa-trash"></i>';
+						var eIcon = '<i id="e-' + materiasAcademia.materias[i].Id_Materia + '" title="Editar" class="actionsIcon fas fa-edit"></i>';
+
+						var fbtn = '<button class="materiaBtn" id="t-' + materiasAcademia.materias[i].Id_Materia + '">' + fIcon + '</button>';
+						var tbtn = '<button class="materiaBtn" id="t-' + materiasAcademia.materias[i].Id_Materia + '">' + tIcon + '</button>';
+						var ebtn = '<button class="materiaBtn" id="e-' + materiasAcademia.materias[i].Id_Materia + '">' + eIcon + '</button>';
+
+						var actionsDiv = '<div class="styleForIcons">' + ebtn + tbtn + '</div>'
+											
+						var cellClaveMateria = materiaRow.insertCell(0); cellClaveMateria.innerHTML = materiasAcademia.materias[i].Id_Materia;
+						var cellNombreMateria = materiaRow.insertCell(1); cellNombreMateria.innerHTML = materiasAcademia.materias[i].Materia;
+						var cellSemestre = materiaRow.insertCell(2); cellSemestre.innerHTML = materiasAcademia.materias[i].Semestre;
+						var cellArchivo = materiaRow.insertCell(3); cellArchivo.innerHTML = fbtn;
+						var cellAcciones = materiaRow.insertCell(4); cellAcciones.innerHTML = actionsDiv;
 						
-						cellClaveMateria.innerHTML = materiasAcademia.materias[i].Id_Materia;
-						cellNombreMateria.innerHTML = materiasAcademia.materias[i].Materia;
-						cellSemestre.innerHTML = materiasAcademia.materias[i].Semestre;
-						cellArchivo.innerHTML = materiasAcademia.materias[i].Academia;
-						cellAcciones = "Hola";
-
-						materiaRow.classList.add("commonMateriaRow");
-
-						//commonMateriaRow						
+						materiaRow.classList.add("commonMateriaRow");			
 						
 					}
 
 				} else if (materiasAcademia.error) {
-
+					alert("Intentar mas tarde");
 				}				
 
 			}
-    
-    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++	
 });
+
+/*
+							//Create fileIcon from Font Awesome and set ID and class to it
+							var fileIcon = document.createElement("i"); fileIcon.className = "fas fa-file-excel"; 
+							fileIcon.classList.add("actionsIcon"); fileIcon.id = "f-" + materiasAcademia.materias[i].Id_Materia;
+
+							//Create editIcon from Font Awesome and set ID and class to it
+							var editIcon = document.createElement("i"); editIcon.className = "fas fa-edit";
+							editIcon.classList.add("actionsIcon"); editIcon.id = "e-" + materiasAcademia.materias[i].Id_Materia;
+
+							//Create trashIcon from Font Awesome and set ID and class to it
+							var trashIcon = document.createElement("i"); trashIcon.className = "fas fa-trash";
+							trashIcon.classList.add("actionsIcon"); trashIcon.id = "t-" + materiasAcademia.materias[i].Id_Materia;
+
+
+							//Create insert fileIcon to btn to ensure a good click trigger response
+							var filebtn = document.createElement("button"); filebtn.id = "f-" + materiasAcademia.materias[i].Id_Materia;
+							filebtn.appendChild(fileIcon);
+
+							//Create insert editIcon to btn to ensure a good click trigger response
+							var editbtn = document.createElement("button"); editbtn.i = "e-" + materiasAcademia.materias[i].Id_Materia;
+							editbtn.appendChild(editIcon);
+
+							//Create insert trashIcon to btn to ensure a good click trigger response
+							var trashbtn = document.createElement("button"); trashbtn.id = "t-" + materiasAcademia.materias[i].Id_Materia;
+							trashbtn.appendChild(trashIcon);
+							
+							//Adding edit and trash btn to actions div
+							var actionsDiv = document.createElement("div"); actionsDiv.className = "styleForIcons";
+							actionsDiv.appendChild(editbtn); actionsDiv.appendChild(trashbtn);
+						*/

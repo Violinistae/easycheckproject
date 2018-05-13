@@ -21,7 +21,7 @@ $(document).ready(function ($) {
 			if ((new Date().getTime() - start) > miliseconds)
 				break;
 		}
-	}
+	}	
 
 	openLastPage = () => {
 		var lastURL = getCookie("lOaDeDpAgE_ajax");
@@ -33,16 +33,16 @@ $(document).ready(function ($) {
 	}
 
 	maincontentFadeAnimation = (responsePage) => {
-		$("#submaincontainer").fadeOut("300");
-		sleep(370);
-		$("#submaincontainer").html(responsePage);
-		$("#submaincontainer").fadeIn("300");
+		$("#submaincontainer").fadeOut(50);
+		sleep(120);
+		document.getElementById("submaincontainer").innerHTML = responsePage;
+		$("#submaincontainer").fadeIn(50);
 	}
 
 	getAndExecuteNewInsertedScript = (loadedPageByAJAX) => {
 		scpts = loadedPageByAJAX.getElementsByTagName('script');
 		$.getScript(scpts[0].src, function () {
-			console.log("New Button Script loaded but not necessarily executed.");
+			console.log("New Script loaded but not necessarily executed.");
 		});
 		//Hacer ciclico para cargar varios scripts
 	}
@@ -162,6 +162,7 @@ $(document).ready(function ($) {
 				actionsCookieName = "aiCoTndDtoO";
 				deleteCookie(actionsCookieName);
 				$("#createmateriabtn").prop("disabled", false);
+				gotoMaterias();
 				break;
 
 
@@ -176,5 +177,5 @@ $(document).ready(function ($) {
 		}
 		deleteCookie(cookieName);
 	}
-	
+		
 });

@@ -1,5 +1,10 @@
 <?php
     class materiaController extends BaseController {
+
+        private function saveUploadedValoresParciales () {
+            
+        }
+
 	    public function insertMateria () {
 
             $academiaController = new academiaController($this->pdo);
@@ -95,8 +100,8 @@
             } else {
                 echo json_encode(array('error' => true, 'message' => "No se pudo mostrar las materias creadas"));
             }
-
-
         }
+
+
 	}
 ?>

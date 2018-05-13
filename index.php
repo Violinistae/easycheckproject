@@ -42,6 +42,7 @@
 	<script type="text/javascript" src="./source/js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="./source/js/appgeneral.js"></script>
 	<script type="text/javascript" src="./source/js/applogin.js"></script>
+	<script type="text/javascript" src="./source/font-awesome/js/fontawesome-all.min.js"></script>
 </head>	
 <body>
 	<div id="login">

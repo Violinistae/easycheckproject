@@ -299,7 +299,6 @@ $(document).ready(function ($) {
 			$('body').on('click', '#confirmbtn', function () { $('#modwarning').fadeOut('400'); doConfirmAction(); });
 			$('body').on('click', '#continuebtn', function () { $('#modinformation').fadeOut('400'); doConfirmAction(); });
 
-	
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 // ----------------------------------------- MAIN PAGE ON LOAD/READY CALLS ---------------------------------------------------------
@@ -307,6 +306,10 @@ $(document).ready(function ($) {
 	
 	$('#mainnavbar').ready(insertMainNavbar);
 	openLastPage();
+
+	$("svg").click(function (e) {
+		console.log(e.originalEvent.path[1].getAttribute("id"));
+	});
 
 	//Check cookie of last page and redirect to that page
 });

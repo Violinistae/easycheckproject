@@ -5,16 +5,17 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
 	<link rel="stylesheet" type="text/css" href="../../source/css/styleMain.css">
-	<link rel="shortcut icon" href="../../source/img/easycheckico.png" type="image/x-icon">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="shortcut icon" href="../../source/img/easycheckico.png" type="image/x-icon">	
 
 	<script type="text/javascript" src="../../source/js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="../../source/js/appLoadPageAJAX.js"></script>
 	<script type="text/javascript" src="../../source/js/appgeneral.js"></script>	
 	<script type="text/javascript" src="../../source/js/appmain.js"></script>
 	<script type="text/javascript" src="../../source/js/apponlystyles.js"></script>	
+	<script type="text/javascript" src="../../source/font-awesome/js/fontawesome-all.min.js"></script>
 	
-	
+	<script type="text/javascript" src="../../source/js/xlsx.full.min.js"></script>
+	<script type="text/javascript" src="../../source/js/appExcelToJSON.js"></script>
 
 </head>
 <body>

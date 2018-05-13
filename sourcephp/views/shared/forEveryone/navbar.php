@@ -23,7 +23,7 @@
 				</div>
 			</div>
 			<div class="usericowelcome">
-				<i class="fa fa-user-circle-o"></i>
+				<i class="fa fa-user-circle"></i>
 				<label>Bienvenido <?php echo "Nombre Usuario"; ?></label>
 			</div>
 		</li>

@@ -21,6 +21,7 @@ $(document).ready(function ($) {
             var sem = $("#createmateriainputs select[name=semestreselect]").val();
 
             var f = document.getElementById("valoresparcialesinput").value.split("\\");
+            console.log(document.getElementById("valoresparcialesinput").value);
             var filename = f[2];
             filename = filename.replace(/\s+/g, '');
             var filenamesplit = filename.split(".");

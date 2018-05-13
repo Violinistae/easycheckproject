@@ -1,4 +1,5 @@
 <link rel="stylesheet" type="text/css" href="../../source/css/styleListMaterias.css">
+<input type="file" id="inputValoresParciales" name="updateValoresParciales"/>
 <div id="listMateriasPage">
 	<nav>
 		<ul id="listMateriasNav">
@@ -29,63 +30,9 @@
 				Archivo
 			</th>
 			<th>
-				Acciones
+				Acciones Materia
 			</th>
 		</tr>
 	</table>
-
-<!--
-		<div id="materiasTableTop">
-			<div id="materiasIdTop" class="materiasTableColumn">				
-				<label>Clave Materia</label>
-			</div>
-			<div id="materiasNombreTop" class="materiasTableColumn">				
-				<label>Nombre Materia</label>
-			</div>
-			<div id="materiasSemestreTop" class="materiasTableColumn">				
-				<label>Semestre</label>					
-			</div>
-			<div id="materiasAccionesTop" class="materiasTableColumn">				
-				<label>Acciones</label>			
-			</div>
-		</div>
-
-
-		<div id="materiasTableContent">
-			<div id="materiasId" class="materiasTableColumn">
-				<div class="materiasTableTopRow">
-					
-				</div>			
-			</div>
-			<div id="materiasNombre" class="materiasTableColumn">
-				<div class="materiasTableTopRow">
-					
-				</div>							
-			</div>
-			<div id="materiasSemestre" class="materiasTableColumn">
-				<div class="materiasTableTopRow">
-					
-				</div>							
-			</div>
-			<div id="materiasAcciones" class="materiasTableColumn">
-				<div class="materiasTableTopRow">
-					
-				</div>			
-				<div class="materiasTableTopRow">
-					<label>Acciones</label>
-				</div>			
-				<div class="materiasTableTopRow">
-					<label>Acciones</label>
-				</div>			
-				<div class="materiasTableTopRow">
-					<label>Acciones</label>
-				</div>			
-				<div class="materiasTableTopRow">
-					<label>Acciones</label>
-				</div>			
-				
-			</div>
-		</div>
-
-		!-->
 </div>
+<script type="text/javascript" src="../../source/js/appListMaterias.js"></script>	
