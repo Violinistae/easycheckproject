@@ -179,7 +179,7 @@ $(document).ready(function ($) {
 					}
 
 				} else if (materiasAcademia.error) {
-					alert("Intentar mas tarde");
+					//alert("Intentar mas tarde");
 				}				
 
 			}

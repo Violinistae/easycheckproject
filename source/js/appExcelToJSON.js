@@ -16,7 +16,7 @@ $(document).ready(function ($) {
                     fileName: JSONfileName, 
                     contentForFile : JSONStr, 
                     targetPath: "source/files/valoresParciales/",
-                    outDirTimes: 2     
+                    outDirTimes: 2
                 };
 
                 $.ajax({
@@ -26,18 +26,17 @@ $(document).ready(function ($) {
                     data: paramsForFile
                 }).done(function (resCreateWriteJSONtxt) {
                     if (resCreateWriteJSONtxt.error) {
-                        console.log(resCreateWriteJSONtxt.message); 
+                        //console.log(resCreateWriteJSONtxt.message); 
                     }
                 }).fail(function () {
                     AJAXrequestFailed("No funciona petición AJAX para crear/sobreescribir JSON --> .txt.");
-                });
-                                        
+                });                                        
             }
             else {
                 AJAXrequestFailed("No funciona petición AJAX para cargar Excel.");
             }
         };    
-        Request.send(fileName);        
+        Request.send(fileName);
     }
 
         doXlsxStuff = (xlsxResponse) => {                  

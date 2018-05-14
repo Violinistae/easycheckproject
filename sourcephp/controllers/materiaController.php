@@ -11,7 +11,7 @@
             if ($acad != null) {
                 $nombMateria = $_POST["nombreMateria"];
                 $semestre = $_POST["semestre"];
-                $valoresparcialesname = $_POST["valoresparciales"];                
+                $valoresparcialesname = $_POST["valoresparciales"];     
                 
                 $insertAcadStr = $this->pdo->prepare(
                     "INSERT INTO materia (

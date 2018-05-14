@@ -352,8 +352,30 @@
 #subdropnewbutton {
     position: absolute;
     display: none;
+    width: auto;
+    height: auto;
+    display: none;
     margin-top: 3.3vh;
+    z-index: 10;
 }
+
+#subdropnewbutton>ul>li {
+    padding-top: .2rem;
+    text-align: center;
+}
+
+#subdropnewbutton>ul {
+    border-radius: 3px;
+    width: 15rem;
+    height: 3rem;
+    background-color: rgb(150, 145, 145);
+}
+
+#subdropnewbutton>ul>li>a {
+    color: white;
+    text-decoration: none;
+}
+
 
 #subdropusermenu {
     position: absolute;

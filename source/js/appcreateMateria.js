@@ -35,7 +35,7 @@ $(document).ready(function ($) {
                 var secmessage = "Presione el botón para continuar";
                 showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
                 return;
-            } if (filetype != "xlsx") { //Ver si agregar más excel extensions y formato de Excel
+            } if (filetype != "xlsx") {
                 var mainmessage = "Por favor adjunte un archivo de extenión .xlsx (archivo Excel).";
                 var secmessage = "Presione el botón para continuar";
                 showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
@@ -56,10 +56,10 @@ $(document).ready(function ($) {
             }).done(function (responseCheckExcelFile) {
                 try {
                     //Parse JSON for PHP echo json encode
-                    var JSONres = JSON.parse(responseCheckExcelFile);                    
+                    var JSONres = JSON.parse(responseCheckExcelFile);        
                     if (!JSONres.error) {
                         getXlsxFileCreateJSON(JSONres.path, JSONres.fileName);
-                        //sendDataForCreateMateria();       Cambiar nombre
+                        sendDataForCreateMateria();                 //Cambiar nombre
                     } else {
                         var mainmessage = JSONres.message;
                         var secmessage = "Presione el botón para continuar";
@@ -67,6 +67,7 @@ $(document).ready(function ($) {
                     }
 
                 } catch (Exception) {
+                    console.log(Exception);
                     var mainmessage = "Error inesperado. Inténtelo más tarde.";
                    var secmessage = "Presione el botón para continuar";
                    showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
@@ -78,12 +79,20 @@ $(document).ready(function ($) {
     }
 
         sendDataForCreateMateria = () => {
+            var f = document.getElementById("valoresparcialesinput").value.split("\\");
+
+            var filename = f[2];
+            filename = filename.replace(/\s+/g, '');
+            var filenamesplit = filename.split(".");
+            var filegralName = filename.split(".");
+
+            var JSONfileName = filegralName[0] + ".txt";
+
             newMateriaParms = new FormData();
 
             newMateriaParms.append("nombreMateria", $("#createmateriainputs input[name=nombremateria]").val());
-            newMateriaParms.append("semestre", parseInt(sem));
-            newMateriaParms.append("valoresparciales", filename);
-            newMateriaParms.append("file", document.getElementById("valoresparcialesinput").files[0]);
+            newMateriaParms.append("semestre", $("#createmateriainputs select[name=semestreselect]").val());
+            newMateriaParms.append("valoresparciales", JSONfileName);            
 
             $.ajax({
                 url: '../../index_ajax.php?controller=materia&action=insertMateria',

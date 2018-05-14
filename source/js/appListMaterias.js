@@ -1,6 +1,6 @@
 $(document).ready(function ($) {
 
-    switchActionOnMateria = (e) => {
+    switchActionOnMateria = (e) => {        
         var attr = e.originalEvent.path[1].getAttribute("id");
 
         if (attr == null) {

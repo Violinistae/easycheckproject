@@ -1,12 +1,12 @@
 $("#groupbarcontent").ready(function ($) {
    
-    checkCoordProf = (sessionVariables) => {
-        alert("sessionVariables");
+    checkCoordProf = (sessionVariables) => {    
         if (!sessionVariables.error) {
+            console.log(sessionVariables);
             switch (parseInt(sessionVariables.usertype)) {
                 case 1:
                     $.ajax({
-                        url: '../../sourcephp/views/Users/Coordinador/acadOverview.php',
+                        url: '../../sourcephp/views/shared/CoordAndProf/acadOverview.php',
                         type: 'POST'
                     }).done(function (acadOverviewPage) {
                         maincontentFadeAnimation(acadOverviewPage);
