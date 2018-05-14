@@ -12,7 +12,7 @@
 
                 switch ($res) {
                     case 1:             //Saved uploaded file
-                        echo json_encode(array('error' => false, 'path' => $target_file));
+                        echo json_encode(array('error' => false, 'path' => $target_file, 'fileName' => $fileName));
                         return;
                     case 0:             //Cannot save uploaded file
                         echo json_encode(array('error' => true, 'message' => "No se pudo almacenar el archivo, inténtelo más tarde."));
@@ -46,6 +46,25 @@
                 return 0;
             }
                         
+        }
+
+        public function create_writeFile ()
+        {            
+            $contentForFile = $_POST["contentForFile"];                 
+            
+            $targetFile = "./".$_POST["targetPath"].$_POST["fileName"].".txt";
+
+            $fwrite = fopen($targetFile, "w+");
+            
+            if(fwrite($fwrite, $contentForFile)) {
+                fclose($fwrite);
+                echo json_encode(array('error' => false, 'message' => "Archivo creado/sobreescrito exitosamente."));
+                return;
+            } else {
+                fclose($fwrite);
+                echo json_encode(array('error' => true, 'message' => "No se pudo crear/sobreescribir el archivo."));
+                return;
+            }     
         }
     }
     

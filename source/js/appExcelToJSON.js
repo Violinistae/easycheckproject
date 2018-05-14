@@ -1,24 +1,46 @@
 $(document).ready(function ($) {
-    getXlsxFile = (path) => {
-        var Request = new XMLHttpRequest();
+    getXlsxFileCreateJSON = (path, fileName) => {
+        var Request = new XMLHttpRequest();        
+
         Request.open("GET", "../." + path, true);        
 
         Request.responseType = 'arraybuffer';
-        
-        Request.onload = function () {
+             
+        Request.onload = (e) => {
             if (Request.status === 200) {
-                doXlsxStuff(Request.response);
+                JSONStr = doXlsxStuff(Request.response);
+                var splitedfileName = fileName.split(".");
+                var JSONfileName = splitedfileName[0];
+
+                var paramsForFile = {
+                    fileName: JSONfileName, 
+                    contentForFile : JSONStr, 
+                    targetPath: "source/files/valoresParciales/",
+                    outDirTimes: 2     
+                };
+
+                $.ajax({
+                    url: '../../index_ajax.php?controller=file&action=create_writeFile',                    
+                    type: 'POST',
+                    dataType: 'json',
+                    data: paramsForFile
+                }).done(function (resCreateWriteJSONtxt) {
+                    if (resCreateWriteJSONtxt.error) {
+                        console.log(resCreateWriteJSONtxt.message); 
+                    }
+                }).fail(function () {
+                    AJAXrequestFailed("No funciona petición AJAX para crear/sobreescribir JSON --> .txt.");
+                });
+                                        
             }
             else {
                 AJAXrequestFailed("No funciona petición AJAX para cargar Excel.");
             }
-        };
-
-        Request.send();
+        };    
+        Request.send(fileName);        
     }
 
-        doXlsxStuff = (xlsxResponse) => {        
-
+        doXlsxStuff = (xlsxResponse) => {                  
             var arraybuffer = xlsxResponse;
             /* Convert data to binary string */            
             var data = new Uint8Array(arraybuffer);
@@ -37,9 +59,14 @@ $(document).ready(function ($) {
             /* Get Worksheet */
             var worksheet = workbook.Sheets[first_sheet_name];
 
-            var JSONStr = JSON.stringify(XLSX.utils.sheet_to_json(worksheet))            
+            var JSONStr = JSON.stringify(XLSX.utils.sheet_to_json(worksheet));        
             
-            
+            /* Get Column Headers (JSON Keys)  */
+            var o = Object.keys(XLSX.utils.sheet_to_json(worksheet)[0]);     
+            console.log(o);
+
+            //Check format of Xlsx
+            return JSONStr;            
         }
 });
 

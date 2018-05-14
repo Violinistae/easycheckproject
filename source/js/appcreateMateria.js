@@ -8,6 +8,7 @@ $(document).ready(function ($) {
         var flag = false;
         var inputsCreateMateria = $("#createmateriainputs input");
 
+        //Verificar campos vacíos
         $(inputsCreateMateria).each(function verifyCreateMateriaInput() {
             if (flag)
                 return;
@@ -54,19 +55,21 @@ $(document).ready(function ($) {
                 data: file
             }).done(function (responseCheckExcelFile) {
                 try {
-                    var JSONres = JSON.parse(responseCheckExcelFile);
+                    //Parse JSON for PHP echo json encode
+                    var JSONres = JSON.parse(responseCheckExcelFile);                    
                     if (!JSONres.error) {
-                        getXlsxFile(JSONres.path);
+                        getXlsxFileCreateJSON(JSONres.path, JSONres.fileName);
                         //sendDataForCreateMateria();       Cambiar nombre
                     } else {
                         var mainmessage = JSONres.message;
                         var secmessage = "Presione el botón para continuar";
                         showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
                     }
+
                 } catch (Exception) {
                     var mainmessage = "Error inesperado. Inténtelo más tarde.";
-                    var secmessage = "Presione el botón para continuar";
-                    showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
+                   var secmessage = "Presione el botón para continuar";
+                   showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
                 }                
             }).fail(function () {
                 AJAXrequestFailed("No funciona petición AJAX para crear verificar Excel.");
