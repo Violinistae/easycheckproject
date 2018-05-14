@@ -1,5 +1,7 @@
 $(document).ready(function ($) {
-    checkCreateMateriaForm = () => {
+    checkCreateMateriaForm = (e) => {
+
+        e.preventDefault();
 
         $("#createmateriabtn").prop("disabled", true);
 
@@ -21,7 +23,7 @@ $(document).ready(function ($) {
             var sem = $("#createmateriainputs select[name=semestreselect]").val();
 
             var f = document.getElementById("valoresparcialesinput").value.split("\\");
-            console.log(document.getElementById("valoresparcialesinput").value);
+            
             var filename = f[2];
             filename = filename.replace(/\s+/g, '');
             var filenamesplit = filename.split(".");
@@ -37,31 +39,72 @@ $(document).ready(function ($) {
                 var secmessage = "Presione el botón para continuar";
                 showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
                 return;
-            }            
+            }
+            
+            file = new FormData();
+            file.append('file', document.getElementById("valoresparcialesinput").files[0]);
+            file.append('fileName', filename);
+            file.append('targetPath', "./source/files/temp/");
 
-            newMateriaParms = {
-                nombreMateria: $("#createmateriainputs input[name=nombremateria]").val(),
-                semestre: parseInt(sem), 
-                valoresparciales: filename
-            };
+            $.ajax({
+                url: '../../index_ajax.php?controller=file&action=saveFile_getPathForJS',
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                data: file
+            }).done(function (responseCheckExcelFile) {
+                try {
+                    var JSONres = JSON.parse(responseCheckExcelFile);
+                    if (!JSONres.error) {
+                        getXlsxFile(JSONres.path);
+                        //sendDataForCreateMateria();       Cambiar nombre
+                    } else {
+                        var mainmessage = JSONres.message;
+                        var secmessage = "Presione el botón para continuar";
+                        showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
+                    }
+                } catch (Exception) {
+                    var mainmessage = "Error inesperado. Inténtelo más tarde.";
+                    var secmessage = "Presione el botón para continuar";
+                    showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
+                }                
+            }).fail(function () {
+                AJAXrequestFailed("No funciona petición AJAX para crear verificar Excel.");
+            });
+        }
+    }
+
+        sendDataForCreateMateria = () => {
+            newMateriaParms = new FormData();
+
+            newMateriaParms.append("nombreMateria", $("#createmateriainputs input[name=nombremateria]").val());
+            newMateriaParms.append("semestre", parseInt(sem));
+            newMateriaParms.append("valoresparciales", filename);
+            newMateriaParms.append("file", document.getElementById("valoresparcialesinput").files[0]);
 
             $.ajax({
                 url: '../../index_ajax.php?controller=materia&action=insertMateria',
                 type: 'POST',
-                dataType: 'json',
+                contentType: false,
+                processData: false,
                 data: newMateriaParms
             }).done(function (insertMateriaRes) {
-                var mainmessage = insertMateriaRes.message;
-                var secmessage = "Presione el botón para continuar";
-                showMessage("wArNinGbTn_AcTiOn", 10, mainmessage, secmessage);                
-                return;
+                resJSON = JSON.parse(insertMateriaRes);
+
+                if (!resJSON.error) {
+                    var mainmessage = resJSON.message;
+                    var secmessage = "Presione el botón para continuar";
+                    showMessage("wArNinGbTn_AcTiOn", 10, mainmessage, secmessage);
+                } else {
+                    var mainmessage = resJSON.message;
+                    var secmessage = "Presione el botón para continuar";
+                    showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
+                }
             }).fail(function () {
                 AJAXrequestFailed("No funciona petición AJAX para crear materia.");
             });
         }
 
-    }
-
-    $('#createmateriabtn').click(function () { checkCreateMateriaForm() });
+    $('#createmateriabtn').click(function (e) { checkCreateMateriaForm(e) });
 
 });

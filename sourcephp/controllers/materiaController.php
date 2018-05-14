@@ -1,10 +1,6 @@
 <?php
     class materiaController extends BaseController {
 
-        private function saveUploadedValoresParciales () {
-            
-        }
-
 	    public function insertMateria () {
 
             $academiaController = new academiaController($this->pdo);
@@ -15,8 +11,37 @@
             if ($acad != null) {
                 $nombMateria = $_POST["nombreMateria"];
                 $semestre = $_POST["semestre"];
-                $valoresparcialesname = $_POST["valoresparciales"];
+                $valoresparcialesname = $_POST["valoresparciales"];                
 
+/*
+                $targetpath = "./source/files/temp/";
+                if (is_uploaded_file($_FILES["file"]["tmp_name"])) {   
+                    //Check and save file
+                    $fileController = new fileController();
+                    $res = $fileController->saveUploadedFile($valoresparcialesname, $targetpath);
+
+                    switch ($res) {
+                        case 1:             //Saved uploaded file
+                            break;
+                        case 0:             //Cannot save uploaded file
+                            echo json_encode(array('error' => true, 'message' => "No se pudo almacenar el archivo, inténtelo más tarde."));
+                            return;
+                        case -1:            //Uploaded file already exists
+                            echo json_encode(array('error' => true, 'message' => "Por favor cambie el nombre del archivo"));
+                            return;
+                        case -2:            //No uploaded files
+                            echo json_encode(array('error' => true, 'message' => "No se encontraron archivos por almacenar."));
+                            return;                        
+                        default:
+                            echo json_encode(array('error' => true, 'message' => "No se pudo almacenar el archivo, inténtelo más tarde."));
+                            return;
+                    }     
+                } else {
+                    echo json_encode(array('error' => true, 'message' => "No se encontraron archivos por almacenar."));
+                    return;
+                }
+*/
+                
                 $insertAcadStr = $this->pdo->prepare(
                     "INSERT INTO materia (
                             Materia,
@@ -30,7 +55,7 @@
                             ?
                         )"
                 );
-
+                
                 $insertAcadStr->execute(array(
                     $nombMateria, 
                     $semestre,

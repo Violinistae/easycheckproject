@@ -307,9 +307,5 @@ $(document).ready(function ($) {
 	$('#mainnavbar').ready(insertMainNavbar);
 	openLastPage();
 
-	$("svg").click(function (e) {
-		console.log(e.originalEvent.path[1].getAttribute("id"));
-	});
-
 	//Check cookie of last page and redirect to that page
 });

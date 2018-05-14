@@ -15,6 +15,12 @@
     margin-top: 1%;
 }
 
+#formuploadajax {
+    position: relative;
+    display: block;
+    height: 100%;
+}
+
 #createmateriainputs {
     position: relative;
     display: grid;
@@ -27,6 +33,7 @@
     grid-row-gap: 1em;
     grid-column-gap: .5em;
     justify-items: center;
+    height: 100%;
 }
 
 #nombremateria {

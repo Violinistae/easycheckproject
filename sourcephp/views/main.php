@@ -8,14 +8,16 @@
 	<link rel="shortcut icon" href="../../source/img/easycheckico.png" type="image/x-icon">	
 
 	<script type="text/javascript" src="../../source/js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="../../source/js/xlsx.full.min.js"></script>
+	<script type="text/javascript" src="../../source/js/appExcelToJSON.js"></script>
+
 	<script type="text/javascript" src="../../source/js/appLoadPageAJAX.js"></script>
 	<script type="text/javascript" src="../../source/js/appgeneral.js"></script>	
 	<script type="text/javascript" src="../../source/js/appmain.js"></script>
 	<script type="text/javascript" src="../../source/js/apponlystyles.js"></script>	
 	<script type="text/javascript" src="../../source/font-awesome/js/fontawesome-all.min.js"></script>
 	
-	<script type="text/javascript" src="../../source/js/xlsx.full.min.js"></script>
-	<script type="text/javascript" src="../../source/js/appExcelToJSON.js"></script>
+	
 
 </head>
 <body>
