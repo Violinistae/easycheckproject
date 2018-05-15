@@ -13,6 +13,7 @@ $(document).ready(function ($) {
 	dropMenuInOut = () => {
 		//console.log($(".subdropumen").children());
 		$(".subdropumen").toggleClass('active').siblings().removeClass('active');
+		$(".buttonnewinst").removeClass('active');
 	}
 
 	sleep = (miliseconds) => {

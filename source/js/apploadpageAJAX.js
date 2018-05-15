@@ -5,6 +5,7 @@ $(document).ready(function ($) {
 	gotoMainPage = (e) => {
 		setCookie("lOaDeDpAgE_ajax", "gotoMainPage", 7);
 		$(".subdropumen").removeClass('active');
+		$(".buttonnewinst").removeClass('active');
 		$.ajax({
 			url: "../../sourcephp/views/shared/forEveryone/principal.php",
 			type: "POST"
@@ -17,7 +18,8 @@ $(document).ready(function ($) {
         
 	gotoPersonalProfilePage = () => {
 		setCookie("lOaDeDpAgE_ajax", "gotoPersonalProfilePage", 7);
-		$(".subdropumen").removeClass('active');
+		$(".subdropumen").removeClass('active'); 
+		$(".buttonnewinst").removeClass('active');
 		$.ajax({
 			url: '../../sourcephp/views/shared/forEveryone/personalProfile.php',
 			type: 'POST'
@@ -123,7 +125,8 @@ $(document).ready(function ($) {
 
 	gotoMaterias = (e) => {
         setCookie("lOaDeDpAgE_ajax", "gotoMaterias", 7);
-        $(".subdropumen").removeClass('active');
+		$(".subdropumen").removeClass('active');
+		$(".buttonnewinst").removeClass('active');
         $.ajax({
             url: "../../sourcephp/views/Users/coordinador/listMaterias.php",
 			type: "POST"

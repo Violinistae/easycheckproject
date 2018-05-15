@@ -1,7 +1,7 @@
 <button class="buttonnewinst">Nuevo</button>
 <div class="subdrop" id="subdropnewbutton">
     <ul>
-        <li><a>Nuevo Instrumento de Evaluación</a></li>
+        <button id="createNewInstrumentoBtn">Nuevo Instrumento de Evaluación</button>
     </ul>
 </div>
 <script type="text/javascript" src="../../source/js/appnewbutton.js"></script>
