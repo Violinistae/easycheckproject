@@ -21,19 +21,20 @@
 	    	{
 	    		$userreg = $_POST["userreg"];
 				$password = $_POST["password"];
-				$user_res = $this->pdo->prepare("SELECT Registro_U from usuario where Registro_U = ? and Password = ?");
-				$user_res->execute([$userreg, $password]);
 
-	    		$query = $user_res->rowCount();
-	    		if($query != 1)
-	    		{
-	    			echo json_encode(array ('error' => true, 'message' => 'El nombre de usuario o password son incorrectos.'));
-	    		}
-	    		else if ($query == 1)
-	    		{
-	    			$_SESSION["userreg"] = $userreg;
-	    			echo json_encode(array('error' => false, 'user' => $_SESSION['userreg']));
-	    		}
+				$user_res = $this->pdo->prepare(
+					"SELECT * from usuario where Registro_U = ?"
+				);
+				$user_res->execute([$userreg]);
+
+				$user = $user_res->fetchAll();
+				if (isset($user[0])) {				
+					if (password_verify($password, $user[0]->Password)) {
+						$_SESSION["userreg"] = $userreg;
+						echo json_encode(array('error' => false, 'user' => $_SESSION['userreg']));
+					} else 
+						echo json_encode(array ('error' => true, 'message' => 'El nombre de usuario o password son incorrectos.'));
+				}
 	    	}
 	    }
 
@@ -86,92 +87,67 @@
 			{		
 
 				$userreg = $_POST["userreg"];
-				$verfusuarios = $this->pdo->prepare("SELECT Registro_U from usuario where Registro_U = '$userreg'");
-				$verfusuarios->execute();
+				$verfusuarios = $this->pdo->prepare("SELECT Registro_U from usuario where Registro_U = ?");
+				$verfusuarios->execute([$userreg]);
+				
 				$numveru = $verfusuarios->rowCount();
 
-				if($numveru > 0)	//Ya hay un usuario con ese registro
-				{
-					echo json_encode(array('error' => true, 'message' => "Ya existe un usuario en el sistema con ese registro."));
-				}
-				else if ($numveru == 0)	//No hay usuario con ese registro
-				{
+				if($numveru > 0)	//Ya hay un usuario con ese registro				
+					echo json_encode(array('error' => true, 'message' => "Ya existe un usuario en el sistema con ese registro."));			
+				else if ($numveru == 0) {	//No hay usuario con ese registro				
 
 					$typeuser = $_POST["tuser"];
 					$email = $_POST["email"];
 					$password = $_POST["password"];
 					$nombres = $_POST["nombres"];
 					$apellidos = $_POST["apellidos"];
+					$password_hash = $hash = password_hash($password, PASSWORD_DEFAULT);
 
 					if($typeuser == 1 || $typeuser == 2)			//Coord o Profesor
 						$escolaridad = $_POST["escolaridad"];
 					else if($typeuser == 3)							//Alumno
 						$escolaridad = null;
-					else 						//Error
-			    	{
+					else {											//Error --> NO existe ese usuario	    	
 						echo json_encode(array('error' => true));
 						return;
 					}
 
 					$insercion = $this->pdo->prepare(
 						"INSERT into usuario (
-								Registro_U, 
-								Nombres, 
-								Apellidos, 
-								Email, 
-								Password, 
-								Tipo_Usuario,
-								Escolaridad
-							) values (
-								'$userreg', 
-								'$nombres', 
-								'$apellidos', 
-								'$email', 
-								'$password',
-								'$typeuser', 
-								'$escolaridad'
-							)"
+							Registro_U, Nombres, Apellidos, Email, Password, Tipo_Usuario, Escolaridad
+						) values ( ?, ?, ?, ?, ?, ?, ? )"
 					);
-					$insercion->execute();
+					$insercion->execute([
+						$userreg, $nombres, $apellidos, $email, $password_hash, $typeuser, $escolaridad
+					]);
 					$countinsert = $insercion->rowCount();						
 
-					if($typeuser == 1)	//Coordinador de Academia
-			    	{
+					if ($typeuser == 1) {					//Coordinador de Academia			    	
 						$academia = $_POST["academia"];
 						$carrera = $_POST["carrera"];
 			    		$claveaccess = $_POST["claveaccess"];
 						$ciclo = $_POST["ciclomeses"]." ".$_POST["cicloy"];
-						$listaprof = null;
+						$claveaccess_hash = password_hash($claveaccess, PASSWORD_DEFAULT);
+						$listaprof = "null";
 
 						$insertacad = $this->pdo->prepare(
 							"INSERT INTO academia (
-									Academia, 
-									Clave_Acceso, 
-									Ciclo_Periodo,
-									Lista_Prof, 
-									Coordinador_Acad, 
-									Carrera
-								) values (
-									'$academia', 								
-									'$claveaccess',
-									'$ciclo',
-									'$listaprof',
-									'$userreg',
-									'$carrera'
-								);");
-						$insertacad->execute();
+								Academia, Clave_Acceso, Ciclo_Periodo, Lista_Prof, Coordinador_Acad, Carrera
+							) values (?, ?, ?, ?, ?, ?)"
+						);
+						$insertacad->execute([
+							$academia, $claveaccess_hash, $ciclo, $listaprof, $userreg, $carrera
+						]);
+
 						$insertedacad = $insertacad->rowCount();
+
+
 
 						if($insertedacad > 0 && $countinsert > 0)
 							echo json_encode(array('error' => false, 'message' => "Registro completado satisfactoriamente."));
 						else
-						{
-							echo json_encode(array('error' => true, 'message' => 'Error al registrase'));			    	
-							//Delete ambos si se crearon
-						}
-					}							    	
-					else if ($typeuser == 2 || $typeuser == 3)
-					{
+							echo json_encode(array('error' => true, 'message' => 'Error al registrase', 'x' => $insertacad->errorInfo()));			    								
+					} else if ($typeuser == 2 || $typeuser == 3) {
 						if($countinsert > 0)
 							echo json_encode(array('error' => false, 'message' => "Registro completado satisfactoriamente."));
 						else
@@ -190,20 +166,28 @@
 
 		public function getUserInfo() {
 			if(isset($_SESSION["userreg"]) && isset($_SESSION["usertype"])) {
-				$query = "SELECT * from usuario where Registro_U =".$_SESSION['userreg'];
-				$user_info = $this->pdo->prepare($query);
-				$user_info -> execute();
+				
+				$userreg = $_SESSION['userreg'];
+				$user_info = $this->pdo->prepare(
+					"SELECT * from usuario where Registro_U = ?"
+				);
+				$user_info -> execute([$userreg]);
+
 				$queryrows = $user_info->rowCount();
 				if($queryrows != 1) {
 					echo json_encode(array('error' => true, 'message' => "Error al obtener información de usuario, favor de intentar más tarde."));
 				} else if ($queryrows == 1) {
+
 					$userinfores = $user_info->fetch(PDO::FETCH_ASSOC);
 					if($_SESSION["usertype"] == 1) {
-						$acadquery = "SELECT Id_Academia, Academia, Ciclo_Periodo, academia.Carrera FROM 
+						
+						$acadinfo = $this->pdo->prepare(
+							"SELECT Id_Academia, Academia, Ciclo_Periodo, academia.Carrera FROM 
 							easycheckdb.academia join easycheckdb.carrera on academia.Carrera =
-							carrera.Id_Carrera where Coordinador_Acad =".$_SESSION["userreg"];
-						$acadinfo = $this->pdo->prepare($acadquery);
-						$acadinfo -> execute();
+							carrera.Id_Carrera where Coordinador_Acad = ?"
+						);
+						$acadinfo -> execute([$userreg]);
+
 						$acadqryrows = $acadinfo->rowCount();
 						if($acadqryrows != 1) {
 							echo json_encode(array('error' => true, 'message' => "Error al obtener información básica de academia, favor de intentar más tarde."));
@@ -211,9 +195,11 @@
 							$basicacadinfo = $acadinfo->fetch(PDO::FETCH_ASSOC);
 							echo json_encode (array('error' => false, 'userinfo' => $userinfores, 'basicacadinfo' => $basicacadinfo));
 						}
+						
 					} else {
 						echo json_encode (array('error' => false, 'userinfo' => $userinfores));
 					}
+
 				}
 			} else {
 				echo json_encode (array('error' => true, 'closesess' => true));
@@ -234,7 +220,7 @@
 					$verfnewuserreg = $this->pdo->prepare("SELECT Registro_U from usuario where Registro_U = '$newuserreg'");
 					$verfnewuserreg->execute();
 
-					if ($verfnewuserreg->rowCount() == 0) {			//No hay usuario con ese registro --> Se puede actualizar
+					if ($verfnewuserreg->rowCount() == 0) {				//No hay usuario con ese registro --> Se puede actualizar
 
 						$typeuser = $_POST["utype"];
 						$email = $_POST["email"];
@@ -242,31 +228,22 @@
 						$apellidos = $_POST["apellidos"];
 						if ($typeuser == 1 || $typeuser == 2) {			//Coord o Profesor
 							$escolaridad = $_POST["escolaridad"];
-						} else if ($typeuser == 3) {						//Alumno
+						} else if ($typeuser == 3) {					//Alumno
 							$escolaridad = null;
-						} else { 											//Error, no es tipo de usuario
+						} else { 										//Error, no es tipo de usuario
 							echo json_encode(array('error' => true, 'logout' => true));
 							return;
 						}
 
 						$updateuserstr =$this->pdo->prepare(
 							"UPDATE usuario
-								set Registro_U = ?,
-								Nombres = ?,
-								Apellidos = ?,
-								Email = ?,
-								Escolaridad = ?
+								set Registro_U = ?,	Nombres = ?, Apellidos = ?, Email = ?, Escolaridad = ?
 							where Registro_U = ?"
 						);
 
-						$updateuserstr->execute(array(
-							$newuserreg,
-							$nombres,
-							$apellidos,
-							$email,
-							$escolaridad,
-							$olduserreg
-						));
+						$updateuserstr->execute([
+							$newuserreg, $nombres, $apellidos, $email, $escolaridad, $olduserreg
+						]);
 
 						if($typeuser == 1) {
 
@@ -277,17 +254,12 @@
 
 							$updateacad = $this->pdo->prepare(
 								"UPDATE academia
-									set Academia = ?,
-									Ciclo_Periodo = ?,
-									Carrera = ?
+									set Academia = ?, Ciclo_Periodo = ?, Carrera = ?
 								where Id_Academia = ?"
 							);
 
 							$updateacad->execute(array(
-								$academia, 
-								$ciclo, 
-								$carrera, 
-								$idacad
+								$academia, $ciclo, $carrera, $idacad
 							));
 
 							$updateacadrows = $updateacad->rowCount();
