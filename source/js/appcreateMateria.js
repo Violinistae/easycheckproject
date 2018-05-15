@@ -24,6 +24,8 @@ $(document).ready(function ($) {
             var sem = $("#createmateriainputs select[name=semestreselect]").val();
 
             var f = document.getElementById("valoresparcialesinput").value.split("\\");
+
+            var materiaName = $("#createmateriainputs input[name=nombremateria]").val();
             
             var filename = f[2];
             filename = filename.replace(/\s+/g, '');
@@ -42,9 +44,14 @@ $(document).ready(function ($) {
                 return;
             }
             
+            var num = Math.random() * 1000;
+            var numForFile = Math.round(num);
+
+            xlsxFileName = "valPar" + numForFile.toString() + filename;
+
             file = new FormData();
             file.append('file', document.getElementById("valoresparcialesinput").files[0]);
-            file.append('fileName', filename);
+            file.append('fileName', xlsxFileName);
             file.append('targetPath', "./source/files/temp/");
 
             $.ajax({
@@ -59,7 +66,7 @@ $(document).ready(function ($) {
                     var JSONres = JSON.parse(responseCheckExcelFile);        
                     if (!JSONres.error) {
                         getXlsxFileCreateJSON(JSONres.path, JSONres.fileName);
-                        sendDataForCreateMateria();                 //Cambiar nombre
+                        sendDataForCreateMateria(JSONres.fileName);                 //Cambiar nombre
                     } else {
                         var mainmessage = JSONres.message;
                         var secmessage = "Presione el botón para continuar";
@@ -78,7 +85,8 @@ $(document).ready(function ($) {
         }
     }
 
-        sendDataForCreateMateria = () => {
+        sendDataForCreateMateria = (fileName) => {
+            /*
             var f = document.getElementById("valoresparcialesinput").value.split("\\");
 
             var filename = f[2];
@@ -87,12 +95,13 @@ $(document).ready(function ($) {
             var filegralName = filename.split(".");
 
             var JSONfileName = filegralName[0] + ".txt";
+            */
 
             newMateriaParms = new FormData();
 
             newMateriaParms.append("nombreMateria", $("#createmateriainputs input[name=nombremateria]").val());
             newMateriaParms.append("semestre", $("#createmateriainputs select[name=semestreselect]").val());
-            newMateriaParms.append("valoresparciales", JSONfileName);            
+            newMateriaParms.append("valoresparciales", fileName);            
 
             $.ajax({
                 url: '../../index_ajax.php?controller=materia&action=insertMateria',

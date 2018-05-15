@@ -123,6 +123,39 @@ $(document).ready(function ($) {
 						console.log(resCarreras.message);
 				}
 
+	
+	gotoAcademiaOverview = () => {
+		setCookie("lOaDeDpAgE_ajax", "gotoAcademiaOverview", 7);
+		$(".subdropumen").removeClass('active');
+		$(".buttonnewinst").removeClass('active');
+		getSessionVariables(checkCoordProf);
+	}
+
+		checkCoordProf = (sessionVariables) => {
+			if (!sessionVariables.error) {
+				//console.log(sessionVariables);
+				switch (parseInt(sessionVariables.usertype)) {
+					case 1:
+						$.ajax({
+							url: '../../sourcephp/views/shared/CoordAndProf/acadOverview.php',
+							type: 'POST'
+						}).done(function (acadOverviewPage) {
+							maincontentFadeAnimation(acadOverviewPage);
+						}).fail(function () {
+							AJAXrequestFailed("Fallo en petición AJAX para insertar ir a Academia Overview");
+						});
+						break;
+					case 2:
+						alert("Nada");
+						break;
+					default:
+						break;
+				}
+			} else {
+				closeUserSession();
+			}
+		}
+
 	gotoMaterias = (e) => {
         setCookie("lOaDeDpAgE_ajax", "gotoMaterias", 7);
 		$(".subdropumen").removeClass('active');
@@ -180,43 +213,9 @@ $(document).ready(function ($) {
 						materiaRow.classList.add("commonMateriaRow");			
 						
 					}
-
 				} else if (materiasAcademia.error) {
-					//alert("Intentar mas tarde");
 				}				
-
 			}
 		
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++	
 });
-
-/*
-							//Create fileIcon from Font Awesome and set ID and class to it
-							var fileIcon = document.createElement("i"); fileIcon.className = "fas fa-file-excel"; 
-							fileIcon.classList.add("actionsIcon"); fileIcon.id = "f-" + materiasAcademia.materias[i].Id_Materia;
-
-							//Create editIcon from Font Awesome and set ID and class to it
-							var editIcon = document.createElement("i"); editIcon.className = "fas fa-edit";
-							editIcon.classList.add("actionsIcon"); editIcon.id = "e-" + materiasAcademia.materias[i].Id_Materia;
-
-							//Create trashIcon from Font Awesome and set ID and class to it
-							var trashIcon = document.createElement("i"); trashIcon.className = "fas fa-trash";
-							trashIcon.classList.add("actionsIcon"); trashIcon.id = "t-" + materiasAcademia.materias[i].Id_Materia;
-
-
-							//Create insert fileIcon to btn to ensure a good click trigger response
-							var filebtn = document.createElement("button"); filebtn.id = "f-" + materiasAcademia.materias[i].Id_Materia;
-							filebtn.appendChild(fileIcon);
-
-							//Create insert editIcon to btn to ensure a good click trigger response
-							var editbtn = document.createElement("button"); editbtn.i = "e-" + materiasAcademia.materias[i].Id_Materia;
-							editbtn.appendChild(editIcon);
-
-							//Create insert trashIcon to btn to ensure a good click trigger response
-							var trashbtn = document.createElement("button"); trashbtn.id = "t-" + materiasAcademia.materias[i].Id_Materia;
-							trashbtn.appendChild(trashIcon);
-							
-							//Adding edit and trash btn to actions div
-							var actionsDiv = document.createElement("div"); actionsDiv.className = "styleForIcons";
-							actionsDiv.appendChild(editbtn); actionsDiv.appendChild(trashbtn);
-						*/

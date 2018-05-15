@@ -9,11 +9,51 @@
     width: 100%;
     position: relative;
     display: grid;
-    grid-template-columns: 2fr 20fr 3fr 73fr 2fr;
-    grid-template-rows: 9vh 2vh 84vh 5vh;
+    grid-template-columns: 2fr 25fr 3fr 68fr 2fr;
+    grid-template-rows: 9fr 2fr 84fr 5fr;
     grid-template-areas: 
     "mainnavbar mainnavbar mainnavbar mainnavbar mainnavbar"
     ". . . . ."
-    ". groupsbar . maincontainer ."
+    ". groupActionsBar . mainContainerAcadOverView ."
     ". . . . .";
+    font-family: 'Noto Sans', sans-serif;
+}
+
+#mainNavAcad {
+    grid-area: mainnavbar;
+}
+
+#mainNavAcad ul {
+    list-style: none;
+}
+
+#groupActionsBar {
+    grid-area: groupActionsBar;
+    border-radius: 10px;
+    margin-top: 7rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    width: 85%;
+    grid-row-gap: 3.3vh;
+    height: 15rem;    
+}
+
+
+.acadOverbtn {
+    cursor: pointer;
+    background-color: transparent;
+    border: transparent;
+    border-radius: 1px;
+    text-align: center;
+    outline: none;
+    font-size: 1.1vw;
+}
+
+.acadOverbtn:hover {
+    background-color: aliceblue;
+}
+
+#mainContainerAcadOverview {
+    grid-area: mainContainerAcadOverView;
 }

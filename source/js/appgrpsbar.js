@@ -1,29 +1,4 @@
 $("#groupbarcontent").ready(function ($) {
-   
-    checkCoordProf = (sessionVariables) => {    
-        if (!sessionVariables.error) {
-            console.log(sessionVariables);
-            switch (parseInt(sessionVariables.usertype)) {
-                case 1:
-                    $.ajax({
-                        url: '../../sourcephp/views/shared/CoordAndProf/acadOverview.php',
-                        type: 'POST'
-                    }).done(function (acadOverviewPage) {
-                        maincontentFadeAnimation(acadOverviewPage);
-                    }).fail(function () {
-                        AJAXrequestFailed("Fallo en petición AJAX para insertar ir a Academia Overview");
-                    });
-                    break;
-                case 2: 
-                    alert("Nada");
-                    break;
-                default:
-                    break;
-            }
-        } else {
-            closeUserSession();
-        }
-    }
 
     createMateria = (e) => {
         //Cookie name Action to do
@@ -47,7 +22,6 @@ $("#groupbarcontent").ready(function ($) {
             formCreateMateria = document.getElementById("modalforactionscontainer");
             getAndExecuteNewInsertedScript(formCreateMateria);
         }
-    
 
         
 // ---------------------------------------------------------------------------------------------------------------------------------
@@ -56,7 +30,7 @@ $("#groupbarcontent").ready(function ($) {
 
     // ------------------------------- Redirección a páginas ----------------------------------------------
 
-    $('#showacadbtn').click(function (e) { getSessionVariables(checkCoordProf); });    
+    $('#showacadbtn').click(function (e) { gotoAcademiaOverview(); });    
     $('#showmaterias').click(function (e) { gotoMaterias(e) });
     
     // --------------------------------- Cargar algún modal -----------------------------------------------
