@@ -1,0 +1,38 @@
+$(document).ready(function ($) {
+
+    loadFormCreateInstr = (e) => {
+        var Instrumento = e.currentTarget.id;
+        var formURL = "";
+
+        switch (Instrumento) {
+            case "cRubrica": instument = 1;
+                break;
+            case "cListaC": instument = 2;
+                break;
+            case "cGuiaObs": instument = 3;
+                break;
+            case "cCuestionario": instument = 4;
+                break;
+            default:
+                return;   
+        }   
+
+        $.ajax({
+            url: formURL,
+            type: "POST"        
+        }).done(function (resCreateInstrumentoForm) {
+            insertCreateInstrumentoForm(resCreateInstrumentoForm);
+        }).fail(function () {
+            AJAXrequestFailed("Fallo en petición AJAX para insertar formulario para crear instrumento de evaluación");
+        });
+    }
+
+        insertCreateInstrumentoForm = (resCreateInstrumentoForm) => {            
+            document.getElementById("modalforactionscontainer").innerHTML = resCreateInstrumentoForm;            
+            getAndExecuteNewInsertedScript(document.getElementById("modalforactionscontainer"));
+        }
+        
+//----------------------------------------------------------------------------------------------------
+
+    $(".typeInstrumento").click(function (e) { loadFormCreateInstr(e); });
+});

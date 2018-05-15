@@ -28,7 +28,7 @@
 					<label>Correo Electrónico</label>
 					<input id="emailinput" type="text" name="email" autocomplete="off">
 				</div>
-				<div id="escolaridaddiv"></div>				
+				<div id="escolaridadDiv"></div>				
 			</div>
 			<div id="profilesubgridvariable">
 			</div>

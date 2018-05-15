@@ -49,7 +49,7 @@ $(document).ready(function ($) {
 			//Insertar escolaridad en caso de que el usuario se de tipo Coordinador o profesor
 			if (userinfoRes.userinfo.Tipo_Usuario == 2 || userinfoRes.userinfo.Tipo_Usuario == 1) {
 				$.ajax({
-					url: '../../sourcephp/views/shared/CoordAndProf/escolaridaddiv.php',
+					url: '../../sourcephp/views/shared/CoordAndProf/escolaridadDiv.php',
 					type: 'POST'
 				}).done(function (escolaridadPart) {
 					insertEscolaridadintoProfile(userinfoRes, escolaridadPart);
@@ -71,7 +71,7 @@ $(document).ready(function ($) {
 		}
 
 			insertEscolaridadintoProfile = (userinfoRes, escolaridadPart) => {
-				document.getElementById("escolaridaddiv").insertAdjacentHTML('beforeend', escolaridadPart);
+				document.getElementById("escolaridadDiv").insertAdjacentHTML('beforeend', escolaridadPart);
 				document.getElementById("escolaridadinput").value = userinfoRes.userinfo.Escolaridad;
 			}
 			

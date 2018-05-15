@@ -284,6 +284,16 @@ $(document).ready(function ($) {
 // ------------------------------------------- USER INTERACTION TRIGGERS -----------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------------------
 		
+	$("body").keydown(function (e) {
+		if (e.which == 27) {
+			$(".subdropumen").removeClass('active');
+			$(".buttonnewinst").removeClass('active');
+			$("#modforactions").fadeOut("300");
+		}			
+		else
+			return;
+	});
+
 	$('body').on('click', '#userprofile', function (e) { gotoPersonalProfilePage(); });
 	$('body').on('click', '#editprofile', function (e) { e.preventDefault(); clickEditProfile(); });
 

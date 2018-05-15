@@ -160,6 +160,13 @@ $(document).ready(function($){
 		typeu = $('#freg').attr("data-user");
 		checkreg(typeu);
 	});
+
+	$("body").keydown(function (e) {
+		if (e.which == 27)
+			hidetologin();
+		else
+			return;
+	});
 });
 
 
