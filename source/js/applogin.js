@@ -186,6 +186,8 @@ function gotoregist()
 	peticion_http.send();
 }
 
+
+
 /**
  * Función para esconder el modal de registro cuando el usuario dé un click fuera de la zona del modal.
 */

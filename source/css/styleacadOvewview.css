@@ -39,7 +39,6 @@
     height: 15rem;    
 }
 
-
 .acadOverbtn {
     cursor: pointer;
     background-color: transparent;
@@ -56,4 +55,7 @@
 
 #mainContainerAcadOverview {
     grid-area: mainContainerAcadOverView;
+    overflow: auto;
+    max-width: 100%;
+    padding: .2em .2em;
 }

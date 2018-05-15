@@ -32,6 +32,9 @@
 			<div>
 				<p class="crearcuenta">¿Aún no tienes una cuenta? &nbsp; <button onclick="gotoregist();">Registrate aquí</button></p>
 			</div>
+			<div>
+				<p class="crearcuenta">¿Olvidaste tu contraseña? &nbsp; <button id="">Restablecer contraseña</button></p>
+			</div>
 		</div>
 	</div>
 </div>

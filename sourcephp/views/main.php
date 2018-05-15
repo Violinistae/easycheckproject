@@ -3,8 +3,9 @@
 	<title>Easy Check - Página Principal</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
+		
 	<link rel="stylesheet" type="text/css" href="../../source/css/styleMain.css">
+	<link rel="stylesheet" type="text/css" href="../../source/css/styleInstrumentsContainer.css">
 	<link rel="shortcut icon" href="../../source/img/easycheckico.png" type="image/x-icon">	
 
 	<script type="text/javascript" src="../../source/js/jquery-3.2.1.min.js"></script>
