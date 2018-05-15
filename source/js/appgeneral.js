@@ -42,10 +42,11 @@ $(document).ready(function ($) {
 
 	getAndExecuteNewInsertedScript = (loadedPageByAJAX) => {
 		scpts = loadedPageByAJAX.getElementsByTagName('script');
-		$.getScript(scpts[0].src, function () {
-			console.log("New Script loaded but not necessarily executed.");
-		});
-		//Hacer ciclico para cargar varios scripts
+		if (scpts.length > 0) {
+			$.getScript(scpts[0].src, function () {
+				console.log("New Script loaded but not necessarily executed.");
+			});
+		}	
 	}
 
 	getSessionVariables = (methodToDo) => {

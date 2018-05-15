@@ -1,6 +1,9 @@
 $("#groupbarcontent").ready(function ($) {
 
     createMateria = (e) => {
+
+        $(".buttonnewinst").removeClass('active');
+        $(".subdropumen").removeClass('active');
         //Cookie name Action to do
         actionsCookieName = "aiCoTndDtoO";        
         setCookie(actionsCookieName, "createMateria", 7);
@@ -19,8 +22,7 @@ $("#groupbarcontent").ready(function ($) {
 
         insertCreateMateriaForm = (resCreateMateriaForm) => {            
             document.getElementById("modalforactionscontainer").innerHTML = resCreateMateriaForm;            
-            formCreateMateria = document.getElementById("modalforactionscontainer");
-            getAndExecuteNewInsertedScript(formCreateMateria);
+            getAndExecuteNewInsertedScript(document.getElementById("modalforactionscontainer"));
         }
 
         
