@@ -40,8 +40,8 @@
 	<link rel="shortcut icon" href="./source/img/easycheckico.png" type="image/x-icon">
 	<link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
 	<script type="text/javascript" src="./source/js/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript" src="./source/js/appgeneral.js"></script>
-	<script type="text/javascript" src="./source/js/applogin.js"></script>
+	<script type="text/javascript" src="./source/js/appGeneral.js"></script>
+	<script type="text/javascript" src="./source/js/appLogin.js"></script>
 	<script type="text/javascript" src="./source/font-awesome/js/fontawesome-all.min.js"></script>
 </head>	
 <body>

@@ -24,3 +24,4 @@
 		<label class="lblTypeInstrumento">Cuestionario</label>
 	</div>
 </div>
+<script type="text/javascript" src="../../source/js/appSelectInstrumento.js"></script>

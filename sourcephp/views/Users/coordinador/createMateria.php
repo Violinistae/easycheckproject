@@ -38,4 +38,4 @@
         </div>
     </div>
 <!--</form>-->
-<script type="text/javascript" src="../../source/js/appcreateMateria.js"></script>
+<script type="text/javascript" src="../../source/js/appCreateMateria.js"></script>

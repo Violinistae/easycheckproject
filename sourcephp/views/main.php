@@ -13,9 +13,9 @@
 	<script type="text/javascript" src="../../source/js/appExcelToJSON.js"></script>
 
 	<script type="text/javascript" src="../../source/js/appLoadPageAJAX.js"></script>
-	<script type="text/javascript" src="../../source/js/appgeneral.js"></script>	
-	<script type="text/javascript" src="../../source/js/appmain.js"></script>
-	<script type="text/javascript" src="../../source/js/apponlystyles.js"></script>	
+	<script type="text/javascript" src="../../source/js/appGeneral.js"></script>	
+	<script type="text/javascript" src="../../source/js/appMain.js"></script>
+	<script type="text/javascript" src="../../source/js/appOnlyStyles.js"></script>	
 	<script type="text/javascript" src="../../source/font-awesome/js/fontawesome-all.min.js"></script>
 	
 	
