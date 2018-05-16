@@ -17,8 +17,7 @@
 	     */
 	    public function Login() {
 			//Recibir datos de ajax y verificar si existe ese usuario
-	    	if (isset($_POST["userreg"]) && isset($_POST["password"]))
-	    	{
+	    	if (isset($_POST["userreg"]) && isset($_POST["password"])) {
 	    		$userreg = $_POST["userreg"];
 				$password = $_POST["password"];
 
@@ -34,8 +33,11 @@
 						echo json_encode(array('error' => false, 'user' => $_SESSION['userreg']));
 					} else 
 						echo json_encode(array ('error' => true, 'message' => 'El nombre de usuario o password son incorrectos.'));
+				} else {
+					echo json_encode(array ('error' => true, 'message' => 'El nombre de usuario o password son incorrectos.'));
 				}
-	    	}
+			}
+			
 	    }
 
 	    public function Logout() {
@@ -206,8 +208,7 @@
 			}
 		}
 
-		public function updateUserInfo()
-	    {	    		    	
+		public function updateUserInfo() {	    		    	
 			if(isset($_POST["utype"])) {		
 
 				$olduserreg = $_SESSION["userreg"];		//Cambiar variable de sesión al update
@@ -294,6 +295,10 @@
 			} else {
 				echo json_encode(array('error' => true, 'message' => "No hay tipo usuario.", 'logout' => true));
 			}	    		   
+		}
+
+		public function sendMailResetPassword() {
+			
 		}
 	}
 ?>

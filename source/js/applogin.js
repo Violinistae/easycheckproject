@@ -155,6 +155,28 @@ $(document).ready(function($){
 	 */
 	//toCreatenewUser()
 
+
+	sendMailResetPswd = () => {
+
+		$.ajax({
+			url: "./sourcephp/views/shared/forEveryone/sendMailResetPswd.php",
+			type: "POST",
+			data: "data"
+		}).done(function (resSendMailResetPswdForm) {
+			loadSendMailResetPswdForm(resSendMailResetPswdForm);
+		}).fail(function () {
+			AJAXrequestFailed("Error en petición AJAX para insertar formulario para enviar correo reset password.");
+		});
+
+		
+	}
+
+		loadSendMailResetPswdForm = (resSendMailResetPswdForm) => {
+			document.getElementById('modalregitems').innerHTML = resSendMailResetPswdForm;
+			$("#mymodalreg").fadeIn('600', function () { });
+			$("#modalregitems").css({ "background-color": "rgb(30, 30, 30" });
+		}
+
 	$("body").on('submit', '#freg', function toCreatenewUser(e) {				
 		e.preventDefault();
 		typeu = $('#freg').attr("data-user");
@@ -167,6 +189,8 @@ $(document).ready(function($){
 		else
 			return;
 	});
+
+	$("#resetPassword").click(function (e) { sendMailResetPswd(); });
 });
 
 
