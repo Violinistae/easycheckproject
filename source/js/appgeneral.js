@@ -145,8 +145,6 @@ $(document).ready(function ($) {
 
 
 
-
-
 	doConfirmAction = () => {
 		cookieName = "wArNinGbTn_AcTiOn";
 		var warningCookieValue = getCookie(cookieName);
@@ -158,6 +156,9 @@ $(document).ready(function ($) {
 			case "1":							//Modificar información de usuario
 				updateUserInfo();
 				break;
+			case "2":							//Acutalizar archivo Valores Parciales
+				updateXlsxValoresParciales();
+				break;
 			case "10":
 				$("#modforactions").fadeOut("400");
 				document.getElementById("modalforactionscontainer").innerHTML = "";
@@ -166,8 +167,6 @@ $(document).ready(function ($) {
 				$("#createmateriabtn").prop("disabled", false);
 				gotoMaterias();
 				break;
-
-
 
 
 			case "410":

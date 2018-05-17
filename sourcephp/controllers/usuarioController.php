@@ -297,6 +297,45 @@
 			}	    		   
 		}
 
+		public function updateFileValoresParciales () {
+
+			if (!isset($_POST["materiaID"])) {
+				//Error no hay materia 
+			} else {
+				$materiaID = $_POST["materiaID"];
+				$oldFileNameValParOnDB = $this->pdo->prepare(
+					"SELECT Valores_Parciales FROM materia WHERE Id_Materia = ?"
+				);
+				$oldFileNameValParOnDB->execute([$materiaID]);
+
+				$materia = $oldFileNameValParOnDB->fetchAll();
+				if (isset($materia[0])) {	
+					$newValParName = $_POST["fileName"];
+					$targetPath = $_POST["targetPath"];					
+
+					$fileController = new fileController();
+					$fileController->replaceFile($newValParName, $targetPath, ".xlsx");
+					
+					$oldValParName = $materia[0]->Valores_Parciales;
+					$updateNameValPar = $this->pdo(
+						"UPDATE materia 
+						SET Valores_Parciales = ?
+						WHERE Id_Materia = ?"
+					);
+
+					$updateNameValPar->execute([ $newValParName, $materiaID]);
+
+					$countUpdate = $updateNameValPar->rowCount();	
+
+
+					//Eliminar old File y actualizar nombre en BD		
+				} else {
+					//No existe esa materia
+				}
+
+			}			
+		}
+
 		public function sendMailResetPassword() {
 			
 		}

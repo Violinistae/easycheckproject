@@ -1,8 +1,14 @@
 <?php
     class fileController {
 
+        public function __construct() {            
+        }
+
         public function saveFile_getPathForJS () {
-            if (is_uploaded_file($_FILES["file"]["tmp_name"])) {                   
+            if (!is_uploaded_file($_FILES["file"]["tmp_name"])) {
+                echo json_encode (array('error' => true, 'message' => "No se encontraron archivos por almacenar."));
+                return;
+            } else {                   
 
                 $fileName = $_POST["fileName"];
                 $targetPath = $_POST["targetPath"];
@@ -24,12 +30,10 @@
                         echo json_encode(array('error' => true, 'message' => "No se encontraron archivos por almacenar."));
                         return;                        
                     default:
-                        echo json_encode(array('error' => true, 'message' => "No se pudo almacenar el archivo, inténtelo más tarde."));
+                        echo json_encode(array('error' => true, 'message' => "Error de carga y almacenamiento de archivos, inténtelo más tarde."));
                         return;
                 }     
 
-            } else {
-                echo json_encode (array('error' => true, 'message' => "No se encontraron archivos por almacenar."));
             }
         }
 
@@ -65,6 +69,16 @@
                 echo json_encode(array('error' => true, 'message' => "No se pudo crear/sobreescribir el archivo."));
                 return;
             }     
+        }
+
+        public function replaceFile ($oldFileName, $newFileName, $targetPath, $extension) {
+            $targetDeleteFile = $targetPath.$oldFileName.$extension;
+            $targetFile = $targetPath.$newFileName.$extension;
+            if (delete($targetDeleteFile)) {
+                //$res = $this->saveUploadedFile($targetFile);                
+            } else {
+                return -1;
+            }
         }
     }
     

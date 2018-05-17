@@ -2,7 +2,7 @@ $(document).ready(function ($) {
 
     loadFormCreateInstr = (e) => {
         var Instrumento = e.currentTarget.id;
-        var formURL = "";
+        var formURL = "../../sourcephp/views/shared/CoordAndProf/createInstrumento.php";
 
         switch (Instrumento) {
             case "cRubrica": instument = 1;
@@ -27,9 +27,12 @@ $(document).ready(function ($) {
         });
     }
 
-        insertCreateInstrumentoForm = (resCreateInstrumentoForm) => {            
-            document.getElementById("modalforactionscontainer").innerHTML = resCreateInstrumentoForm;            
+        insertCreateInstrumentoForm = (resCreateInstrumentoForm) => {      
+            $("#modalforactionscontainer").fadeOut(300);
+            sleep(300); 
+            document.getElementById("modalforactionscontainer").innerHTML = resCreateInstrumentoForm;
             getAndExecuteNewInsertedScript(document.getElementById("modalforactionscontainer"));
+            $("#modalforactionscontainer").fadeIn(300);
         }
         
 //----------------------------------------------------------------------------------------------------

@@ -1,0 +1,46 @@
+#modalforactionscontainer {
+    position: relative;
+    display: grid;
+    grid-template-rows: 1.2fr 8.6fr;
+    grid-template-columns: auto;
+    grid-row-gap: 1em;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+#fromCreateMateria {
+    display: flex;
+    flex-direction: row;
+
+}
+
+#fromCreateMateria > div {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#formCreateMateriaPart1 > div {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#formCreateMateriaPart2 > div {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#instruccionesLlenado {
+    flex-grow: 2;
+}
+
+#titleFormCreateInst {
+    font-weight: bold;
+    font-size: 2.2vw;
+}
+
+.subtitleLblField {
+    font-weight: bold;
+    font-size: 1.2vw;
+}

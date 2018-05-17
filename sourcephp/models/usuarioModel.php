@@ -9,6 +9,7 @@
         private $Escolaridad;
         private $Tipo_Usuario;
         private $Foto;
+        private $Hash;
 
         public function __Construct() {}
 
@@ -36,6 +37,9 @@
         public function setFoto($Foto) {
             $this->Foto = $Foto;
         }
+        public function setHash($Hash) {
+            $this->Hash = $Hash;
+        }
 
         public function getRegistro_U() {
             return $this->Registro_U;
@@ -60,6 +64,9 @@
         }
         public function getFoto() {
             return $this->Foto;
+        }
+        public function getHash() {
+            return $this->Hash;
         }
 
     }

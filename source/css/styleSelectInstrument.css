@@ -38,17 +38,24 @@
 }
 
 .instImg {
-    border: solid black 1px;
-    margin: 1.5em;
+    margin: 1em;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 10px;
 }
 
 .typeInstrumento:hover {
     transform: scale(1.03);
 }
 
+
 #cRubrica {
     background-color: rgb(204, 154, 214);
     border: none;
+}
+
+#cRubrica > span {
+    background-image: url('../img/instrumentos/rubrica.jpg');
 }
 
 #cListaC {
@@ -56,12 +63,24 @@
     border: none;
 }
 
+#cListaC > span {
+    background-image: url('../img/instrumentos/listacotejo.png');
+}
+
 #cGuiaObs {
     background-color: rgb(188, 214, 154);
     border: none;
 }
 
+#cGuiaObs > span {
+    background-image: url('../img/instrumentos/guiaobs.png');
+}
+
 #cCuestionario {
     background-color: rgb(214, 183, 154);
     border: none;
+}
+
+#cCuestionario > span {
+    background-image: url('../img/instrumentos/cuestionario.png');
 }
