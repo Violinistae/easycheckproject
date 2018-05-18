@@ -1,5 +1,7 @@
 $(document).ready(function ($) {
-    getXlsxFileCreateJSON = (path, fileName) => {
+
+    getXlsxFileCreateJSONValPar = (path, fileName) => {
+        var errorFormat = false;
         var Request = new XMLHttpRequest();        
 
         Request.open("GET", "../." + path, true);        
@@ -9,6 +11,14 @@ $(document).ready(function ($) {
         Request.onload = (e) => {
             if (Request.status === 200) {
                 JSONStr = doXlsxStuff(Request.response);
+
+                if (JSONStr == "null") {
+                    errorFormat = true;
+                    //AJAX delete file with name file and path
+                    
+                    return;
+                }
+                
                 var splitedfileName = fileName.split(".");
                 var JSONfileName = splitedfileName[0];
 
@@ -37,6 +47,8 @@ $(document).ready(function ($) {
             }
         };    
         Request.send(fileName);
+
+        return errorFormat;
     }
 
         doXlsxStuff = (xlsxResponse) => {                  
@@ -61,11 +73,14 @@ $(document).ready(function ($) {
             var JSONStr = JSON.stringify(XLSX.utils.sheet_to_json(worksheet));        
             
             /* Get Column Headers (JSON Keys)  */
-            var o = Object.keys(XLSX.utils.sheet_to_json(worksheet)[0]);     
-            console.log(o);
+            var xlsxKeys = Object.keys(XLSX.utils.sheet_to_json(worksheet)[0]);                 
 
-            //Check format of Xlsx
+            if (xlsxKeys[0] == "Nombre" && xlsxKeys[1] == "Clave" && xlsxKeys[2] == "Valor Parcial") {
+                
+            }
+            
             return JSONStr;            
         }
+
 });
 

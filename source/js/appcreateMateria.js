@@ -1,4 +1,5 @@
 $(document).ready(function ($) {
+
     checkCreateMateriaForm = (e) => {
 
         e.preventDefault();
@@ -9,7 +10,7 @@ $(document).ready(function ($) {
         var inputsCreateMateria = $("#createmateriainputs input");
 
         //Verificar campos vacíos
-        $(inputsCreateMateria).each(function verifyCreateMateriaInput() {
+        $(inputsCreateMateria).each( function verifyCreateMateriaInput () {
             if (flag)
                 return;
             if ($(this).val().length == 0) {
@@ -19,60 +20,74 @@ $(document).ready(function ($) {
                 flag = true;
             }
         });
+        
+        var realFileName;
+        var fileType;
+        var newRealFileName;
 
         if (!flag) {
-            var sem = $("#createmateriainputs select[name=semestreselect]").val();
+            //Get inputs and select 
+            var materiaNameInput = document.getElementById("inputNameMateria");
+            var semestreSelect = document.getElementById("selectSemestreMateria");
+            var fileInput = document.getElementById("valoresparcialesinput");
+                    
+            //Split file name to basic name (no extension) and get fileType
+            var splitedFileName = fileInput.value.split("\\");                   
+            var originFileName = splitedFileName[2];
+            originFileName = originFileName.replace(/\s+/g, '');
+            var splitedOriginFileName = originFileName.split(".");
 
-            var f = document.getElementById("valoresparcialesinput").value.split("\\");
+            realFileName = splitedOriginFileName[0];
+            fileType = splitedOriginFileName[1];
 
-            var materiaName = $("#createmateriainputs input[name=nombremateria]").val();
-            
-            var filename = f[2];
-            filename = filename.replace(/\s+/g, '');
-            var filenamesplit = filename.split(".");
-            var filetype = filenamesplit[1];
-
-            if (parseInt(sem) < 1 || parseInt(sem) > 8 ) {
+            //Checks: range of semestre and fileType
+            if (parseInt(semestreSelect.value) < 1 || parseInt(semestreSelect.value) > 8 ) {
                 var mainmessage = "Por favor seleccione un semestre válido para la materia.";
                 var secmessage = "Presione el botón para continuar";
                 showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
                 return;
-            } if (filetype != "xlsx") {
+            } if (fileType != "xlsx") {
                 var mainmessage = "Por favor adjunte un archivo de extenión .xlsx (archivo Excel).";
                 var secmessage = "Presione el botón para continuar";
                 showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
                 return;
             }
             
+            //Generated fileName, no extension
             var num = Math.random() * 1000;
             var numForFile = Math.round(num);
+            newRealFileName = "valPar" + numForFile.toString() + realFileName;
 
-            xlsxFileName = "valPar" + numForFile.toString() + filename;
-
-            file = new FormData();
-            file.append('file', document.getElementById("valoresparcialesinput").files[0]);
-            file.append('fileName', xlsxFileName);
-            file.append('targetPath', "./source/files/temp/");
+            var dataFile = new FormData();
+            dataFile.append('fileType', fileType);
+            dataFile.append('file', fileInput.files[0]);
+            dataFile.append('fileName', newRealFileName);            
+            dataFile.append('oldfileName', null);
+            dataFile.append('targetPath', "./source/files/temp/");
 
             $.ajax({
                 url: '../../index_ajax.php?controller=file&action=saveFile_getPathForJS',
                 type: 'POST',
                 contentType: false,
                 processData: false,
-                data: file
+                data: dataFile
             }).done(function (responseCheckExcelFile) {
-                try {
-                    //Parse JSON for PHP echo json encode
+                try {                    
                     var JSONres = JSON.parse(responseCheckExcelFile);        
                     if (!JSONres.error) {
-                        getXlsxFileCreateJSON(JSONres.path, JSONres.fileName);
-                        sendDataForCreateMateria(JSONres.fileName);                 //Cambiar nombre
+                        var x = getXlsxFileCreateJSONValPar(JSONres.filePath, JSONres.fileName);              //Send excel file complete path and file real name (no extension)
+                        if (!x)
+                            sendDataForCreateMateria(JSONres.fileName);
+                        else {
+                            var mainmessage = "El formato no es el correcto. Mostrar foto";
+                            var secmessage = "Presione el botón para continuar";
+                            showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
+                        }
                     } else {
                         var mainmessage = JSONres.message;
                         var secmessage = "Presione el botón para continuar";
                         showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
                     }
-
                 } catch (Exception) {
                     console.log(Exception);
                     var mainmessage = "Error inesperado. Inténtelo más tarde.";
@@ -84,24 +99,17 @@ $(document).ready(function ($) {
             });
         }
     }
+        //Insert data for materia in DB
+        sendDataForCreateMateria = (fileName) => {           
 
-        sendDataForCreateMateria = (fileName) => {
-            /*
-            var f = document.getElementById("valoresparcialesinput").value.split("\\");
-
-            var filename = f[2];
-            filename = filename.replace(/\s+/g, '');
-            var filenamesplit = filename.split(".");
-            var filegralName = filename.split(".");
-
-            var JSONfileName = filegralName[0] + ".txt";
-            */
+            var materiaNameInput = document.getElementById("inputNameMateria");
+            var semestreSelect = document.getElementById("selectSemestreMateria");
+            var fileInput = document.getElementById("valoresparcialesinput");
 
             newMateriaParms = new FormData();
-
-            newMateriaParms.append("nombreMateria", $("#createmateriainputs input[name=nombremateria]").val());
-            newMateriaParms.append("semestre", $("#createmateriainputs select[name=semestreselect]").val());
-            newMateriaParms.append("valoresparciales", fileName);            
+            newMateriaParms.append("nombreMateria", materiaNameInput.value);
+            newMateriaParms.append("semestre", semestreSelect.value);
+            newMateriaParms.append("valoresparciales", fileName);
 
             $.ajax({
                 url: '../../index_ajax.php?controller=materia&action=insertMateria',

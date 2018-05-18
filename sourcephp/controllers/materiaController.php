@@ -98,6 +98,72 @@
             }
         }
 
+        public function getMateriaById () {
+            if (isset($_POST["materiaID"])) {
+                $materiaID = $_POST["materiaID"];
+				$stmt = $this->pdo->prepare(
+					"SELECT Valores_Parciales FROM materia WHERE Id_Materia = ?"
+				);
+				$stmt->execute([$materiaID]);
 
+                $materia = $stmt->fetchAll();
+                
+                if (isset($materia[0])) {
+                    $mat = new materiaModel();
+                    $mat->setId_Materia($materia[0]->idMateria);
+                    $mat->setMateria($materia[0]->Materia);                
+                    $mat->setSemestre($materia[0]->Semestre);
+                    $mat->setSemestre($materia[0]->Valores_Parciales);
+                    $mat->setAcademia($materia[0]->Academia);
+
+                    $matx = array(
+                        'Id_Materia' => $mat->getId_Materia(), 
+                        'Materia' => $mat->getMateria(), 
+                        'Semestre' => $mat->getSemestre(), 
+                        'Valores_Parciales' => $mat->getValores_Parciales(), 
+                        'Academia' => $mat->getAcademia() 
+                    );
+
+                    echo json_encode (array('error' => false, 'materia' => $matx));
+                } else {
+                    echo json_encode (array('error' => false));
+                }
+            }
+        }
+
+        public function updateFileValoresParciales () {
+
+			if (isset($_POST["materiaID"])) {
+		    	$materiaID = $_POST["materiaID"];
+				$oldFileNameValParOnDB = $this->pdo->prepare(
+					"SELECT Valores_Parciales FROM materia WHERE Id_Materia = ?"
+				);
+				$oldFileNameValParOnDB->execute([$materiaID]);
+
+				$materia = $oldFileNameValParOnDB->fetchAll();
+				if (isset($materia[0])) {						
+                    
+                    $newValParName = $_POST["fileName"];
+                                        
+					$updateNameValPar = $this->pdo(
+						"UPDATE materia 
+						SET Valores_Parciales = ?
+						WHERE Id_Materia = ?"
+					);
+					$updateNameValPar->execute([ $newValParName, $materiaID]);
+					$countUpdate = $updateNameValPar->rowCount();	
+
+                    if ($countUpdate > 0) {
+                        $targetPath = $_POST["targetPath"];
+                        $oldValParName = $materia[0]->Valores_Parciales;
+
+                        $fileController = new fileController();                                                
+                        $fileController->replaceFile($oldValParName, $targetPath, ".xlsx");
+                    } else {
+                        echo json_encode(array('error' => true, 'message' => "No se pudo actualizar el nombre del archivo en la base de datos"));
+                    }                    
+                }		
+			} 		
+		}
 	}
 ?>

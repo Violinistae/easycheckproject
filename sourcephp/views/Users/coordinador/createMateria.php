@@ -6,11 +6,11 @@
     <div id="createmateriainputs">    
         <div id="nombremateria">
             <label>Nombre de la materia</label>
-            <input type="text" name="nombremateria" autocomplete="off">
+            <input type="text" name="nombremateria" autocomplete="off" id="inputNameMateria">
         </div>
         <div id="semestremateria">
             <label>Semestre</label>
-            <select name="semestreselect">
+            <select name="semestreselect" id="selectSemestreMateria">
                 <option value="0" selected>Seleccione un Semestre</option>
                 <option value="1">1</option>
                 <option value="2">2</option>

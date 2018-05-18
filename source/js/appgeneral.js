@@ -157,7 +157,7 @@ $(document).ready(function ($) {
 				updateUserInfo();
 				break;
 			case "2":							//Acutalizar archivo Valores Parciales
-				updateXlsxValoresParciales();
+				getMateriatoUpdateFile();
 				break;
 			case "10":
 				$("#modforactions").fadeOut("400");
