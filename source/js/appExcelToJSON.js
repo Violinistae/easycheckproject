@@ -1,7 +1,7 @@
 $(document).ready(function ($) {
 
-    getXlsxFileCreateJSONValPar = (path, fileName) => {
-        var errorFormat = false;
+    getXlsxFileCreateJSONValPar = (path, fileName, functionToDoInDB) => {
+        
         var Request = new XMLHttpRequest();        
 
         Request.open("GET", "../." + path, true);        
@@ -12,10 +12,10 @@ $(document).ready(function ($) {
             if (Request.status === 200) {
                 JSONStr = doXlsxStuff(Request.response);
 
-                if (JSONStr == "null") {
-                    errorFormat = true;
-                    //AJAX delete file with name file and path
-                    
+                if (JSONStr == null) {
+                    var mainmessage = "El formato no es el correcto. Mostrar foto";
+                    var secmessage = "Presione el botón para continuar";
+                    showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
                     return;
                 }
                 
@@ -35,9 +35,10 @@ $(document).ready(function ($) {
                     dataType: 'json',
                     data: paramsForFile
                 }).done(function (resCreateWriteJSONtxt) {
-                    if (resCreateWriteJSONtxt.error) {
-                        //console.log(resCreateWriteJSONtxt.message); 
+                    if (!resCreateWriteJSONtxt.error){
+                        functionToDoInDB(fileName);
                     }
+                    console.log(resCreateWriteJSONtxt);
                 }).fail(function () {
                     AJAXrequestFailed("No funciona petición AJAX para crear/sobreescribir JSON --> .txt.");
                 });                                        
@@ -47,8 +48,7 @@ $(document).ready(function ($) {
             }
         };    
         Request.send(fileName);
-
-        return errorFormat;
+        return;
     }
 
         doXlsxStuff = (xlsxResponse) => {                  
@@ -70,15 +70,20 @@ $(document).ready(function ($) {
             /* Get Worksheet */
             var worksheet = workbook.Sheets[first_sheet_name];
 
-            var JSONStr = JSON.stringify(XLSX.utils.sheet_to_json(worksheet));        
+            var JSONStr = JSON.stringify(XLSX.utils.sheet_to_json(worksheet));  
             
             /* Get Column Headers (JSON Keys)  */
             var xlsxKeys = Object.keys(XLSX.utils.sheet_to_json(worksheet)[0]);                 
 
             if (xlsxKeys[0] == "Nombre" && xlsxKeys[1] == "Clave" && xlsxKeys[2] == "Valor Parcial") {
-                
+                XLSX.utils.sheet_to_json(worksheet).forEach(XlsxRow => {
+                    console.log(XlsxRow);
+                });
+            } else {
+                JSONStr = null;
             }
             
+            console.log(JSONStr);
             return JSONStr;            
         }
 

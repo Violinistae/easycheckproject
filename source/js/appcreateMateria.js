@@ -62,8 +62,9 @@ $(document).ready(function ($) {
             dataFile.append('fileType', fileType);
             dataFile.append('file', fileInput.files[0]);
             dataFile.append('fileName', newRealFileName);            
-            dataFile.append('oldfileName', null);
+            dataFile.append('oldfileName', "null");
             dataFile.append('targetPath', "./source/files/temp/");
+
 
             $.ajax({
                 url: '../../index_ajax.php?controller=file&action=saveFile_getPathForJS',
@@ -75,13 +76,15 @@ $(document).ready(function ($) {
                 try {                    
                     var JSONres = JSON.parse(responseCheckExcelFile);        
                     if (!JSONres.error) {
-                        var x = getXlsxFileCreateJSONValPar(JSONres.filePath, JSONres.fileName);              //Send excel file complete path and file real name (no extension)
-                        if (!x)
-                            sendDataForCreateMateria(JSONres.fileName);
-                        else {
+                        getXlsxFileCreateJSONValPar(JSONres.filePath, JSONres.fileName, sendDataForCreateMateria);              //Send excel file complete path and file real name (no extension)
+                        var x = getCookie("fOrMaTxLsXrEs");
+                        console.log(x);
+                        if (x == "0") {
                             var mainmessage = "El formato no es el correcto. Mostrar foto";
                             var secmessage = "Presione el botón para continuar";
                             showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
+                        } else {
+                            sendDataForCreateMateria(JSONres.fileName);
                         }
                     } else {
                         var mainmessage = JSONres.message;

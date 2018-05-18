@@ -15,8 +15,8 @@
                 $fileType = $_POST["fileType"];
                 $targetFile = $targetPath . $fileName . "." . $fileType;
 
-                if (isset($_POST["oldfileName"])) {
-                    $resReplace = replaceFile($_POST["oldFileName"], $fileType);
+                if ($_POST["oldfileName"] != "null") {
+                    $resReplace = $this->replaceFile($_POST["oldFileName"], $fileType);
                     if ($resReplace == -1) {
                         echo json_encode(array('error' => true));
                         return;
