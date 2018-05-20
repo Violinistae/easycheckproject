@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-05-2018 a las 02:20:03
+-- Tiempo de generación: 20-05-2018 a las 18:11:03
 -- Versión del servidor: 10.1.31-MariaDB
 -- Versión de PHP: 7.2.4
 
@@ -31,7 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `academia` (
   `Id_Academia` int(11) NOT NULL,
   `Academia` varchar(28) NOT NULL,
-  `Clave_Acceso` varchar(20) NOT NULL,
+  `Clave_Acceso` varchar(100) NOT NULL,
   `Ciclo_Periodo` char(14) NOT NULL,
   `Lista_Prof` varchar(70) NOT NULL,
   `Coordinador_Acad` int(11) NOT NULL,
@@ -43,8 +43,7 @@ CREATE TABLE `academia` (
 --
 
 INSERT INTO `academia` (`Id_Academia`, `Academia`, `Clave_Acceso`, `Ciclo_Periodo`, `Lista_Prof`, `Coordinador_Acad`, `Carrera`) VALUES
-(1, 'Informática', '12345678', 'Feb - Jun 2018', '', 2, 1),
-(2, 'Informatica', '12345678', 'Feb - Jun 2018', '', 123, 1);
+(1, 'Informática', '$2y$10$MY5OmpcrBY3NIYsrL.w4teUryw7iV/jdNWauiXPaPwdhlxncPQJaO', 'Feb - Jun 2018', 'null', 123, 1);
 
 -- --------------------------------------------------------
 
@@ -237,7 +236,7 @@ CREATE TABLE `grupoperiodo` (
   `Periodo` char(14) NOT NULL,
   `Profesor` int(11) NOT NULL,
   `Lista_Alumnos` varchar(70) NOT NULL,
-  `Clave_Acceso` varchar(20) NOT NULL
+  `Clave_Acceso` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -341,8 +340,8 @@ CREATE TABLE `materia` (
 --
 
 INSERT INTO `materia` (`Id_Materia`, `Materia`, `Semestre`, `Valores_Parciales`, `Academia`) VALUES
-(24, 'POO', 4, 'ValoresParcialesPOO.txt', 1),
-(25, 'POO', 8, 'ValoresParcialesPOO.txt', 1);
+(16, 'POO', 4, 'valPar65ValoresParcialesPOO', 1),
+(17, 'Programación Avanzada I', 7, 'valPar541ParcialesPrograAvanzadaI', 1);
 
 -- --------------------------------------------------------
 
@@ -529,25 +528,19 @@ CREATE TABLE `usuario` (
   `Nombres` varchar(30) NOT NULL,
   `Apellidos` varchar(40) NOT NULL,
   `Email` varchar(35) NOT NULL,
-  `Password` varchar(20) NOT NULL,
+  `Password` varchar(100) NOT NULL,
   `Escolaridad` varchar(15) NOT NULL,
   `Tipo_Usuario` tinyint(4) NOT NULL,
-  `Foto` varchar(100) NOT NULL
+  `Foto` varchar(100) NOT NULL,
+  `Hash` varchar(120) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`Registro_U`, `Nombres`, `Apellidos`, `Email`, `Password`, `Escolaridad`, `Tipo_Usuario`, `Foto`) VALUES
-(2, 'Andrés', 'Figueroa Flores', 'academia@gmail.com', '12345678', 'Maestría', 1, ''),
-(12, 'Carlos', 'Molina Martínez', 'profesor@gmail.com', '12345678', 'Maestría', 2, ''),
-(123, 'Yael Arturo', 'Chavoya Andalón', 'mail@gmail.com', '12345678', 'Licenciatura', 1, ''),
-(123456, 'Antonio', 'Lozano', 'mail@gmail.com', '12345678', 'Maestría', 2, ''),
-(14300084, 'Yael Arturo', 'Chavoya Andalon', 'mail@gmail.com', '12345678', '', 3, ''),
-(14300142, 'wero', 'fuentes', 'wero@gmail.com', '14300143', 'Maestría', 2, ''),
-(14300143, 'wero', 'fuentes', 'wero@gmail.com', '14300143', '', 3, ''),
-(14300281, 'Emiliano', 'Moreno Salazar', 'ssbbemis@gmail.com', '12345678', '-', 3, '');
+INSERT INTO `usuario` (`Registro_U`, `Nombres`, `Apellidos`, `Email`, `Password`, `Escolaridad`, `Tipo_Usuario`, `Foto`, `Hash`) VALUES
+(123, 'Gustavo', 'Rojas', 'academia@gmail.com', '$2y$10$kbbnaMsfXIssgogx3IGPeOU8335k42dfFOP.Jr4O8M1hsynVTEAju', 'Maestría', 1, '', '');
 
 --
 -- Índices para tablas volcadas
@@ -806,7 +799,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `academia`
 --
 ALTER TABLE `academia`
-  MODIFY `Id_Academia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id_Academia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `acciones`
@@ -920,7 +913,7 @@ ALTER TABLE `listagrupo`
 -- AUTO_INCREMENT de la tabla `materia`
 --
 ALTER TABLE `materia`
-  MODIFY `Id_Materia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `Id_Materia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `opcionespregunta`
