@@ -54,17 +54,16 @@ $(document).ready(function ($) {
             }
             
             //Generated fileName, no extension
-            var num = Math.random() * 1000;
+            var num = Math.random() * 10000;
             var numForFile = Math.round(num);
             newRealFileName = "valPar" + numForFile.toString() + realFileName;
 
             var dataFile = new FormData();
             dataFile.append('fileType', fileType);
             dataFile.append('file', fileInput.files[0]);
-            dataFile.append('fileName', newRealFileName);            
-            dataFile.append('oldfileName', "null");
+            dataFile.append('fileName', newRealFileName);
             dataFile.append('targetPath', "./source/files/temp/");
-
+            dataFile.append('targetPathTxt', "./source/files/ValoresParciales/");
 
             $.ajax({
                 url: '../../index_ajax.php?controller=file&action=saveFile_getPathForJS',
@@ -74,18 +73,11 @@ $(document).ready(function ($) {
                 data: dataFile
             }).done(function (responseCheckExcelFile) {
                 try {                    
-                    var JSONres = JSON.parse(responseCheckExcelFile);        
+                    var JSONres = JSON.parse(responseCheckExcelFile);
                     if (!JSONres.error) {
-                        getXlsxFileCreateJSONValPar(JSONres.filePath, JSONres.fileName, sendDataForCreateMateria);              //Send excel file complete path and file real name (no extension)
-                        var x = getCookie("fOrMaTxLsXrEs");
-                        console.log(x);
-                        if (x == "0") {
-                            var mainmessage = "El formato no es el correcto. Mostrar foto";
-                            var secmessage = "Presione el botón para continuar";
-                            showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
-                        } else {
-                            sendDataForCreateMateria(JSONres.fileName);
-                        }
+                        var saveTxtPath = "source/files/valoresParciales/";
+                        //file Xlsx path, file Name, purpose, pathSaveTxt converted JSON, updateFileOption, oldNameFile, Function to do, params function to do
+                        getXlsxFileCreateJSON(JSONres.filePath, JSONres.fileName, 1, saveTxtPath, false, null, sendDataForCreateMateria, null);
                     } else {
                         var mainmessage = JSONres.message;
                         var secmessage = "Presione el botón para continuar";
@@ -96,39 +88,37 @@ $(document).ready(function ($) {
                     var mainmessage = "Error inesperado. Inténtelo más tarde.";
                    var secmessage = "Presione el botón para continuar";
                    showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
-                }                
+                }   
             }).fail(function () {
                 AJAXrequestFailed("No funciona petición AJAX para crear verificar Excel.");
             });
         }
     }
         //Insert data for materia in DB
-        sendDataForCreateMateria = (fileName) => {           
+        sendDataForCreateMateria = (fileName, parmX) => {           
 
             var materiaNameInput = document.getElementById("inputNameMateria");
             var semestreSelect = document.getElementById("selectSemestreMateria");
             var fileInput = document.getElementById("valoresparcialesinput");
 
-            newMateriaParms = new FormData();
-            newMateriaParms.append("nombreMateria", materiaNameInput.value);
-            newMateriaParms.append("semestre", semestreSelect.value);
-            newMateriaParms.append("valoresparciales", fileName);
+            newMateriaParms = {
+                nombreMateria: materiaNameInput.value,
+                semestre: semestreSelect.value,
+                valoresparciales: fileName
+            };
 
             $.ajax({
                 url: '../../index_ajax.php?controller=materia&action=insertMateria',
                 type: 'POST',
-                contentType: false,
-                processData: false,
+                dataType: 'json',
                 data: newMateriaParms
             }).done(function (insertMateriaRes) {
-                resJSON = JSON.parse(insertMateriaRes);
-
-                if (!resJSON.error) {
-                    var mainmessage = resJSON.message;
+                if (!insertMateriaRes.error) {
+                    var mainmessage = insertMateriaRes.message;
                     var secmessage = "Presione el botón para continuar";
                     showMessage("wArNinGbTn_AcTiOn", 10, mainmessage, secmessage);
                 } else {
-                    var mainmessage = resJSON.message;
+                    var mainmessage = insertMateriaRes.message;
                     var secmessage = "Presione el botón para continuar";
                     showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
                 }

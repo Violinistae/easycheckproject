@@ -102,7 +102,7 @@
             if (isset($_POST["materiaID"])) {
                 $materiaID = $_POST["materiaID"];
 				$stmt = $this->pdo->prepare(
-					"SELECT Valores_Parciales FROM materia WHERE Id_Materia = ?"
+					"SELECT * FROM materia WHERE Id_Materia = ?"
 				);
 				$stmt->execute([$materiaID]);
 
@@ -110,10 +110,10 @@
                 
                 if (isset($materia[0])) {
                     $mat = new materiaModel();
-                    $mat->setId_Materia($materia[0]->idMateria);
+                    $mat->setId_Materia($materia[0]->Id_Materia);
                     $mat->setMateria($materia[0]->Materia);                
                     $mat->setSemestre($materia[0]->Semestre);
-                    $mat->setSemestre($materia[0]->Valores_Parciales);
+                    $mat->setValores_Parciales($materia[0]->Valores_Parciales);
                     $mat->setAcademia($materia[0]->Academia);
 
                     $matx = array(
@@ -126,44 +126,47 @@
 
                     echo json_encode (array('error' => false, 'materia' => $matx));
                 } else {
-                    echo json_encode (array('error' => false));
+                    echo json_encode (array('error' => true));
                 }
             }
         }
 
-        public function updateFileValoresParciales () {
+        public function updateMateria () {
 
-			if (isset($_POST["materiaID"])) {
-		    	$materiaID = $_POST["materiaID"];
-				$oldFileNameValParOnDB = $this->pdo->prepare(
-					"SELECT Valores_Parciales FROM materia WHERE Id_Materia = ?"
+            if (isset($_POST["Id_Materia"])) {
+
+                $materia = new materiaModel();
+                $materia->setId_Materia($_POST["Id_Materia"]);
+                $materia->setMateria($_POST["Materia"]);
+                $materia->setSemestre($_POST["Semestre"]);
+                $materia->setValores_Parciales($_POST["Valores_Parciales"]);
+                $materia->setAcademia($_POST["Academia"]);
+
+                
+                $stmt = $this->pdo->prepare(
+					"UPDATE  materia 
+                    SET Materia = ?,
+                    Semestre = ?,
+                    Valores_Parciales = ?,
+                    Academia = ?
+                    WHERE Id_Materia = ?"
 				);
-				$oldFileNameValParOnDB->execute([$materiaID]);
+				$stmt->execute([
+                    $materia->getMateria(),
+                    $materia->getSemestre(),
+                    $materia->getValores_Parciales(),
+                    $materia->getAcademia(),
+                    $materia->getId_Materia()
+                ]);
 
-				$materia = $oldFileNameValParOnDB->fetchAll();
-				if (isset($materia[0])) {						
-                    
-                    $newValParName = $_POST["fileName"];
-                                        
-					$updateNameValPar = $this->pdo(
-						"UPDATE materia 
-						SET Valores_Parciales = ?
-						WHERE Id_Materia = ?"
-					);
-					$updateNameValPar->execute([ $newValParName, $materiaID]);
-					$countUpdate = $updateNameValPar->rowCount();	
+                $updatedMaterias = $stmt->rowCount();
 
-                    if ($countUpdate > 0) {
-                        $targetPath = $_POST["targetPath"];
-                        $oldValParName = $materia[0]->Valores_Parciales;
-
-                        $fileController = new fileController();                                                
-                        $fileController->replaceFile($oldValParName, $targetPath, ".xlsx");
-                    } else {
-                        echo json_encode(array('error' => true, 'message' => "No se pudo actualizar el nombre del archivo en la base de datos"));
-                    }                    
-                }		
-			} 		
+                if ($updatedMaterias == 1) {
+                    echo json_encode(array('error' => false));
+                } else {
+                    echo json_encode(array('error' => true));
+                }            
+            }
 		}
 	}
 ?>

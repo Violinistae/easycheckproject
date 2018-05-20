@@ -78,20 +78,19 @@ $(document).ready(function ($) {
 
             updateXlsxValoresParciales = (oldMateria) => {
 
-                var oldVarParFileName = oldMateria.Valores_Parciales;
-
-                var num = Math.random() * 1000;
+                var num = Math.random() * 10000;
                 var numForFile = Math.round(num);
-
                 newRealFileName = "valPar" + numForFile.toString() + realFileName;
+
+                var oldVarParFileName = oldMateria.Valores_Parciales;
+                oldMateria.Valores_Parciales = newRealFileName;
 
                 dataUpdateFile = new FormData();
                 dataUpdateFile.append('fileType', fileType);
                 dataUpdateFile.append('file', fileInput.files[0]);
-                dataUpdateFile.append('fileName', newRealFileName);            
-                dataUpdateFile.append('materiaID', clickedFileMateria);
-                dataUpdateFile.append('oldfileName', oldVarParFileName);
-                dataUpdateFile.append('targetPath', "./source/files/temp/");                                 
+                dataUpdateFile.append('fileName', newRealFileName);
+                dataUpdateFile.append('targetPath', "./source/files/temp/");
+                dataUpdateFile.append('targetPathTxt', "./source/files/ValoresParciales/");
 
                 $.ajax({
                     url: '../../index_ajax.php?controller=file&action=saveFile_getPathForJS',
@@ -103,14 +102,8 @@ $(document).ready(function ($) {
                     try {
                         var JSONres = JSON.parse(resUpdateExcelFile);
                         if (!JSONres.error) {
-                            var x = getXlsxFileCreateJSONValPar(JSONres.filePath, JSONres.fileName);
-                            if (!x)
-                                sendDataForUpdateMateria(oldMateria, JSONres.fileName);
-                            else {
-                                var mainmessage = "El formato no es el correcto. Mostrar foto";
-                                var secmessage = "Presione el botón para continuar";
-                                showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
-                            }
+                            var saveTxtPath = "source/files/valoresParciales/";
+                            getXlsxFileCreateJSON(JSONres.filePath, JSONres.fileName, 1, saveTxtPath, true, oldVarParFileName, sendDataForUpdateMateria, oldMateria);
                         } else {
                             var mainmessage = JSONres.message;
                             var secmessage = "Presione el botón para continuar";
@@ -118,7 +111,7 @@ $(document).ready(function ($) {
                         }
                     } catch (Exception) {
                         console.log(Exception);
-                        var mainmessage = "Error inesperado. Inténtelo más tarde.";
+                        var mainmessage = "Error JSON inesperado. Inténtelo más tarde.";
                         var secmessage = "Presione el botón para continuar";
                         showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
                     }     
@@ -128,17 +121,19 @@ $(document).ready(function ($) {
             
             }
 
-                sendDataForUpdateMateria = (oldMateria, newFileName) => {
-                    var newMateria = oldMateria;
-                    newMateria.Valores_Parciales = newFileName;
+                sendDataForUpdateMateria = (fileName, newMateria) => {
+                    newMateria.Valores_Parciales = fileName;
 
                     $.ajax({
-                        usrl: '../../index_ajax.php?controller=materia&action=updateMateria',
+                        url: '../../index_ajax.php?controller=materia&action=updateMateria',
                         type: 'POST',
-                        dataType: 'json',
                         data: newMateria
-                    }).done(function () {
-                        //
+                    }).done(function (resUpdateValParMateria) {
+                        if (!resUpdateValParMateria.error) {
+                            var mainmessage = "Archivo actualizado exitosamente.";
+                            var secmessage = "Presione el botón para continuar";
+                            showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
+                        }
                     }).fail(function () {
                         AJAXrequestFailed("No funciona petición AJAX para actualizar nombre Valores Parciales en BD.");
                     });

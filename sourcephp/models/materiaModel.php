@@ -19,7 +19,7 @@
             $this->Semestre = $Semestre;
         }
         public function setValores_Parciales ($Valores_Parciales) {
-            $this->$Valores_Parciales = $Valores_Parciales;
+            $this->Valores_Parciales = $Valores_Parciales;
         }
         public function setAcademia ($Academia) {
             $this->Academia = $Academia;
@@ -35,7 +35,7 @@
             return $this->Semestre;
         }
         public function getValores_Parciales () {
-            return $this->$Valores_Parciales;
+            return $this->Valores_Parciales;
         }
         public function getAcademia () {
             return $this->Academia;

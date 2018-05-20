@@ -13,21 +13,16 @@
                 $targetPath = $_POST["targetPath"];
                 $fileName = $_POST["fileName"];
                 $fileType = $_POST["fileType"];
-                $targetFile = $targetPath . $fileName . "." . $fileType;
+                $txtFileTargetPath = $_POST["targetPathTxt"];
 
-                if ($_POST["oldfileName"] != "null") {
-                    $resReplace = $this->replaceFile($_POST["oldFileName"], $fileType);
-                    if ($resReplace == -1) {
-                        echo json_encode(array('error' => true));
-                        return;
-                    }
-                }
+                $targetFile = $targetPath . $fileName . "." . $fileType;
+                $targetTxtFile = $targetPath . $fileName . ".txt";
                 
-                $res = $this->saveUploadedFile($targetFile);
+                $res = $this->saveUploadedFile($targetFile, $targetTxtFile);
 
                 switch ($res) {
                     case 1:             //Saved uploaded file
-                        echo json_encode(array('error' => false, 'filePath' => $targetFile, 'fileName' => $fileName));
+                        echo json_encode(array('error' => false, 'targetFile' => $targetFile, 'filePath' => $targetPath, 'fileName' => $fileName));
                         return;
                     case 0:             //Cannot save uploaded file
                         echo json_encode(array('error' => true, 'message' => "No se pudo almacenar el archivo, inténtelo más tarde."));
@@ -46,9 +41,9 @@
             }
         }
 
-        private function saveUploadedFile ($targetFile) {                  
+        private function saveUploadedFile ($targetFile, $targetTxtFile) {                  
 
-            if (file_exists($targetFile)) { 
+            if (file_exists($targetTxtFile)) { 
                 return -1;
             }
 
@@ -60,7 +55,7 @@
                         
         }
 
-        public function create_writeFile () {            
+        public function create_writeFile () {
             $contentForFile = $_POST["contentForFile"];
             $targetFile = "./".$_POST["targetPath"].$_POST["fileName"].".txt";
 
@@ -77,18 +72,9 @@
             }     
         }
 
-        private function replaceFile ($oldFileName, $extension) {
-            $targetDeleteFile = $targetPath.$oldFileName.$extension; 
-            if (delete($targetDeleteFile)) {
-                return 1;
-            } else {
-                return -1;
-            }
-        }
-
-        public function deleteFile ($oldFileName, $extension) {
-            $targetDeleteFile = $targetPath.$oldFileName.$extension; 
-            if (delete($targetDeleteFile)) {
+        public function deleteFile () {
+            $targetDeleteFile = $_POST["targetFile"];
+            if (unlink($targetDeleteFile)) {
                 echo json_encode(array('error' => false));
             } else {
                 echo json_encode(array('error' => true));
