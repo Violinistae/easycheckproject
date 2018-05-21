@@ -54,8 +54,10 @@
     border-top: none;
     border-left: none;
     border-right: none;
-    padding: 1rem 0%;
-    text-indent: 1.7rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 1.5rem;
+    font-size: 1.3vw;
 }
 
 #materiasTableContent tr:nth-child(even) > td {
@@ -92,60 +94,3 @@
 #inputValoresParciales {
     display: none;
 }
-
-/*
-#materiasTable {
-    width: 100%;
-    height: 100%;
-
-    display: grid;
-    grid-template-rows: .8fr 9.2fr;
-    grid-template-columns: .1fr .1fr 9.6fr .1fr .1fr;
-    grid-row-gap: 1em;
-}
-
-#materiasTableTop {
-    grid-column-start: 3;
-    grid-column-end: 4;
-    width: 100%;
-    height: 100%;
-
-    display: grid;
-    grid-template-columns: 2fr 4fr 2fr 2fr;
-}
-
-#materiasTableTop > div {
-    text-align: center;
-    align-items: center;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: black solid 2px;
-    border-radius: 1px;
-}
-
-#materiasTableTop > div > label {
-    font-weight: bold;
-}
-
-#materiasTableContent {
-    grid-column-start: 2;
-    grid-column-end: 5;
-    width: 100%;
-    height: auto;
-    max-height: 99.6%;
-    border: solid red 1px;
-
-    display: grid;
-    grid-template-columns: 2fr 4fr 2fr 2fr;
-    overflow: auto;
-}
-
-#materiasTableContent > div {
-    height: 8%;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: black solid 2px;
-}
-*/

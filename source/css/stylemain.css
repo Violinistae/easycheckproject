@@ -220,17 +220,31 @@
 #modalforactionscontainer {
     grid-column-start: 2;
     grid-row-start: 3;
+    
 }
 
 #exitmodalbtn {
     color: rgb(63, 62, 62);
-    font-size: 4.3vw;
+    font-size: 4vw;
     cursor: pointer;
 
     transition: 300ms all ease-in-out;
 }
 
 #exitmodalbtn:hover {
+    transform: scale(1.16);
+}
+
+#returnmodalbtn {
+    color: rgb(63, 62, 62);
+    font-size: 4vw;
+    cursor: pointer;
+
+    transition: 300ms all ease-in-out;
+    display: none;
+}
+
+#returnmodalbtn:hover {
     transform: scale(1.16);
 }
 

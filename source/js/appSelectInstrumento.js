@@ -1,6 +1,9 @@
 $(document).ready(function ($) {
 
     loadFormCreateInstr = (e) => {
+        
+        setCookie('lastModalLoaded', 'selectInstrumentCreate', 1);        
+
         var Instrumento = e.currentTarget.id;
         var formURL = "../../sourcephp/views/shared/CoordAndProf/createInstrumento.php";
 

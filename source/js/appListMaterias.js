@@ -1,6 +1,7 @@
 var clickedFileMateria;
 var realFileName;
 var fileType;
+var materia;
 $(document).ready(function ($) {
 
     switchActionOnMateria = (e) => {        
@@ -20,12 +21,13 @@ $(document).ready(function ($) {
             case "f":
                 $("#inputValoresParciales").trigger("click");
                 clickedFileMateria = materiaId;
+                break;            
+            case "e":
+                //Edit
                 break;
             case "t":
                 //Delete
-                break;
-            case "e":
-                //edit
+                checkDeleteMateria(materiaId);
                 break;
             default:
                 break;
@@ -109,8 +111,7 @@ $(document).ready(function ($) {
                             var secmessage = "Presione el botón para continuar";
                             showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
                         }
-                    } catch (Exception) {
-                        console.log(Exception);
+                    } catch (Exception) {                        
                         var mainmessage = "Error JSON inesperado. Inténtelo más tarde.";
                         var secmessage = "Presione el botón para continuar";
                         showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
@@ -138,6 +139,60 @@ $(document).ready(function ($) {
                         AJAXrequestFailed("No funciona petición AJAX para actualizar nombre Valores Parciales en BD.");
                     });
                 }
+
+
+
+    checkDeleteMateria = (matId) => {
+        dataMateria = {
+            materiaID: matId
+        };
+
+        $.ajax({
+            url: '../../index_ajax.php?controller=materia&action=getMateriaById',
+            type: 'POST',
+            dataType: 'json',
+            data: dataMateria
+        }).done(function (resMateriaSelected) {
+            if (!resMateriaSelected.error) {
+                materia = resMateriaSelected.materia;
+                var mainmessage = '¿Está seguro de eliminar la materia "' + materia.Materia + '" ?';
+                var secmessage = "Ya no se podrá recuperar la información de esta al confirmar la acción.";
+                showMessage("wArNinGbTn_AcTiOn", 3, mainmessage, secmessage);
+            }
+        }).fail(function () {
+            AJAXrequestFailed("Petición AJAX para borrar materia ha fallado");
+        });
+
+    }
+
+        deleteMateriaSelected = () => {
+
+            dataMateria = {
+                Id_Materia: materia.Id_Materia
+            };
+
+            $.ajax({
+                url: '../../index_ajax.php?controller=materia&action=deleteMateria',
+                type: 'POST',
+                dataType: 'json',
+                data: dataMateria
+            }).done(function (resMateriaDeleted) {
+                if (!resMateriaDeleted.error) {
+
+                    deleteFile('./source/valoresparciales/' + materia.Valores_Parciales + '.txt');
+
+                    var mainmessage = "Materia eliminada exitosamente.";
+                    var secmessage = "Presione el botón para continuar";
+                    showMessage("wArNinGbTn_AcTiOn", 10, mainmessage, secmessage);
+                } else {
+                    var mainmessage = "No se pudo borrar la materia, inténtelo más tarde.";
+                    var secmessage = "Presione el botón para continuar";
+                    showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);                    
+                }
+            }).fail(function () {
+                AJAXrequestFailed("Petición AJAX para borrar materia ha fallado");
+            });
+        }
 
     $(".materiaBtn").click(function (e) { switchActionOnMateria(e); });
     $("#inputValoresParciales").change(function (e) { checkNewUploadedFile(); });

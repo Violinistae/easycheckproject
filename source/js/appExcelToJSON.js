@@ -18,8 +18,6 @@ $(document).ready(function ($) {
                     showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
                     deleteFile(ExcelFile);
                     return;
-
-                    //Eliminar XLSX incorrecto (actual)
                 }
                 
                 if (updateFileAction) {
@@ -87,7 +85,7 @@ $(document).ready(function ($) {
                 case 1:
                         if (xlsxKeys[0] == "Nombre" && xlsxKeys[1] == "Clave" && xlsxKeys[2] == "Valor Parcial") {
                             XLSX.utils.sheet_to_json(worksheet).forEach(XlsxRow => {
-                                console.log(XlsxRow);
+                                //console.log(XlsxRow);
                             });
                         } else {
                             JSONStr = null;
@@ -98,26 +96,7 @@ $(document).ready(function ($) {
                     break;
             }
             
-            console.log(JSONStr);
             return JSONStr;            
         }
-
-        deleteFile = (targetFile) => {
-            dataFile = {
-                targetFile: targetFile
-            };
-
-            $.ajax({
-                url: '../../index_ajax.php?controller=file&action=deleteFile',
-                type: 'POST',
-                dataType: 'json',
-                data: dataFile
-            }).done(function () {
-                //
-            }).fail(function () {
-                AJAXrequestFailed("No sirve petición AJAX para eliminar archivo xlsx");
-            });
-        }
-
 });
 

@@ -56,6 +56,7 @@
 	<div class="modalforactions" id="modforactions">
 		<div id="modalforactionscontent">
 			<div id="modalforactionsmainbtns">
+				<i class="fas fa-chevron-circle-left" id="returnmodalbtn"></i>
 				<i class="fa fa-times-circle" id="exitmodalbtn"></i>
 			</div>
 			<div id="modalforactionscontainer">

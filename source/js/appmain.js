@@ -303,6 +303,7 @@ $(document).ready(function ($) {
 	$('body').on('click', '#dropusermen', function (e) { dropMenuInOut(); });
 	$('body').on('click', '#closesession', function () { closeUserSession(); });
 	$('body').on('click', '#exitmodalbtn', function (e) { verifyModalActionChanges(e); });
+	$('body').on('click', '#returnmodalbtn', function (e) { goLastModalPage(); });
 
 		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Interacción con botones de modal warning/information ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 			$('body').on('click', '#cancelbtn', function () { $('#modwarning').fadeOut('400'); deleteCookie("wArNinGbTn_AcTiOn"); });

@@ -93,6 +93,7 @@ $(document).ready(function ($) {
 		switch (cookieValue) {
 			case 0: choose = false;	break;
 			case 10: choose = false; break;
+			case 11: choose = false; break;
 
 
 			case 410: choose = false; break;
@@ -143,6 +144,27 @@ $(document).ready(function ($) {
 		}
 	}
 
+	goLastModalPage = () => {
+		var funcion = getCookie('lastModalLoaded');
+		window[funcion]();
+	}
+
+	deleteFile = (targetFile) => {
+		dataFile = {
+			targetFile: targetFile
+		};
+
+		$.ajax({
+			url: '../../index_ajax.php?controller=file&action=deleteFile',
+			type: 'POST',
+			dataType: 'json',
+			data: dataFile
+		}).done(function () {
+			//
+		}).fail(function () {
+			AJAXrequestFailed("No sirve petición AJAX para eliminar archivo xlsx");
+		});
+	}
 
 
 	doConfirmAction = () => {
@@ -156,10 +178,13 @@ $(document).ready(function ($) {
 			case "1":							//Modificar información de usuario
 				updateUserInfo();
 				break;
-			case "2":							//Acutalizar archivo Valores Parciales
+			case "2":							//Actualizar archivo Valores Parciales
 				getMateriatoUpdateFile();
 				break;
-			case "10":
+			case "3":							//Confirmar para eliminar materia
+				deleteMateriaSelected();
+				break;
+			case "10":							//Crear materia
 				$("#modforactions").fadeOut("400");
 				document.getElementById("modalforactionscontainer").innerHTML = "";
 				actionsCookieName = "aiCoTndDtoO";
@@ -167,8 +192,9 @@ $(document).ready(function ($) {
 				$("#createmateriabtn").prop("disabled", false);
 				gotoMaterias();
 				break;
-
-
+			case "11":
+				gotoMaterias();
+				break;
 			case "410":
 				$("#createmateriabtn").prop("disabled", false);
 				break;

@@ -167,6 +167,27 @@
                     echo json_encode(array('error' => true));
                 }            
             }
-		}
+        }
+        
+        public function deleteMateria () {
+            if (isset($_POST["Id_Materia"])) {
+
+                $IdMateria = $_POST["Id_Materia"];
+
+                 $stmt = $this->pdo->prepare(
+					"DELETE FROM  materia                 
+                    WHERE Id_Materia = ?"
+				);
+				$stmt->execute([
+                    $IdMateria
+                ]);                
+
+                if ($stmt->rowCount() == 1) {
+                    echo json_encode (array('error' => false));
+                } else {
+                    echo json_encode (array('error' => true));
+                }   
+            }
+        } 
 	}
 ?>

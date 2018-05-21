@@ -2,8 +2,8 @@
 <div>
 	<label id="titleFormCreateInst">Crear Instrumento de Evaluación</label>
 </div>
-<div id="fromCreateMateria">
-	<div id="formCreateMateriaPart1">
+<div id="fromCreateInst">
+	<div id="formCreateInstPart1">
 		<div>
 			<label class="subtitleLblField">Tipo de Instrumento</label>
 			<p>Tipo de Instrumento</p>
@@ -24,6 +24,7 @@
 				<option value="1">1</option>
 				<option value="2">2</option>
 				<option value="3">3</option>
+				<option value="123">Todos</option>
 			</select>
 		</div>
 		<div>
@@ -31,7 +32,7 @@
 			<input type="text" name="claveElemento" autocomplete="off">
 		</div>
 	</div>
-	<div id="formCreateMateriaPart2">
+	<div id="formCreateInstPart2">
 		<div>
 			<label class="subtitleLblField">Nombre Elemento Evaluado</label>
 			<input type="text" name="nombreElemento" autocomplete="off">

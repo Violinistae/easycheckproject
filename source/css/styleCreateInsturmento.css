@@ -7,32 +7,46 @@
     font-family: 'Noto Sans', sans-serif;
 }
 
-#fromCreateMateria {
-    display: flex;
-    flex-direction: row;
-
+#returnmodalbtn {
+    display: block;
 }
 
-#fromCreateMateria > div {
+#modalforactionsmainbtns {
+    display: flex;
+    justify-content: space-between;
+}
+
+#fromCreateInst {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 1em;
+    height: 100%;
+}
+
+#formCreateInstPart1 {
+    display: grid;
+    grid-template-rows: repeat(5, 1fr);
+}
+
+#formCreateInstPart2 {
+    display: grid;  
+    grid-template-rows: repeat(4, 1fr);
+}
+
+#formCreateInstPart1 > div {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
 }
 
-#formCreateMateriaPart1 > div {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-#formCreateMateriaPart2 > div {
+#formCreateInstPart2 > div {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
 }
 
 #instruccionesLlenado {
-    flex-grow: 2;
+    flex-grow: 5;
 }
 
 #titleFormCreateInst {
@@ -43,4 +57,15 @@
 .subtitleLblField {
     font-weight: bold;
     font-size: 1.2vw;
+}
+
+#fromCreateInst select, input{
+    border-bottom: black solid 2px;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    
+    padding: .6rem;
+    background-color: transparent;
+    outline: none;
 }
