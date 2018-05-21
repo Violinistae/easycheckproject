@@ -8,8 +8,8 @@
 	<link rel="stylesheet" type="text/css" href="../../source/css/styleInstrumentsContainer.css">
 	<link rel="shortcut icon" href="../../source/img/easycheckico.png" type="image/x-icon">	
 
-	<script type="text/javascript" src="../../source/js/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript" src="../../source/js/xlsx.full.min.js"></script>
+	<script type="text/javascript" src="../../source/resources/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="../../source/resources/xlsx.full.min.js"></script>
 	<script type="text/javascript" src="../../source/js/appExcelToJSON.js"></script>
 
 	<script type="text/javascript" src="../../source/js/appLoadPageAJAX.js"></script>
