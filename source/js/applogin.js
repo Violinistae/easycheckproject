@@ -156,7 +156,7 @@ $(document).ready(function($){
 	//toCreatenewUser()
 
 
-	sendMailResetPswd = () => {
+	loadFormSendMailResetPswd = () => {
 
 		$.ajax({
 			url: "./sourcephp/views/shared/forEveryone/sendMailResetPswd.php",
@@ -168,14 +168,48 @@ $(document).ready(function($){
 			AJAXrequestFailed("Error en petición AJAX para insertar formulario para enviar correo reset password.");
 		});
 
-		
 	}
 
 		loadSendMailResetPswdForm = (resSendMailResetPswdForm) => {
 			document.getElementById('modalregitems').innerHTML = resSendMailResetPswdForm;
 			$("#mymodalreg").fadeIn('600', function () { });
-			$("#modalregitems").css({ "background-color": "rgb(30, 30, 30" });
+			$("#modalregitems").css({ "background-color": "rgb(30, 30, 30"});
 		}
+
+	checkEmailToSendMail = () => {
+		var emailInput = document.getElementById("emailResetPswd");
+		var exp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+		if (!exp.test(emailInput.value)) {
+			showError("Ingrese una direccion de correo electrónico válida.");
+			return;
+		}
+
+		var dataEmailCheck = {
+			email: emailInput.value
+		};
+
+		return;
+
+		$.ajax({
+			url: "./index_ajax.php?controller=usuario&action=checkEmailUser",
+			type: 'POST',
+			dataType: 'json',
+			data: param
+		}).done(function (resCheckEmail) {
+			if (!resCheckEmail.error) {
+				//AJAX send mail
+			} else {
+				showError("No existe alguna cuenta registrada con ese correo electronico.");
+				return;
+			}
+		}).fail(function () {
+			AJAXrequestFailed();
+		});
+
+	}
+
+/*------------------------------------------------------------------------------------------*/
 
 	$("body").on('submit', '#freg', function toCreatenewUser(e) {				
 		e.preventDefault();
@@ -190,7 +224,8 @@ $(document).ready(function($){
 			return;
 	});
 
-	$("#resetPassword").click(function (e) { sendMailResetPswd(); });
+	$("#resetPassword").click(function (e) { loadFormSendMailResetPswd(); });
+	$("body").on('click', "#sendMailResetPswd", function (e) { checkEmailToSendMail(); })
 });
 
 

@@ -40,6 +40,7 @@
     background-color: transparent;
     color: var(--color);;
     border-bottom: solid 2px var(--color);
+    text-indent: 1.2em;
     border-top: none;
     border-left: none;
     border-right: none;
@@ -49,6 +50,7 @@
 
 #emailResetPswd::placeholder {
     color: var(--color);    
+    text-indent: 1.2em;
 }
 
 #sendMailResetPswd {
@@ -59,6 +61,7 @@
     color: var(--color);
     transition: 300ms all ease-in-out;
     cursor: pointer;
+    outline: none;
 }
 
 #sendMailResetPswd:hover {

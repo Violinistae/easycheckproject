@@ -300,5 +300,9 @@
 		public function sendMailResetPassword() {
 			
 		}
+
+		public function checkEmailUser () {
+			
+		}
 	}
 ?>
