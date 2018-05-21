@@ -48,14 +48,23 @@
 	<div id="login">
 		<?php 
 			//Verificar que cuenta es y poner barra de navegación
-			if (!$masterController)
-			{
+			if (!$masterController) {
 				include("sourcephp/views/Users/login.php");
 			}	
 		 ?>
 	</div>
 	<div class="modalreg" id="mymodalreg">
-		<div id="modalregitems"></div>
+		<div id="modalregcontent">
+			<div id="modalregitems">
+				<div id="modalregmainbtns">
+					<i class="fas fa-chevron-circle-left" id="returnmodalbtn"></i>
+					<i class="fa fa-times-circle" id="exitmodalbtn"></i>
+				</div>
+				<div id="modalregmaincontent">
+
+				</div>
+			</div>
+		</div>		
 	</div>
 </body>
 </html>

@@ -4,6 +4,26 @@
 	padding: 0;
 	box-sizing: border-box;
 }
+
+#modalregmainbtns {
+	color: white;
+	display: flex;
+	padding: .8rem 1.2rem;
+	justify-content: space-between;
+}
+
+#returnmodalbtn {
+	font-size: 3vw;
+	cursor: pointer;
+	display: none;
+}
+
+#exitmodalbtn {
+	font-size: 3vw;
+	cursor: pointer;
+	align-self: right;
+}
+
 .modalreg
 {
 	display: none;
@@ -19,6 +39,7 @@
 }
 #modalregitems
 {
+	/*
 	background-color: rgb(50, 50, 50);
 	position: relative;
 	margin: 4% auto;
@@ -29,6 +50,14 @@
 	flex-direction: column;
 	flex-wrap: wrap;
 	align-content: space-around;
+	*/
+	position: relative;
+	margin: 3% auto;
+	width: 90%;
+	height: 88%;
+	border-radius: 6px;
+	display: grid;
+	grid-template-rows: .3fr 9.7fr;
 }
 .subcontmodal
 {
@@ -78,7 +107,7 @@
 {
 	display: grid;	
 	padding: 2%;
-	height: 70%;
+	height: 60%;
 	grid-template-columns: 32% 32% 32%;
 	grid-column-gap: 2%;
 }

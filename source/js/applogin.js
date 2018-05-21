@@ -171,7 +171,7 @@ $(document).ready(function($){
 	}
 
 		loadSendMailResetPswdForm = (resSendMailResetPswdForm) => {
-			document.getElementById('modalregitems').innerHTML = resSendMailResetPswdForm;
+			document.getElementById('modalregmaincontent').innerHTML = resSendMailResetPswdForm;
 			$("#mymodalreg").fadeIn('600', function () { });
 			$("#modalregitems").css({ "background-color": "rgb(30, 30, 30"});
 		}
@@ -226,6 +226,7 @@ $(document).ready(function($){
 
 	$("#resetPassword").click(function (e) { loadFormSendMailResetPswd(); });
 	$("body").on('click', "#sendMailResetPswd", function (e) { checkEmailToSendMail(); })
+	$("body").on('click', "#exitmodalbtn", function (e) { hidetologin(); })
 });
 
 
@@ -242,7 +243,7 @@ function gotoregist()
 
 	peticion_http.onreadystatechange = function () {
 		if (this.readyState == 4 && this.status == 200) {	
-			document.getElementById('modalregitems').innerHTML = this.responseText;
+			document.getElementById('modalregmaincontent').innerHTML = this.responseText;
 			$("#mymodalreg").fadeIn('600', function() {});
 		}
 	}
@@ -289,7 +290,7 @@ function checkuserregist(type) {
 
 		peticion_http.onreadystatechange = function () {
 			if (this.readyState == 4 && this.status == 200) {	
-				document.getElementById('modalregitems').innerHTML = this.responseText;
+				document.getElementById('modalregmaincontent').innerHTML = this.responseText;
 				$("#mymodalreg").fadeIn('600', function() {});
 			}
 		}
