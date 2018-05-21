@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-05-2018 a las 18:11:03
+-- Tiempo de generación: 21-05-2018 a las 02:22:26
 -- Versión del servidor: 10.1.31-MariaDB
--- Versión de PHP: 7.2.4
+-- Versión de PHP: 7.1.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -73,7 +73,10 @@ INSERT INTO `acciones` (`Id_Acciones`, `Controlador`, `Metodo`) VALUES
 (9, 'materia', 'insertMateria'),
 (10, 'materia', 'readMateria'),
 (11, 'file', 'saveFile_getPathForJS'),
-(12, 'file', 'create_writeFile');
+(12, 'file', 'create_writeFile'),
+(13, 'materia', 'getMateriaById'),
+(14, 'materia', 'updateMateria'),
+(15, 'file', 'deleteFile');
 
 -- --------------------------------------------------------
 
@@ -340,8 +343,9 @@ CREATE TABLE `materia` (
 --
 
 INSERT INTO `materia` (`Id_Materia`, `Materia`, `Semestre`, `Valores_Parciales`, `Academia`) VALUES
-(16, 'POO', 4, 'valPar65ValoresParcialesPOO', 1),
-(17, 'Programación Avanzada I', 7, 'valPar541ParcialesPrograAvanzadaI', 1);
+(4, 'Programación Avanzada I', 7, 'valPar9337ParcialesPrograAvanzadaI', 1),
+(5, 'Seguridad en ITI', 8, 'valPar3554SeguridadenITI', 1),
+(7, 'POO', 4, 'valPar7616ValoresParcialesPOO', 1);
 
 -- --------------------------------------------------------
 
@@ -805,7 +809,7 @@ ALTER TABLE `academia`
 -- AUTO_INCREMENT de la tabla `acciones`
 --
 ALTER TABLE `acciones`
-  MODIFY `Id_Acciones` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `Id_Acciones` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `aspectoevaluacion`
@@ -913,7 +917,7 @@ ALTER TABLE `listagrupo`
 -- AUTO_INCREMENT de la tabla `materia`
 --
 ALTER TABLE `materia`
-  MODIFY `Id_Materia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `Id_Materia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `opcionespregunta`
