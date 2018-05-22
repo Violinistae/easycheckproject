@@ -10,11 +10,13 @@ $(document).ready(function ($) {
 			url: "../../sourcephp/views/shared/forEveryone/principal.php",
 			type: "POST"
 		}).done(function (mainPage) {
-			maincontentFadeAnimation(mainPage);
+			maincontentFadeAnimation(mainPage, "null");
 		}).fail( function () {
 			AJAXrequestFailed("Fallo en petición AJAX para volver a página principal");
 		});
 	}	
+
+	//Function to insert content on main page ?
         
 	gotoPersonalProfilePage = () => {
 		setCookie("lOaDeDpAgE_ajax", "gotoPersonalProfilePage", 7);
@@ -24,20 +26,23 @@ $(document).ready(function ($) {
 			url: '../../sourcephp/views/shared/forEveryone/personalProfile.php',
 			type: 'POST'
 		}).done(function (personalProfilePage) {
-			maincontentFadeAnimation(personalProfilePage);			
+			maincontentFadeAnimation(personalProfilePage, personalProfileForFadeIn);
+		}).fail( function () {
+			AJAXrequestFailed("Fallo en petición AJAX para cargar perfil personal de usuario.");
+		});
+	}
+
+		personalProfileForFadeIn = () => {
 			$.ajax({
 				url: '../../index_ajax.php?controller=usuario&action=getUserInfo',
 				type: 'POST',
 				dataType: 'json'
 			}).done(function (userinfoRes) {
 				getUserInfo(userinfoRes);
-			}).fail( function () {
-				AJAXrequestFailed("Fallo en petición AJAX para obtención de información de usuario.");		 
+			}).fail(function () {
+				AJAXrequestFailed("Fallo en petición AJAX para obtención de información de usuario.");
 			});
-		}).fail( function () {
-			AJAXrequestFailed("Fallo en petición AJAX para cargar perfil personal de usuario.");
-		});
-	}
+		}
 
 		getUserInfo = (userinfoRes) => {
 			//Se imprime en los campos adecuados la információn básica de un usuario
@@ -132,15 +137,14 @@ $(document).ready(function ($) {
 	}
 
 		checkCoordProf = (sessionVariables) => {
-			if (!sessionVariables.error) {
-				//console.log(sessionVariables);
+			if (!sessionVariables.error) {			
 				switch (parseInt(sessionVariables.usertype)) {
 					case 1:
 						$.ajax({
 							url: '../../sourcephp/views/shared/CoordAndProf/acadOverview.php',
 							type: 'POST'
 						}).done(function (acadOverviewPage) {
-							maincontentFadeAnimation(acadOverviewPage);
+							maincontentFadeAnimation(acadOverviewPage, "null");
 						}).fail(function () {
 							AJAXrequestFailed("Fallo en petición AJAX para insertar ir a Academia Overview");
 						});
@@ -156,6 +160,8 @@ $(document).ready(function ($) {
 			}
 		}
 
+		//Function to insert content on academia page ?
+
 	gotoMaterias = (e) => {
         setCookie("lOaDeDpAgE_ajax", "gotoMaterias", 7);
 		$(".subdropumen").removeClass('active');
@@ -164,8 +170,7 @@ $(document).ready(function ($) {
             url: "../../sourcephp/views/Users/coordinador/listMaterias.php",
 			type: "POST"
         }).done(function (mainPage) {
-			maincontentFadeAnimation(mainPage);
-			loadMateriasToTable();
+			maincontentFadeAnimation(mainPage, loadMateriasToTable);
         }).fail(function () {
             AJAXrequestFailed("Fallo en petición AJAX para cargar página de lista de materias de academia.");
         });
@@ -198,7 +203,7 @@ $(document).ready(function ($) {
 						var tIcon = '<i id="t-' + materiasAcademia.materias[i].Id_Materia + '" title="Eliminar" class="actionsIcon fas fa-trash"></i>';
 						var eIcon = '<i id="e-' + materiasAcademia.materias[i].Id_Materia + '" title="Editar" class="actionsIcon fas fa-edit"></i>';
 
-						var fbtn = '<button class="materiaBtn" id="t-' + materiasAcademia.materias[i].Id_Materia + '">' + fIcon + '</button>';
+						var fbtn = '<button class="materiaBtn" id="f-' + materiasAcademia.materias[i].Id_Materia + '">' + fIcon + '</button>';
 						var tbtn = '<button class="materiaBtn" id="t-' + materiasAcademia.materias[i].Id_Materia + '">' + tIcon + '</button>';
 						var ebtn = '<button class="materiaBtn" id="e-' + materiasAcademia.materias[i].Id_Materia + '">' + eIcon + '</button>';
 
@@ -216,6 +221,30 @@ $(document).ready(function ($) {
 				} else if (materiasAcademia.error) {
 				}				
 			}
+
+	selectInstrumentCreate = () => {
+        $(".buttonnewinst").removeClass('active');
+        $(".subdropumen").removeClass('active');
+
+        actionsCookieName = "aiCoTndDtoO";
+        setCookie(actionsCookieName, "selectInstrument", 8);
+		$("#modforactions").fadeIn("400");
+		$("#modalforactionscontainer").fadeIn("400");
+
+        $.ajax({
+            url: "../../sourcephp/views/shared/CoordAndProf/selectInstrumento.php",
+            type: "POST"
+        }).done(function (resSelectInstrumentCreate) {
+            insertCreateMateriaForm(resSelectInstrumentCreate);
+        }).fail(function () {
+            AJAXrequestFailed("Fallo en petición AJAX para insertar formulario selección de instrumento de evaluación.");
+        });
+    }
+
+        insertCreateMateriaForm = (resSelectInstrumentCreate) => {
+            document.getElementById("modalforactionscontainer").innerHTML = resSelectInstrumentCreate;
+            getAndExecuteNewInsertedScript(document.getElementById("modalforactionscontainer"));
+        }
 		
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++	
 });

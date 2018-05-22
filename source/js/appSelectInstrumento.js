@@ -2,7 +2,7 @@ $(document).ready(function ($) {
 
     loadFormCreateInstr = (e) => {
         
-        setCookie('lastModalLoaded', 'selectInstrumentCreate', 1);        
+        setCookie('lStMoDlAsTaD', 'selectInstrumentCreate', 1);
 
         var Instrumento = e.currentTarget.id;
         var formURL = "../../sourcephp/views/shared/CoordAndProf/createInstrumento.php";
@@ -31,11 +31,12 @@ $(document).ready(function ($) {
     }
 
         insertCreateInstrumentoForm = (resCreateInstrumentoForm) => {      
-            $("#modalforactionscontainer").fadeOut(300);
-            sleep(300); 
-            document.getElementById("modalforactionscontainer").innerHTML = resCreateInstrumentoForm;
-            getAndExecuteNewInsertedScript(document.getElementById("modalforactionscontainer"));
-            $("#modalforactionscontainer").fadeIn(300);
+
+            $("#modalforactionscontainer").fadeOut(300, function () { 
+                document.getElementById("modalforactionscontainer").innerHTML = resCreateInstrumentoForm;
+                getAndExecuteNewInsertedScript(document.getElementById("modalforactionscontainer"));
+                $("#modalforactionscontainer").fadeIn(300);
+             });
         }
         
 //----------------------------------------------------------------------------------------------------

@@ -26,7 +26,7 @@
 				</div>
 				<div>
 					<label>Correo Electrónico</label>
-					<input id="emailinput" type="text" name="email" autocomplete="off">
+					<input id="emailinput" type="text" name="email">
 				</div>
 				<div id="escolaridadDiv"></div>				
 			</div>

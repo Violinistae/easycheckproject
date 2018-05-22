@@ -33,11 +33,13 @@ $(document).ready(function ($) {
 		window[lastURL]();
 	}
 
-	maincontentFadeAnimation = (responsePage) => {
-		$("#submaincontainer").fadeOut(50);
-		sleep(120);
-		document.getElementById("submaincontainer").innerHTML = responsePage;
-		$("#submaincontainer").fadeIn(50);
+	maincontentFadeAnimation = (responsePage, functionToDo) => {
+		$("#submaincontainer").fadeOut(180, function () { 
+			document.getElementById("submaincontainer").innerHTML = responsePage;
+			$("#submaincontainer").fadeIn(180);
+			if (functionToDo != "null")
+				functionToDo();
+		 });
 	}
 
 	getAndExecuteNewInsertedScript = (loadedPageByAJAX) => {
@@ -144,9 +146,13 @@ $(document).ready(function ($) {
 		}
 	}
 
-	goLastModalPage = () => {
-		var funcion = getCookie('lastModalLoaded');
-		window[funcion]();
+	goLastModalPage = (modal) => {
+		var lastModal = getCookie("lStMoDlAsTaD");
+		modal.fadeOut('600', function () {
+			if (lastModal != "null") {
+				window[lastModal]();
+			}
+		});	
 	}
 
 	deleteFile = (targetFile) => {

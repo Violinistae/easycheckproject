@@ -179,7 +179,7 @@ $(document).ready(function ($) {
             }).done(function (resMateriaDeleted) {
                 if (!resMateriaDeleted.error) {
 
-                    deleteFile('./source/valoresparciales/' + materia.Valores_Parciales + '.txt');
+                    deleteFile('./source/files/valoresParciales/' + materia.Valores_Parciales + '.txt');
 
                     var mainmessage = "Materia eliminada exitosamente.";
                     var secmessage = "Presione el botón para continuar";

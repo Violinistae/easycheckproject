@@ -15,13 +15,12 @@
 #returnmodalbtn {
 	font-size: 3vw;
 	cursor: pointer;
-	display: none;
+
 }
 
 #exitmodalbtn {
 	font-size: 3vw;
 	cursor: pointer;
-	align-self: right;
 }
 
 .modalreg

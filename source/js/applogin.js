@@ -227,6 +227,7 @@ $(document).ready(function($){
 	$("#resetPassword").click(function (e) { loadFormSendMailResetPswd(); });
 	$("body").on('click', "#sendMailResetPswd", function (e) { checkEmailToSendMail(); })
 	$("body").on('click', "#exitmodalbtn", function (e) { hidetologin(); })
+	$("body").on('click', '#returnmodalbtn', function (e) { goLastModalPage($("#mymodalreg")); });
 });
 
 
@@ -236,6 +237,7 @@ $(document).ready(function($){
 */
 function gotoregist()
 {
+	setCookie("lStMoDlAsTaD", "null", 1);
 	if(window.XMLHttpRequest)	
 		peticion_http = new XMLHttpRequest();	
 	else if (window.ActiveXObject) 	
@@ -280,6 +282,7 @@ function hidetologin() {
  * @return null
  */
 function checkuserregist(type) {
+	setCookie("lStMoDlAsTaD", "gotoregist", 1);
 	$("#mymodalreg").fadeOut('300', function() {});
 	setTimeout(function() { 
 
