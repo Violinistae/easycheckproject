@@ -6,11 +6,11 @@
 	<div id="formCreateInstPart1">
 		<div>
 			<label class="subtitleLblField">Tipo de Instrumento</label>
-			<p>Tipo de Instrumento</p>
+			<p id="tipoInstrumentoTxt">Tipo de Instrumento</p>
 		</div>
 		<div>
 			<label class="subtitleLblField">Carrera de la Materia Evaluada</label>
-			<p>Carrera Materia</p>
+			<p id="carreraMateriaTxt">Carrera Materia</p>
 		</div>
 		<div>
 			<label class="subtitleLblField">Materia Evaluada</label>
@@ -20,7 +20,7 @@
 		<div>
 			<label class="subtitleLblField">Parcial Evaluado</label>
 			<select id="selectParcial" name="selectParcialEvaluado" autocomplete="off">
-				<option value="null">- Seleccione un Parcial -</option>
+				<option value="null" selected>- Seleccione un Parcial -</option>
 				<option value="1">1</option>
 				<option value="2">2</option>
 				<option value="3">3</option>

@@ -10,8 +10,7 @@ $(document).ready(function ($) {
         console.log(str);
 	}
 
-	dropMenuInOut = () => {
-		//console.log($(".subdropumen").children());
+	dropMenuInOut = () => {	
 		$(".subdropumen").toggleClass('active').siblings().removeClass('active');
 		$(".buttonnewinst").removeClass('active');
 	}

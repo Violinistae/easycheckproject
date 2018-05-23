@@ -2,7 +2,6 @@
 <div id="createmateriainstrucc">
     <p>Ingrese los datos solicitados para crear una materia</p>
 </div>
-<!--<form id="formuploadajax" method="post">-->
     <div id="createmateriainputs">    
         <div id="nombremateria">
             <label>Nombre de la materia</label>
@@ -29,13 +28,9 @@
                 Seleccionar Archivo
                 <input type="file" name="valoresparicalesfile" id="valoresparcialesinput">
             </button>
-            <!--
-            <input type="file" name="valoresparicalesfile" id="valoresparcialesinput">
-            -->
         </div>
         <div id="createmateriasubmit">
             <input id="createmateriabtn" type="submit" value="Crear Materia">
         </div>
     </div>
-<!--</form>-->
 <script type="text/javascript" src="../../source/js/appCreateMateria.js"></script>

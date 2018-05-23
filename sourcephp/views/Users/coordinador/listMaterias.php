@@ -4,13 +4,10 @@
 	<nav>
 		<ul id="listMateriasNav">
 			<li id="pathPage">
-				<label>Academia > Materias Creadas</label>
+				<label>Materias Creadas</label>
 			</li>
 			<li id="inputsNavMaterias">
-				<input type="text" name="" value="">
-				<i class="fas fa-filter"></i>
-				<div id="subDropMenuFil">
-				</div>
+				<input type="text" name="" value="" placeholder="Buscar materia">
 			</li>
 		</ul>
 	</nav>

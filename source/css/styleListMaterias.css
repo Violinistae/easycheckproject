@@ -4,8 +4,7 @@
     height: 100%;
 
     display: grid;
-    grid-template-rows: 1.3fr 8.8fr;
-    grid-template-columns: auto;
+    grid-template-rows: .5fr 9.5fr;
     font-family: 'Noto Sans', sans-serif;
 }
 
@@ -22,17 +21,23 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    align-items: center;
+    justify-content: space-between;
+    padding: 1.4rem;
+    font-size: 1.4vw;
 }
 
-#pathPage {
-    flex-grow: 3;
-
+#inputsNavMaterias > input {
+    border-bottom: black solid 2px;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    background-color: transparent;
+    outline: none;
+    padding: .4rem;
+    font-size: 1.2vw;
 }
 
-#inputNavMaterias {
-    flex-grow: 7;
-}
+
 
 #listMateriasPage>table {
     width: 100%;
@@ -46,8 +51,8 @@
 #topTableRow > th{
     background-color: rgb(90, 144, 232);
     border: rgb(90, 144, 232) solid 2px;
-    color: white;
     padding: 1.2rem 0%;
+    color: white;
 }
 
 .commonMateriaRow > td {
