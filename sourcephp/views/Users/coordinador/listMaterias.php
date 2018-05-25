@@ -7,7 +7,7 @@
 				<label>Materias Creadas</label>
 			</li>
 			<li id="inputsNavMaterias">
-				<input type="text" name="" value="" placeholder="Buscar materia">
+				<input type="text" id ="searchMateriaInput" name="searchMateria" placeholder="Buscar materia">
 			</li>
 		</ul>
 	</nav>

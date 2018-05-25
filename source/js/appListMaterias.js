@@ -194,7 +194,34 @@ $(document).ready(function ($) {
             });
         }
 
+
+    checkSearchedMaterias = (e) => {
+        var searchMateriaInput = e.currentTarget;
+        if (searchMateriaInput == " ") {
+            //Show materias
+            return;
+        } else {
+            
+            var searchValue = searchMateriaInput.value;
+            return;
+
+            $.ajax({
+                type: "method",
+                url: "url",
+                data: "data",
+                dataType: "dataType",
+            }).done(function (searchMateriasResponse) {
+            
+            }).fail(function () { 
+                AJAXrequestFailed("Fallo en petición AJAX para buscar materias");
+             });
+        }
+        console.log(searchMateriaInput.value);
+    }
+
+
     $(".materiaBtn").click(function (e) { switchActionOnMateria(e); });
     $("#inputValoresParciales").change(function (e) { checkNewUploadedFile(); });
+    $("#searchMateriaInput").on('input', function (e) { checkSearchedMaterias(e); });
 
 });

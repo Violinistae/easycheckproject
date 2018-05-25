@@ -267,9 +267,11 @@
 
 							if ($updateacadrows > 0 && $updateuserstr->rowCount() > 0) {
 								$_SESSION["userreg"] = $newuserreg;
-								echo json_encode(array('error' => false, 
-								'message' => "La actualización de su información se ha realizado satisfactoriamente.",
-								'logout' => false));
+								echo json_encode(array(
+									'error' => false, 
+									'message' => "La actualización de su información se ha realizado satisfactoriamente.",
+									'logout' => false)
+								);
 								return;
 							} else {
 								echo json_encode(array('error' => true, 

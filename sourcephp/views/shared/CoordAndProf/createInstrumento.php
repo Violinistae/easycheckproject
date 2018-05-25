@@ -1,5 +1,5 @@
 <link rel="stylesheet" type="text/css" href="../../source/css/styleCreateInsturmento.css">
-<div>
+<div id="instruccCreateInstrumento">
 	<label id="titleFormCreateInst">Crear Instrumento de Evaluación</label>
 </div>
 <div id="fromCreateInst">
@@ -10,7 +10,8 @@
 		</div>
 		<div>
 			<label class="subtitleLblField">Carrera de la Materia Evaluada</label>
-			<p id="carreraMateriaTxt">Carrera Materia</p>
+			<select id="carreraMateriaSelect" name="carreraMateriaEvaluada" autocomplete="off">
+			</select>			
 		</div>
 		<div>
 			<label class="subtitleLblField">Materia Evaluada</label>
@@ -47,7 +48,7 @@
 			<textarea name="insrtuccLlenado" autocomplete="off"></textarea>
 		</div>
 		<div>
-			<button name="createInstrumento">Crear Instrumento</button>
+			<button id="createInstrumento">Crear Instrumento</button>
 		</div>
 	</div>
 </div>

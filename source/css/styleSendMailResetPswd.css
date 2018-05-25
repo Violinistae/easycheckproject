@@ -59,11 +59,12 @@
     border: solid 2px var(--color);
     border-radius: 10px;
     color: var(--color);
-    transition: 300ms all ease-in-out;
+    transition: 300ms background ease-in-out;
     cursor: pointer;
     outline: none;
 }
 
 #sendMailResetPswd:hover {
-    transform: scale(1.05);
+    color: black;
+    background-color: var(--color);
 }

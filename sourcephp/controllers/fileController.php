@@ -4,43 +4,6 @@
         public function __construct() {            
         }
 
-        public function saveFile_getPathForJS () {
-            if (!is_uploaded_file($_FILES["file"]["tmp_name"])) {
-                echo json_encode (array('error' => true, 'message' => "No se encontraron archivos por almacenar."));
-                return;
-            } else {                
-                
-                $targetPath = $_POST["targetPath"];
-                $fileName = $_POST["fileName"];
-                $fileType = $_POST["fileType"];
-                $txtFileTargetPath = $_POST["targetPathTxt"];
-
-                $targetFile = $targetPath . $fileName . "." . $fileType;
-                $targetTxtFile = $targetPath . $fileName . ".txt";
-                
-                $res = $this->saveUploadedFile($targetFile, $targetTxtFile);
-
-                switch ($res) {
-                    case 1:             //Saved uploaded file
-                        echo json_encode(array('error' => false, 'targetFile' => $targetFile, 'filePath' => $targetPath, 'fileName' => $fileName));
-                        return;
-                    case 0:             //Cannot save uploaded file
-                        echo json_encode(array('error' => true, 'message' => "No se pudo almacenar el archivo, inténtelo más tarde."));
-                        return;
-                    case -1:            //Uploaded file already exists
-                        echo json_encode(array('error' => true, 'message' => "Por favor cambie el nombre del archivo"));
-                        return;
-                    case -2:            //No uploaded files
-                        echo json_encode(array('error' => true, 'message' => "No se encontraron archivos por almacenar."));
-                        return;                        
-                    default:
-                        echo json_encode(array('error' => true, 'message' => "Error de carga y almacenamiento de archivos, inténtelo más tarde."));
-                        return;
-                }     
-
-            }
-        }
-
         private function saveUploadedFile ($targetFile, $targetTxtFile) {                  
 
             if (file_exists($targetTxtFile)) { 
@@ -55,6 +18,60 @@
                         
         }
 
+        public function saveFile_getPathForJS () {
+            if (!is_uploaded_file($_FILES["file"]["tmp_name"])) {
+                echo json_encode (array('error' => true, 'message' => "No se encontraron archivos por almacenar."));
+                return;
+            } else {                
+                
+                $targetPath = $_POST["targetPath"];
+                $fileName = $_POST["fileName"];
+                $fileType = $_POST["fileType"];
+                $txtFileTargetPath = $_POST["targetPathTxt"];
+
+                $targetFile = $targetPath . $fileName . "." . $fileType;
+                $targetTxtFile = $txtFileTargetPath . $fileName . ".txt";
+                
+                $res = $this->saveUploadedFile($targetFile, $targetTxtFile);
+
+                switch ($res) {
+                    case 1:             //Saved uploaded file
+                        echo json_encode(array(
+                            'error' => false, 
+                            'targetFile' => $targetFile, 
+                            'filePath' => $targetPath,
+                            'fileName' => $fileName)
+                        );
+                        return;
+                    case 0:             //Cannot save uploaded file
+                        echo json_encode(array(
+                            'error' => true, 
+                            'message' => "No se pudo almacenar el archivo, inténtelo más tarde.")
+                        );
+                        return;
+                    case -1:            //Uploaded file already exists
+                        echo json_encode(array(
+                            'error' => true, 
+                            'message' => "Por favor cambie el nombre del archivo")
+                        );
+                        return;
+                    case -2:            //No uploaded files
+                        echo json_encode(array(
+                            'error' => true, 
+                            'message' => "No se encontraron archivos por almacenar.")
+                        );
+                        return;                        
+                    default:
+                        echo json_encode(array(
+                            'error' => true,
+                            'message' => "Error de carga y almacenamiento de archivos, inténtelo más tarde.")
+                        );
+                        return;
+                }     
+
+            }
+        }
+
         public function create_writeFile () {
             $contentForFile = $_POST["contentForFile"];
             $targetFile = "./".$_POST["targetPath"].$_POST["fileName"].".txt";
@@ -63,13 +80,19 @@
             
             if(fwrite($fwrite, $contentForFile)) {
                 fclose($fwrite);
-                echo json_encode(array('error' => false, 'message' => "Archivo creado/sobreescrito exitosamente."));
+                echo json_encode(array(
+                    'error' => false, 
+                    'message' => "Archivo creado/sobreescrito exitosamente.")
+                );
                 return;
             } else {
                 fclose($fwrite);
-                echo json_encode(array('error' => true, 'message' => "No se pudo crear/sobreescribir el archivo."));
+                echo json_encode(array(
+                    'error' => true, 
+                    'message' => "No se pudo crear/sobreescribir el archivo.")
+                );
                 return;
-            }     
+            }
         }
 
         public function deleteFile () {
