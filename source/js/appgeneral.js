@@ -171,8 +171,32 @@ $(document).ready(function ($) {
 		});
 	}
 
+	doCancelAction = () => {
+		cookieName = "wArNinGbTn_AcTiOn";
+		var warningCookieValue = getCookie(cookieName);
+
+		switch (warningCookieValue) {
+			case "410":
+				$("#createmateriabtn").prop("disabled", false);
+				break;
+			case "501":
+				$("#createmateriabtn").prop("disabled", false);			
+				break;
+			case "502":
+				$("#createmateriabtn").prop("disabled", false);
+				break;
+			case "503":
+				$("#createmateriabtn").prop("disabled", false);
+				break;
+			
+			default:
+				break;
+		}
+		deleteCookie(cookieName);
+	}
 
 	doConfirmAction = () => {
+		console.log("Hola");
 		cookieName = "wArNinGbTn_AcTiOn";
 		var warningCookieValue = getCookie(cookieName);
 
@@ -201,6 +225,16 @@ $(document).ready(function ($) {
 				gotoMaterias();
 				break;
 			case "410":
+				$("#createmateriabtn").prop("disabled", false);
+				break;
+			case "501":
+				$("#createmateriabtn").prop("disabled", false);
+				window.location.href ="../../source/files/ejemplos/EjemploValoresParcialesMateria.xlsx"
+				break;
+			case "502":
+				$("#createmateriabtn").prop("disabled", false);
+				break;
+			case "503":
 				$("#createmateriabtn").prop("disabled", false);
 				break;
 			default:

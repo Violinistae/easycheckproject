@@ -178,11 +178,16 @@ $(document).ready(function ($) {
 
 		loadMateriasToTable = () => {
 			mainContainer = document.getElementById("submaincontainer");
+			readMateriasData = {
+				purpose: 1
+			}
+
 			getAndExecuteNewInsertedScript(mainContainer);
 			$.ajax({
 				url: '../../index_ajax.php?controller=materia&action=readMateria',
 				type: 'POST',
-				dataType: 'json'				
+				dataType: 'json',
+				data: readMateriasData		
 			}).done(function (materiasAcademia) {
 				insertMateriasToTable(materiasAcademia);
 			}).fail(function () {

@@ -50,8 +50,13 @@
 
             $academiaController = new academiaController($this->pdo);
 
-            $acad = new academiaModel();
-            $acad =  $academiaController->getAcademiaByCoordinador();
+            if ($_POST["purpose"] == 1) {
+                $acad = new academiaModel();
+                $acad =  $academiaController->getAcademiaByCoordinador();
+            } else {
+                $acad = new academiaModel();
+                $acad->setId_Academia($_POST["idAcademia"]);
+            }            
 
             if ($acad != null) {
 
@@ -66,11 +71,9 @@
                 $selectMatRows = $selectAcadStr->rowCount();
                 
                 if ($selectMatRows > 0) {
-
-                    $i = 0;
+                    
                     $m = array();
                     while($Materia = $selectAcadStr->fetch(PDO::FETCH_ASSOC)):
-                        
 
                         $mat = new materiaModel();
                         $mat->setId_Materia($Materia["Id_Materia"]);
@@ -85,8 +88,8 @@
                             'Academia' => $mat->getAcademia() 
                         );
 
-                        $m[] = $matx;
-                        $i++;
+                        $m[] = $matx;                        
+
                     endwhile;
 
                     echo json_encode(array('error' => false, 'materias' => $m, 'numMaterias' => $selectMatRows));

@@ -424,7 +424,7 @@ function checkreg(typeu) {
 					userreg: $("#freg input[name=registro_usuario]").val(),
 					email: $("#freg input[name=email]").val(),
 					password: $("#freg input[name=password]").val(),
-					escolaridad: $("#freg input[name=escolaridad]").val(),
+					escolaridad: $("#freg select[name=escolaridad]").val(),
 					nombres: $("#freg input[name=nombres]").val(),
 					apellidos: $("#freg input[name=apellidos]").val(),
 					tuser: typeu

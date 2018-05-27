@@ -1,10 +1,12 @@
 #modalforactionscontainer {
+    margin-top: .8em;
     position: relative;
-    display: grid;
-    grid-template-rows: 1.2fr 8.6fr;
-    grid-template-columns: auto;
-    grid-row-gap: 1em;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
     font-family: 'Noto Sans', sans-serif;
+    height: 100%;
+    width: 100%;
 }
 
 #returnmodalbtn {
@@ -12,48 +14,52 @@
 }
 
 #modalforactionsmainbtns {
+    width: 100%;
     display: flex;
     justify-content: space-between;
 }
 
 #instruccCreateInstrumento {
+    flex-grow: 1;
     text-align: center;
+    width: 100%;
 }
 
 #fromCreateInst {
+    margin-top: .6em;
+    flex-grow: 4;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-column-gap: 3rem;
+    grid-template-columns: 1.2fr 1.8fr;
+    grid-column-gap: 3em;
     height: 100%;
-    padding: 0rem 1.4rem;
+    width: 100%;
+    padding: 0rem 1.4em;
 }
 
 #formCreateInstPart1 {
     display: grid;
-    grid-template-rows: repeat(5, 1fr);
-    grid-row-gap: 1.5rem;
+    grid-template-rows: repeat(4, 1fr);
+    grid-row-gap: 1.5em;
+    width: 100%;
 }
 
 #formCreateInstPart2 {
     display: grid;  
-    grid-template-rows: repeat(4, 1fr);
-    grid-row-gap: 1.5rem;
+    grid-template-rows: 1fr 1fr 2fr 1fr;
+    grid-row-gap: 1.5em;
+    width: 100%;
 }
 
 #formCreateInstPart1 > div {
-    flex-grow: 1;
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 #formCreateInstPart2 > div {
-    flex-grow: 1;
     display: flex;
     flex-direction: column;
-}
-
-#instruccionesLlenado {
-    flex-grow: 5;
+    width: 100%;
 }
 
 #titleFormCreateInst {
@@ -76,18 +82,29 @@
     border-right: none;
     border-left: none;
     
-    padding: .6rem;
+    padding: .6em;
     background-color: transparent;
     outline: none;
+}
+
+textarea {
+    resize: none;
+}
+
+#instruccLlenado {
+    flex-grow: 2;
+    outline: none;
+    padding: .5em;
+    border-radius: 10px;
 }
 
 #createInstrumento {
     border: solid black 2px;
     border-radius: 10px;
     cursor: pointer;
-    padding: .6rem;
+    padding: .6em;
     background-color: transparent;
-    font-size: 1.4vw;
+    font-size: 1.2vw;
     transition: 300ms background ease-in-out;
 }
 

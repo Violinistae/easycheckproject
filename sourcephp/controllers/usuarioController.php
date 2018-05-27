@@ -108,7 +108,7 @@
 					if($typeuser == 1 || $typeuser == 2)			//Coord o Profesor
 						$escolaridad = $_POST["escolaridad"];
 					else if($typeuser == 3)							//Alumno
-						$escolaridad = null;
+						$escolaridad = "";
 					else {											//Error --> NO existe ese usuario	    	
 						echo json_encode(array('error' => true));
 						return;
@@ -153,7 +153,7 @@
 						if($countinsert > 0)
 							echo json_encode(array('error' => false, 'message' => "Registro completado satisfactoriamente."));
 						else
-							echo json_encode(array('error' => true, 'message' => 'Error al registrarse', 'ins' => $countinsert));
+							echo json_encode(array('error' => true, 'message' => 'Error al registrarse', 'ins' => $insercion->errorInfo()));
 					}
 				}
 			}	    		   

@@ -24,6 +24,16 @@
                 $academia->setCoordinador_Acad($_SESSION["userreg"]);
                 $academia->setCarrera($resAcadByCoord["Carrera"]);
 
+                if (isset($_POST["fromJS"])) {
+                    $forJS = array(
+                        'Id_Academia' => $academia->getId_Academia(), 
+                        'Academia' => $academia->getAcademia()
+                    );
+
+                    echo json_encode(array('academia' => $forJS));
+                    return;
+                }
+                
                 return $academia;
             } else {
                 return null;

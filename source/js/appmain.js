@@ -306,7 +306,7 @@ $(document).ready(function ($) {
 	$('body').on('click', '#returnmodalbtn', function (e) { goLastModalPage($("#modalforactionscontainer")); });
 
 		// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Interacción con botones de modal warning/information ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-			$('body').on('click', '#cancelbtn', function () { $('#modwarning').fadeOut('400'); deleteCookie("wArNinGbTn_AcTiOn"); });
+			$('body').on('click', '#cancelbtn', function () { $('#modwarning').fadeOut('400'); doCancelAction(); });
 			$('body').on('click', '#confirmbtn', function () { $('#modwarning').fadeOut('400'); doConfirmAction(); });
 			$('body').on('click', '#continuebtn', function () { $('#modinformation').fadeOut('400'); doConfirmAction(); });
 

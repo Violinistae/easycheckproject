@@ -1,21 +1,17 @@
 <link rel="stylesheet" type="text/css" href="../../source/css/styleCreateInsturmento.css">
 <div id="instruccCreateInstrumento">
-	<label id="titleFormCreateInst">Crear Instrumento de Evaluación</label>
+	<label id="titleFormCreateInst">Crear Instrumento de Evaluación: </label>
 </div>
 <div id="fromCreateInst">
 	<div id="formCreateInstPart1">
 		<div>
-			<label class="subtitleLblField">Tipo de Instrumento</label>
-			<p id="tipoInstrumentoTxt">Tipo de Instrumento</p>
+			<label class="subtitleLblField">Clave Elemento Evaluado</label>
+			<input id="claveElemInput" type="text" name="claveElemento" autocomplete="off">
 		</div>
 		<div>
-			<label class="subtitleLblField">Carrera de la Materia Evaluada</label>
-			<select id="carreraMateriaSelect" name="carreraMateriaEvaluada" autocomplete="off">
-			</select>			
-		</div>
-		<div>
-			<label class="subtitleLblField">Materia Evaluada</label>
-			<select id="materiaSelect" name="materiaEvaluada" autocomplete="off">
+			<label class="subtitleLblField">Tipo de Evaluación</label>
+			<select id="tipoEvSelect" name="tipoEvaluacion" autocomplete="off">	
+				<option value="null" selected>- Seleccione un tipo de Evaluación -</option>
 			</select>
 		</div>
 		<div>
@@ -29,23 +25,25 @@
 			</select>
 		</div>
 		<div>
-			<label class="subtitleLblField">Clave Elemento Evaluado</label>
-			<input type="text" name="claveElemento" autocomplete="off">
+			<label class="subtitleLblField">Nombre Elemento Evaluado</label>
+			<input id="nombreElemInput" type="text" name="nombreElemento" autocomplete="off">
 		</div>
 	</div>
 	<div id="formCreateInstPart2">
 		<div>
-			<label class="subtitleLblField">Nombre Elemento Evaluado</label>
-			<input type="text" name="nombreElemento" autocomplete="off">
-		</div>
-		<div>
-			<label class="subtitleLblField">Tipo de Evaluación</label>
-			<select name="tipoEvaluacion" autocomplete="off">					
+			<label class="subtitleLblField">Academia de la Materia Evaluada</label>
+			<select id="academiaMateriaSelect" name="academiaMateriaEvaluada" autocomplete="off">
 			</select>
 		</div>
+		<div>
+			<label class="subtitleLblField">Materia Evaluada</label>
+			<select id="materiasSelect" name="materiaEvaluada" autocomplete="off">
+				<option value="null" selected>- Seleccione una carrera -</option>
+			</select>
+		</div>	
 		<div id="instruccionesLlenado">
-			<label class="subtitleLblField">Instrucciones de Llenado</label>
-			<textarea name="insrtuccLlenado" autocomplete="off"></textarea>
+			<label class="subtitleLblField">Instrucciones de llenado para el instrumento</label>
+			<textarea id="instruccLlenado" name="instruccLlenado" autocomplete="off"></textarea>
 		</div>
 		<div>
 			<button id="createInstrumento">Crear Instrumento</button>
