@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.8.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-05-2018 a las 02:22:26
+-- Tiempo de generación: 28-05-2018 a las 05:04:09
 -- Versión del servidor: 10.1.31-MariaDB
--- Versión de PHP: 7.1.15
+-- Versión de PHP: 7.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -76,7 +76,10 @@ INSERT INTO `acciones` (`Id_Acciones`, `Controlador`, `Metodo`) VALUES
 (12, 'file', 'create_writeFile'),
 (13, 'materia', 'getMateriaById'),
 (14, 'materia', 'updateMateria'),
-(15, 'file', 'deleteFile');
+(15, 'file', 'deleteFile'),
+(16, 'materia', 'deleteMateria'),
+(17, 'academia', 'getAcademiaByCoordinador'),
+(18, 'tipoevaluacion', 'readTipoEvaluacion');
 
 -- --------------------------------------------------------
 
@@ -345,7 +348,8 @@ CREATE TABLE `materia` (
 INSERT INTO `materia` (`Id_Materia`, `Materia`, `Semestre`, `Valores_Parciales`, `Academia`) VALUES
 (4, 'Programación Avanzada I', 7, 'valPar9337ParcialesPrograAvanzadaI', 1),
 (5, 'Seguridad en ITI', 8, 'valPar3554SeguridadenITI', 1),
-(7, 'POO', 4, 'valPar7616ValoresParcialesPOO', 1);
+(8, 'POO', 4, 'valPar6365ValoresParcialesPOO', 1),
+(9, 'Sistemas Embebidos II', 8, 'valPar6832ValoresParcialesSEII', 1);
 
 -- --------------------------------------------------------
 
@@ -544,7 +548,9 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`Registro_U`, `Nombres`, `Apellidos`, `Email`, `Password`, `Escolaridad`, `Tipo_Usuario`, `Foto`, `Hash`) VALUES
-(123, 'Gustavo', 'Rojas', 'academia@gmail.com', '$2y$10$kbbnaMsfXIssgogx3IGPeOU8335k42dfFOP.Jr4O8M1hsynVTEAju', 'Maestría', 1, '', '');
+(12, 'Carlos', 'Molina Martínez', 'profesor@gmail.com', '$2y$10$5FQoGpWZ58BdE/.U7WUzLOyVV0eDD0JqCRzmL2ROiL9JYVoWM7nae', 'Ingeniería', 2, '', ''),
+(123, 'Gustavo', 'Rojas', 'academia@gmail.com', '$2y$10$kbbnaMsfXIssgogx3IGPeOU8335k42dfFOP.Jr4O8M1hsynVTEAju', 'Maestría', 1, '', ''),
+(14300281, 'Emiliano', 'Moreno', 'ssbbemims@gmail.com', '$2y$10$Fnz9vMd6uHS5U3.ZCl4EM.Od3cJNUEMjLdUXlJBE8hs5ZZCJXeOKi', '', 3, '', '');
 
 --
 -- Índices para tablas volcadas
@@ -809,7 +815,7 @@ ALTER TABLE `academia`
 -- AUTO_INCREMENT de la tabla `acciones`
 --
 ALTER TABLE `acciones`
-  MODIFY `Id_Acciones` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `Id_Acciones` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `aspectoevaluacion`
@@ -917,7 +923,7 @@ ALTER TABLE `listagrupo`
 -- AUTO_INCREMENT de la tabla `materia`
 --
 ALTER TABLE `materia`
-  MODIFY `Id_Materia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `Id_Materia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `opcionespregunta`
