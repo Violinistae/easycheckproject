@@ -48,15 +48,19 @@ $(document).ready(function ($) {
             switch (instrument) {
                 case 1:         //Rubrica
                     typeInstTxt.textContent += "Rubrica";
+                    typeInstTxt.value = 1;
                     break;
                 case 2:         //Lista C
                     typeInstTxt.textContent += "Lista de Cotejo";
+                    typeInstTxt.value = 2;
                     break;
                 case 3:         //Guia Obs
                     typeInstTxt.textContent += "Guia de Observación";
+                    typeInstTxt.value = 3;
                     break;
                 case 4:         //Cuestionario
                     typeInstTxt.textContent += "Cuestionario";
+                    typeInstTxt.value = 4;
                     break;    
                 default:
                     break;
@@ -126,7 +130,7 @@ $(document).ready(function ($) {
                         AJAXrequestFailed("Fallo en petición AJAX para obtener materia de cuenta de coordinador de academia.");
                     })
                 } else if (sessionVariables.usertype == 2){                //Profesor, habilitar select academias a las que pertenece y selecionar materias de esa academia
-
+                    
                 }
             }
 

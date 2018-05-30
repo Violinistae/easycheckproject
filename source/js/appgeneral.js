@@ -196,7 +196,6 @@ $(document).ready(function ($) {
 	}
 
 	doConfirmAction = () => {
-		console.log("Hola");
 		cookieName = "wArNinGbTn_AcTiOn";
 		var warningCookieValue = getCookie(cookieName);
 
