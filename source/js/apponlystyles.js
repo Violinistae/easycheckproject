@@ -27,32 +27,32 @@ $(document).ready(function ($) {
 
     insertProfStyles = () => {
         $(".allnavcontent").css({
-            "color": "rgb(247, 218, 37)"
+            "color": "white"
         });
         $(".searchinput").css({
             "background-color": "transparent",
             "border-top": "transparent",
             "border-right": "transparent",
             "border-left": "transparent",
-            "border-bottom": "solid rgb(247, 218, 37) 2px",
+            "border-bottom": "solid (14, 161, 51) 2px",
             "border-top": "transparent",
-            "color": "rgb(247, 218, 37)",
+            "color": "white",
             "border-radius": "2px",
             "padding-bottom": ".5vh"
         });
-        $(".searcher input").addClass('yellowplaceholder');
+        //$(".searcher input").addClass('yellowplaceholder');
         $(".searcher input").addClass('whiteplaceholder');
         $('#modalwarningcontent').css({
-            "background-color": "rgb(30, 30, 30)",
-            "color": "rgb(247, 218, 37)"
+            "background-color": "white",
+            "color": "white"
         });
         $('#confirmbtn').css({
-            "color": "rgb(30, 30, 30)",
-            "background-color": "rgb(247, 218, 37)"
+            "color": "white",
+            "background-color": "white"
         });
         $('#continuebtn').css({
-            "color": "rgb(30, 30, 30)",
-            "background-color": "rgb(247, 218, 37)"
+            "color": "white",
+            "background-color": "white"
         });
     }
 

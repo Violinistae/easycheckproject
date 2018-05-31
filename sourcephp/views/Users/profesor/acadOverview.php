@@ -24,10 +24,11 @@
 					</span>
 					<span class="instrumentTextPart">
 						<label class="nomElemInstr">Nombre elemento</label>
-						<label>Materia</label>				
+						<label>Materia</label>	
 					</span>
 				</div>
 			<?php endfor;?>
 		</div>
 	</div>
 </div>
+<script type="text/javascript" src="../../source/js/appAcadOverview<.js"></script>

@@ -66,11 +66,13 @@
     border-top: transparent;
     border-left: transparent;
     border-right: transparent;
-    border-bottom: rgb(247, 218, 37) 2px solid;
+    border-bottom: white 2px solid;
+    /*border-bottom: rgb(247, 218, 37) 2px solid;*/
 
     font-family: 'Noto Sans', sans-serif;
     font-size: 1.2vw;
-    color: rgb(247, 218, 37);
+    /*color: rgb(247, 218, 37);*/
+    color: white;
     outline: none;
 }
 
@@ -84,11 +86,13 @@
     border-top: transparent;
     border-left: transparent;
     border-right: transparent;
-    border-bottom: rgb(247, 218, 37) 2px solid;
+    border-bottom: white 2px solid;
+    /*border-bottom: rgb(247, 218, 37) 2px solid;*/
 
     font-family: 'Noto Sans', sans-serif;
     font-size: 1.1vw;
-    color: rgb(247, 218, 37);
+    /*color: rgb(247, 218, 37);*/
+    color: white;
     outline: none;
     cursor: pointer;
 }
@@ -99,9 +103,11 @@
 
 #submitreg {
     background-color: transparent;
-    border: rgb(247, 218, 37) 2px solid;
+    /*border: rgb(247, 218, 37) 2px solid;*/
+    border: white solid 2px;
     border-radius: 10px;
-    color: rgb(247, 218, 37);
+    /*color: rgb(247, 218, 37);*/
+    color: white;
     font-size: 1.4vw;
     width: 70%;
     height: 5.5vh;

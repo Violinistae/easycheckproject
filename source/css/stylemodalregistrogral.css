@@ -127,8 +127,11 @@
 }
 #prof
 {
-	background-color: rgb(247, 218, 37);
-	border-color: rgb(247, 218, 37);
+	/*background-color: rgb(247, 218, 37);
+	border-color: rgb(247, 218, 37);*/
+
+	background-color: rgb(14, 161, 51);
+	border-color: rgb(14, 161, 51);
 }
 #alum
 {

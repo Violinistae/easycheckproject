@@ -324,8 +324,8 @@ function checkuserregist(type) {
 				break;
 			case 2:
 				peticion_http.open('GET', './sourcephp/views/users/profesor/formRegistroProf.php', true);
-				$("#modalregitems").css({"color": "rgb(247, 218, 37)"});
-				$("#modalregitems").css({"background-color": "rgb(30, 30, 30"});
+				$("#modalregitems").css({"color": "white"});
+				$("#modalregitems").css({"background-color": "rgb(14, 161, 51)"});
 				break;
 			case 3:
 				peticion_http.open('GET', './sourcephp/views/users/alumno/formRegistroAlumno.php', true);

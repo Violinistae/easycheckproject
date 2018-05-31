@@ -1,4 +1,4 @@
-#listMateriasPage {
+#listAcademiasPage {
     position: relative;
     width: 100%;
     height: 100%;
@@ -8,17 +8,17 @@
     font-family: 'Noto Sans', sans-serif;
 }
 
-#listMateriasPage ul {
+#listAcademiasPage ul {
     list-style: none;
 }
 
-#listMateriasPage>nav {
+#listAcademiasPage>nav {
     width: 100%;
     height: 100%;
 }
 
-#noMateriasAvailable {
-    display: none;
+#noAcademiasAvailable {
+    display: block;
     position: absolute;
     width: auto;
     top: 50%;
@@ -29,7 +29,7 @@
     font-size: 1.4vw;
 }
 
-#listMateriasNav {
+#listAcademiasNav {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -41,11 +41,22 @@
     flex-grow: 1;
 }
 
-#inputsNavMaterias {
+#sendRequest {
+    flex-grow: .5;
+    text-align: center;
+    align-content: center;
+}
+
+#requestBtn {
+    cursor: pointer;
+
+}
+
+#inputsNavAcademias {
     flex-grow: 1;
 }
 
-#inputsNavMaterias > input {
+#inputsNavAcademias > input {
     border-bottom: black solid 2px;
     border-top: none;
     border-right: none;
@@ -57,9 +68,7 @@
     width: 75%;
 }
 
-
-
-#listMateriasPage>table {
+#listAcademiasPage>table {
     width: 100%;
     height: auto;
 }
@@ -69,8 +78,8 @@
 }
 
 #topTableRow > th{
-    background-color: rgb(90, 144, 232);
-    border: rgb(90, 144, 232) solid 2px;
+    background-color: rgb(14, 161, 51);
+    border: rgb(14, 161, 51) solid 2px;
     padding: 1.2rem 0%;
     color: white;
 }
@@ -85,7 +94,7 @@
     font-size: 1.3vw;
 }
 
-#materiasTableContent tr:nth-child(even) > td {
+#academiasTableContent tr:nth-child(even) > td {
     background-color: rgb(197, 197, 197);
 }
 
@@ -114,8 +123,4 @@
 
 .actionsIcon:hover {
     transform: scale(1.3);
-}
-
-#inputValoresParciales {
-    display: none;
 }

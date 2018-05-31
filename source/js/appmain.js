@@ -28,7 +28,7 @@ $(document).ready(function ($) {
 					insertMateriapart();
 					insertCoordStyles();
 				} else if (sessionVariables.usertype == 2) {
-					$(".mainnavbar").css({ "background-color": "rgb(30, 30, 30" });
+					$(".mainnavbar").css({ "background-color": "rgb(14, 161, 51)" });
 					insertnewbuttondiv();
 					insertgroupsbar();
 					insertProfStyles();
@@ -68,8 +68,8 @@ $(document).ready(function ($) {
 						});
 					} else if (sessionVariables.usertype == 2) {
 						$(".buttonnewinst").css({
-							"border": "solid rgb(247, 218, 37) 2px",
-							"color": "rgb(247, 218, 37)"
+							"border": "solid white 2px",
+							"color": "white"
 						});
 					}
 				}

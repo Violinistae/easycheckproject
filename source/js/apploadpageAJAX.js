@@ -138,29 +138,38 @@ $(document).ready(function ($) {
 
 		checkCoordProf = (sessionVariables) => {
 			if (!sessionVariables.error) {			
+				let URLacadBtn = null;
+				console.log(sessionVariables.usertype);
 				switch (parseInt(sessionVariables.usertype)) {
 					case 1:
-						$.ajax({
-							url: '../../sourcephp/views/shared/CoordAndProf/acadOverview.php',
-							type: 'POST'
-						}).done(function (acadOverviewPage) {
-							maincontentFadeAnimation(acadOverviewPage, "null");
-						}).fail(function () {
-							AJAXrequestFailed("Fallo en petición AJAX para insertar ir a Academia Overview");
-						});
+						URLacadBtn = '../../sourcephp/views/Users/coordinador/acadOverview.php';
 						break;
 					case 2:
-						alert("Nada");
+						URLacadBtn = '../../sourcephp/views/Users/profesor/listAcademias.php'
 						break;
 					default:
 						break;
+				}
+				if (URLacadBtn != null) {
+					$.ajax({
+						url: URLacadBtn,
+						type: 'POST'
+					}).done(function (acadOverviewPage) {
+						maincontentFadeAnimation(acadOverviewPage, "null");
+					}).fail(function () {
+						AJAXrequestFailed("Fallo en petición AJAX para reaccionar a boton de academia en groups bar.");
+					});
 				}
 			} else {
 				closeUserSession();
 			}
 		}
 
-		//Function to insert content on academia page ?
+			loadAcademiasToTable = () => {
+
+			}
+
+		//Function to insert content on academia page? --> --> YES !!!!!
 
 	gotoMaterias = (e) => {
         setCookie("lOaDeDpAgE_ajax", "gotoMaterias", 7);
@@ -226,6 +235,9 @@ $(document).ready(function ($) {
 				} else if (materiasAcademia.error) {
 				}				
 			}
+
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++	
 
 	selectInstrumentCreate = () => {
         $(".buttonnewinst").removeClass('active');

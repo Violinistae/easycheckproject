@@ -31,5 +31,11 @@
 			</th>
 		</tr>
 	</table>
+
+	<div id="noMateriasAvailable">
+		<p>No existe alguna materia creada en su Academia</p>
+		<br>
+        <p>Presione la opción "Crear Materia" para generarla</p>
+    </div>
 </div>
 <script type="text/javascript" src="../../source/js/appListMaterias.js"></script>	
