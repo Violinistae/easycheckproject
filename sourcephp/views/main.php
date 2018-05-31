@@ -16,7 +16,7 @@
 	<script type="text/javascript" src="../../source/js/appGeneral.js"></script>	
 	<script type="text/javascript" src="../../source/js/appMain.js"></script>
 	<script type="text/javascript" src="../../source/js/appOnlyStyles.js"></script>	
-	<script type="text/javascript" src="../../source/font-awesome/js/fontawesome-all.min.js"></script>
+	<script type="text/javascript" src="../../source/resources/font-awesome/js/fontawesome-all.min.js"></script>
 	
 	
 
