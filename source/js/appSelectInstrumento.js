@@ -1,7 +1,13 @@
-$(document).ready(function ($) {
+var clickedSelectInst = false;
+$(document).ready(function ($) {false
+    
 
     loadFormCreateInstr = (e) => {
-        
+        if (clickedSelectInst) {
+            return;
+        }
+
+        clickedSelectInst = true;
         setCookie('lStMoDlAsTaD', 'selectInstrumentCreate', 1);
 
         var Instrumento = e.currentTarget.id;
@@ -44,23 +50,24 @@ $(document).ready(function ($) {
         insertContentCreateInstrumentoForm = (instrument) => {
             var typeInstTxt = document.getElementById("titleFormCreateInst");
             var carreraMateriaTxt = document.getElementById("carreraMateriaTxt");
+            let tipoInstrumento = document.getElementById("instTypeHidden");
 
             switch (instrument) {
                 case 1:         //Rubrica
                     typeInstTxt.textContent += "Rubrica";
-                    typeInstTxt.value = 1;
+                    tipoInstrumento.value = 1;
                     break;
                 case 2:         //Lista C
                     typeInstTxt.textContent += "Lista de Cotejo";
-                    typeInstTxt.value = 2;
+                    tipoInstrumento.value = 2;
                     break;
                 case 3:         //Guia Obs
                     typeInstTxt.textContent += "Guia de Observación";
-                    typeInstTxt.value = 3;
+                    tipoInstrumento.value = 3;
                     break;
                 case 4:         //Cuestionario
                     typeInstTxt.textContent += "Cuestionario";
-                    typeInstTxt.value = 4;
+                    tipoInstrumento.value = 4;
                     break;    
                 default:
                     break;
@@ -83,16 +90,16 @@ $(document).ready(function ($) {
                 })
             }
 
-            insertEvaluationsTypesOnSelect = (resTiposEvaluacion) => {
-                let tiposEvSelect = document.getElementById("tipoEvSelect");
-                let tiposEvaluacion = resTiposEvaluacion.tiposEvaluacion;
-                tiposEvaluacion.forEach(tEv => {
-                    let optionTipoEv = document.createElement("option");
-                    optionTipoEv.value = tEv.Id_TipoEv;
-                    optionTipoEv.text = tEv.TipoEvaluacion;
-                    tiposEvSelect.add(optionTipoEv);
-                });
-            }
+                insertEvaluationsTypesOnSelect = (resTiposEvaluacion) => {
+                    let tiposEvSelect = document.getElementById("tipoEvSelect");
+                    let tiposEvaluacion = resTiposEvaluacion.tiposEvaluacion;
+                    tiposEvaluacion.forEach(tEv => {
+                        let optionTipoEv = document.createElement("option");
+                        optionTipoEv.value = tEv.Id_TipoEv;
+                        optionTipoEv.text = tEv.TipoEvaluacion;
+                        tiposEvSelect.add(optionTipoEv);
+                    });
+                }
 
             checkAcademiaCount = (sessionVariables) => {                
                 if (sessionVariables.usertype == 1) {   //Coordinador deshabilitado select y asignada materia
@@ -122,12 +129,12 @@ $(document).ready(function ($) {
                         materiaSelect.remove(0);
                         materiaSelect.disabled = false;
                         toSelectMateria.value = "null";
-                        toSelectMateria.text = "- Seleccione una materia -";                                                                
+                        toSelectMateria.text = "- Seleccione una materia -";
                         materiaSelect.add(toSelectMateria);
                         
                         loadMaterias(idAcad);
                     }).fail(function () {
-                        AJAXrequestFailed("Fallo en petición AJAX para obtener materia de cuenta de coordinador de academia.");
+                        AJAXrequestFailed("Fallo en petición AJAX para obtener materias de cuenta de coordinador de academia.");
                     })
                 } else if (sessionVariables.usertype == 2){                //Profesor, habilitar select academias a las que pertenece y selecionar materias de esa academia
                     

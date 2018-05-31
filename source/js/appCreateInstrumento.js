@@ -2,17 +2,17 @@ $(document).ready(function ($) {
 
     verifyFromCreateInstrumento = () => {
         let flag = false;
-        let claveElemInput = document.getElementById("claveElemInput");
-        let nombreElemInput = document.getElementById("nombreElemInput");
+        let tipoInst = document.getElementById("instTypeHidden");
         let tipoEvSelect = document.getElementById("tipoEvSelect");
-        let selectParcial = document.getElementById("selectParcial");
         let materiasSelect = document.getElementById("materiasSelect");
+        let claveElemInput = document.getElementById("claveElemInput");
+        let nombreElemInput = document.getElementById("nombreElemInput");               
         let instruccLlenado = document.getElementById("instruccLlenado");
-
+        
         let inputsFormCreateInstr = document.getElementsByClassName("createFormInput");
+        
 
-
-        Array.prototype.forEach.call(inputsFormCreateInstr, function (input, index) {
+        Array.prototype.forEach.call(inputsFormCreateInstr, function (input, index) {            
             if (flag) {
                 return;
             }            
@@ -23,20 +23,69 @@ $(document).ready(function ($) {
                 showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
             }
         });
-        //console.log(document.getElementById("titleFormCreateInst").value);
 
-        //Agregar hidden input
         if (!flag) {
             if (claveElemInput.value.length > 6) {
+                var mainmessage = "Por favor ingrese una clave de elemento de máximo 6 caracteres.";
+                var secmessage = "Presione el boton para continuar.";
+                showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
+                return;
+            } if (nombreElemInput.value.length > 15) {
+                var mainmessage = "Por favor ingrese una nombre de elemento de máximo 15 caracteres.";
+                var secmessage = "Presione el boton para continuar.";
+                showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
+                return;
+            } if (materiasSelect.value == "null") {
+                var mainmessage = "Por favor seleccione una materia.";
+                var secmessage = "Presione el boton para continuar.";
+                showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
+                return;
+            }
 
-            } if (nombreElemInput > 15) {
+            switch (tipoEvSelect.value) {
+                case "1": break;
+                case "2": break;
+                case "3": break;
+                case "null":
+                    var mainmessage = "Por favor seleccione un tipo de evaluación";
+                    var secmessage = "Presione el boton para continuar.";
+                    showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
+                    return;
+                    break;
+                default:
+                    var mainmessage = "Por favor seleccione un tipo de evaluación válido.";
+                    var secmessage = "Presione el boton para continuar.";
+                    showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
+                    return;
+                    break;
+            } 
 
-            } //if (instruccLlenado > )
+            dataForCreateInstrument = {
+                tipoInstrumento : parseInt(tipoInst.value),
+                tipoEv: parseInt(tipoEvSelect.value),
+                claveElemento : claveElemInput.value,
+                nombreElemento : nombreElemInput.value,    
+                instruccionesLlenado : instruccLlenado.value,
+                materiaId : parseInt(materiasSelect.value)
+            }
+            console.log(dataForCreateInstrument);
+        }
 
-            
+    }
+
+    updateLeftChars = (e) => {
+        let instLlenadoTxtArea = e.currentTarget;
+        let lblLeftChars = document.getElementById("countCharInstrucciones");
+        let leftChars = 260 - instLlenadoTxtArea.value.length;
+        
+        if (leftChars >= 0) {
+            lblLeftChars.textContent = leftChars;
+        } else {
+            instLlenadoTxtArea.value = instLlenadoTxtArea.value.substring(0, instLlenadoTxtArea.value.length-1);
         }
 
     }
 
     $("#createInstrumento").click(function (e) { verifyFromCreateInstrumento(); });
+    $("#instruccLlenado").on('input', function (e) { updateLeftChars(e); })
 });

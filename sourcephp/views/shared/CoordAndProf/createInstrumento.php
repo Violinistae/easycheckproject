@@ -3,6 +3,7 @@
 	<label id="titleFormCreateInst">Crear Instrumento de Evaluación: </label>
 </div>
 <div id="fromCreateInst">
+	<input id="instTypeHidden" class="createFormInput" type="hidden">
 	<div id="formCreateInstPart1">
 		<div>
 			<label class="subtitleLblField">Clave Elemento Evaluado</label>
@@ -18,16 +19,6 @@
 				<option value="null" selected>- Seleccione un tipo de Evaluación -</option>
 			</select>
 		</div>
-		<div>
-			<label class="subtitleLblField">Parcial Evaluado</label>
-			<select class="createFormInput" id="selectParcial" name="selectParcialEvaluado" autocomplete="off">
-				<option value="null" selected>- Seleccione un Parcial -</option>
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="123">Todos</option>
-			</select>
-		</div>
 	</div>
 	<div id="formCreateInstPart2">
 		<div>
@@ -37,12 +28,15 @@
 		</div>
 		<div>
 			<label class="subtitleLblField">Materia Evaluada</label>
-			<select class="createFormInput" class="createFormInput" id="materiasSelect" name="materiaEvaluada" autocomplete="off">
-				<option value="null" selected>- Seleccione una carrera -</option>
+			<select class="createFormInput" id="materiasSelect" name="materiaEvaluada" autocomplete="off">
+				<option value="null" selected>- Seleccione primero una acadmeia -</option>
 			</select>
 		</div>	
 		<div id="instruccionesLlenado">
-			<label class="subtitleLblField">Instrucciones de llenado para el instrumento</label>
+			<div id="lblsInstruccLlenado">
+				<label class="subtitleLblField">Instrucciones de llenado para el instrumento</label>	
+				<label id="countCharInstrucciones">260</label>
+			</div>
 			<textarea class="createFormInput" id="instruccLlenado" name="instruccLlenado" autocomplete="off"></textarea>
 		</div>
 		<div>
