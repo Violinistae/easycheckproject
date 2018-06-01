@@ -4,18 +4,17 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 		
-	<link rel="stylesheet" type="text/css" href="../../source/css/styleMain.css">
-	<link rel="stylesheet" type="text/css" href="../../source/css/styleInstrumentsContainer.css">
+	<link rel="stylesheet" type="text/css" href="../../source/css/styleModals.css">
+	<link rel="stylesheet" type="text/css" href="../../source/css/styleBuildInstrument.css">
 	<link rel="shortcut icon" href="../../source/img/easycheckico.png" type="image/x-icon">	
 
-	<script type="text/javascript" src="../../source/resources/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript" src="../../source/resources/xlsx.full.min.js"></script>
+	<script type="text/javascript" src="../../source/resources/jquery-3.2.1.min.js"></script>	
 	<script type="text/javascript" src="../../source/js/appExcelToJSON.js"></script>
 
 	<script type="text/javascript" src="../../source/js/appLoadPageAJAX.js"></script>
-	<script type="text/javascript" src="../../source/js/appGeneral.js"></script>	
+	<script type="text/javascript" src="../../source/js/appGeneral.js"></script>
 	<script type="text/javascript" src="../../source/js/appMain.js"></script>
-	<script type="text/javascript" src="../../source/js/appOnlyStyles.js"></script>	
+	<script type="text/javascript" src="../../source/js/appOnlyStyles.js"></script>
 	<script type="text/javascript" src="../../source/resources/font-awesome/js/fontawesome-all.min.js"></script>
 </head>
 <body>
@@ -63,9 +62,7 @@
 	</div>
 
 	<div class="allcontainer">
-		<div class="mainnavbar" id="mainnavbar">
-		</div>
-		<div class="groupsbar" id="groupsbar">
+		<div class="toolsBar" id="toolsBar">
 		</div>
 		<div class="maincontainer" id="maincontainer">
 			<div id="submaincontainer"></div>

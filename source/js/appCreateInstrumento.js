@@ -91,7 +91,7 @@ $(document).ready(function ($) {
                         materiaId: parseInt(materiasSelect.value)
                     }
 
-                    getGeneratedTxt(materia, purpuseTxtFile, arrayToEvalWithGeneratedTxt, sendDataAJAXCreateInstrument, dataForCreateInstrument);
+                    getGeneratedTxt(materia, purpuseTxtFile, arrayToEvalWithGeneratedTxt, sendDataCreateInstrument, dataForCreateInstrument);
                 }
             }).fail(function () {
                 AJAXrequestFailed("No funciona petición AJAX para obtener materia.");
@@ -101,8 +101,33 @@ $(document).ready(function ($) {
 
     }
 
-        sendDataAJAXCreateInstrument = (dataArray) => {
-            console.log(dataArray);
+        sendDataCreateInstrument = (dataArray) => {
+            //AJAX create instrument function, replace in getGenereatedTxt()
+
+            let createInstrURL = "../../sourcephp/views/shared/CoordAndProf/buildInstrumento.php";
+
+            let formToCreateInstrument = document.createElement("form");
+            let hiddenContent = document.getElementById("hiddenContent");
+            
+            hiddenContent.appendChild(formToCreateInstrument);
+            formToCreateInstrument.target = "_blank";
+            formToCreateInstrument.method = "post";
+            formToCreateInstrument.action = createInstrURL;
+
+            for (var dataElement in dataArray) {
+                let auxInput = document.createElement("input");
+                auxInput.type = "hidden";
+                auxInput.name = dataElement;
+                auxInput.value = dataArray[dataElement];
+                formToCreateInstrument.appendChild(auxInput);
+            }
+
+            $(".subdropumen").removeClass('active');
+            $(".buttonnewinst").removeClass('active');
+            $("#modforactions").fadeOut("300");
+
+            formToCreateInstrument.submit();
+
         }
 
     updateLeftChars = (e) => {
