@@ -64,8 +64,8 @@ $(document).ready(function ($) {
                 let Academia = resAcademia.academia.Academia;
 
                 let acadConfigTitle = document.getElementById("acadConfigTitle");
-                
-                
+
+
                 acadConfigTitle.textContent += Academia;
             }
 

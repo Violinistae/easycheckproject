@@ -116,5 +116,64 @@ $(document).ready(function ($) {
             
             return JSONStr;            
         }
-});
 
+
+    getGeneratedTxt = (objJSON, purposeTxtFile, arrayToEval, functionToDoCreateInst, arrayForFunctionToDo) => {
+        let txtFileName;
+        let targetPath;
+        if (purposeTxtFile == 1) {
+            txtFileName = objJSON.Valores_Parciales;
+            targetPath = "source/files/valoresParciales/";        
+        } else if (purposeTxtFile == 2) {
+            
+        }
+
+        let targetFile = targetPath + txtFileName + ".txt";
+
+        dataGetTxtFile = {
+            targetFile: targetFile
+        }
+
+        $.ajax({
+            url: '../../index_ajax.php?controller=file&action=getContentFile',
+            type: 'POST',
+            dataType: 'json', 
+            data: dataGetTxtFile
+        }).done(function (resFile) {
+            if (!resFile.error) {
+                evalKeyWithGeneratedTxt(resFile.fileContent, purposeTxtFile, arrayToEval, functionToDoCreateInst, arrayForFunctionToDo);
+            } else {
+                alert("Verificar error");
+            }          
+        }).fail(function () {
+            AJAXrequestFailed("Error en petición AJAX para obtener archivo txt.");
+        });
+
+    }
+
+        evalKeyWithGeneratedTxt = (resFileContent, purposeFile, arrayToEval, functionToDoCreateInst, arrayForFunctionToDo) => {
+            let txtFile_JSON = JSON.parse(resFileContent);
+            if (purposeFile == 1) {                                 //Eval als ValPar                
+                let flagKeyName_ValPar = false;
+
+                txtFile_JSON.forEach(xlsxRow => {
+                    if (arrayToEval.claveElemento == xlsxRow.Clave &&
+                    arrayToEval.nombreElemento == xlsxRow.Nombre) {
+                        flagKeyName_ValPar = true;
+                        return;
+                    }
+                });
+
+                if (flagKeyName_ValPar) {
+                    functionToDoCreateInst(arrayForFunctionToDo);
+                } else if (!flagKeyName_ValPar) {
+                    var mainmessage = "Por favor ingrese una clave y/o nombre de elemento a evaluar válidos (contenidos dentro del archivo valores parciales).";
+                    var secmessage = "Presione el boton para continuar.";
+                    showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
+                    return;
+                }
+
+            }
+        }
+    
+});

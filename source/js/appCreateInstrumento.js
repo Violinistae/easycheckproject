@@ -60,18 +60,50 @@ $(document).ready(function ($) {
                     break;
             } 
 
-            dataForCreateInstrument = {
-                tipoInstrumento : parseInt(tipoInst.value),
-                tipoEv: parseInt(tipoEvSelect.value),
-                claveElemento : claveElemInput.value,
-                nombreElemento : nombreElemInput.value,    
-                instruccionesLlenado : instruccLlenado.value,
-                materiaId : parseInt(materiasSelect.value)
-            }
-            console.log(dataForCreateInstrument);
+            dataMateria = {
+                materiaID: parseInt(materiasSelect.value)
+            };
+
+
+            $.ajax({
+                url: '../../index_ajax.php?controller=materia&action=getMateriaById',
+                type: 'POST',
+                dataType: 'json',
+                data: dataMateria
+            }).done(function (resMateria) {
+                if (!resMateria.error) {
+                    let materia = resMateria.materia;
+                    let purpuseTxtFile = 1;             //Get valores parciales
+
+                    arrayToEvalWithGeneratedTxt = {
+                        claveElemento: claveElemInput.value,
+                        nombreElemento: nombreElemInput.value
+                    };
+
+                    //TO UPPER CASE clave value and lower nombre, luego almacanar en forma de palabra
+
+                    dataForCreateInstrument = {
+                        tipoInstrumento: parseInt(tipoInst.value),
+                        tipoEv: parseInt(tipoEvSelect.value),
+                        claveElemento: claveElemInput.value,
+                        nombreElemento: nombreElemInput.value,
+                        instruccionesLlenado: instruccLlenado.value,
+                        materiaId: parseInt(materiasSelect.value)
+                    }
+
+                    getGeneratedTxt(materia, purpuseTxtFile, arrayToEvalWithGeneratedTxt, sendDataAJAXCreateInstrument, dataForCreateInstrument);
+                }
+            }).fail(function () {
+                AJAXrequestFailed("No funciona petición AJAX para obtener materia.");
+            });
+                                            
         }
 
     }
+
+        sendDataAJAXCreateInstrument = (dataArray) => {
+            console.log(dataArray);
+        }
 
     updateLeftChars = (e) => {
         let instLlenadoTxtArea = e.currentTarget;

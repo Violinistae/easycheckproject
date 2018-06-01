@@ -103,6 +103,30 @@
                 echo json_encode(array('error' => true));
             }
         }
+
+        public function getContentFile () {
+            $targetFile = "./".$_POST["targetFile"];
+            $fread = fopen($targetFile, "r");
+
+            if(filesize($targetFile) > 0){
+                $fileContent = fread($fread, filesize($targetFile));
+                $fileContent = nl2br($fileContent);
+                fclose($fread);
+                echo json_encode(array(
+                    'error' => false, 
+                    'fileContent' => $fileContent
+                ));
+                return;
+                
+            } else {
+                fclose($fread);
+                echo json_encode(array(
+                    'error' => true
+                ));
+                return;
+            }
+            
+        }
     }
     
 ?>
