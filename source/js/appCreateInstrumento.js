@@ -103,8 +103,8 @@ $(document).ready(function ($) {
 
         sendDataCreateInstrument = (dataArray) => {
             //AJAX create instrument function, replace in getGenereatedTxt()
-
-            let createInstrURL = "../../sourcephp/views/shared/CoordAndProf/buildInstrumento.php";
+            let str = JSON.stringify(dataArray)
+            let createInstrURL = "../../sourcephp/views/buildInstrumento.php";
 
             let formToCreateInstrument = document.createElement("form");
             let hiddenContent = document.getElementById("hiddenContent");
@@ -125,6 +125,8 @@ $(document).ready(function ($) {
             $(".subdropumen").removeClass('active');
             $(".buttonnewinst").removeClass('active');
             $("#modforactions").fadeOut("300");
+
+            sessionStorage.setItem("createdInst", str);
 
             formToCreateInstrument.submit();
 

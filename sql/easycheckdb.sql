@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-05-2018 a las 23:15:33
+-- Tiempo de generación: 02-06-2018 a las 00:42:28
 -- Versión del servidor: 10.1.31-MariaDB
 -- Versión de PHP: 7.2.4
 
@@ -79,7 +79,8 @@ INSERT INTO `acciones` (`Id_Acciones`, `Controlador`, `Metodo`) VALUES
 (15, 'file', 'deleteFile'),
 (16, 'materia', 'deleteMateria'),
 (17, 'academia', 'getAcademiaByCoordinador'),
-(18, 'tipoevaluacion', 'readTipoEvaluacion');
+(18, 'tipoevaluacion', 'readTipoEvaluacion'),
+(19, 'file', 'getContentFile');
 
 -- --------------------------------------------------------
 
@@ -273,6 +274,7 @@ CREATE TABLE `instrumento` (
   `TipoEvaluacion` tinyint(4) NOT NULL,
   `ClaveElem` varchar(6) NOT NULL,
   `NombElemento` varchar(15) NOT NULL,
+  `InstruccLlenado` varchar(260) NOT NULL,
   `Materia` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -815,7 +817,7 @@ ALTER TABLE `academia`
 -- AUTO_INCREMENT de la tabla `acciones`
 --
 ALTER TABLE `acciones`
-  MODIFY `Id_Acciones` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `Id_Acciones` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `aspectoevaluacion`

@@ -10,7 +10,7 @@
     grid-template-columns: 2vw 96vw 2vw;
     grid-template-rows: 10vh 2vh 83vh 5vh;
     grid-template-areas: 
-    "toolsBar toolsBar toolsBar"
+    "toolsBar toolsBar mainnavbar"
     ". . ."
     ". maincontainer ."
     ". . ."

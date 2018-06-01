@@ -1,17 +1,28 @@
 $(document).ready(function ($) {
 
     getInstrumentData = () => {
-        $.ajax({
-            url: '../../index_ajax.php?controller=instrumento&action=getCreatedInstrumentData',
-            type: 'POST',
-            dataType: 'json',
-            data: dataMateria
-        }).done(function () {
-            
-        }).fail(function () {
-            AJAXrequestFailed("No funciona petición AJAX para obtener datos de instrumento creado");
-        });
+        var JSON_CreatedInstrData = JSON.parse(sessionStorage.getItem("createdInst"));
+        console.log(JSON_CreatedInstrData);
     }
 
+/* --------------------------------------------------------------------------------------------------------------------- */
+
+    /** Event Triggers for Rubrica */
+
+
+    /** Event Triggers for Lista de Cotejo */
+
+
+
+    /** Event Triggers for Guia de Observación */    
+
+
+
+    /** Event Triggers for Cuestionario */
+
+
+
+/* --------------------------------------------------------------------------------------------------------------------- */
     getInstrumentData();
+
 });
