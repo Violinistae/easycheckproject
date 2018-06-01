@@ -137,39 +137,47 @@ $(document).ready(function ($) {
 	}
 
 		checkCoordProf = (sessionVariables) => {
-			if (!sessionVariables.error) {			
-				let URLacadBtn = null;
-				console.log(sessionVariables.usertype);
+			if (!sessionVariables.error) {				
 				switch (parseInt(sessionVariables.usertype)) {
 					case 1:
-						URLacadBtn = '../../sourcephp/views/Users/coordinador/acadOverview.php';
+						$.ajax({
+							url: '../../sourcephp/views/Users/coordinador/acadOverview.php',
+							type: 'POST'
+						}).done(function (acadOverviewPage) {
+							maincontentFadeAnimation(acadOverviewPage, loadAcademiaOverviewCoord);
+						}).fail(function () {
+							AJAXrequestFailed("Fallo en petición AJAX para reaccionar a boton de academia en groups bar.");
+						});
 						break;
-					case 2:
-						URLacadBtn = '../../sourcephp/views/Users/profesor/listAcademias.php'
+					case 2:					
+						$.ajax({
+							url: '../../sourcephp/views/Users/profesor/listAcademias.php',
+							type: 'POST'
+						}).done(function (acadOverviewPage) {
+							maincontentFadeAnimation(acadOverviewPage, loadAcademiasToTable);
+						}).fail(function () {
+							AJAXrequestFailed("Fallo en petición AJAX para reaccionar a boton de academia en groups bar.");
+						});
 						break;
 					default:
 						break;
-				}
-				if (URLacadBtn != null) {
-					$.ajax({
-						url: URLacadBtn,
-						type: 'POST'
-					}).done(function (acadOverviewPage) {
-						maincontentFadeAnimation(acadOverviewPage, "null");
-					}).fail(function () {
-						AJAXrequestFailed("Fallo en petición AJAX para reaccionar a boton de academia en groups bar.");
-					});
-				}
+				}				
 			} else {
 				closeUserSession();
 			}
 		}
 
-			loadAcademiasToTable = () => {
+			loadAcademiaOverviewCoord = () => {
+				mainContainer = document.getElementById("submaincontainer");
+				getAndExecuteNewInsertedScript(mainContainer);
 
+				//Insert instrumentos compartidos
 			}
 
-		//Function to insert content on academia page? --> --> YES !!!!!
+			loadAcademiasToTable = () => {
+				mainContainer = document.getElementById("submaincontainer");
+				getAndExecuteNewInsertedScript(mainContainer);
+			}
 
 	gotoMaterias = (e) => {
         setCookie("lOaDeDpAgE_ajax", "gotoMaterias", 7);

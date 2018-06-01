@@ -8,9 +8,9 @@
 		</ul>
 	</nav>
 	<div id="groupActionsBar">
-		<button class="acadOverbtn">Configuración de Grupo</button>
-		<button class="acadOverbtn">Información de Grupo</button>
-		<button class="acadOverbtn">Administrar integrantes</button>
+		<button class="acadOverbtn" id="acadInfoBtn">Información de Grupo</button>
+		<button class="acadOverbtn" id="acadConfigBtn">Configuración de Grupo</button>		
+		<button class="acadOverbtn" id="acadAdminIntegBtn">Administrar integrantes</button>
 	</div>
 	<div id="mainContainerAcadOverview">
 		<div class="instrumentsContainer">
