@@ -6,18 +6,11 @@
 		
 	<link rel="stylesheet" type="text/css" href="../../source/css/styleModals.css">
 	<link rel="stylesheet" type="text/css" href="../../source/css/styleBuildInstrument.css">
-
-	<link rel="stylesheet" type="text/css" href="../../source/css/styleBuildLC.css">
-
-
 	<link rel="shortcut icon" href="../../source/img/easycheckico.png" type="image/x-icon">	
 
-	<script type="text/javascript" src="../../source/resources/jquery-3.2.1.min.js"></script>		
-
-	<script type="text/javascript" src="../../source/js/appGeneral.js"></script>
-	<script type="text/javascript" src="../../source/js/appGeneral.js"></script>
-	<script type="text/javascript" src="../../source/js/appBuildInstrumento.js"></script>
-	<script type="text/javascript" src="../../source/resources/font-awesome/js/fontawesome-all.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../../source/css/styleBuildLC.css">
+	<link rel="stylesheet" type="text/css" href="../../source/css/styleBuildGO.css">
+	
 </head>
 <body>
 	<div class="modalwarning" id="modwarning">
@@ -66,8 +59,8 @@
 	<div class="allcontainer">
 		<div class="toolsBar" id="toolsBar">
 			<div id="creatingLbl">
-				<label id="typeInstrumento">Instrumento de Evaluación - Lista de Cotejo</label>
-				<label id="claveNombreInstr">P1.1 - Tareas</label>
+				<label id="typeInstrumento">Instrumento de Evaluación - </label>
+				<label id="claveNombreInstr"></label>
 			</div>
 			<div id="addElementsBtns">
 				<i id="addRowBtn" class="fas fa-plus-square" title="Agregar fila a instrumento"></i>
@@ -77,46 +70,22 @@
 			</div>
 		</div>
 		<div class="maincontainer" id="maincontainer">
+
 			<div id="tableInstrumentHead">
-				<div id="numElemHead">
-					<label class="LCHeadLbl">No. de Elemento</label>
-				</div>
-				<div id="aspEvHead">
-					<label class="LCHeadLbl">Aspecto de Evaluación</label>
-				</div>
-				<div id="indicadoresEvHead">
-					<label class="LCHeadLbl">Indicadores de Evaluación</label>
-				</div>
-				<div id="deleteRowHead">
-					<label class="LCHeadLbl">Eliminar fila</label>
-				</div>
 			</div>
+
 			<div id="submaincontainer">
 				<div id="rowsContainer">
-
-					<div class="instrumentRow rowLC">
-						<div class="rowLCElement">
-							<p class="rowLCContent" id="numElemento">1</p>
-						</div>
-						<div class="rowLCElement" id="aspEv">						
-								<input type="radio" name="aspEv" value="1" checked>Saber
-								<input type="radio" name="aspEv" value="2">Hacer
-								<input type="radio" name="aspEv" value="3">Ser
-						</div>
-						<div class="rowLCElement" id="indicadoresEvContainer">
-							<div id="lblsindicadoresEv">
-								<label id="countCharIndicadoresEv">260</label>
-							</div>
-							<textarea id="indicadoresEv" name="indicadoresEv" autocomplete="off"></textarea>
-						</div>
-						<div class="rowLCElement">
-							<i class="fas fa-minus-square deleteRowBtn" title="Eliminar fila"></i>
-						</div>
-					</div>
-					
-				</div>		
+				</div>
 			</div>
+
 		</div>
 	</div>
 </body>
+
+<script type="text/javascript" src="../../source/resources/jquery-3.2.1.min.js"></script>		
+
+<script type="text/javascript" src="../../source/js/appGeneral.js"></script>
+<script type="text/javascript" src="../../source/js/appBuildInstrumento.js"></script>
+<script type="text/javascript" src="../../source/resources/font-awesome/js/fontawesome-all.min.js"></script>
 </html>

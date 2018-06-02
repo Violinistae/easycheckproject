@@ -1,0 +1,72 @@
+#tableInstrumentHead {
+    display: grid;
+    grid-template-columns: 1fr 2fr 3fr 1fr 1fr;
+}
+
+.GOHeadCol {
+    text-align: center;
+    font-weight: bold;
+}
+
+.GOHeadLbl {
+    font-size: 18px;
+}
+
+.rowGO {
+    display: grid;
+    grid-template-columns: 1fr 2fr 3fr 1fr 1fr;
+}
+
+.rowGOElement {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+#aspEv {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 90%;
+}
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+#accionesEvContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#lblsaccionesEv {
+    flex-grow: .5;
+    text-align: right;
+    width: 90%;
+}
+
+#accionesEv {
+    flex-grow: 2;
+    width: 90%;
+    border-radius: .2em;
+    padding: .5em;
+}
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+#ponderacionElemento {
+    width: 30%;
+    border-radius: .2em;
+    padding: .5em;
+    outline: none;
+    text-align: right;
+}
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+.deleteRowBtn {
+    font-size: 28px;
+    cursor: pointer;
+}
