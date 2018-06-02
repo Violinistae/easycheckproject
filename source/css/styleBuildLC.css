@@ -1,0 +1,74 @@
+#tableInstrumentHead {
+    display: grid;
+    grid-template-columns: 1fr 3fr 4fr 1fr;
+}
+
+#numElemHead {
+    text-align: center;
+    font-weight: bold;
+}
+#aspEvHead {
+    text-align: center;
+    font-weight: bold;
+}
+#indicadoresEvHead {
+    text-align: center;
+    font-weight: bold;
+}
+#deleteRowHead {
+    text-align: center;
+    font-weight: bold;
+}
+
+.LCHeadLbl {
+    font-size: 18px;
+}
+
+.rowLC {
+    display: grid;
+    grid-template-columns: 1fr 3fr 4fr 1fr;
+}
+
+.rowLCElement {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+#aspEv {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 90%;
+}
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+#indicadoresEvContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#lblsindicadoresEv {
+    flex-grow: .5;
+    text-align: right;
+    width: 90%;
+}
+
+#indicadoresEv {
+    flex-grow: 2;
+    width: 100%;
+    border-radius: .2em;
+    padding: .5em;
+}
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+.deleteRowBtn {
+    font-size: 28px;
+    cursor: pointer;
+}

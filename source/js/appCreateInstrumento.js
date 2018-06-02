@@ -104,31 +104,14 @@ $(document).ready(function ($) {
         sendDataCreateInstrument = (dataArray) => {
             //AJAX create instrument function, replace in getGenereatedTxt()
             let str = JSON.stringify(dataArray)
-            let createInstrURL = "../../sourcephp/views/buildInstrumento.php";
-
-            let formToCreateInstrument = document.createElement("form");
-            let hiddenContent = document.getElementById("hiddenContent");
-            
-            hiddenContent.appendChild(formToCreateInstrument);
-            formToCreateInstrument.target = "_blank";
-            formToCreateInstrument.method = "post";
-            formToCreateInstrument.action = createInstrURL;
-
-            for (var dataElement in dataArray) {
-                let auxInput = document.createElement("input");
-                auxInput.type = "hidden";
-                auxInput.name = dataElement;
-                auxInput.value = dataArray[dataElement];
-                formToCreateInstrument.appendChild(auxInput);
-            }
+            let buildInstrURL = "../../sourcephp/views/buildInstrumento.php";
 
             $(".subdropumen").removeClass('active');
             $(".buttonnewinst").removeClass('active');
             $("#modforactions").fadeOut("300");
 
             sessionStorage.setItem("createdInst", str);
-
-            formToCreateInstrument.submit();
+            window.open(buildInstrURL, "_blank");
 
         }
 
