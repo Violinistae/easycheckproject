@@ -1,4 +1,4 @@
-#tableInstrumentHead {
+#headGORow {
     display: grid;
     grid-template-columns: 1fr 2fr 3fr 1fr 1fr;
 }
@@ -35,21 +35,21 @@
 
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
-#accionesEvContainer {
+.indicadoresEvContainer {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#lblsaccionesEv {
+.lblsindicadoresEv {
     flex-grow: .5;
     text-align: right;
     width: 90%;
 }
 
-#accionesEv {
+.indicadoresEv {
     flex-grow: 2;
-    width: 90%;
+    width: 100%;
     border-radius: .2em;
     padding: .5em;
 }

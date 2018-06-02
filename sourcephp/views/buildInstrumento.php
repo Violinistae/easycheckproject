@@ -76,6 +76,9 @@
 
 			<div id="submaincontainer">
 				<div id="rowsContainer">
+
+					
+
 				</div>
 			</div>
 
@@ -87,5 +90,9 @@
 
 <script type="text/javascript" src="../../source/js/appGeneral.js"></script>
 <script type="text/javascript" src="../../source/js/appBuildInstrumento.js"></script>
+
+<script type="text/javascript" src="../../source/js/appBuildLC.js"></script>
+<script type="text/javascript" src="../../source/js/appBuildGO.js"></script>
+
 <script type="text/javascript" src="../../source/resources/font-awesome/js/fontawesome-all.min.js"></script>
 </html>

@@ -1,19 +1,33 @@
 <div class="instrumentRow rowLC">
-    <div class="rowLCElement">
-        <p class="rowLCContent" id="numElemento">1</p>
-    </div>
-    <div class="rowLCElement" id="aspEv">						
-            <input type="radio" name="aspEv" value="1" checked>Saber
-            <input type="radio" name="aspEv" value="2">Hacer
-            <input type="radio" name="aspEv" value="3">Ser
-    </div>
-    <div class="rowLCElement" id="indicadoresEvContainer">
-        <div id="lblsindicadoresEv">
-            <label id="countCharIndicadoresEv">260</label>
-        </div>
-        <textarea id="indicadoresEv" name="indicadoresEv" autocomplete="off"></textarea>
-    </div>
-    <div class="rowLCElement">
-        <i class="fas fa-minus-square deleteRowBtn" title="Eliminar fila"></i>
-    </div>
+	<div class="rowLCElement" id="numElem">
+		<p class="rowLCContent" id="numElemento">1</p>
+	</div>
+	<div class="rowLCElement aspEv">
+		<div class="aspEvDiv">
+			<input type="radio" class="aspEvInst aspEvItem" name="aspEv" value="1" checked>
+			<label class="aspEvItem">Saber</label>
+		</div>
+		<div class="aspEvDiv">
+			<input type="radio" class="aspEvInst aspEvItem" name="aspEv" value="2">
+			<label class="aspEvItem">Hacer</label>
+		</div>
+		<div class="aspEvDiv">
+			<input type="radio" class="aspEvInst aspEvItem" name="aspEv" value="3">
+			<label class="aspEvItem">Ser</label>
+		</div>
+	</div>
+	<div class="rowLCElement indicadoresEvContainer">
+		<div class="lblsindicadoresEv">
+			<label id="countCharIndicadoresEv">260</label>
+		</div>
+		<textarea class="indicadoresEv" id="indicadoresEv" name="indicadoresEv" autocomplete="off"></textarea>
+	</div>
+	<div class="rowLCElement" id="deleteRow">
+		<i class="fas fa-minus-square deleteRowBtn" title="Eliminar fila"></i>
+	</div>
 </div>
+
+
+/*let selectedRadio = document.querySelector('input[name="aspEvRow'+ 
+    newIndexArray + '"]:checked').value;
+*/
