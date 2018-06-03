@@ -17,7 +17,6 @@ $(document).ready(function ($) {
 
             switch (i) {
                 case 0:      
-                    
                     rowLCElem.id = "numElem" + newIndexArray;
 
                     auxCol = document.createElement("p");
@@ -26,29 +25,20 @@ $(document).ready(function ($) {
                     auxCol.textContent = newIndexArray;
 
                     rowLCElem.appendChild(auxCol);
-
                     newRowLC.push(newIndexArray);
-
                     break;
                 case 1:
-
                     let indexForAspEv = newIndexArray;
                     rowLCElem.classList.add("aspEv");
-
                     createAspEv(rowLCElem, indexForAspEv);
-
                     newRowLC.push(1);
-
                     break;
                 case 2:
-
                     let indexForIndEv = newIndexArray;
                     rowLCElem.classList.add("indicadoresEvContainer");
-
                     newRowLC.push(createIndicadoresEv(rowLCElem, indexForIndEv));
                     break;
                 case 3:
-
                     rowLCElem.id = "deleteRow" + newIndexArray;
                     rowLCElem.innerHTML = 
                         '<i class="fas fa-minus-square deleteRowBtn" id="deleteRowBtn' + 
@@ -60,8 +50,6 @@ $(document).ready(function ($) {
             instumentLCRow.appendChild(rowLCElem);
             parentRowsDiv.appendChild(instumentLCRow);
         }
-
-
         return newRowLC;
     }
 

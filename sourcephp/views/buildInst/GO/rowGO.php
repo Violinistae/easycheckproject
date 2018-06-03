@@ -14,7 +14,7 @@
         <textarea id="accionesEv" name="accionesEv" autocomplete="off"></textarea>
     </div>						
     <div class="rowGOElement" id="ponderacionRowGO">
-        <input type="text" name="" id="ponderacionElemento">&nbsp %
+        <input type="text" id="pondElem" class="ponderacionElemento">&nbsp %
     </div>
     <div class="rowGOElement">
         <i class="fas fa-minus-square deleteRowBtn" title="Eliminar fila"></i>

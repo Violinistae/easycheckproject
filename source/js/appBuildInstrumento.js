@@ -105,8 +105,10 @@ $(document).ready(function ($) {
                 auxRow = addCRow(rowsInstrument.length + 1);
                 break;
         }
+        
         if (auxRow != null) {
             rowsInstrument.push(auxRow);
+            setNewHashToCookieAfterAction();
             //console.log(rowsInstrument);
         }
     }
@@ -141,11 +143,25 @@ $(document).ready(function ($) {
         let rowsContainer = document.getElementById("rowsContainer");
         for (let i = 1; i < rowsContainer.childNodes.length; ++i) {
             let elementToSort = rowsContainer.childNodes[i];
-            elementToSort.id = "rowLC" + (i - 1);
+            switch (tipoInstrumento) {
+                case 1:
+                    
+                    break;
+                case 2:
+                    elementToSort.id = "rowLC" + (i - 1);
+                    break;
+                case 3:
+                    elementToSort.id = "rowGO" + (i - 1);
+                    break;
+                case 4:
+
+                    break;
+            }
+            
         }
 
         rowsInstrument = getArrayFormDataLCRows(posAux.length);
-
+        setNewHashToCookieAfterAction();
         //console.log(rowsInstrument);
     }
 
@@ -161,16 +177,17 @@ $(document).ready(function ($) {
 
         updateArrayAfterDrag = (elemento, newIndex) => {
             let iElem =  newIndex - 1;
+            replaceIdsAndNamesRowsGeneral(elemento, newIndex);
             switch (tipoInstrumento) {
                 case 1:
                 
                     break;
                 case 2:
-                    replaceIdsAndNamesRowsGeneral(elemento, newIndex);
                     replaceIdsAndNamesRowsLC(elemento, newIndex);
                     break;
                 case 3:
-                    
+                    replaceIdsAndNamesRowsLC(elemento, newIndex);
+                    replaceIdsAndNamesRowsGO(elemento, newIndex);
                     break;
                 case 4:
                     
@@ -182,7 +199,8 @@ $(document).ready(function ($) {
                 let numElemContainer = parentElement.childNodes[0];
                 let aspEvContainer = parentElement.childNodes[1];
                 
-                let deleteRowContainer = parentElement.childNodes[3];
+                let lastIndexRowInst = parentElement.childNodes.length - 1;
+                let deleteRowContainer = parentElement.childNodes[lastIndexRowInst];
 
                 numElemContainer.id = "numElem" + index;
                 let numElem = numElemContainer.childNodes[0];                  /** */
@@ -213,7 +231,7 @@ $(document).ready(function ($) {
                     auxArr = getArrayFormDataLCRows(numRows);
                     break;
                 case 3:
-
+                    auxArr = getArrayFormDataLCRows(numRows);
                     break;
                 case 4:
 
@@ -225,11 +243,8 @@ $(document).ready(function ($) {
 
     deleteInstrumentRow = (e) => {
         let indexArrayRows = parseInt(e.currentTarget.getAttribute("dataq"));
-        //let indexElement = e.currentTarget.id.replace("deleteRowBtn", "");
 
         let rowsContainer = document.getElementById("rowsContainer");
-        //console.log(indexArrayRows);
-        //console.log(rowsContainer.childNodes[indexArrayRows + 1]);
         rowsContainer.removeChild(rowsContainer.childNodes[indexArrayRows + 1]);
         
         updateSorted();
@@ -281,7 +296,7 @@ $(document).ready(function ($) {
 
         auxCol.classList.add("lblsindicadoresEv");
         lblLeftChar.id = "countCharIndicadoresEv" + newIndexArray;
-        lblLeftChar.textContent = 260;
+        lblLeftChar.textContent = "Caracteres restantes: 260";
         auxCol.appendChild(lblLeftChar);
 
         txtIndEv.classList.add("indicadoresEv");
@@ -301,6 +316,7 @@ $(document).ready(function ($) {
         let newRadioValue = parseInt(e.currentTarget.value);
         let indexRowChanged = e.currentTarget.getAttribute('dataq');
         rowsInstrument[indexRowChanged][1] = newRadioValue;
+        setNewHashToCookieAfterAction();
     }
 
     changeIndevTxt = (e) => {
@@ -309,8 +325,10 @@ $(document).ready(function ($) {
 
         let res = updateLeftCharstxtArea(e.currentTarget);
 
-        if (res == 1)
+        if (res == 1) {
             rowsInstrument[indexRowChanged][2] = strTxtAreaChanged;   
+            setNewHashToCookieAfterAction();
+        }
         
     }
 
@@ -321,7 +339,7 @@ $(document).ready(function ($) {
             let leftChars = 260 - instLlenadoTxtArea.value.length;
 
             if (leftChars >= 0) {
-                lblLeftChars.textContent = leftChars;
+                lblLeftChars.textContent = "Caracteres restantes: " + leftChars;
                 return 1;
             } else {
                 instLlenadoTxtArea.value = instLlenadoTxtArea.value.substring(0, instLlenadoTxtArea.value.length - 1);
@@ -329,6 +347,19 @@ $(document).ready(function ($) {
             }
 
         }
+
+    changePondElem = (e) => {
+        let pondElem = parseInt(e.currentTarget.value);
+        let indexRowChanged = e.currentTarget.getAttribute('dataq');
+
+        if (pondElem <= 100 && pondElem >= 1) {
+            rowsInstrument[indexRowChanged][3] = pondElem;
+            setNewHashToCookieAfterAction();
+        } else if (pondElem < 1 || pondElem > 100) {
+            e.currentTarget.value = "";
+        }
+    }
+    
 
 /* --------------------------------------------------------------------------------------------------------------------- */
     
@@ -358,7 +389,7 @@ $(document).ready(function ($) {
 
 
     /** Event Triggers for Guia de Observación */    
-
+    $('body').on('input', '.ponderacionElemento', function (e) { changePondElem(e); });
 
     /** Event Triggers for Cuestionario */
 
