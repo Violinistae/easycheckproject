@@ -23,11 +23,6 @@
 		<textarea class="indicadoresEv" id="indicadoresEv" name="indicadoresEv" autocomplete="off"></textarea>
 	</div>
 	<div class="rowLCElement" id="deleteRow">
-		<i class="fas fa-minus-square deleteRowBtn" title="Eliminar fila"></i>
+		<i class="fas fa-minus-square deleteRowBtn" id="deleteRowBtn" title="Eliminar fila"></i>
 	</div>
 </div>
-
-
-/*let selectedRadio = document.querySelector('input[name="aspEvRow'+ 
-    newIndexArray + '"]:checked').value;
-*/

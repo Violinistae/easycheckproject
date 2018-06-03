@@ -107,14 +107,133 @@ $(document).ready(function ($) {
         }
         if (auxRow != null) {
             rowsInstrument.push(auxRow);
-            console.log(rowsInstrument);
+            //console.log(rowsInstrument);
         }
     }
 
-    deleteInstrumentRow = (e) => {
-        console.log(e.currentTarget.id);
+    updateSorted = () => {
+        let posAux = $('#rowsContainer').sortable('toArray');
+        let radiosValues = [];
+
+        //Save radios
+        for (let i = 0; i < posAux.length; ++i) {
+            let elementToSort = document.getElementById(posAux[i]);
+            radiosValues.push(saveRadiosValues(elementToSort));
+        }
+
+        //UpdateNames
+        for (let i = 0; i < posAux.length; ++i) {
+            let elementToSort = document.getElementById(posAux[i]);
+            updateArrayAfterDrag(elementToSort, i + 1);
+        }
+
+        //Set radios
+        for (let i = 0; i < posAux.length; ++i) {
+            let n = i + 1;
+            let aspEv = document.getElementsByName("aspEvRow" + n);
+            for (let j = 1; j < 4; ++j) {
+                if (j == radiosValues[i]) {
+                    aspEv[j - 1].checked = true;
+                }
+            }
+        }
+
+        let rowsContainer = document.getElementById("rowsContainer");
+        for (let i = 1; i < rowsContainer.childNodes.length; ++i) {
+            let elementToSort = rowsContainer.childNodes[i];
+            elementToSort.id = "rowLC" + (i - 1);
+        }
+
+        rowsInstrument = getArrayFormDataLCRows(posAux.length);
+
+        //console.log(rowsInstrument);
     }
 
+        saveRadiosValues = (parentElement) => {
+            let aspEvContainer = parentElement.childNodes[1];
+            for (let i = 0; i < 3; ++i) {
+                let inputAspEv = aspEvContainer.childNodes[i].childNodes[0];
+                if (inputAspEv.checked) {
+                    return inputAspEv.value;
+                }
+            }
+        }
+
+        updateArrayAfterDrag = (elemento, newIndex) => {
+            let iElem =  newIndex - 1;
+            switch (tipoInstrumento) {
+                case 1:
+                
+                    break;
+                case 2:
+                    replaceIdsAndNamesRowsGeneral(elemento, newIndex);
+                    replaceIdsAndNamesRowsLC(elemento, newIndex);
+                    break;
+                case 3:
+                    
+                    break;
+                case 4:
+                    
+                    break;
+            }
+        }
+
+            replaceIdsAndNamesRowsGeneral = (parentElement, index) => {
+                let numElemContainer = parentElement.childNodes[0];
+                let aspEvContainer = parentElement.childNodes[1];
+                
+                let deleteRowContainer = parentElement.childNodes[3];
+
+                numElemContainer.id = "numElem" + index;
+                let numElem = numElemContainer.childNodes[0];                  /** */
+                numElem.id = "numElemento" + index;
+                numElem.textContent = index;
+
+
+                for (let i = 0; i < 3; ++i) {
+                    let inputAspEv = aspEvContainer.childNodes[i].childNodes[0];
+                    inputAspEv.name = "aspEvRow" + index;
+                    inputAspEv.setAttribute("dataq", index - 1);
+                }
+
+                deleteRowContainer.id = "deleteRow" + index;
+
+                let deleteRowBtn = deleteRowContainer.childNodes[0];
+                deleteRowBtn.id = "deleteRowBtn" + index;
+                deleteRowBtn.setAttribute("dataq", index - 1);
+            }
+
+        getArrayFromDataRows = (numRows) => {
+            let auxArr = [];
+            switch (tipoInstrumento) {
+                case 1:
+
+                    break;
+                case 2:
+                    auxArr = getArrayFormDataLCRows(numRows);
+                    break;
+                case 3:
+
+                    break;
+                case 4:
+
+                    break;
+            }
+            return auxArr;
+        }
+
+
+    deleteInstrumentRow = (e) => {
+        let indexArrayRows = parseInt(e.currentTarget.getAttribute("dataq"));
+        //let indexElement = e.currentTarget.id.replace("deleteRowBtn", "");
+
+        let rowsContainer = document.getElementById("rowsContainer");
+        //console.log(indexArrayRows);
+        //console.log(rowsContainer.childNodes[indexArrayRows + 1]);
+        rowsContainer.removeChild(rowsContainer.childNodes[indexArrayRows + 1]);
+        
+        updateSorted();
+    }
 
     checkContentAndSaveChanges = () => {
         alert("Ready for save changes. First delete from DB and then get rowsInstrument[]");
@@ -131,6 +250,7 @@ $(document).ready(function ($) {
             auxCol = document.createElement("input");
             auxCol.setAttribute("type", "radio");
             auxCol.setAttribute("name", "aspEvRow" + newIndexArray);
+            auxCol.setAttribute("dataq", newIndexArray - 1);
             auxCol.classList.add("aspEvInst");
             auxCol.classList.add("aspEvItem");
             auxCol.value = j + 1;
@@ -167,6 +287,7 @@ $(document).ready(function ($) {
         txtIndEv.classList.add("indicadoresEv");
         txtIndEv.id = "indicadoresEv" + newIndexArray;
         txtIndEv.setAttribute("name", "indicadoresEv" + newIndexArray);
+        txtIndEv.setAttribute("dataq", newIndexArray - 1);
         txtIndEv.setAttribute("autocomplete", "off");
 
         rowElem.appendChild(auxCol);
@@ -178,26 +299,24 @@ $(document).ready(function ($) {
 
     changeAspEvRadio = (e) => {
         let newRadioValue = parseInt(e.currentTarget.value);
-        let nameRadioChanged = e.currentTarget.name;
-        let indexRowChanged = parseInt(nameRadioChanged.replace("aspEvRow", "")) - 1;
-        
+        let indexRowChanged = e.currentTarget.getAttribute('dataq');
         rowsInstrument[indexRowChanged][1] = newRadioValue;
     }
 
     changeIndevTxt = (e) => {
         let strTxtAreaChanged = e.currentTarget.value;
-        let nameTxtAreaChanged = e.currentTarget.name;
-        let indexRowChanged = parseInt(nameTxtAreaChanged.replace("indicadoresEv", "")) - 1;
+        let indexRowChanged = e.currentTarget.getAttribute('dataq');
 
-        let res = updateLeftCharstxtArea(e.currentTarget, indexRowChanged + 1);
+        let res = updateLeftCharstxtArea(e.currentTarget);
 
         if (res == 1)
             rowsInstrument[indexRowChanged][2] = strTxtAreaChanged;   
         
     }
 
-        updateLeftCharstxtArea = (eTrigger, indexTxtAreaChanged) => {
+        updateLeftCharstxtArea = (eTrigger) => {
             let instLlenadoTxtArea = eTrigger;
+            let indexTxtAreaChanged = parseInt(eTrigger.id.replace("indicadoresEv", ""));
             let lblLeftChars = document.getElementById("countCharIndicadoresEv" + indexTxtAreaChanged);
             let leftChars = 260 - instLlenadoTxtArea.value.length;
 
@@ -218,6 +337,15 @@ $(document).ready(function ($) {
     $("#addRowBtn").click(function (e) { setNewHashToCookieAfterAction(); checkAddNewRowToInstrument(); });    
     $('body').on('change', '.aspEvInst', function (e) { changeAspEvRadio(e); });
     $('body').on('click', '.deleteRowBtn', function (e) { deleteInstrumentRow(e); })
+
+
+    $('#rowsContainer').sortable({
+        stop: function (e, ui) {
+            updateSorted();
+        }
+    });
+    $('#rowsContainer').disableSelection();
+
 
 
     /** Event Triggers for Lista de Cotejo && Guia de Observación */

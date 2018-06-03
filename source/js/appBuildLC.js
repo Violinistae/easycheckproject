@@ -7,6 +7,8 @@ $(document).ready(function ($) {
         let instumentLCRow = document.createElement("div");
         instumentLCRow.classList.add("instrumentRow");
         instumentLCRow.classList.add("rowLC");
+        let indexForArray = newIndexArray - 1;
+        instumentLCRow.id = "rowLC" + (indexForArray);
 
         for (let i = 0; i < 4; ++i) {
             var auxCol;
@@ -49,9 +51,9 @@ $(document).ready(function ($) {
 
                     rowLCElem.id = "deleteRow" + newIndexArray;
                     rowLCElem.innerHTML = 
-                        '<i class="fas fa-minus-square deleteRowBtn" id="deleteRow' + 
-                        newIndexArray + '" title="Eliminar fila" aria-hidden="true"></i>';
-
+                        '<i class="fas fa-minus-square deleteRowBtn" id="deleteRowBtn' + 
+                        newIndexArray + '" title="Eliminar fila" aria-hidden="true" dataq="' +
+                        (newIndexArray - 1) +'"></i>';
                     break;
             }
 
@@ -59,8 +61,39 @@ $(document).ready(function ($) {
             parentRowsDiv.appendChild(instumentLCRow);
         }
 
-        console.log(newRowLC);
+
         return newRowLC;
+    }
+
+    replaceIdsAndNamesRowsLC = (parentElement, index) => {
+        let indicadoresEvContainer = parentElement.childNodes[2];
+
+        let leftCharsIndEv = indicadoresEvContainer.childNodes[0].childNodes[0];
+        leftCharsIndEv.id = "countCharIndicadoresEv" + index;
+
+        let txtAreaIndEv = indicadoresEvContainer.childNodes[1];
+        txtAreaIndEv.name = "indicadoresEv" + index;
+        txtAreaIndEv.id = "indicadoresEv" + index;
+        txtAreaIndEv.setAttribute("dataq", index - 1);
+    }
+
+    getArrayFormDataLCRows = (numRows) => {
+        let arr = [];
+        for (let i = 0; i < numRows; ++i) {
+            let n = i + 1;
+            let arr2 = [];
+
+            let numElem = document.getElementById("numElemento" + n).textContent;
+            let selectedAspEv = document.querySelector('input[name="aspEvRow' + n + '"]:checked').value;
+            let indEv = document.getElementById("indicadoresEv" + n).value;
+
+            arr2.push(parseInt(numElem));
+            arr2.push(parseInt(selectedAspEv));
+            arr2.push(indEv);
+
+            arr.push(arr2);
+        }
+        return arr;
     }
 
 });

@@ -6,6 +6,7 @@
 		
 	<link rel="stylesheet" type="text/css" href="../../source/css/styleModals.css">
 	<link rel="stylesheet" type="text/css" href="../../source/css/styleBuildInstrument.css">
+
 	<link rel="shortcut icon" href="../../source/img/easycheckico.png" type="image/x-icon">	
 
 	<link rel="stylesheet" type="text/css" href="../../source/css/styleBuildLC.css">
@@ -76,8 +77,7 @@
 
 			<div id="submaincontainer">
 				<div id="rowsContainer">
-
-					
+				
 
 				</div>
 			</div>
@@ -86,7 +86,8 @@
 	</div>
 </body>
 
-<script type="text/javascript" src="../../source/resources/jquery-3.2.1.min.js"></script>		
+<script type="text/javascript" src="../../source/resources/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../../source/resources/jquery-ui-1.12.1/jquery-ui.min.js"></script>	
 
 <script type="text/javascript" src="../../source/js/appGeneral.js"></script>
 <script type="text/javascript" src="../../source/js/appBuildInstrumento.js"></script>
