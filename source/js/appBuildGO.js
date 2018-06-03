@@ -39,18 +39,9 @@ $(document).ready(function ($) {
                     newRowGO.push(createIndicadoresEv(rowGOElem, indexForIndEv));
                     break;
                 case 3:
+                    let indexForPondElem = newIndexArray;
                     rowGOElem.id = "ponderacionRowGO" + newIndexArray;
-                    let pondElem = document.createElement("input");
-
-                    pondElem.classList.add("ponderacionElemento");
-                    pondElem.id = "pondElem" + newIndexArray;
-                    pondElem.setAttribute("dataq", newIndexArray - 1);
-                    pondElem.setAttribute("autocomplete", "off");
-                    pondElem.setAttribute("type", "text");
-
-                    rowGOElem.appendChild(pondElem);
-                    newRowGO.push(pondElem.value);
-
+                    newRowGO.push(createPonderacionElemento(rowGOElem, indexForPondElem));
                     break;
                 case 4:
                     rowGOElem.id = "deleteRow" + newIndexArray;
@@ -76,7 +67,7 @@ $(document).ready(function ($) {
         pondElemInput.setAttribute("dataq", index - 1);
     }
 
-    getArrayFormDataLCRows = (numRows) => {
+    getArrayFormDataGORows = (numRows) => {
         let arr = [];
         for (let i = 0; i < numRows; ++i) {
             let n = i + 1;
@@ -90,7 +81,10 @@ $(document).ready(function ($) {
             arr2.push(parseInt(numElem));
             arr2.push(parseInt(selectedAspEv));
             arr2.push(indEv);
-            arr2.push(parseInt(pondElem));
+            if (pondElem == "")
+                arr2.push(0);
+            else
+                arr2.push(parseInt(pondElem));
 
             arr.push(arr2);
         }

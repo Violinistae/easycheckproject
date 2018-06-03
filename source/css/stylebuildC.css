@@ -1,0 +1,101 @@
+#headCRow {
+    display: grid;
+    grid-template-columns:  .5fr 1.5fr 3.5fr 1fr .5fr;
+}
+
+.CHeadCol {
+    text-align: center;
+    font-weight: bold;
+}
+
+.CHeadLbl {
+    font-size: 18px;
+}
+
+.rowC {
+    display: grid;
+    grid-template-columns: .5fr 1.5fr 3.5fr 1fr .5fr;
+}
+
+.rowCMultiple {
+    display: grid;
+    grid-template-columns: .5fr 1.5fr 3.5fr 1fr .5fr;
+    height: 12.2rem;
+}
+
+.rowCElement {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+
+.pregRes {
+    width: 90%;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.pregCol {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.lblsPregTxtArea {
+    flex-grow: .5;
+    text-align: right;
+    width: 95%;
+}
+
+.pregTxtArea {
+    flex-grow: 2;
+    width: 100%;
+    border-radius: .2em;
+    padding: .5em;
+}
+
+.resCol {
+    flex-grow: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.opcPregPart {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.pregOpcion {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: .3em;
+    width: 100%;
+}
+
+.lblsPregOpcTxtArea {
+    flex-grow: .5;
+    text-align: right;
+    width: 85%;
+}
+
+.opcPregTxtInput {
+    flex-grow: 1;
+    border-radius: .2em;
+    padding: .5em;
+    font-size: 14px;
+    width: 90%;
+    outline: none;
+    border: rgb(172, 171, 171) solid 1px;
+}

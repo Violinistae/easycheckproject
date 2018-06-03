@@ -3,8 +3,16 @@ var rowsInstrument = [];
 
 $(document).ready(function ($) {
 
+    window.onbeforeunload = function (e) {
+
+        if (getCookie('s&b=!pd?_#d') == getCookie("&lxaAdCs3_¡#dl")) {
+
+        } else {
+            return "Han sido detectados algunos cambios, ¿está seguro de abandonar la página? Los cambios no almacenados serán descartados.";
+        }
+
+    }
     
-     
     getInstrumentData = () => {
         var JSON_CreatedInstrData = JSON.parse(sessionStorage.getItem("createdInst"));
         console.log(JSON_CreatedInstrData);
@@ -38,6 +46,10 @@ $(document).ready(function ($) {
                 case 4:
                     typeInstrumentoLbl.textContent += "Cuestionario";
                     URLHeadTable = '../../sourcephp/views/buildInst/C/headRowC.php';
+
+                    
+
+                    //create div for diferent type questions
                     break;
             }
 
@@ -51,6 +63,10 @@ $(document).ready(function ($) {
             }).fail(function () {
                 AJAXrequestFailed("Fallo en petición AJAX para cargar head table build instrumento");
             });
+
+            setNewHashToCookieAfterAction();
+            updateSaveChangesCookie();
+
 
                 //Here for refresh or load existent rows
 
@@ -160,7 +176,7 @@ $(document).ready(function ($) {
             
         }
 
-        rowsInstrument = getArrayFormDataLCRows(posAux.length);
+        rowsInstrument = getArrayFromDataRows(posAux.length);
         setNewHashToCookieAfterAction();
         //console.log(rowsInstrument);
     }
@@ -231,7 +247,7 @@ $(document).ready(function ($) {
                     auxArr = getArrayFormDataLCRows(numRows);
                     break;
                 case 3:
-                    auxArr = getArrayFormDataLCRows(numRows);
+                    auxArr = getArrayFormDataGORows(numRows);
                     break;
                 case 4:
 
@@ -251,8 +267,14 @@ $(document).ready(function ($) {
     }
 
     checkContentAndSaveChanges = () => {
-        alert("Ready for save changes. First delete from DB and then get rowsInstrument[]");
+        updateSaveChangesCookie();
+        //alert("Ready for save changes. First delete from DB and then get rowsInstrument[]");
     }
+
+        updateSaveChangesCookie = () => {
+            let lastChangeDetected = getCookie("&lxaAdCs3_¡#dl");
+            setCookie('s&b=!pd?_#d', lastChangeDetected, 1);
+        }
 
 /* --------------------------------------------------------------------------------------------------------------------- */
 
@@ -310,6 +332,23 @@ $(document).ready(function ($) {
         return txtIndEv.value;
     }
 
+    createPonderacionElemento = (rowElem, newIndexArray) => {
+        let pondElem = document.createElement("input");
+
+        pondElem.classList.add("ponderacionElemento");
+        pondElem.id = "pondElem" + newIndexArray;
+        pondElem.setAttribute("dataq", newIndexArray - 1);
+        pondElem.setAttribute("autocomplete", "off");
+        pondElem.setAttribute("type", "text");
+
+        rowElem.appendChild(pondElem);
+
+        if (pondElem.value == "")
+            return 0;
+        else
+            return parseInt(pondElem.value);
+    }
+
 /* --------------------------------------------------------------------------------------------------------------------- */
 
     changeAspEvRadio = (e) => {
@@ -349,15 +388,23 @@ $(document).ready(function ($) {
         }
 
     changePondElem = (e) => {
-        let pondElem = parseInt(e.currentTarget.value);
+        let pondElem = e.currentTarget;
         let indexRowChanged = e.currentTarget.getAttribute('dataq');
 
-        if (pondElem <= 100 && pondElem >= 1) {
-            rowsInstrument[indexRowChanged][3] = pondElem;
-            setNewHashToCookieAfterAction();
-        } else if (pondElem < 1 || pondElem > 100) {
-            e.currentTarget.value = "";
+        if (/^([0-9])*$/.test(pondElem.value)){
+            if (parseInt(pondElem.value) <= 100 && parseInt(pondElem.value) >= 1) {
+                rowsInstrument[indexRowChanged][3] = parseInt(pondElem.value);
+                setNewHashToCookieAfterAction();
+            } else if (pondElem.value < 1 || pondElem.value > 100) {
+                pondElem.value = pondElem.value.substring(0, pondElem.value.length - 1);
+                return;
+            }   
+        } else {
+            rowsInstrument[indexRowChanged][3] = 0;
+            pondElem.value = pondElem.value.substring(0, pondElem.value.length - 1);
+            return;
         }
+        
     }
     
 
