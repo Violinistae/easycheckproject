@@ -1,6 +1,8 @@
 var tipoInstrumento;
 var rowsInstrument = [];
 
+//Verify user session here
+
 $(document).ready(function ($) {
 
     window.onbeforeunload = function (e) {
@@ -48,7 +50,6 @@ $(document).ready(function ($) {
                     URLHeadTable = '../../sourcephp/views/buildInst/C/headRowC.php';
 
                     
-
                     //create div for diferent type questions
                     break;
             }
@@ -118,11 +119,12 @@ $(document).ready(function ($) {
                 auxRow = addGORow(rowsInstrument.length + 1);
                 break;
             case 4:
-                auxRow = addCRow(rowsInstrument.length + 1);
+                displayAddQuestion();
                 break;
         }
         
-        if (auxRow != null) {
+        if (auxRow != null && tipoInstrumento != 4) {
+            console.log(auxRow);
             rowsInstrument.push(auxRow);
             setNewHashToCookieAfterAction();
             //console.log(rowsInstrument);
@@ -276,6 +278,26 @@ $(document).ready(function ($) {
             setCookie('s&b=!pd?_#d', lastChangeDetected, 1);
         }
 
+    checkTypeCToCreateRow = (e) => {
+        $("#questionTypeDropMenu").removeClass('active');
+        let typeC = e.currentTarget.getAttribute("dataCT");
+
+        let auxRow = null;
+
+        if (typeC > 1 && typeC < 5) {
+            auxRow = addCCommonRow (rowsInstrument.length + 1, parseInt(typeC));
+        } else if (typeC == 1) {
+            auxRow = addCMultipleRow(rowsInstrument.length + 1, parseInt(typeC));
+        }
+
+        if (auxRow != null) {
+            console.log(auxRow);
+            rowsInstrument.push(auxRow);
+            setNewHashToCookieAfterAction();
+        }
+
+    }
+
 /* --------------------------------------------------------------------------------------------------------------------- */
 
     createAspEv = (rowElem, newIndexArray) => {
@@ -330,6 +352,65 @@ $(document).ready(function ($) {
         rowElem.appendChild(auxCol);
         rowElem.appendChild(txtIndEv);
         return txtIndEv.value;
+    }
+
+    createPreguntaTxtArea = (rowElem, newIndexArray, typeC) => {
+        auxCol = document.createElement("div");
+        let pregTxtArea = document.createElement("textarea");
+        let lblTypeC = document.createElement("label");
+        let lblLeftChar = document.createElement("label");
+
+        auxCol.classList.add("lblsPregTxtArea");
+
+        lblTypeC.id = "lblTypeC" + newIndexArray;
+        lblLeftChar.id = "countCharPreg" + newIndexArray;
+        lblLeftChar.textContent = "Caracteres restantes: 260";
+        
+        pregTxtArea.classList.add("pregTxtArea");
+        pregTxtArea.id = "pregTxtArea" + newIndexArray;
+        pregTxtArea.setAttribute("name", "pregTxtArea" + newIndexArray);
+        pregTxtArea.setAttribute("dataq", newIndexArray - 1);
+        pregTxtArea.setAttribute("autocomplete", "off");
+
+
+        switch (typeC) {
+            case 1:
+                lblTypeC.textContent = "Opción múltiple"
+                let auxDivPreg = document.createElement("div");
+                auxDivPreg.classList.add("pregCol");
+                auxCol.appendChild(lblTypeC);
+                auxCol.appendChild(lblLeftChar);
+                auxDivPreg.appendChild(auxCol);
+                auxDivPreg.appendChild(pregTxtArea);
+
+                rowElem.appendChild(auxDivPreg);
+                return pregTxtArea.value;
+                break;
+            case 2: 
+                lblTypeC.textContent = "Completar campo"; break;
+            case 3: 
+                lblTypeC.textContent = "Pregunta cerrada"; break;
+            case 4: 
+                lblTypeC.textContent = "Pregunta abierta"; break;
+        }        
+
+        auxCol.appendChild(lblTypeC);
+        auxCol.appendChild(lblLeftChar);
+        rowElem.appendChild(auxCol);
+        rowElem.appendChild(pregTxtArea);
+        return pregTxtArea.value;
+        
+    }
+
+    createMultipleOpPreg = (rowElem, newIndexArray, typeC) => {
+        
+        createPreguntaTxtArea(rowElem, newIndexArray, typeC);
+
+        let auxDivRes = document.createElement("div");
+        auxDivRes.classList.add("resCol");
+
+
+        rowElem.appendChild(auxDivRes);
     }
 
     createPonderacionElemento = (rowElem, newIndexArray) => {

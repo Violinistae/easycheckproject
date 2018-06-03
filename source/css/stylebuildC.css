@@ -29,6 +29,58 @@
     justify-content: center;
 }
 
+#questionTypeDropMenu.active {
+    display: block;
+}
+
+#questionTypeDropMenu {
+    display: none;
+}
+
+.dropableMenu {
+    z-index: 10;
+    display: none;
+    position: absolute;
+    box-shadow: .35em .35em .4em #B8B8B8;/* rgb(184, 184, 184);*/
+    background-color: rgb(37, 172, 154);
+    height: 9.4rem;
+    width: 21vw;
+    /*width: 18.7em;*/
+    border-radius: .2rem;
+}
+
+.dropMenuContent {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: transparent;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.dropMenuElem {
+    flex-grow: 1;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.lblDropM {
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.dropMenuElem:hover {
+    background-color: rgb(218, 141, 122);
+}
+
+
+
 /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
 .pregRes {
@@ -37,17 +89,28 @@
     margin: 0 auto;
 }
 
+.rowPreg {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
 .pregCol {
     flex-grow: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;        /*  ???? */
     width: 100%;
 }
 
 .lblsPregTxtArea {
     flex-grow: .5;
-    text-align: right;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 95%;
 }
 
