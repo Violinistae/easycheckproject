@@ -91,5 +91,46 @@ $(document).ready(function ($) {
 
     /* --------------------------- Cuestionario ------------------------------ */
 
+    cleanAndSaveC = (rowsI, idBuildingInst) => {
+        let numCurrentRows = rowsI.length;
+
+        dataArray = {
+            Id_Instrumento: idBuildingInst
+        };
+
+        $.ajax({
+            url: '../../index_ajax.php?controller=cuestionario&action=cleanCuestionario',
+            type: 'POST',
+            dataType: 'json',
+            data: dataArray
+        }).done(function (resCleanCRows) {
+            saveCchanges(rowsI, idBuildingInst, numCurrentRows);
+        }).fail(function () {
+            AJAXrequestFailed("Fallo en peticion AJAX para limpiar lista de cotejo");
+        });
+    }
+
+        saveCchanges = (rowsI, idBuildingInst, numCurrentRows) => {
+            dataArray = {
+                rowsI: rowsI,
+                Id_Instrumento: idBuildingInst,
+                numRowsI: numCurrentRows
+            }
+
+            $.ajax({
+                url: '../../index_ajax.php?controller=cuestionario&action=saveCuestionario',
+                type: 'POST',
+                dataType: 'json',
+                data: dataArray
+            }).done(function (resSaveCchanges) {
+                if (!resSaveCchanges.error) {
+                    alert("Cambios almacenados exitosamente");
+                } else {
+                    console.log("Error al almacenar los cambios en la BD");
+                }
+            }).fail(function () {
+                AJAXrequestFailed("Fallo en peticion AJAX para almacenar cambios en lista de cotejo");
+            });
+        }
 
 });

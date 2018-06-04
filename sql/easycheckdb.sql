@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-06-2018 a las 00:42:28
+-- Tiempo de generación: 04-06-2018 a las 10:26:45
 -- Versión del servidor: 10.1.31-MariaDB
--- Versión de PHP: 7.2.4
+-- Versión de PHP: 7.1.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -80,7 +80,14 @@ INSERT INTO `acciones` (`Id_Acciones`, `Controlador`, `Metodo`) VALUES
 (16, 'materia', 'deleteMateria'),
 (17, 'academia', 'getAcademiaByCoordinador'),
 (18, 'tipoevaluacion', 'readTipoEvaluacion'),
-(19, 'file', 'getContentFile');
+(19, 'file', 'getContentFile'),
+(20, 'instrumento', 'insertInstrumento'),
+(21, 'listacotejo', 'cleanListaCotejo'),
+(22, 'listacotejo', 'saveListaCotejo'),
+(23, 'guiadeobservacion', 'cleanGuiaObs'),
+(24, 'guiadeobservacion', 'saveGuiaObs'),
+(25, 'cuestionario', 'cleanCuestionario'),
+(26, 'cuestionario', 'saveCuestionario');
 
 -- --------------------------------------------------------
 
@@ -273,10 +280,19 @@ CREATE TABLE `instrumento` (
   `TipoInstrumento` tinyint(4) NOT NULL,
   `TipoEvaluacion` tinyint(4) NOT NULL,
   `ClaveElem` varchar(6) NOT NULL,
-  `NombElemento` varchar(15) NOT NULL,
+  `NombElemento` varchar(25) NOT NULL,
   `InstruccLlenado` varchar(260) NOT NULL,
   `Materia` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `instrumento`
+--
+
+INSERT INTO `instrumento` (`Id_Instrumento`, `Creador`, `TipoInstrumento`, `TipoEvaluacion`, `ClaveElem`, `NombElemento`, `InstruccLlenado`, `Materia`) VALUES
+(2, 123, 2, 2, 'P1.1', 'Tareas', 'Hola', 4),
+(3, 123, 3, 2, 'P1.2', 'Actividades en Clase', 'Hola', 4),
+(4, 123, 4, 2, 'P1.4', 'Examen', 'Hola', 4);
 
 -- --------------------------------------------------------
 
@@ -817,7 +833,7 @@ ALTER TABLE `academia`
 -- AUTO_INCREMENT de la tabla `acciones`
 --
 ALTER TABLE `acciones`
-  MODIFY `Id_Acciones` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `Id_Acciones` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `aspectoevaluacion`
@@ -895,7 +911,7 @@ ALTER TABLE `guiadeobservacion`
 -- AUTO_INCREMENT de la tabla `instrumento`
 --
 ALTER TABLE `instrumento`
-  MODIFY `Id_Instrumento` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Instrumento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `instrumentoscompartidos`

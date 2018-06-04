@@ -4,33 +4,54 @@
         private $Instrumento;
         private $TipoPregunta;
         private $AspectoEv;
+        private $NumPregunta;
+        private $Pregunta;
+        private $PonderacionPreg;
 
         public function __construct () {}
 
         public function setId_FilaCues ($Id_FilaCues) {
-            $this->$Id_FilaCues = $Id_FilaCues;
+            $this->Id_FilaCues = $Id_FilaCues;
         }
         public function setInstrumento ($Instrumento) {
-            $this->$Instrumento = $Instrumento;
+            $this->Instrumento = $Instrumento;
         }
         public function setTipoPregunta ($TipoPregunta) {
-            $this->$TipoPregunta = $TipoPregunta;
+            $this->TipoPregunta = $TipoPregunta;
         }
         public function setAspectoEv ($AspectoEv) {
-            $this->$AspectoEv = $AspectoEv;
+            $this->AspectoEv = $AspectoEv;
+        }
+        public function setNumPregunta ($NumPregunta) {
+            $this->NumPregunta = $NumPregunta;
+        }
+        public function setPregunta($Pregunta) {
+            $this->Pregunta = $Pregunta;
+        }
+        public function setPonderacionPreg($PonderacionPreg) {
+            $this->PonderacionPreg = $PonderacionPreg;
         }
 
         public function getId_FilaCues () {
-            return $this->$Id_FilaCues;
+            return $this->Id_FilaCues;
         }
         public function getInstrumento () {
-            return $this->$Instrumento;
+            return $this->Instrumento;
         }
         public function getTipoPregunta () {
-            return $this->$TipoPregunta;
+            return $this->TipoPregunta;
         }
         public function getAspectoEv () {
-            return $this->$AspectoEv;
+            return $this->AspectoEv;
+        }
+        public function getNumPregunta () {
+            return $this->NumPregunta;
+        }
+        public function getPregunta() {
+            return $this->Pregunta;
+        }
+        public function getPonderacionPreg() {
+            return $this->PonderacionPreg;
         }
 
     }

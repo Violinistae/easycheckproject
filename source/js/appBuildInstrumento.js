@@ -296,7 +296,7 @@ $(document).ready(function ($) {
                 cleanAndSaveGO(rowsInstrument, Id_Instrumento);
                 break;
             case 4:
-
+                cleanAndSaveC(rowsInstrument, Id_Instrumento);
                 break;
         }
 
