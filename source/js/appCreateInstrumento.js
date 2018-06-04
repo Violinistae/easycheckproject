@@ -30,7 +30,7 @@ $(document).ready(function ($) {
                 var secmessage = "Presione el boton para continuar.";
                 showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
                 return;
-            } if (nombreElemInput.value.length > 15) {
+            } if (nombreElemInput.value.length > 25) {
                 var mainmessage = "Por favor ingrese una nombre de elemento de máximo 15 caracteres.";
                 var secmessage = "Presione el boton para continuar.";
                 showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
@@ -80,7 +80,7 @@ $(document).ready(function ($) {
                         nombreElemento: nombreElemInput.value
                     };
 
-                    //TO UPPER CASE clave value and lower nombre, luego almacanar en forma de palabra
+                    //TO UPPER CASE clave value and lower nombre, luego almacanar en forma de palabra ???
 
                     dataForCreateInstrument = {
                         tipoInstrumento: parseInt(tipoInst.value),
@@ -103,17 +103,35 @@ $(document).ready(function ($) {
 
         sendDataCreateInstrument = (dataArray) => {
             //AJAX create instrument function, replace in getGenereatedTxt()
-            let str = JSON.stringify(dataArray)
-            let buildInstrURL = "../../sourcephp/views/buildInstrumento.php";
 
-            $(".subdropumen").removeClass('active');
-            $(".buttonnewinst").removeClass('active');
-            $("#modforactions").fadeOut("300");
+            $.ajax({
+                url: '../../index_ajax.php?controller=instrumento&action=insertInstrumento',
+                type: 'POST',
+                dataType: 'json',
+                data: dataArray
+            }).done(function (resCreateIns) {
+                let instrData = resCreateIns.instrumento;
 
-            sessionStorage.setItem("createdInst", str);
-            window.open(buildInstrURL, "_blank");
+                //Verify in same function if there is an instrument for specific key
+                sendDataOpenPageBuildInstr(instrData);
+            }).fail(function () {
+                AJAXrequestFailed("Fallo en peticion AJAX para crear Instrumento de evaluación");
+            });
 
         }
+
+            sendDataOpenPageBuildInstr = (instrData) => {
+                let str = JSON.stringify(instrData);
+                let buildInstrURL = "../../sourcephp/views/buildInstrumento.php";
+                //console.log(instrData);
+
+                $(".subdropumen").removeClass('active');
+                $(".buttonnewinst").removeClass('active');
+                $("#modforactions").fadeOut("300");
+
+                sessionStorage.setItem("createdInst", str);
+                window.open(buildInstrURL, "_blank");
+            }
 
     updateLeftChars = (e) => {
         let instLlenadoTxtArea = e.currentTarget;

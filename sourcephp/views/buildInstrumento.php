@@ -105,6 +105,7 @@
 <script type="text/javascript" src="../../source/resources/jquery-ui-1.12.1/jquery-ui.min.js"></script>	
 
 <script type="text/javascript" src="../../source/js/appGeneral.js"></script>
+<script type="text/javascript" src="../../source/js/appBuildInstAJAX.js"></script>
 <script type="text/javascript" src="../../source/js/appBuildInstrumento.js"></script>
 
 <script type="text/javascript" src="../../source/js/appBuildLC.js"></script>

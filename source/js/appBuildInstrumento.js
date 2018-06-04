@@ -1,4 +1,12 @@
+var claveElemento;
+var creador;
+var Id_Instrumento;
+var InstruccLlenado;
+var Materia;
+var nombreElemento
+var TipoEv;
 var tipoInstrumento;
+
 var rowsInstrument = [];
 
 //Verify user session here
@@ -19,9 +27,15 @@ $(document).ready(function ($) {
         var JSON_CreatedInstrData = JSON.parse(sessionStorage.getItem("createdInst"));
         console.log(JSON_CreatedInstrData);
 
-        tipoInstrumento = JSON_CreatedInstrData.tipoInstrumento;
-        let claveElemento = JSON_CreatedInstrData.claveElemento;
-        let nombreElemento = JSON_CreatedInstrData.nombreElemento;
+        claveElemento = JSON_CreatedInstrData.ClaveElem;
+        creador = parseInt(JSON_CreatedInstrData.Creador);
+        Id_Instrumento = parseInt(JSON_CreatedInstrData.Id_Instrumento);
+        InstruccLlenado = JSON_CreatedInstrData.InstruccLlenado;
+        Materia = parseInt(JSON_CreatedInstrData.Materia);
+        nombreElemento = JSON_CreatedInstrData.NombElem;
+        TipoEv = parseInt(JSON_CreatedInstrData.TipoEvaluacion);
+        tipoInstrumento = parseInt(JSON_CreatedInstrData.TipoInstrumento);
+       
         setInstrumentTypeNameKey(tipoInstrumento, claveElemento, nombreElemento);
     }
 
@@ -80,6 +94,11 @@ $(document).ready(function ($) {
     setNewHashToCookieAfterAction = () => {
         let newEditID = generateUUID();
         setCookie('&lxaAdCs3_¡#dl', newEditID, 1);
+
+        let saveBtn = document.getElementById("saveChangesBtn");
+        saveBtn.disabled = false;
+        saveBtn.style.color = "white";
+        saveBtn.style.borderColor = "white";
     }
 
         /**
@@ -266,13 +285,32 @@ $(document).ready(function ($) {
     }
 
     checkContentAndSaveChanges = () => {
+        switch (tipoInstrumento) {
+            case 1:
+                
+                break;
+            case 2:
+                cleanAndSaveLC(rowsInstrument, Id_Instrumento);
+                break;
+            case 3:
+                cleanAndSaveGO(rowsInstrument, Id_Instrumento);
+                break;
+            case 4:
+
+                break;
+        }
+
         updateSaveChangesCookie();
-        //alert("Ready for save changes. First delete from DB and then get rowsInstrument[]");
     }
 
         updateSaveChangesCookie = () => {
             let lastChangeDetected = getCookie("&lxaAdCs3_¡#dl");
             setCookie('s&b!pd?_#d', lastChangeDetected, 1);
+
+            let saveBtn = document.getElementById("saveChangesBtn");
+            saveBtn.disabled = true;
+            saveBtn.style.color = "rgb(220, 220, 220)";
+            saveBtn.style.borderColor = "rgb(220, 220, 220)";
         }
 
     checkTypeCToCreateRow = (e) => {
@@ -437,10 +475,10 @@ $(document).ready(function ($) {
 
             if (i == 1) {
                 opcPregTxtInput.setAttribute("placeholder", "Opción A");
-                simpleOption.push("A");
+                simpleOption.push(1);
             } else if (i == 2) {
                 opcPregTxtInput.setAttribute("placeholder", "Opción B");
-                simpleOption.push("B");
+                simpleOption.push(2);
             }
 
             simpleOption.push(opcPregTxtInput.value);
@@ -480,10 +518,10 @@ $(document).ready(function ($) {
 
             if (i == 3) {
                 opcPregTxtInput.setAttribute("placeholder", "Opción C");
-                simpleOption.push("C");
+                simpleOption.push(3);
             } else if (i == 4) {
                 opcPregTxtInput.setAttribute("placeholder", "Opción D");
-                simpleOption.push("D");
+                simpleOption.push(4);
             }
 
             simpleOption.push(opcPregTxtInput.value);
@@ -657,8 +695,6 @@ $(document).ready(function ($) {
     });
     $('#rowsContainer').disableSelection();
 
-
-
     /** Event Triggers for Lista de Cotejo && Guia de Observación */
     $('body').on('input', '.indicadoresEv', function (e) { changeIndevTxt(e); });
 
@@ -674,8 +710,6 @@ $(document).ready(function ($) {
     /** Event Triggers for Cuestionario */
     $('body').on('input', '.pregTxtArea', function (e) { changePreg(e); });
     $('body').on('input', '.opcPregTxtInput', function (e) { changeOpcPreg(e); });
-
-    
 
 /* --------------------------------------------------------------------------------------------------------------------- */
 

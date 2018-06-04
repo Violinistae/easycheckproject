@@ -6,6 +6,7 @@
         private $TipoEvaluacion;
         private $ClaveElem;
         private $NombElemento;
+        private $InstruccLlenado;
         private $Materia;
 
         public function __construct() {}
@@ -22,8 +23,14 @@
         public function setTipoEvaluacion ($TipoEvaluacion) {
             $this->TipoEvaluacion = $TipoEvaluacion;
         }
+        public function setClaveElem($ClaveElem) {
+            $this->ClaveElem = $ClaveElem;
+        }
         public function setNombElemento ($NombElemento) {
             $this->NombElemento = $NombElemento;
+        }
+        public function setInstruccLlenado ($InstruccLlenado) {
+            $this->InstruccLlenado = $InstruccLlenado;
         }
         public function setMateria ($Materia) {
             $this->Materia = $Materia;
@@ -41,8 +48,14 @@
         public function getTipoEvaluacion () {
             return $this->TipoEvaluacion;
         }
+        public function getClaveElem() {
+            return $this->ClaveElem;
+        }
         public function getNombElemento () {
             return $this->NombElemento;
+        }
+        public function getInstruccLlenado () {
+            return $this->InstruccLlenado;
         }
         public function getMateria () {
             return $this->Materia;
