@@ -125,6 +125,116 @@ $(document).ready(function ($) {
         return newRowC;
     }
 
+    replaceIdsAndNamesRowsC = (parentElement, index) => {
+        let pondElemContainer = parentElement.childNodes[3];
+        pondElemContainer.id = "ponderacionRowC" + index;
+
+        let pondElemInput = pondElemContainer.childNodes[0];
+        pondElemInput.id = "pondElem" + index;
+        pondElemInput.setAttribute("dataq", index - 1);
+
+
+        let mainDiv = parentElement.childNodes[2];          //div element Row
+        let pregCol = mainDiv.childNodes[0];                //div preg
+
+        let divLblsTxtArea = pregCol.childNodes[0];
+        let lblTypeC = divLblsTxtArea.childNodes[0];        //tipo de pregunta
+        lblTypeC.id = "lblTypeC" + index;
+
+        let countCharPreg = divLblsTxtArea.childNodes[1];   //Carateres
+        countCharPreg.id = "countCharPreg" + index;
+
+        let pregTxtArea = pregCol.childNodes[1];
+        pregTxtArea.id = "pregTxtArea" + index;
+        pregTxtArea.name = "pregTxtArea" + index;
+        pregTxtArea.setAttribute("dataq", index - 1);
+
+        if (mainDiv.childNodes.length == 2) {
+            let resCol = mainDiv.childNodes[1];
+            resCol.id = "resCol" + index;
+            
+            let opcPregPart = resCol.childNodes[0];
+            for (let j = 0; j < 2; ++j) {
+                let pregOpcion = opcPregPart.childNodes[j];
+
+                let lblsPregOpcTxtArea = pregOpcion.childNodes[0];
+                let countCharPregOpc = lblsPregOpcTxtArea.childNodes[0];
+                countCharPregOpc.id = "countCharPregOpc" + index + "" + (j + 1);      
+
+                let opcPregTxtInput = pregOpcion.childNodes[1];
+                opcPregTxtInput.id = "opcPregTxtInput" + index + "" + (j + 1);
+                opcPregTxtInput.name = "opcPregTxtInput" + index + "" + (j + 1);
+                opcPregTxtInput.setAttribute("dataqop", (index - 1) + "" + j);
+            }
+
+            opcPregPart = resCol.childNodes[1];
+            for (let j = 0; j < 2; ++j) {
+                let pregOpcion = opcPregPart.childNodes[j];
+
+                let lblsPregOpcTxtArea = pregOpcion.childNodes[0];
+                let countCharPregOpc = lblsPregOpcTxtArea.childNodes[0];
+                countCharPregOpc.id = "countCharPregOpc" + index + "" + (j + 3);
+
+                let opcPregTxtInput = pregOpcion.childNodes[1];
+                opcPregTxtInput.id = "opcPregTxtInput" + index + "" + (j + 3);
+                opcPregTxtInput.name = "opcPregTxtInput" + index + "" + (j + 3);
+                opcPregTxtInput.setAttribute("dataqop", (index - 1) + "" + (j + 2));
+            }
+        }
+
+    }
+
+    getArrayFormDataCRows = (numRows) => {
+        let arr = [];
+        for (let i = 0; i < numRows; ++i) {
+            let n = i + 1;
+            let arr2 = [];
+            let arr3 = [];
+            let arr4 = [];
+
+            let numElem = document.getElementById("numElemento" + n).textContent;
+            let selectedAspEv = document.querySelector('input[name="aspEvRow' + n + '"]:checked').value;
+            let pondElem = document.getElementById("pondElem" + n).value;
+            let ctype = parseInt(document.getElementById("lblTypeC" + n).getAttribute("datacty"));
+
+            let pregTxtArea = document.getElementById("pregTxtArea" + n).value;
+            arr2.push(parseInt(numElem));
+            arr2.push(parseInt(selectedAspEv));
+
+            let resCol = document.getElementById("resCol" + n)
+            if (resCol) {
+                arr3.push(pregTxtArea);
+                for (let j = 1; j < 5; ++j) {
+                    let arr5 = []
+                    let opXValue = document.getElementById("opcPregTxtInput" + n + "" + j).value;
+                    switch (j) {
+                        case 1: arr5.push("A"); break;
+                        case 2: arr5.push("B"); break;
+                        case 3: arr5.push("C"); break;
+                        case 4: arr5.push("D"); break;
+                    }
+                    arr5.push(opXValue);
+                    arr4.push(arr5);
+                }
+                arr3.push(arr4);
+                arr2.push(arr3);
+            } else {
+                arr2.push(pregTxtArea);
+            }
+
+            if (pondElem == "")
+                arr2.push(0);
+            else
+                arr2.push(parseInt(pondElem));
+
+            arr2.push(ctype);
+
+            arr.push(arr2);
+        }
+        return arr;
+    }
+
+
     $(".typeC").click(function (e) { checkTypeCToCreateRow(e); });
 
 });

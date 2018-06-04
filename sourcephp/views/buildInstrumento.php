@@ -94,12 +94,6 @@
 
 			<div id="submaincontainer">
 				<div id="rowsContainer">
-								
-					<!--  For Options
-						countCharPregOpc -> 11 (numpreg, numopc)
-						opcPregTxtArea -> 11 (numpreg, numopc)
-					-->
-
 				</div>
 			</div>
 

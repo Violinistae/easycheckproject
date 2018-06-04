@@ -7,7 +7,7 @@ $(document).ready(function ($) {
 
     window.onbeforeunload = function (e) {
 
-        if (getCookie('s&b=!pd?_#d') == getCookie("&lxaAdCs3_¡#dl")) {
+        if (getCookie('s&b!pd?_#d') == getCookie("&lxaAdCs3_¡#dl")) {
 
         } else {
             return "Han sido detectados algunos cambios, ¿está seguro de abandonar la página? Los cambios no almacenados serán descartados.";
@@ -48,9 +48,6 @@ $(document).ready(function ($) {
                 case 4:
                     typeInstrumentoLbl.textContent += "Cuestionario";
                     URLHeadTable = '../../sourcephp/views/buildInst/C/headRowC.php';
-
-                    
-                    //create div for diferent type questions
                     break;
             }
 
@@ -124,7 +121,7 @@ $(document).ready(function ($) {
         }
         
         if (auxRow != null && tipoInstrumento != 4) {
-            console.log(auxRow);
+            //console.log(auxRow);
             rowsInstrument.push(auxRow);
             setNewHashToCookieAfterAction();
             //console.log(rowsInstrument);
@@ -172,7 +169,7 @@ $(document).ready(function ($) {
                     elementToSort.id = "rowGO" + (i - 1);
                     break;
                 case 4:
-
+                    elementToSort.id = "rowC" + (i - 3);
                     break;
             }
             
@@ -208,7 +205,7 @@ $(document).ready(function ($) {
                     replaceIdsAndNamesRowsGO(elemento, newIndex);
                     break;
                 case 4:
-                    
+                    replaceIdsAndNamesRowsC(elemento, newIndex);
                     break;
             }
         }
@@ -252,7 +249,7 @@ $(document).ready(function ($) {
                     auxArr = getArrayFormDataGORows(numRows);
                     break;
                 case 4:
-
+                    auxArr = getArrayFormDataCRows(numRows);
                     break;
             }
             return auxArr;
@@ -275,7 +272,7 @@ $(document).ready(function ($) {
 
         updateSaveChangesCookie = () => {
             let lastChangeDetected = getCookie("&lxaAdCs3_¡#dl");
-            setCookie('s&b=!pd?_#d', lastChangeDetected, 1);
+            setCookie('s&b!pd?_#d', lastChangeDetected, 1);
         }
 
     checkTypeCToCreateRow = (e) => {
@@ -291,7 +288,7 @@ $(document).ready(function ($) {
         }
 
         if (auxRow != null) {
-            console.log(auxRow);
+            //console.log(auxRow);
             rowsInstrument.push(auxRow);
             setNewHashToCookieAfterAction();
         }
@@ -372,45 +369,140 @@ $(document).ready(function ($) {
         pregTxtArea.setAttribute("dataq", newIndexArray - 1);
         pregTxtArea.setAttribute("autocomplete", "off");
 
+        let auxDivPreg = document.createElement("div");
+        auxDivPreg.classList.add("pregCol");
 
         switch (typeC) {
             case 1:
-                lblTypeC.textContent = "Opción múltiple"
-                let auxDivPreg = document.createElement("div");
-                auxDivPreg.classList.add("pregCol");
-                auxCol.appendChild(lblTypeC);
-                auxCol.appendChild(lblLeftChar);
-                auxDivPreg.appendChild(auxCol);
-                auxDivPreg.appendChild(pregTxtArea);
-
-                rowElem.appendChild(auxDivPreg);
-                return pregTxtArea.value;
+                lblTypeC.textContent = "Opción múltiple"; 
+                lblTypeC.setAttribute("datacty", 1); 
                 break;
             case 2: 
-                lblTypeC.textContent = "Completar campo"; break;
+                lblTypeC.textContent = "Completar campo"; 
+                lblTypeC.setAttribute("datacty", 2); 
+                break;
             case 3: 
-                lblTypeC.textContent = "Pregunta cerrada"; break;
+                lblTypeC.textContent = "Pregunta cerrada"; 
+                lblTypeC.setAttribute("datacty", 3); 
+                break;
             case 4: 
-                lblTypeC.textContent = "Pregunta abierta"; break;
+                lblTypeC.textContent = "Pregunta abierta"; 
+                lblTypeC.setAttribute("datacty", 4); 
+                break;
         }        
 
         auxCol.appendChild(lblTypeC);
         auxCol.appendChild(lblLeftChar);
-        rowElem.appendChild(auxCol);
-        rowElem.appendChild(pregTxtArea);
+        auxDivPreg.appendChild(auxCol);
+        auxDivPreg.appendChild(pregTxtArea);
+        rowElem.appendChild(auxDivPreg);
+
         return pregTxtArea.value;
         
     }
 
     createMultipleOpPreg = (rowElem, newIndexArray, typeC) => {
         
-        createPreguntaTxtArea(rowElem, newIndexArray, typeC);
+        let allPregArr = [];
+        let pregValue = createPreguntaTxtArea(rowElem, newIndexArray, typeC);
+        let arrOpcPreg = [];
 
         let auxDivRes = document.createElement("div");
         auxDivRes.classList.add("resCol");
+        auxDivRes.id = "resCol" + newIndexArray;
 
+        let opcPregPart = document.createElement("div");
+        opcPregPart.classList.add("opcPregPart");
+
+        for (let i = 1; i < 3; i++) {
+            let simpleOption = [];
+            let pregOpcion = document.createElement("div");
+            pregOpcion.classList.add("pregOpcion");
+
+            let lblsPregOpcTxtArea = document.createElement("div");
+            lblsPregOpcTxtArea.classList.add("lblsPregOpcTxtArea");
+
+                let countCharPregOpc = document.createElement("label");
+                countCharPregOpc.id = "countCharPregOpc" + newIndexArray + "" + i;
+                countCharPregOpc.textContent = "Restantes: 60";
+                lblsPregOpcTxtArea.appendChild(countCharPregOpc);
+
+            let opcPregTxtInput = document.createElement("input");
+            opcPregTxtInput.classList.add("opcPregTxtInput");
+            opcPregTxtInput.id = "opcPregTxtInput" + newIndexArray + "" + i;
+            opcPregTxtInput.name = "opcPregTxtInput" + newIndexArray + "" + i;
+            opcPregTxtInput.setAttribute("dataqop", i - 1);
+            opcPregTxtInput.setAttribute("autocomplete", "off");
+            opcPregTxtInput.setAttribute("type", "text");
+
+            if (i == 1) {
+                opcPregTxtInput.setAttribute("placeholder", "Opción A");
+                simpleOption.push("A");
+            } else if (i == 2) {
+                opcPregTxtInput.setAttribute("placeholder", "Opción B");
+                simpleOption.push("B");
+            }
+
+            simpleOption.push(opcPregTxtInput.value);
+            arrOpcPreg.push(simpleOption);
+            
+            pregOpcion.appendChild(lblsPregOpcTxtArea);
+            pregOpcion.appendChild(opcPregTxtInput);
+
+            opcPregPart.appendChild(pregOpcion);
+        }
+        auxDivRes.appendChild(opcPregPart);
+
+
+        opcPregPart = document.createElement("div");
+        opcPregPart.classList.add("opcPregPart");
+
+        for (let i = 3; i < 5; i++) {
+            let simpleOption = [];
+            let pregOpcion = document.createElement("div");
+            pregOpcion.classList.add("pregOpcion");
+
+            let lblsPregOpcTxtArea = document.createElement("div");
+            lblsPregOpcTxtArea.classList.add("lblsPregOpcTxtArea");
+
+            let countCharPregOpc = document.createElement("label");
+            countCharPregOpc.id = "countCharPregOpc" + newIndexArray + "" + i;
+            countCharPregOpc.textContent = "Restantes: 60";
+            lblsPregOpcTxtArea.appendChild(countCharPregOpc);
+
+            let opcPregTxtInput = document.createElement("input");
+            opcPregTxtInput.classList.add("opcPregTxtInput");
+            opcPregTxtInput.id = "opcPregTxtInput" + newIndexArray + "" + i;
+            opcPregTxtInput.name = "opcPregTxtInput" + newIndexArray + "" + i;
+            opcPregTxtInput.setAttribute("dataqop", i - 1);
+            opcPregTxtInput.setAttribute("autocomplete", "off");
+            opcPregTxtInput.setAttribute("type", "text");
+
+            if (i == 3) {
+                opcPregTxtInput.setAttribute("placeholder", "Opción C");
+                simpleOption.push("C");
+            } else if (i == 4) {
+                opcPregTxtInput.setAttribute("placeholder", "Opción D");
+                simpleOption.push("D");
+            }
+
+            simpleOption.push(opcPregTxtInput.value);
+            arrOpcPreg.push(simpleOption);
+
+            pregOpcion.appendChild(lblsPregOpcTxtArea);
+            pregOpcion.appendChild(opcPregTxtInput);
+
+            opcPregPart.appendChild(pregOpcion);
+
+        }
+        auxDivRes.appendChild(opcPregPart);
+
+        allPregArr.push(pregValue);
+        allPregArr.push(arrOpcPreg);
 
         rowElem.appendChild(auxDivRes);
+
+        return allPregArr;
     }
 
     createPonderacionElemento = (rowElem, newIndexArray) => {
@@ -453,16 +545,16 @@ $(document).ready(function ($) {
     }
 
         updateLeftCharstxtArea = (eTrigger) => {
-            let instLlenadoTxtArea = eTrigger;
+            let txtArea = eTrigger;
             let indexTxtAreaChanged = parseInt(eTrigger.id.replace("indicadoresEv", ""));
             let lblLeftChars = document.getElementById("countCharIndicadoresEv" + indexTxtAreaChanged);
-            let leftChars = 260 - instLlenadoTxtArea.value.length;
+            let leftChars = 260 - txtArea.value.length;
 
             if (leftChars >= 0) {
                 lblLeftChars.textContent = "Caracteres restantes: " + leftChars;
                 return 1;
             } else {
-                instLlenadoTxtArea.value = instLlenadoTxtArea.value.substring(0, instLlenadoTxtArea.value.length - 1);
+                txtArea.value = txtArea.value.substring(0, txtArea.value.length - 1);
                 return 0;
             }
 
@@ -488,6 +580,66 @@ $(document).ready(function ($) {
         
     }
     
+    changePreg = (e) => {
+        let strTxtAreaChanged = e.currentTarget.value;
+        let indexRowChanged = parseInt(e.currentTarget.getAttribute('dataq'));
+        let indexTypeC = indexRowChanged + 1;
+        let res = updateLeftCharsPreg(e.currentTarget);
+        let typeC = parseInt(document.getElementById("lblTypeC" + indexTypeC).getAttribute("dataCTy"));
+
+        if (res == 1) {
+            if (typeC == 1) {
+                rowsInstrument[indexRowChanged][2][0] = strTxtAreaChanged;
+            } else if (typeC > 1 && typeC < 5) {
+                rowsInstrument[indexRowChanged][2] = strTxtAreaChanged;
+            }
+            setNewHashToCookieAfterAction();
+        }
+    }
+
+        updateLeftCharsPreg = (eTrigger) => {
+            let txtArea = eTrigger;
+            let indexTxtAreaChanged = parseInt(eTrigger.id.replace("pregTxtArea", ""));
+            let lblLeftChars = document.getElementById("countCharPreg" + indexTxtAreaChanged);
+            let leftChars = 260 - txtArea.value.length;
+
+            if (leftChars >= 0) {
+                lblLeftChars.textContent = "Caracteres restantes: " + leftChars;
+                return 1;
+            } else {
+                txtArea.value = txtArea.value.substring(0, txtArea.value.length - 1);
+                return 0;
+            }
+
+        }
+
+    changeOpcPreg = (e) => {
+        let strTxtAreaChanged = e.currentTarget.value;
+        let indSec = e.currentTarget.getAttribute("dataqop");
+        let indexRowChanged = parseInt(e.currentTarget.id.replace("opcPregTxtInput", ""));
+        let res = updateLeftCharsOption(e.currentTarget);
+        
+        if (res == 1) {
+            let iDec = Math.floor(indexRowChanged / 10) - 1;
+            rowsInstrument[iDec][2][1][indSec][1] = strTxtAreaChanged;
+        }
+    }
+
+        updateLeftCharsOption = (eTrigger) => {
+            let txtArea = eTrigger;
+            let indexTxtAreaChanged = parseInt(eTrigger.id.replace("opcPregTxtInput", ""));
+            let lblLeftChars = document.getElementById("countCharPregOpc" + indexTxtAreaChanged);
+            let leftChars = 60 - txtArea.value.length;
+
+            if (leftChars >= 0) {
+                lblLeftChars.textContent = "Restantes: " + leftChars;
+                return 1;
+            } else {
+                txtArea.value = txtArea.value.substring(0, txtArea.value.length - 1);
+                return 0;
+            }
+
+        }
 
 /* --------------------------------------------------------------------------------------------------------------------- */
     
@@ -520,8 +672,10 @@ $(document).ready(function ($) {
     $('body').on('input', '.ponderacionElemento', function (e) { changePondElem(e); });
 
     /** Event Triggers for Cuestionario */
+    $('body').on('input', '.pregTxtArea', function (e) { changePreg(e); });
+    $('body').on('input', '.opcPregTxtInput', function (e) { changeOpcPreg(e); });
 
-
+    
 
 /* --------------------------------------------------------------------------------------------------------------------- */
 
