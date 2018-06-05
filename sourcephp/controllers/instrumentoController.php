@@ -1,5 +1,44 @@
 <?php
     class instrumentoController extends BaseController {
+        public function deleteInstrumento () {                  //Very, ...VERY, VERY, VERY dangerous functions
+            if (isset($_POST["Id_Instrumento"])) {
+                $userReg_DeleteRequest = $_SESSION["userreg"];
+                $stmt = $this->pdo->prepare (
+                    "SELECT * FROM instrumento
+                        WHERE Creador = ? AND Id_Instrumento = ?"
+                );
+
+                $stmt->execute([
+                    $userReg_DeleteRequest,
+                    $_POST["Id_Instrumento"]
+                ]);
+
+                if ($stmt->rowCount() > 0) {
+                    
+                    $stmt2 = $this->pdo->prepare(
+                        "DELETE FROM instrumento
+                            WHERE Id_Instrumento = ?"
+                    );
+                    
+                    $stmt2->execute([
+                        $_POST["Id_Instrumento"]
+                    ]);
+
+                    if ($stmt2->rowCount() > 0) {
+                        echo json_encode(["error" => false, "message" => "Se elminiado el instrumento de evaluación."]);
+                    } else {
+                        echo json_encode(["error" => true, "message" => "No se ha podido eliminar el instrumento de evaluación."]);
+                    }
+
+                } else {
+                    echo json_encode(["error" => true, "message" => "Usted no tiene permiso para eliminar este instrumento de evaluación."]);
+                }
+
+            } else {
+                echo json_encode(["error" => true, "message" => "Inténtelo más tarde"]);
+            }
+        }
+
         public function insertInstrumento() {
 
             $newInstrumento = new instrumentoModel();
@@ -52,5 +91,10 @@
             echo json_encode(array('instrumento' => $inst));
             return;
         }
+
+        public function checkInstrumento () {
+            
+        }
+
     }
 ?>

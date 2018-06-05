@@ -20,15 +20,21 @@
                     <div class="lblsPregOpcTxtArea">
                         <label id="countCharPregOpc">Restantes: 60</label>
                     </div>
-                    <input type="text" class="opcPregTxtInput" id="opcPregTxtInput" 
-                    name="opcPregTxtInput"  placeholder="Opción A" autocomplete="off">
+                    <div class="optionContainer">
+                        <input class="correctOption" type="radio" name="correctOption" value="1" checked>
+                        <input type="text" class="opcPregTxtInput" id="opcPregTxtInput" 
+                        name="opcPregTxtInput"  placeholder="Opción A" autocomplete="off">
+                    </div>										
                 </div>
                 <div class="pregOpcion">
                     <div class="lblsPregOpcTxtArea">
                         <label id="countCharPregOpc">Restantes: 60</label>
                     </div>
-                    <input type="text" class="opcPregTxtInput" id="opcPregTxtInput" 
-                    name="opcPregTxtInput"  placeholder="Opción B" autocomplete="off">
+                    <div class="optionContainer">
+                        <input class="correctOption" type="radio" name="correctOption" value="2">
+                        <input type="text" class="opcPregTxtInput" id="opcPregTxtInput" 
+                        name="opcPregTxtInput"  placeholder="Opción B" autocomplete="off">
+                    </div>									
                 </div>
             </div>
             <div class="opcPregPart">
@@ -36,15 +42,21 @@
                     <div class="lblsPregOpcTxtArea">
                         <label id="countCharPregOpc">Restantes: 60</label>
                     </div>
-                    <input type="text" class="opcPregTxtInput" id="opcPregTxtInput" 
-                    name="opcPregTxtInput"  placeholder="Opción C" autocomplete="off">
+                    <div class="optionContainer">
+                        <input class="correctOption" type="radio" name="correctOption" value="3">
+                        <input type="text" class="opcPregTxtInput" id="opcPregTxtInput" 
+                        name="opcPregTxtInput"  placeholder="Opción C" autocomplete="off">
+                    </div>										
                 </div>
                 <div class="pregOpcion">
                     <div class="lblsPregOpcTxtArea">
                         <label id="countCharPregOpc">Restantes: 60</label>
                     </div>
-                    <input type="text" class="opcPregTxtInput" id="opcPregTxtInput" 
-                    name="opcPregTxtInput"  placeholder="Opción D" autocomplete="off">
+                    <div class="optionContainer">
+                        <input class="correctOption" type="radio" name="correctOption" value="4">
+                        <input type="text" class="opcPregTxtInput" id="opcPregTxtInput" 
+                        name="opcPregTxtInput"  placeholder="Opción D" autocomplete="off">
+                    </div>
                 </div>
             </div>
         </div>

@@ -62,6 +62,32 @@ $(document).ready(function ($) {
                 case 4:
                     typeInstrumentoLbl.textContent += "Cuestionario";
                     URLHeadTable = '../../sourcephp/views/buildInst/C/headRowC.php';
+
+                    let questionTypeDropMenu = document.getElementById("questionTypeDropMenu");
+                    let dropMenuContent = document.createElement("ul");
+                    dropMenuContent.classList.add("dropMenuContent");
+
+                    for (let i = 1; i < 4; ++i) {
+                        let dropMenuElem = document.createElement("li");
+                        dropMenuElem.classList.add("dropMenuElem");
+                        dropMenuElem.classList.add("typeC");
+                        dropMenuElem.setAttribute("datact", i);
+
+                        let lblDropM = document.createElement("label");
+                        lblDropM.classList.add("lblDropM");
+
+                        switch (i) {
+                            case 1: lblDropM.textContent = "Opción múltiple"; break;
+                            case 2: lblDropM.textContent = "Completar campo"; break;
+                            case 3: lblDropM.textContent = "Pregunta abierta"; break;
+                        }
+
+                        dropMenuElem.appendChild(lblDropM);
+                        dropMenuContent.appendChild(dropMenuElem);
+                    }
+
+                    questionTypeDropMenu.appendChild(dropMenuContent);
+
                     break;
             }
 
@@ -126,21 +152,21 @@ $(document).ready(function ($) {
         let auxRow = null;
         switch (tipoInstrumento) {
             case 1:
-                auxRow = addRRow(rowsInstrument.length + 1);
+                auxRow = addRRow(rowsInstrument.length + 1);            
                 break;
             case 2:
-                auxRow = addLCRow(rowsInstrument.length + 1);
+                auxRow = addLCRow(rowsInstrument.length + 1);            
                 break;
             case 3:
-                auxRow = addGORow(rowsInstrument.length + 1);
+                auxRow = addGORow(rowsInstrument.length + 1);                
                 break;
-            case 4:
-                displayAddQuestion();
+            case 4:                
+                displayAddQuestion();                
                 break;
         }
         
         if (auxRow != null && tipoInstrumento != 4) {
-            //console.log(auxRow);
+            console.log(auxRow);
             rowsInstrument.push(auxRow);
             setNewHashToCookieAfterAction();
             //console.log(rowsInstrument);
@@ -150,11 +176,27 @@ $(document).ready(function ($) {
     updateSorted = () => {
         let posAux = $('#rowsContainer').sortable('toArray');
         let radiosValues = [];
+        let mtx = [];
 
         //Save radios
         for (let i = 0; i < posAux.length; ++i) {
             let elementToSort = document.getElementById(posAux[i]);
             radiosValues.push(saveRadiosValues(elementToSort));
+        }
+
+        if (tipoInstrumento == 4) {
+            
+            for (let i = 0; i < posAux.length; ++i) {
+                let superIndex = parseInt(posAux[i].replace("rowC", "")) + 1;
+                let ctyp = parseInt(document.getElementById("lblTypeC" + superIndex).getAttribute("datacty"))
+                if (ctyp == 1) {
+                    let correctXOpc = parseInt(document.querySelector('input[name="correctOption' + superIndex + '"]:checked').value);
+                    mtx.push(correctXOpc);
+                } else {
+                    mtx.push(null);
+                }
+            }
+
         }
 
         //UpdateNames
@@ -174,6 +216,23 @@ $(document).ready(function ($) {
             }
         }
 
+        if (tipoInstrumento == 4) {
+            for (let i = 0; i < posAux.length; ++i) {
+                let n = i + 1;
+                let ct = parseInt(document.getElementById("lblTypeC" + n).getAttribute("datacty"));
+
+                if (ct == 1) {
+                    let op = document.getElementsByName("correctOption" + n);
+                    for (let j = 1; j < 4; ++j) {
+                        if (j == mtx[i]) {
+                            op[j - 1].checked = true;
+                        }
+                    }
+                }               
+            }
+        }
+
+
         let rowsContainer = document.getElementById("rowsContainer");
         for (let i = 1; i < rowsContainer.childNodes.length; ++i) {
             let elementToSort = rowsContainer.childNodes[i];
@@ -188,7 +247,8 @@ $(document).ready(function ($) {
                     elementToSort.id = "rowGO" + (i - 1);
                     break;
                 case 4:
-                    elementToSort.id = "rowC" + (i - 3);
+                    elementToSort.id = "rowC" + (i - 1);
+                    
                     break;
             }
             
@@ -319,7 +379,7 @@ $(document).ready(function ($) {
 
         let auxRow = null;
 
-        if (typeC > 1 && typeC < 5) {
+        if (typeC > 1 && typeC < 4) {
             auxRow = addCCommonRow (rowsInstrument.length + 1, parseInt(typeC));
         } else if (typeC == 1) {
             auxRow = addCMultipleRow(rowsInstrument.length + 1, parseInt(typeC));
@@ -409,23 +469,40 @@ $(document).ready(function ($) {
 
         let auxDivPreg = document.createElement("div");
         auxDivPreg.classList.add("pregCol");
-
+        
         switch (typeC) {
             case 1:
-                lblTypeC.textContent = "Opción múltiple"; 
+                lblTypeC.textContent = "Tipo: Opción múltiple"; 
                 lblTypeC.setAttribute("datacty", 1); 
                 break;
             case 2: 
-                lblTypeC.textContent = "Completar campo"; 
+                lblTypeC.textContent = "Tipo: Completar campo"; 
                 lblTypeC.setAttribute("datacty", 2); 
+
+                var lblClosePregRes = document.createElement("div");
+                lblClosePregRes.classList.add("lblClosePregRes");
+
+                let lblInfoResClose = document.createElement("label");
+                lblInfoResClose.textContent = "Respuesta";
+                let countCharPreg = document.createElement("label");
+                countCharPreg.id = "countCharResClosePreg" + newIndexArray;
+                countCharPreg.textContent = "Caracteres restantes: 60";
+
+                lblClosePregRes.appendChild(lblInfoResClose);
+                lblClosePregRes.appendChild(countCharPreg);
+
+                var closePregRes = document.createElement("input");
+                closePregRes.classList.add("closePregRes");
+                closePregRes.setAttribute("type", "text");
+                closePregRes.setAttribute("dataqcr", newIndexArray - 1);
+                closePregRes.setAttribute("autocomplete", "off");
+                closePregRes.id = "closePregRes" + newIndexArray;
+                closePregRes.name = "closePregRes" + newIndexArray;
+
                 break;
             case 3: 
-                lblTypeC.textContent = "Pregunta cerrada"; 
+                lblTypeC.textContent = "Tipo: Pregunta Abierta"; 
                 lblTypeC.setAttribute("datacty", 3); 
-                break;
-            case 4: 
-                lblTypeC.textContent = "Pregunta abierta"; 
-                lblTypeC.setAttribute("datacty", 4); 
                 break;
         }        
 
@@ -433,6 +510,18 @@ $(document).ready(function ($) {
         auxCol.appendChild(lblLeftChar);
         auxDivPreg.appendChild(auxCol);
         auxDivPreg.appendChild(pregTxtArea);
+
+        if (typeC == 2) {
+            auxDivPreg.appendChild(lblClosePregRes);
+            auxDivPreg.appendChild(closePregRes);
+            rowElem.appendChild(auxDivPreg);
+
+            let arrA = [];
+            arrA.push(pregTxtArea.value);
+            arrA.push(closePregRes.value);
+            return arrA;
+        }
+
         rowElem.appendChild(auxDivPreg);
 
         return pregTxtArea.value;
@@ -457,35 +546,50 @@ $(document).ready(function ($) {
             let pregOpcion = document.createElement("div");
             pregOpcion.classList.add("pregOpcion");
 
-            let lblsPregOpcTxtArea = document.createElement("div");
-            lblsPregOpcTxtArea.classList.add("lblsPregOpcTxtArea");
+                let lblsPregOpcTxtArea = document.createElement("div");
+                lblsPregOpcTxtArea.classList.add("lblsPregOpcTxtArea");
 
-                let countCharPregOpc = document.createElement("label");
-                countCharPregOpc.id = "countCharPregOpc" + newIndexArray + "" + i;
-                countCharPregOpc.textContent = "Restantes: 60";
-                lblsPregOpcTxtArea.appendChild(countCharPregOpc);
+                    let countCharPregOpc = document.createElement("label");
+                    countCharPregOpc.id = "countCharPregOpc" + newIndexArray + "" + i;
+                    countCharPregOpc.textContent = "Restantes: 60";
+                    lblsPregOpcTxtArea.appendChild(countCharPregOpc);
 
-            let opcPregTxtInput = document.createElement("input");
-            opcPregTxtInput.classList.add("opcPregTxtInput");
-            opcPregTxtInput.id = "opcPregTxtInput" + newIndexArray + "" + i;
-            opcPregTxtInput.name = "opcPregTxtInput" + newIndexArray + "" + i;
-            opcPregTxtInput.setAttribute("dataqop", i - 1);
-            opcPregTxtInput.setAttribute("autocomplete", "off");
-            opcPregTxtInput.setAttribute("type", "text");
+                let optionContainer = document.createElement("div");
+                optionContainer.classList.add("optionContainer");
+
+                    let correctOption = document.createElement("input");
+                    correctOption.classList.add("correctOption");
+                    correctOption.setAttribute("type", "radio");
+                    correctOption.setAttribute("dataopcc", newIndexArray - 1);
+                    correctOption.name = "correctOption" + newIndexArray;
+
+                    let opcPregTxtInput = document.createElement("input");
+                    opcPregTxtInput.classList.add("opcPregTxtInput");
+                    opcPregTxtInput.id = "opcPregTxtInput" + newIndexArray + "" + i;
+                    opcPregTxtInput.name = "opcPregTxtInput" + newIndexArray + "" + i;
+                    opcPregTxtInput.setAttribute("dataqop", i - 1);
+                    opcPregTxtInput.setAttribute("autocomplete", "off");
+                    opcPregTxtInput.setAttribute("type", "text");
 
             if (i == 1) {
                 opcPregTxtInput.setAttribute("placeholder", "Opción A");
+                correctOption.value = 1;
+                correctOption.checked = true;
                 simpleOption.push(1);
             } else if (i == 2) {
                 opcPregTxtInput.setAttribute("placeholder", "Opción B");
+                correctOption.value = 2;
                 simpleOption.push(2);
             }
+
+            optionContainer.appendChild(correctOption);
+            optionContainer.appendChild(opcPregTxtInput);
 
             simpleOption.push(opcPregTxtInput.value);
             arrOpcPreg.push(simpleOption);
             
             pregOpcion.appendChild(lblsPregOpcTxtArea);
-            pregOpcion.appendChild(opcPregTxtInput);
+            pregOpcion.appendChild(optionContainer);
 
             opcPregPart.appendChild(pregOpcion);
         }
@@ -500,35 +604,49 @@ $(document).ready(function ($) {
             let pregOpcion = document.createElement("div");
             pregOpcion.classList.add("pregOpcion");
 
-            let lblsPregOpcTxtArea = document.createElement("div");
-            lblsPregOpcTxtArea.classList.add("lblsPregOpcTxtArea");
+                let lblsPregOpcTxtArea = document.createElement("div");
+                lblsPregOpcTxtArea.classList.add("lblsPregOpcTxtArea");
 
-            let countCharPregOpc = document.createElement("label");
-            countCharPregOpc.id = "countCharPregOpc" + newIndexArray + "" + i;
-            countCharPregOpc.textContent = "Restantes: 60";
-            lblsPregOpcTxtArea.appendChild(countCharPregOpc);
+                    let countCharPregOpc = document.createElement("label");
+                    countCharPregOpc.id = "countCharPregOpc" + newIndexArray + "" + i;
+                    countCharPregOpc.textContent = "Restantes: 60";
+                    lblsPregOpcTxtArea.appendChild(countCharPregOpc);
 
-            let opcPregTxtInput = document.createElement("input");
-            opcPregTxtInput.classList.add("opcPregTxtInput");
-            opcPregTxtInput.id = "opcPregTxtInput" + newIndexArray + "" + i;
-            opcPregTxtInput.name = "opcPregTxtInput" + newIndexArray + "" + i;
-            opcPregTxtInput.setAttribute("dataqop", i - 1);
-            opcPregTxtInput.setAttribute("autocomplete", "off");
-            opcPregTxtInput.setAttribute("type", "text");
+                let optionContainer = document.createElement("div");
+                optionContainer.classList.add("optionContainer");
+
+                    let correctOption = document.createElement("input");
+                    correctOption.classList.add("correctOption");
+                    correctOption.setAttribute("type", "radio");
+                    correctOption.setAttribute("dataopcc", newIndexArray - 1);
+                    correctOption.name = "correctOption" + newIndexArray;
+
+                    let opcPregTxtInput = document.createElement("input");
+                    opcPregTxtInput.classList.add("opcPregTxtInput");
+                    opcPregTxtInput.id = "opcPregTxtInput" + newIndexArray + "" + i;
+                    opcPregTxtInput.name = "opcPregTxtInput" + newIndexArray + "" + i;
+                    opcPregTxtInput.setAttribute("dataqop", i - 1);
+                    opcPregTxtInput.setAttribute("autocomplete", "off");
+                    opcPregTxtInput.setAttribute("type", "text");
 
             if (i == 3) {
                 opcPregTxtInput.setAttribute("placeholder", "Opción C");
+                correctOption.value = 3;
                 simpleOption.push(3);
             } else if (i == 4) {
                 opcPregTxtInput.setAttribute("placeholder", "Opción D");
+                correctOption.value = 4;
                 simpleOption.push(4);
             }
+
+            optionContainer.appendChild(correctOption);
+            optionContainer.appendChild(opcPregTxtInput);
 
             simpleOption.push(opcPregTxtInput.value);
             arrOpcPreg.push(simpleOption);
 
             pregOpcion.appendChild(lblsPregOpcTxtArea);
-            pregOpcion.appendChild(opcPregTxtInput);
+            pregOpcion.appendChild(optionContainer);
 
             opcPregPart.appendChild(pregOpcion);
 
@@ -537,6 +655,7 @@ $(document).ready(function ($) {
 
         allPregArr.push(pregValue);
         allPregArr.push(arrOpcPreg);
+        allPregArr.push(1);
 
         rowElem.appendChild(auxDivRes);
 
@@ -566,6 +685,13 @@ $(document).ready(function ($) {
         let newRadioValue = parseInt(e.currentTarget.value);
         let indexRowChanged = e.currentTarget.getAttribute('dataq');
         rowsInstrument[indexRowChanged][1] = newRadioValue;
+        setNewHashToCookieAfterAction();
+    }
+
+    changeCorrectOpc = (e) => {
+        let newRadioValue = parseInt(e.currentTarget.value);
+        let indexRowChanged = e.currentTarget.getAttribute('dataopcc');
+        rowsInstrument[indexRowChanged][2][2] = newRadioValue;
         setNewHashToCookieAfterAction();
     }
 
@@ -626,9 +752,9 @@ $(document).ready(function ($) {
         let typeC = parseInt(document.getElementById("lblTypeC" + indexTypeC).getAttribute("dataCTy"));
 
         if (res == 1) {
-            if (typeC == 1) {
+            if (typeC == 1 || typeC == 2) {
                 rowsInstrument[indexRowChanged][2][0] = strTxtAreaChanged;
-            } else if (typeC > 1 && typeC < 5) {
+            } else if (typeC == 3) {
                 rowsInstrument[indexRowChanged][2] = strTxtAreaChanged;
             }
             setNewHashToCookieAfterAction();
@@ -640,6 +766,35 @@ $(document).ready(function ($) {
             let indexTxtAreaChanged = parseInt(eTrigger.id.replace("pregTxtArea", ""));
             let lblLeftChars = document.getElementById("countCharPreg" + indexTxtAreaChanged);
             let leftChars = 260 - txtArea.value.length;
+
+            if (leftChars >= 0) {
+                lblLeftChars.textContent = "Caracteres restantes: " + leftChars;
+                return 1;
+            } else {
+                txtArea.value = txtArea.value.substring(0, txtArea.value.length - 1);
+                return 0;
+            }
+
+        }
+
+    changeResClosePreg = (e) => {
+        let strTxtAreaChanged = e.currentTarget.value;
+        let indexRowChanged = parseInt(e.currentTarget.getAttribute('dataqcr'));
+
+        let res = updateLeftCharsResClosePreg(e.currentTarget);
+
+        if (res == 1) {
+            rowsInstrument[indexRowChanged][2][1] = strTxtAreaChanged;
+            setNewHashToCookieAfterAction();
+        }
+        
+    }
+
+        updateLeftCharsResClosePreg = (eTrigger) => {
+            let txtArea = eTrigger;
+            let indexTxtAreaChanged = parseInt(eTrigger.id.replace("closePregRes", ""));            
+            let lblLeftChars = document.getElementById("countCharResClosePreg" + indexTxtAreaChanged);
+            let leftChars = 60 - txtArea.value.length;
 
             if (leftChars >= 0) {
                 lblLeftChars.textContent = "Caracteres restantes: " + leftChars;
@@ -683,10 +838,9 @@ $(document).ready(function ($) {
     
     /** Event Triggers for All Instrumentos */
     $("#saveChangesBtn").click(function (e) { checkContentAndSaveChanges(); });
-    $("#addRowBtn").click(function (e) { setNewHashToCookieAfterAction(); checkAddNewRowToInstrument(); });    
+    $("#addRowBtn").click(function (e) { checkAddNewRowToInstrument(); });    
     $('body').on('change', '.aspEvInst', function (e) { changeAspEvRadio(e); });
     $('body').on('click', '.deleteRowBtn', function (e) { deleteInstrumentRow(e); })
-
 
     $('#rowsContainer').sortable({
         stop: function (e, ui) {
@@ -702,14 +856,16 @@ $(document).ready(function ($) {
 
 
     /** Event Triggers for Lista de Cotejo */
-
+    //--
 
     /** Event Triggers for Guia de Observación */    
     $('body').on('input', '.ponderacionElemento', function (e) { changePondElem(e); });
 
     /** Event Triggers for Cuestionario */
+    $('body').on('change', '.correctOption', function (e) { changeCorrectOpc(e); });
     $('body').on('input', '.pregTxtArea', function (e) { changePreg(e); });
     $('body').on('input', '.opcPregTxtInput', function (e) { changeOpcPreg(e); });
+    $('body').on('input', '.closePregRes', function (e) { changeResClosePreg(e); });
 
 /* --------------------------------------------------------------------------------------------------------------------- */
 

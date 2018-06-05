@@ -149,6 +149,18 @@ $(document).ready(function ($) {
         pregTxtArea.name = "pregTxtArea" + index;
         pregTxtArea.setAttribute("dataq", index - 1);
 
+        if (pregCol.childNodes.length == 4) {
+
+            let lblClosePregRes = pregCol.childNodes[2];
+            let countCharResClosePreg = lblClosePregRes.childNodes[1];
+            countCharResClosePreg.id = "countCharResClosePreg" + index;
+
+            let closePregRes = pregCol.childNodes[3];
+            closePregRes.id = "closePregRes" + index;
+            closePregRes.name = "closePregRes" + index;
+            closePregRes.setAttribute("dataqcr", index - 1);
+        }
+
         if (mainDiv.childNodes.length == 2) {
             let resCol = mainDiv.childNodes[1];
             resCol.id = "resCol" + index;
@@ -158,13 +170,18 @@ $(document).ready(function ($) {
                 let pregOpcion = opcPregPart.childNodes[j];
 
                 let lblsPregOpcTxtArea = pregOpcion.childNodes[0];
-                let countCharPregOpc = lblsPregOpcTxtArea.childNodes[0];
-                countCharPregOpc.id = "countCharPregOpc" + index + "" + (j + 1);      
+                    let countCharPregOpc = lblsPregOpcTxtArea.childNodes[0];
+                    countCharPregOpc.id = "countCharPregOpc" + index + "" + (j + 1);   
 
-                let opcPregTxtInput = pregOpcion.childNodes[1];
-                opcPregTxtInput.id = "opcPregTxtInput" + index + "" + (j + 1);
-                opcPregTxtInput.name = "opcPregTxtInput" + index + "" + (j + 1);
-                opcPregTxtInput.setAttribute("dataqop", (index - 1) + "" + j);
+                let optionContainer = pregOpcion.childNodes[1];                
+                    let correctOption = optionContainer.childNodes[0];
+                    correctOption.name = "correctOption" + index;
+                    correctOption.setAttribute("dataopcc", index - 1);
+                    
+                    let opcPregTxtInput = optionContainer.childNodes[1];
+                    opcPregTxtInput.id = "opcPregTxtInput" + index + "" + (j + 1);
+                    opcPregTxtInput.name = "opcPregTxtInput" + index + "" + (j + 1);
+                    opcPregTxtInput.setAttribute("dataqop", (index - 1) + "" + j);
             }
 
             opcPregPart = resCol.childNodes[1];
@@ -175,10 +192,15 @@ $(document).ready(function ($) {
                 let countCharPregOpc = lblsPregOpcTxtArea.childNodes[0];
                 countCharPregOpc.id = "countCharPregOpc" + index + "" + (j + 3);
 
-                let opcPregTxtInput = pregOpcion.childNodes[1];
-                opcPregTxtInput.id = "opcPregTxtInput" + index + "" + (j + 3);
-                opcPregTxtInput.name = "opcPregTxtInput" + index + "" + (j + 3);
-                opcPregTxtInput.setAttribute("dataqop", (index - 1) + "" + (j + 2));
+                let optionContainer = pregOpcion.childNodes[1];
+                    let correctOption = optionContainer.childNodes[0];
+                    correctOption.name = "correctOption" + index;
+                    correctOption.setAttribute("dataopcc", index - 1);
+
+                    let opcPregTxtInput = optionContainer.childNodes[1];
+                    opcPregTxtInput.id = "opcPregTxtInput" + index + "" + (j + 3);
+                    opcPregTxtInput.name = "opcPregTxtInput" + index + "" + (j + 3);
+                    opcPregTxtInput.setAttribute("dataqop", (index - 1) + "" + (j + 2));
             }
         }
 
@@ -197,29 +219,50 @@ $(document).ready(function ($) {
             let pondElem = document.getElementById("pondElem" + n).value;
             let ctype = parseInt(document.getElementById("lblTypeC" + n).getAttribute("datacty"));
 
-            let pregTxtArea = document.getElementById("pregTxtArea" + n).value;
+            let pregTxtArea = document.getElementById("pregTxtArea" + n).value;            
             arr2.push(parseInt(numElem));
             arr2.push(parseInt(selectedAspEv));
 
             let resCol = document.getElementById("resCol" + n)
+
+            
+
             if (resCol) {
                 arr3.push(pregTxtArea);
                 for (let j = 1; j < 5; ++j) {
-                    let arr5 = []
-                    let opXValue = document.getElementById("opcPregTxtInput" + n + "" + j).value;
+                    let arr5 = [];
+                                    
                     switch (j) {
                         case 1: arr5.push("A"); break;
                         case 2: arr5.push("B"); break;
                         case 3: arr5.push("C"); break;
                         case 4: arr5.push("D"); break;
                     }
+                    let opXValue = document.getElementById("opcPregTxtInput" + n + "" + j).value;
                     arr5.push(opXValue);
+
                     arr4.push(arr5);
                 }
                 arr3.push(arr4);
+
+                if (ctype == 1) {
+                    let correctOption = parseInt(document.querySelector('input[name="correctOption' + n + '"]:checked').value);
+                    arr3.push(correctOption);
+                }
+
                 arr2.push(arr3);
             } else {
-                arr2.push(pregTxtArea);
+                if (ctype == 2) {
+                    let p = [];
+                    let resClose = document.getElementById("closePregRes" + n).value;
+
+                    p.push(pregTxtArea);
+                    p.push(resClose);
+                    arr2.push(p);
+                } else {
+                    arr2.push(pregTxtArea);
+                }
+                
             }
 
             if (pondElem == "")

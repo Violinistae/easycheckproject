@@ -117,6 +117,7 @@
 }
 
 .instrumentRow {
+    /* 5.92rem */
     height: 5.92rem;
     background-color: rgba(235, 235, 235, 0.808);
     border-radius: .4em;

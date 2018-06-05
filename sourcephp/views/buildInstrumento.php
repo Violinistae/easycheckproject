@@ -67,20 +67,7 @@
 			<div id="addElementsBtns">
 				<i id="addRowBtn" class="fas fa-plus-square" title="Agregar fila a instrumento"></i>
 				<div class="dropableMenu" id="questionTypeDropMenu">
-					<ul class="dropMenuContent">
-						<li class="dropMenuElem typeC" dataCT="1">
-							<label class="lblDropM">Opción múltiple</label>
-						</li>
-						<li class="dropMenuElem typeC" dataCT="2">
-							<label class="lblDropM">Completar campo</label>
-						</li>
-						<li class="dropMenuElem typeC" dataCT="3">
-							<label class="lblDropM">Pregunta cerrada</label>
-						</li>
-						<li class="dropMenuElem typeC" dataCT="4">
-							<label class="lblDropM">Pregunta abierta</label>
-						</li>	
-					</ul>
+					
 				</div>
 			</div>
 			<div id="saveChanges">
@@ -94,6 +81,9 @@
 
 			<div id="submaincontainer">
 				<div id="rowsContainer">
+
+					
+
 				</div>
 			</div>
 
