@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.8.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-06-2018 a las 10:26:45
+-- Tiempo de generación: 05-06-2018 a las 23:46:34
 -- Versión del servidor: 10.1.31-MariaDB
--- Versión de PHP: 7.1.15
+-- Versión de PHP: 7.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -87,7 +87,8 @@ INSERT INTO `acciones` (`Id_Acciones`, `Controlador`, `Metodo`) VALUES
 (23, 'guiadeobservacion', 'cleanGuiaObs'),
 (24, 'guiadeobservacion', 'saveGuiaObs'),
 (25, 'cuestionario', 'cleanCuestionario'),
-(26, 'cuestionario', 'saveCuestionario');
+(26, 'cuestionario', 'saveCuestionario'),
+(27, 'cuestionario', 'readCuestionario');
 
 -- --------------------------------------------------------
 
@@ -154,8 +155,19 @@ CREATE TABLE `cuestionario` (
   `AspectoEv` tinyint(4) NOT NULL,
   `NumPregunta` tinyint(4) NOT NULL,
   `Pregunta` varchar(260) NOT NULL,
+  `ResCorrecta` varchar(60) DEFAULT NULL,
   `PonderacionPreg` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `cuestionario`
+--
+
+INSERT INTO `cuestionario` (`Id_FilaCues`, `Instrumento`, `TipoPregunta`, `AspectoEv`, `NumPregunta`, `Pregunta`, `ResCorrecta`, `PonderacionPreg`) VALUES
+(7, 3, 2, 1, 1, '¿Qué es POO?', 'Programación Orientada a Objetos', 10),
+(8, 3, 3, 1, 2, '¿Piensas que programar es sencillo?', NULL, 70),
+(9, 3, 1, 1, 3, '¿Que es C# en programación?', '3', 8),
+(10, 3, 1, 1, 4, '¿En que año nació Benito Juarez?', '4', 10);
 
 -- --------------------------------------------------------
 
@@ -290,9 +302,9 @@ CREATE TABLE `instrumento` (
 --
 
 INSERT INTO `instrumento` (`Id_Instrumento`, `Creador`, `TipoInstrumento`, `TipoEvaluacion`, `ClaveElem`, `NombElemento`, `InstruccLlenado`, `Materia`) VALUES
-(2, 123, 2, 2, 'P1.1', 'Tareas', 'Hola', 4),
-(3, 123, 3, 2, 'P1.2', 'Actividades en Clase', 'Hola', 4),
-(4, 123, 4, 2, 'P1.4', 'Examen', 'Hola', 4);
+(1, 123, 4, 2, 'P1.4', 'Examen', 'Hola', 4),
+(2, 123, 4, 2, 'P1.4', 'Examen', 'Hola', 4),
+(3, 123, 4, 2, 'P1.4', 'Examen', 'Hola', 5);
 
 -- --------------------------------------------------------
 
@@ -381,6 +393,20 @@ CREATE TABLE `opcionespregunta` (
   `Opcion` varchar(60) NOT NULL,
   `Pregunta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `opcionespregunta`
+--
+
+INSERT INTO `opcionespregunta` (`Id_OpcionesP`, `NumOpcion`, `Opcion`, `Pregunta`) VALUES
+(9, 0, 'Nada', 9),
+(10, 0, 'Do #', 9),
+(11, 0, 'Un lenguaje de programación', 9),
+(12, 0, 'Otra cosa que no', 9),
+(13, 0, '8016', 10),
+(14, 0, '1680', 10),
+(15, 0, '1860', 10),
+(16, 0, '1806', 10);
 
 -- --------------------------------------------------------
 
@@ -520,8 +546,7 @@ CREATE TABLE `tipopregunta` (
 INSERT INTO `tipopregunta` (`Id_TipoPregunta`, `TipoPregunta`) VALUES
 (1, 'Opción Múltiple'),
 (2, 'Completar Campos'),
-(3, 'Pregunta Cerrada'),
-(4, 'Pregunta Abierta');
+(3, 'Pregunta Abierta');
 
 -- --------------------------------------------------------
 
@@ -833,7 +858,7 @@ ALTER TABLE `academia`
 -- AUTO_INCREMENT de la tabla `acciones`
 --
 ALTER TABLE `acciones`
-  MODIFY `Id_Acciones` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `Id_Acciones` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `aspectoevaluacion`
@@ -857,7 +882,7 @@ ALTER TABLE `criteriosfilarubrica`
 -- AUTO_INCREMENT de la tabla `cuestionario`
 --
 ALTER TABLE `cuestionario`
-  MODIFY `Id_FilaCues` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_FilaCues` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `evaluacionfilaguiaobs`
@@ -911,7 +936,7 @@ ALTER TABLE `guiadeobservacion`
 -- AUTO_INCREMENT de la tabla `instrumento`
 --
 ALTER TABLE `instrumento`
-  MODIFY `Id_Instrumento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Id_Instrumento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `instrumentoscompartidos`
@@ -947,7 +972,7 @@ ALTER TABLE `materia`
 -- AUTO_INCREMENT de la tabla `opcionespregunta`
 --
 ALTER TABLE `opcionespregunta`
-  MODIFY `Id_OpcionesP` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_OpcionesP` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `parciales`
@@ -1001,7 +1026,7 @@ ALTER TABLE `tipoinstrumento`
 -- AUTO_INCREMENT de la tabla `tipopregunta`
 --
 ALTER TABLE `tipopregunta`
-  MODIFY `Id_TipoPregunta` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `Id_TipoPregunta` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `tiposusuarios`
