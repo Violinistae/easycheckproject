@@ -6,6 +6,7 @@
         private $AspectoEv;
         private $NumPregunta;
         private $Pregunta;
+        private $ResCorrecta;
         private $PonderacionPreg;
 
         public function __construct () {}
@@ -28,6 +29,9 @@
         public function setPregunta($Pregunta) {
             $this->Pregunta = $Pregunta;
         }
+        public function setResCorrecta($ResCorrecta) {
+            $this->ResCorrecta = $ResCorrecta;
+        }
         public function setPonderacionPreg($PonderacionPreg) {
             $this->PonderacionPreg = $PonderacionPreg;
         }
@@ -49,6 +53,9 @@
         }
         public function getPregunta() {
             return $this->Pregunta;
+        }
+        public function getResCorrecta() {
+            return $this->ResCorrecta;
         }
         public function getPonderacionPreg() {
             return $this->PonderacionPreg;

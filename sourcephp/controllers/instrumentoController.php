@@ -92,6 +92,61 @@
             return;
         }
 
+        public function readInstrumento () {
+            if (isset($_POST["purpose"]) && isset($_POST["Id_Instrumento"])) {
+
+                if ($_POST["purpose"] == 1) {       //Only 1
+
+                    $stmt = $this->pdo->prepare(
+                        "SELECT * FROM instrumento
+                            where Id_Instrumento = ?"
+                    );
+                    $stmt->execute([
+                        $_POST["Id_Instrumento"]
+                    ]);
+
+                } else if ($_POST["purpose"] == 2) {
+
+                    $stmt = $this->pdo->prepare(
+                        "SELECT * FROM instrumento"
+                    );
+                    $stmt->execute([]);
+                }
+
+                if ($stmt->rowCount() > 0) {
+                    $iRows = array();
+                    while ($iRow = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $instr = new instrumentoModel();
+                        $instr->setId_Instrumento($iRow["Id_Instrumento"]);
+                        $instr->setCreador($iRow["Creador"]);
+                        $instr->setTipoInstrumento($iRow["TipoInstrumento"]);
+                        $instr->setTipoEvaluacion($iRow["TipoEvaluacion"]);
+                        $instr->setClaveElem($iRow["ClaveElem"]);
+                        $instr->setNombElemento($iRow["NombElemento"]);
+                        $instr->setInstruccLlenado($iRow["InstruccLlenado"]);
+                        $instr->setMateria($iRow["Materia"]);
+
+
+                        $row = ([
+                            $instr->getId_Instrumento(),
+                            $instr->getCreador(),
+                            $instr->getTipoInstrumento(),
+                            $instr->getTipoEvaluacion(),
+                            $instr->getClaveElem(),
+                            $instr->getNombElemento(),
+                            $instr->getInstruccLlenado(),
+                            $instr->getMateria()
+                        ]);
+                        $iRows[] = $row;
+                    }
+
+                    echo json_encode(["built" => false, "iRows" => $iRows]);
+                } else {
+                    echo json_encode(["built" => false]);
+                }
+            }
+        }
+
         public function checkInstrumento () {
             
         }

@@ -23,24 +23,26 @@
 
                 $cuestionarioRow;
                 $cont = 0;
-
-                //echo json_encode (["x" => $rowsI, "length" => $numRowsI]);
-
-                //return;
                 
                 for ($i = 0; $i < $numRowsI; ++$i) {
+
                     $a = $rowsI[$i];
                     $cuestionarioRow = new cuestionarioModel();
-                    $cuestionarioRow->setNumPregunta(intval($a[0]));
-                    $cuestionarioRow->setAspectoEv(intval($a[1]));
-                    $cuestionarioRow->setPonderacionPreg(intval($a[3]));
-                    $cuestionarioRow->setTipoPregunta(intval($a[4]));
                     $cuestionarioRow->setInstrumento(intval($Id_Instrumento));
+                    $cuestionarioRow->setTipoPregunta(intval($a[4]));
+                    $cuestionarioRow->setAspectoEv(intval($a[1]));
+                    $cuestionarioRow->setNumPregunta(intval($a[0]));
+                    $cuestionarioRow->setPonderacionPreg(intval($a[3]));                                    
 
                     if ($a[4] == 1) {
                         $cuestionarioRow->setPregunta($a[2][0]);
-                    } else {
+                        $cuestionarioRow->setResCorrecta($a[2][2]);
+                    } else if ($a[4] == 2) {
+                        $cuestionarioRow->setPregunta($a[2][0]);
+                        $cuestionarioRow->setResCorrecta($a[2][1]);
+                    } else if ($a[4] == 3) {
                         $cuestionarioRow->setPregunta($a[2]);
+                        $cuestionarioRow->setResCorrecta(null);
                     }
 
                     $stmt = $this->pdo->prepare (
@@ -50,9 +52,10 @@
                             AspectoEv,
                             NumPregunta,
                             Pregunta,
+                            ResCorrecta,
                             PonderacionPreg
                         ) values (
-                            ?, ?, ?, ?, ?, ?
+                            ?, ?, ?, ?, ?, ?, ?
                         )"
                     );
 
@@ -62,7 +65,8 @@
                         $cuestionarioRow->getAspectoEv(),
                         $cuestionarioRow->getNumPregunta(),
                         $cuestionarioRow->getPregunta(),
-                        $cuestionarioRow->getPonderacionPreg(),
+                        $cuestionarioRow->getResCorrecta(),
+                        $cuestionarioRow->getPonderacionPreg()
                     ]);
 
                     if ($stmt->rowCount() == 1) {
@@ -88,6 +92,52 @@
                     echo json_encode (["error" => true]);
                 }
                 
+            }
+        }
+
+        public function readCuestionario () {
+            if (isset($_POST["Id_Instrumento"])) {
+                $stmt = $this->pdo->prepare(
+                    "SELECT * FROM cuestionario
+                        where Instrumento = ?"
+                );
+                $stmt->execute([
+                    $_POST["Id_Instrumento"]
+                ]);
+
+                if ($stmt->rowCount() > 0) {
+                    $cuesRows = array();
+                    while ($cRow = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $preg = new cuestionarioModel();
+                        $preg->setId_FilaCues($cRow["Id_FilaCues"]);
+                        $preg->setInstrumento($cRow["Instrumento"]);
+                        $preg->setTipoPregunta($cRow["TipoPregunta"]);
+                        $preg->setAspectoEv($cRow["AspectoEv"]);
+                        $preg->setNumPregunta($cRow["NumPregunta"]);
+                        $preg->setPregunta($cRow["Pregunta"]);
+                        $preg->setResCorrecta($cRow["ResCorrecta"]);
+                        $preg->setPonderacionPreg($cRow["PonderacionPreg"]);
+                        
+                        $row = ([
+                            $preg->getId_FilaCues(),
+                            $preg->getInstrumento(),
+                            $preg->getTipoPregunta(),
+                            $preg->getAspectoEv(),
+                            $preg->getNumPregunta(),
+                            $preg->getPregunta(),
+                            $preg->getResCorrecta(),
+                            $preg->getPonderacionPreg()
+                        ]);
+                        $cuesRows[] = $row;
+                    }           
+                    echo json_encode(['error' => false, 'built' => true, 'cuesRows' => $cuesRows, 'tInst' => 4]);     
+
+                } else {
+                    echo json_encode(['error' => false, 'built' => false]);
+                }
+
+            } else {
+                echo json_encode(['error' => true]);
             }
         }
     }

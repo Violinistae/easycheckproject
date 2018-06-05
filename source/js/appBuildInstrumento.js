@@ -43,25 +43,32 @@ $(document).ready(function ($) {
             let typeInstrumentoLbl = document.getElementById("typeInstrumento");
             let claveNombreInstrumento = document.getElementById("claveNombreInstr");
             let headTable = document.getElementById("tableInstrumentHead");
+            claveNombreInstrumento.textContent = claveElemento + " - " + nombreElemento;
 
             let URLHeadTable;
+            let readInstrumentRowsURL;
 
             switch (tipoInstrumento) {
                 case 1:
                     typeInstrumentoLbl.textContent += "Rúbrica";
                     URLHeadTable = '../../sourcephp/views/buildInst/R/headRowR.php';
+                    
                     break;
                 case 2:
                     typeInstrumentoLbl.textContent += "Lista de Cotejo";
                     URLHeadTable = '../../sourcephp/views/buildInst/LC/headRowLC.php';
+                    insertCommonTableHead(URLHeadTable, headTable);
                     break;
                 case 3:
                     typeInstrumentoLbl.textContent += "Guía de Observación";
                     URLHeadTable = '../../sourcephp/views/buildInst/GO/headRowGO.php';
+                    insertCommonTableHead(URLHeadTable, headTable);
                     break;
                 case 4:
                     typeInstrumentoLbl.textContent += "Cuestionario";
                     URLHeadTable = '../../sourcephp/views/buildInst/C/headRowC.php';
+                    readInstrumentRowsURL = '../../index_ajax.php?controller=cuestionario&action=readCuestionario';
+                    insertCommonTableHead(URLHeadTable, headTable);
 
                     let questionTypeDropMenu = document.getElementById("questionTypeDropMenu");
                     let dropMenuContent = document.createElement("ul");
@@ -88,27 +95,64 @@ $(document).ready(function ($) {
 
                     questionTypeDropMenu.appendChild(dropMenuContent);
 
+                    getBuiltInstrumentRows(readInstrumentRowsURL);
+
                     break;
             }
-
-            claveNombreInstrumento.textContent = claveElemento + " - " + nombreElemento;
             
-            $.ajax({
-                url: URLHeadTable,
-                type: 'POST'
-            }).done(function (resHeadTable) {
-                headTable.innerHTML = resHeadTable;
-            }).fail(function () {
-                AJAXrequestFailed("Fallo en petición AJAX para cargar head table build instrumento");
-            });
-
             setNewHashToCookieAfterAction();
             updateSaveChangesCookie();
 
-
-                //Here for refresh or load existent rows
-
         }
+
+            insertCommonTableHead = (URLHeadTable, headTable) => {
+                $.ajax({
+                    url: URLHeadTable,
+                    type: 'POST'
+                }).done(function (resHeadTable) {
+                    headTable.innerHTML = resHeadTable;
+                }).fail(function () {
+                    AJAXrequestFailed("Fallo en petición AJAX para cargar head table build instrumento");
+                });
+            }
+
+            getBuiltInstrumentRows = (readInstrumentRowsURL) => {
+                var cuesRows = [];
+
+                dataArray = {
+                    Id_Instrumento: Id_Instrumento
+                };
+
+                $.ajax({
+                    url: readInstrumentRowsURL,
+                    type: 'POST',
+                    dataType: 'json',
+                    data: dataArray
+                }).done(function (resReadRowsI) {
+                    if (!resReadRowsI.error) {
+                        if (resReadRowsI.built) {
+                            cuesRows = resReadRowsI.cuesRows;
+                            switch (cuesRows.tInst) {
+                                case 1:
+                                    
+                                    break;
+                                case 2:
+
+                                    break;
+                                case 3:
+
+                                    break;
+                                case 4:
+
+                                    break;
+                            }
+                        }
+                    }
+                }).fail(function () {
+                    AJAXrequestFailed("Fallo en peticion AJAX para cargar filas creadas de instrumento");
+                });
+
+            }                            
 
         /**
          *  When refresh, load or update buildinstrumento page --> verifyTheInstrument table
