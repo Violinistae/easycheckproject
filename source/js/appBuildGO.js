@@ -91,4 +91,29 @@ $(document).ready(function ($) {
         return arr;
     }
 
+    insertBuiltGORows = (builtRows) => {
+        for (let i = 0; i < builtRows.length; ++i) {
+            addGORow(i + 1);
+            fillBuiltGORows(i + 1, builtRows[i]);
+        }
+        return getArrayFormDataGORows(builtRows.length);
+    }
+
+        fillBuiltGORows = (index, builtRow) => {
+            let aspEvRadios = document.getElementsByName("aspEvRow" + index);
+            let sAspectoEv = builtRow.AspectoEv;
+            for (let i = 0; i < aspEvRadios.length; ++i) {
+                if (aspEvRadios[i].value == sAspectoEv) {
+                    aspEvRadios[i].checked = true;
+                }
+            }
+
+            console.log(builtRow);
+            let indicadoresEv = document.getElementById("indicadoresEv" + index);
+            indicadoresEv.value = builtRow.AccionesEv;
+
+            let pondElem = document.getElementById("pondElem" + index);
+            pondElem.value = builtRow.PonderacionElem;
+        }
+
 });

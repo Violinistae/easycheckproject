@@ -66,6 +66,47 @@
                 
             }
         }
+
+        public function readListaCotejo () {
+            if (isset($_POST["Id_Instrumento"])) {
+                $stmt = $this->pdo->prepare(
+                    "SELECT * FROM listacotejo
+                        where Instrumento = ?"
+                );
+                $stmt->execute([
+                    $_POST["Id_Instrumento"]
+                ]);
+
+                if ($stmt->rowCount() > 0) {
+                    $LCRows = array();
+                    while ($lcRow = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $rowLisC = new listacotejoModel();
+                        $rowLisC->setId_FilaListaC(intval($lcRow["Id_FilaListaC"]));
+                        $rowLisC->setInstrumento(intval($lcRow["Instrumento"]));
+                        $rowLisC->setAspectoEv(intval($lcRow["AspectoEv"]));
+                        $rowLisC->setNumElemento(intval($lcRow["NumElemento"]));
+                        $rowLisC->setIndicadoresEv($lcRow["IndicadoresEv"]);
+                        
+                        $row = ([
+                            'Id_FilaListaC' => $rowLisC->getId_FilaListaC(),
+                            'Instrumento' => $rowLisC->getInstrumento(),
+                            'AspectoEv' => $rowLisC->getAspectoEv(),
+                            'NumElemento' => $rowLisC->getNumElemento(),
+                            'IndicadoresEv' => $rowLisC->getIndicadoresEv()
+                        ]);
+
+                        $LCRows[] = $row;
+                    }           
+                    echo json_encode(['error' => false, 'built' => true, 'builtRows' => $LCRows, 'tInst' => 2]);     
+
+                } else {
+                    echo json_encode(['error' => false, 'built' => false]);
+                }
+
+            } else {
+                echo json_encode(['error' => true]);
+            }
+        }
     }
     
 ?>

@@ -16,7 +16,7 @@ $(document).ready(function ($) {
     window.onbeforeunload = function (e) {
 
         if (getCookie('s&b!pd?_#d') == getCookie("&lxaAdCs3_¡#dl")) {
-
+            //destroy variable sessionstorage createdInst
         } else {
             return "Han sido detectados algunos cambios, ¿está seguro de abandonar la página? Los cambios no almacenados serán descartados.";
         }
@@ -75,13 +75,16 @@ $(document).ready(function ($) {
                 case 2:
                     typeInstrumentoLbl.textContent += "Lista de Cotejo";
                     URLHeadTable = '../../sourcephp/views/buildInst/LC/headRowLC.php';
-                    readInstrumentRowsURL = '../../index_ajax.php?controller=cuestionario&action=readCuestionario';
+                    readInstrumentRowsURL = '../../index_ajax.php?controller=listacotejo&action=readListaCotejo';
                     insertCommonTableHead(URLHeadTable, headTable);
+                    getBuiltInstrumentRows(readInstrumentRowsURL);
                     break;
                 case 3:
                     typeInstrumentoLbl.textContent += "Guía de Observación";
                     URLHeadTable = '../../sourcephp/views/buildInst/GO/headRowGO.php';
+                    readInstrumentRowsURL = '../../index_ajax.php?controller=guiadeobservacion&action=readGuiaObs';
                     insertCommonTableHead(URLHeadTable, headTable);
+                    getBuiltInstrumentRows(readInstrumentRowsURL);
                     break;
                 case 4:
                     typeInstrumentoLbl.textContent += "Cuestionario";
@@ -158,14 +161,12 @@ $(document).ready(function ($) {
                                     
                                     break;
                                 case 2:
-
+                                    rowsInstrument = insertBuiltLCRows(builtRows);
                                     break;
                                 case 3:
-
+                                    rowsInstrument = insertBuiltGORows(builtRows);
                                     break;
                                 case 4:
-                                    
-                                    //insertBuiltCRows(builtRows);
                                     rowsInstrument = insertBuiltCRows(builtRows);
                                     break;
                             }
@@ -418,13 +419,19 @@ $(document).ready(function ($) {
                 
                 break;
             case 2:
-                cleanAndSaveLC(rowsInstrument, Id_Instrumento);
+                if (verifyCommonRowsFields()){
+                    cleanAndSaveLC(rowsInstrument, Id_Instrumento);
+                    updateSaveChangesCookie();
+                }
                 break;
             case 3:
-                cleanAndSaveGO(rowsInstrument, Id_Instrumento);
+                if (verifyCommonRowsFields()) {
+                    cleanAndSaveGO(rowsInstrument, Id_Instrumento);
+                    updateSaveChangesCookie();
+                }
                 break;
             case 4:                
-                if (verifyCRowsFields()) {
+                if (verifyCommonRowsFields()) {
                     cleanAndSaveC(rowsInstrument, Id_Instrumento);
                     updateSaveChangesCookie();
                 }
@@ -432,6 +439,58 @@ $(document).ready(function ($) {
         }
 
     }
+
+        verifyCommonRowsFields = () => {
+            let allInputs = $("#rowsContainer input:not(input[type=radio])");
+            let flag = false;
+
+            $(allInputs).each(function () {
+                if (flag)
+                    return;
+                if ($(this).val().length == 0) {
+                    flag = true;
+                    console.log($(this).val());
+                    alert("Favor de llenar todos los campos para guardar cambios");
+
+                }
+            });
+            if (!flag) {
+                let allTxtArea = $("#rowsContainer textarea");
+                $(allTxtArea).each(function () {
+                    if (flag)
+                        return;
+                    if ($(this).val().length == 0) {
+                        flag = true;
+                        alert("Favor de llenar todos los campos para guardar cambios");
+                    }
+                });
+
+                if (!flag) {
+                    let allPondElem = $("#rowsContainer .ponderacionElemento");
+                    let sumaPond = 0;
+
+                    if (allPondElem.length > 0) {
+                        $(allPondElem).each(function () {
+                            sumaPond += parseInt($(this).val());
+                        });
+                        if (sumaPond != 100) {
+                            alert("La suma de las ponderaciones de cada pregunta debe ser estrictamente igual a 100. Favor de verificar las ponderaciones de cada pregunta.");
+                            return false;
+                        } else if (sumaPond == 100) {
+                            return true;
+                        }
+                    } else {
+                        return true;
+                    }
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+
+        }
+
 
         updateSaveChangesCookie = () => {
             let lastChangeDetected = getCookie("&lxaAdCs3_¡#dl");

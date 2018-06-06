@@ -1,7 +1,7 @@
 <?php
     class guiadeobservacionModel {
         
-        private $Id_FilaListaC;
+        private $Id_FilaGuiadO;
         private $Instrumento;
         private $AspectoEv;
         private $NumElemento;
@@ -10,8 +10,8 @@
 
         public function __construct() {}
 
-        public function setId_FilaListaC ($Id_FilaListaC) {
-            $this->Id_FilaListaC = $Id_FilaListaC;
+        public function setId_FilaGuiadO ($Id_FilaGuiadO) {
+            $this->Id_FilaGuiadO = $Id_FilaGuiadO;
         }
         public function setInstrumento ($Instrumento) {
             $this->Instrumento = $Instrumento;
@@ -30,8 +30,8 @@
         }
 
 
-        public function getId_FilaListaC () {
-            return $this->Id_FilaListaC;
+        public function getId_FilaGuiadO () {
+            return $this->Id_FilaGuiadO;
         }
         public function getInstrumento () {
             return $this->Instrumento;

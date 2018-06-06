@@ -68,6 +68,49 @@
                 
             }
         }
+
+        public function readGuiaObs () {
+           if (isset($_POST["Id_Instrumento"])) {
+                $stmt = $this->pdo->prepare(
+                    "SELECT * FROM guiadeobservacion
+                        where Instrumento = ?"
+                );
+                $stmt->execute([
+                    $_POST["Id_Instrumento"]
+                ]);
+
+                if ($stmt->rowCount() > 0) {
+                    $GORows = array();
+                    while ($goRow = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $rowGO = new guiadeobservacionModel();
+                        $rowGO->setId_FilaGuiadO(intval($goRow["Id_FilaGuiadO"]));
+                        $rowGO->setInstrumento(intval($goRow["Instrumento"]));
+                        $rowGO->setAspectoEv(intval($goRow["AspectoEv"]));
+                        $rowGO->setNumElemento(intval($goRow["NumElemento"]));
+                        $rowGO->setAccionesEv($goRow["AccionesEv"]);
+                        $rowGO->setPonderacionElem(intval($goRow["PonderacionElem"]));
+                        
+                        $row = ([
+                            'Id_FilaGuiadO' => $rowGO->getId_FilaGuiadO(),
+                            'Instrumento' => $rowGO->getInstrumento(),
+                            'AspectoEv' => $rowGO->getAspectoEv(),
+                            'NumElemento' => $rowGO->getNumElemento(),
+                            'AccionesEv' => $rowGO->getAccionesEv(),
+                            'PonderacionElem' => $rowGO->getPonderacionElem()
+                        ]);
+
+                        $GORows[] = $row;
+                    }           
+                    echo json_encode(['error' => false, 'built' => true, 'builtRows' => $GORows, 'tInst' => 3]);     
+
+                } else {
+                    echo json_encode(['error' => false, 'built' => false]);
+                }
+
+            } else {
+                echo json_encode(['error' => true]);
+            }
+        }
     }
     
 ?>

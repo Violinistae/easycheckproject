@@ -84,4 +84,26 @@ $(document).ready(function ($) {
         return arr;
     }
 
+    insertBuiltLCRows = (builtRows) => {
+        for (let i = 0; i < builtRows.length; ++i) {
+            addLCRow (i + 1);
+            fillBuiltLCRows(i + 1, builtRows[i]);
+        }
+        return getArrayFormDataLCRows(builtRows.length);
+    }
+
+        fillBuiltLCRows = (index, builtRow) => {
+            let aspEvRadios = document.getElementsByName("aspEvRow" + index);
+            let sAspectoEv = builtRow.AspectoEv;
+            for (let i = 0; i < aspEvRadios.length; ++i) {
+                if (aspEvRadios[i].value == sAspectoEv) {
+                    aspEvRadios[i].checked = true;
+                }
+            }
+
+            let indicadoresEv = document.getElementById("indicadoresEv" + index);
+            indicadoresEv.value = builtRow.IndicadoresEv;
+
+        }
+
 });
