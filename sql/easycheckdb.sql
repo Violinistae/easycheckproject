@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-06-2018 a las 23:46:34
+-- Tiempo de generación: 06-06-2018 a las 10:28:55
 -- Versión del servidor: 10.1.31-MariaDB
--- Versión de PHP: 7.2.4
+-- Versión de PHP: 7.1.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -88,7 +88,11 @@ INSERT INTO `acciones` (`Id_Acciones`, `Controlador`, `Metodo`) VALUES
 (24, 'guiadeobservacion', 'saveGuiaObs'),
 (25, 'cuestionario', 'cleanCuestionario'),
 (26, 'cuestionario', 'saveCuestionario'),
-(27, 'cuestionario', 'readCuestionario');
+(27, 'cuestionario', 'readCuestionario'),
+(28, 'instrumento', 'readInstrumento'),
+(29, 'opcionespregunta', 'readOpcionesPreg'),
+(30, 'listacotejo', 'readListaCotejo'),
+(31, 'guiadeobservacion', 'readGuiaObs');
 
 -- --------------------------------------------------------
 
@@ -164,10 +168,12 @@ CREATE TABLE `cuestionario` (
 --
 
 INSERT INTO `cuestionario` (`Id_FilaCues`, `Instrumento`, `TipoPregunta`, `AspectoEv`, `NumPregunta`, `Pregunta`, `ResCorrecta`, `PonderacionPreg`) VALUES
-(7, 3, 2, 1, 1, '¿Qué es POO?', 'Programación Orientada a Objetos', 10),
-(8, 3, 3, 1, 2, '¿Piensas que programar es sencillo?', NULL, 70),
-(9, 3, 1, 1, 3, '¿Que es C# en programación?', '3', 8),
-(10, 3, 1, 1, 4, '¿En que año nació Benito Juarez?', '4', 10);
+(75, 4, 3, 1, 1, '¿Qué es un POCO en programación orientada a objetos en C#?', NULL, 2),
+(76, 4, 1, 1, 2, 'Cuál es la contraparte de Microsoft a Java', '1', 34),
+(77, 4, 3, 2, 3, 'Explica el proceso para crear una aplicación Java en NetBeans.', NULL, 29),
+(78, 4, 1, 2, 4, '¿Qué es Java en el mundo la informática?', '1', 12),
+(79, 4, 2, 1, 5, 'Una ___ es un elemento que permite crear objetos con determinados atributos y métodos.', 'Clase', 20),
+(80, 4, 3, 1, 6, 'Hola', NULL, 3);
 
 -- --------------------------------------------------------
 
@@ -280,6 +286,16 @@ CREATE TABLE `guiadeobservacion` (
   `PonderacionElem` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `guiadeobservacion`
+--
+
+INSERT INTO `guiadeobservacion` (`Id_FilaGuiadO`, `AspectoEv`, `Instrumento`, `NumElemento`, `AccionesEv`, `PonderacionElem`) VALUES
+(8, 2, 6, 1, 'Hola 1', 15),
+(9, 1, 6, 2, 'xcv', 3),
+(10, 3, 6, 3, 'ljasd', 50),
+(11, 1, 6, 4, 'Nada', 32);
+
 -- --------------------------------------------------------
 
 --
@@ -302,9 +318,9 @@ CREATE TABLE `instrumento` (
 --
 
 INSERT INTO `instrumento` (`Id_Instrumento`, `Creador`, `TipoInstrumento`, `TipoEvaluacion`, `ClaveElem`, `NombElemento`, `InstruccLlenado`, `Materia`) VALUES
-(1, 123, 4, 2, 'P1.4', 'Examen', 'Hola', 4),
-(2, 123, 4, 2, 'P1.4', 'Examen', 'Hola', 4),
-(3, 123, 4, 2, 'P1.4', 'Examen', 'Hola', 5);
+(4, 123, 4, 2, 'P1.4', 'Examen', 'Prueba', 4),
+(5, 123, 2, 2, 'P1.2', 'Actividades en Clase', 'Prueba Lista Cotejo', 5),
+(6, 123, 3, 2, 'P3.3', 'Prácticas', 'GuiaObs prueba', 8);
 
 -- --------------------------------------------------------
 
@@ -344,6 +360,16 @@ CREATE TABLE `listacotejo` (
   `NumElemento` tinyint(4) NOT NULL,
   `IndicadoresEv` varchar(260) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `listacotejo`
+--
+
+INSERT INTO `listacotejo` (`Id_FilaListaC`, `Instrumento`, `AspectoEv`, `NumElemento`, `IndicadoresEv`) VALUES
+(11, 5, 3, 1, 'Las actividades están ordenadas y limpias.'),
+(12, 5, 1, 2, 'Las respuestas de las actividades son correctas'),
+(13, 5, 3, 3, 'Las actividades fueron realizadas en tiempo y forma'),
+(14, 5, 1, 4, 'fg');
 
 -- --------------------------------------------------------
 
@@ -399,14 +425,14 @@ CREATE TABLE `opcionespregunta` (
 --
 
 INSERT INTO `opcionespregunta` (`Id_OpcionesP`, `NumOpcion`, `Opcion`, `Pregunta`) VALUES
-(9, 0, 'Nada', 9),
-(10, 0, 'Do #', 9),
-(11, 0, 'Un lenguaje de programación', 9),
-(12, 0, 'Otra cosa que no', 9),
-(13, 0, '8016', 10),
-(14, 0, '1680', 10),
-(15, 0, '1860', 10),
-(16, 0, '1806', 10);
+(129, 1, 'JavaScript', 76),
+(130, 2, 'Entity Framework', 76),
+(131, 3, 'C++', 76),
+(132, 4, 'C#', 76),
+(133, 1, 'Un café', 78),
+(134, 2, 'Una tecnología para desarrollar Software', 78),
+(135, 3, 'Solo un lenguaje de programación', 78),
+(136, 4, 'Nada importante', 78);
 
 -- --------------------------------------------------------
 
@@ -858,7 +884,7 @@ ALTER TABLE `academia`
 -- AUTO_INCREMENT de la tabla `acciones`
 --
 ALTER TABLE `acciones`
-  MODIFY `Id_Acciones` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `Id_Acciones` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT de la tabla `aspectoevaluacion`
@@ -882,7 +908,7 @@ ALTER TABLE `criteriosfilarubrica`
 -- AUTO_INCREMENT de la tabla `cuestionario`
 --
 ALTER TABLE `cuestionario`
-  MODIFY `Id_FilaCues` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `Id_FilaCues` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT de la tabla `evaluacionfilaguiaobs`
@@ -930,13 +956,13 @@ ALTER TABLE `grupoperiodo`
 -- AUTO_INCREMENT de la tabla `guiadeobservacion`
 --
 ALTER TABLE `guiadeobservacion`
-  MODIFY `Id_FilaGuiadO` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_FilaGuiadO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `instrumento`
 --
 ALTER TABLE `instrumento`
-  MODIFY `Id_Instrumento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Id_Instrumento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `instrumentoscompartidos`
@@ -954,7 +980,7 @@ ALTER TABLE `integrantesacademia`
 -- AUTO_INCREMENT de la tabla `listacotejo`
 --
 ALTER TABLE `listacotejo`
-  MODIFY `Id_FilaListaC` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_FilaListaC` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `listagrupo`
@@ -972,7 +998,7 @@ ALTER TABLE `materia`
 -- AUTO_INCREMENT de la tabla `opcionespregunta`
 --
 ALTER TABLE `opcionespregunta`
-  MODIFY `Id_OpcionesP` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `Id_OpcionesP` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=137;
 
 --
 -- AUTO_INCREMENT de la tabla `parciales`
