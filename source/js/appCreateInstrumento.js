@@ -1,3 +1,4 @@
+var valParData = [];
 $(document).ready(function ($) {
 
     verifyFromCreateInstrumento = () => {
@@ -6,7 +7,7 @@ $(document).ready(function ($) {
         let tipoEvSelect = document.getElementById("tipoEvSelect");
         let materiasSelect = document.getElementById("materiasSelect");
         let claveElemInput = document.getElementById("claveElemInput");
-        let nombreElemInput = document.getElementById("nombreElemInput");               
+        let nombreElemInput = document.getElementById("nombreElemInput");
         let instruccLlenado = document.getElementById("instruccLlenado");
         
         let inputsFormCreateInstr = document.getElementsByClassName("createFormInput");
@@ -73,20 +74,18 @@ $(document).ready(function ($) {
             }).done(function (resMateria) {
                 if (!resMateria.error) {
                     let materia = resMateria.materia;
-                    let purpuseTxtFile = 1;             //Get valores parciales
+                    let purpuseTxtFile = 2;             //Get valores parciales
 
                     arrayToEvalWithGeneratedTxt = {
-                        claveElemento: claveElemInput.value,
-                        nombreElemento: nombreElemInput.value
+                        claveElemento: claveElemInput.options[claveElemInput.selectedIndex].text,
+                        nombreElemento: nombreElemInput.options[nombreElemInput.selectedIndex].text
                     };
-
-                    //TO UPPER CASE clave value and lower nombre, luego almacanar en forma de palabra ???
 
                     dataForCreateInstrument = {
                         tipoInstrumento: parseInt(tipoInst.value),
                         tipoEv: parseInt(tipoEvSelect.value),
-                        claveElemento: claveElemInput.value,
-                        nombreElemento: nombreElemInput.value,
+                        claveElemento: claveElemInput.options[claveElemInput.selectedIndex].text,
+                        nombreElemento: nombreElemInput.options[nombreElemInput.selectedIndex].text,
                         instruccionesLlenado: instruccLlenado.value,
                         materiaId: parseInt(materiasSelect.value)
                     }
@@ -111,8 +110,7 @@ $(document).ready(function ($) {
                 data: dataArray
             }).done(function (resCreateIns) {
                 let instrData = resCreateIns.instrumento;
-
-                //Verify in same function if there is an instrument for specific key
+                //Verify in same function if there is an instrument for specific key !!!
                 sendDataOpenPageBuildInstr(instrData);
             }).fail(function () {
                 AJAXrequestFailed("Fallo en peticion AJAX para crear Instrumento de evaluación");
@@ -146,6 +144,76 @@ $(document).ready(function ($) {
 
     }
 
+    updateNombreElemToEval = (e) => {
+        let materiasSelect = e.currentTarget;
+        dataMateria = {
+            materiaID: parseInt(materiasSelect.value)
+        };
+
+        $.ajax({
+            url: '../../index_ajax.php?controller=materia&action=getMateriaById',
+            type: 'POST',
+            dataType: 'json',
+            data: dataMateria
+        }).done(function (resMateria) {
+            if (!resMateria.error) {
+                let materia = resMateria.materia;
+                let purpuseTxtFile = 1;             //Get valores parciales
+
+                getGeneratedTxt(materia, purpuseTxtFile, null, setValParDataToSelect, null);
+            }
+        }).fail(function () {
+            AJAXrequestFailed("No funciona petición AJAX para obtener materia.");
+        });
+    }
+
+        setValParDataToSelect = (valParData) => {
+            let claveElemInput = document.getElementById("claveElemInput");
+            let firstOp = document.createElement("option");
+            firstOp.value = "null";
+            firstOp.text = "- Seleccione una clave de elemento -";
+        
+            for (i = claveElemInput.options.length - 1; i >= 0; i--) {
+                claveElemInput.remove(i);
+            }
+
+            claveElemInput.add(firstOp);
+            claveElemInput.disabled = false;
+
+            let nombreElemInput = document.getElementById("nombreElemInput");
+            firstOp = document.createElement("option");
+            firstOp.value = "null";
+            firstOp.text = "- Seleccione una clave de elemento -";
+            
+            for (i = nombreElemInput.options.length - 1; i >= 0; i--) {
+                nombreElemInput.remove(i);
+            }
+
+            nombreElemInput.add(firstOp);
+
+            for (let i = 0; i < valParData.length; ++i) {
+                let newValParOptionKey = document.createElement("option");
+                let newValParOptionName = document.createElement("option");
+
+                newValParOptionKey.value = i;
+                newValParOptionKey.text = valParData[i][1];
+
+                newValParOptionName.value = i;
+                newValParOptionName.text = valParData[i][0];
+
+                claveElemInput.add(newValParOptionKey);
+                nombreElemInput.add(newValParOptionName);  
+            }
+        }
+
+    selectedNameElem = (e) => {
+        let currentValue = e.currentTarget.value;
+        let claveElemInput = document.getElementById("nombreElemInput");
+        claveElemInput.value = currentValue;
+    }
+
     $("#createInstrumento").click(function (e) { verifyFromCreateInstrumento(); });
-    $("#instruccLlenado").on('input', function (e) { updateLeftChars(e); })
+    $("#instruccLlenado").on('input', function (e) { updateLeftChars(e); });
+    $("#materiasSelect").on('change', function (e) { updateNombreElemToEval(e); });
+    $("#claveElemInput").on('change', function (e) { selectedNameElem(e); });
 });

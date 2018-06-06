@@ -131,6 +131,12 @@ $(document).ready(function ($) {false
                     var materiaSelect = document.getElementById("materiasSelect");
                     let toSelectMateria = document.createElement("option");
 
+                    let claveElemInput = document.getElementById("claveElemInput");
+                    let toclaveElemInput = document.createElement("option");
+
+                    let nombreElemInput = document.getElementById("nombreElemInput");
+                    let tonombreElemInput = document.createElement("option");
+
                     academiaSelect.disabled = true;
                     academiaCoordinada.text = acad;
                     academiaCoordinada.value = idAcad;
@@ -141,6 +147,16 @@ $(document).ready(function ($) {false
                     toSelectMateria.value = "null";
                     toSelectMateria.text = "- Seleccione una materia -";
                     materiaSelect.add(toSelectMateria);
+
+                    claveElemInput.remove(0);
+                    toclaveElemInput.value = "null";
+                    toclaveElemInput.text = "- Seleccione una materia -";
+                    claveElemInput.add(toclaveElemInput);
+
+                    nombreElemInput.remove(0);
+                    tonombreElemInput.value = "null";
+                    tonombreElemInput.text = "- Seleccione una materia -";
+                    nombreElemInput.add(tonombreElemInput);
 
                     readMateriasData = {
                         purpose: 2,

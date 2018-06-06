@@ -119,18 +119,25 @@
                         $preg->setPonderacionPreg($cRow["PonderacionPreg"]);
                         
                         $row = ([
-                            $preg->getId_FilaCues(),
-                            $preg->getInstrumento(),
-                            $preg->getTipoPregunta(),
-                            $preg->getAspectoEv(),
-                            $preg->getNumPregunta(),
-                            $preg->getPregunta(),
-                            $preg->getResCorrecta(),
-                            $preg->getPonderacionPreg()
+                            'Id_FilaCues' => $preg->getId_FilaCues(),
+                            'Instrumento' => $preg->getInstrumento(),
+                            'TipoPregunta' => $preg->getTipoPregunta(),
+                            'AspectoEv' => $preg->getAspectoEv(),
+                            'NumPregunta' => $preg->getNumPregunta(),
+                            'Pregunta' => $preg->getPregunta(),
+                            'ResCorrecta' => $preg->getResCorrecta(),
+                            'Ponderacion' => $preg->getPonderacionPreg()
                         ]);
+
+                        if ($preg->getTipoPregunta() == 1) {
+                            $controllerOpc = new opcionespreguntaController($this->pdo);
+                            $row["Opciones"] = $controllerOpc->readOpcionesP($preg->getId_FilaCues());
+                        }
+
+
                         $cuesRows[] = $row;
                     }           
-                    echo json_encode(['error' => false, 'built' => true, 'cuesRows' => $cuesRows, 'tInst' => 4]);     
+                    echo json_encode(['error' => false, 'built' => true, 'builtRows' => $cuesRows, 'tInst' => 4]);     
 
                 } else {
                     echo json_encode(['error' => false, 'built' => false]);

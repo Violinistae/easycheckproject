@@ -128,19 +128,19 @@
 
 
                         $row = ([
-                            $instr->getId_Instrumento(),
-                            $instr->getCreador(),
-                            $instr->getTipoInstrumento(),
-                            $instr->getTipoEvaluacion(),
-                            $instr->getClaveElem(),
-                            $instr->getNombElemento(),
-                            $instr->getInstruccLlenado(),
-                            $instr->getMateria()
+                           'Id_Instrumento' => $instr->getId_Instrumento(),
+                            'Creador' => $instr->getCreador(),
+                            'TipoInstrumento' => $instr->getTipoInstrumento(),
+                            'TipoEvaluacion' => $instr->getTipoEvaluacion(),
+                            'ClaveElem' => $instr->getClaveElem(),
+                            'NombElemento' => $instr->getNombElemento(),
+                            'InstruccLlenado' => $instr->getInstruccLlenado(),
+                            'Materia' => $instr->getMateria()
                         ]);
                         $iRows[] = $row;
                     }
 
-                    echo json_encode(["built" => false, "iRows" => $iRows]);
+                    echo json_encode(["built" => true, "iRows" => $iRows]);
                 } else {
                     echo json_encode(["built" => false]);
                 }

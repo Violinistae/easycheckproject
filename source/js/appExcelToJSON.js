@@ -121,10 +121,10 @@ $(document).ready(function ($) {
     getGeneratedTxt = (objJSON, purposeTxtFile, arrayToEval, functionToDoCreateInst, arrayForFunctionToDo) => {
         let txtFileName;
         let targetPath;
-        if (purposeTxtFile == 1) {
+        if (purposeTxtFile == 1 || purposeTxtFile == 2) {
             txtFileName = objJSON.Valores_Parciales;
             targetPath = "source/files/valoresParciales/";        
-        } else if (purposeTxtFile == 2) {
+        } else if (purposeTxtFile == 3) {
             
         }
 
@@ -151,9 +151,23 @@ $(document).ready(function ($) {
 
     }
 
-        evalKeyWithGeneratedTxt = (resFileContent, purposeFile, arrayToEval, functionToDoCreateInst, arrayForFunctionToDo) => {
+        evalKeyWithGeneratedTxt = (resFileContent, purposeFile, arrayToEval, functionToDoAfter, arrayForFunctionToDo) => {
             let txtFile_JSON = JSON.parse(resFileContent);
-            if (purposeFile == 1) {                                 //Eval als ValPar                
+
+            if (purposeFile == 1) {
+                let valParData = [];
+
+                for (let i = 0; i < txtFile_JSON.length; ++i) {
+                    if (txtFile_JSON[i]["Nombre"] != "Parcial" && txtFile_JSON[i]["Clave"] != "parcial") {
+                        let auxArr = [];
+                        auxArr.push(txtFile_JSON[i]["Nombre"]);         //nombre
+                        auxArr.push(txtFile_JSON[i]["Clave"]);          //clave
+                        valParData.push(auxArr);
+                    }
+                }
+                functionToDoAfter(valParData);
+            }
+            if (purposeFile == 2) {                                 //Eval als ValPar                
                 let flagKeyName_ValPar = false;
 
                 txtFile_JSON.forEach(xlsxRow => {
@@ -165,7 +179,7 @@ $(document).ready(function ($) {
                 });
 
                 if (flagKeyName_ValPar) {
-                    functionToDoCreateInst(arrayForFunctionToDo);
+                    functionToDoAfter(arrayForFunctionToDo);
                 } else if (!flagKeyName_ValPar) {
                     var mainmessage = "Por favor ingrese una clave y/o nombre de elemento a evaluar válidos (contenidos dentro del archivo valores parciales).";
                     var secmessage = "Presione el boton para continuar.";

@@ -225,18 +225,16 @@ $(document).ready(function ($) {
 
             let resCol = document.getElementById("resCol" + n)
 
-            
-
             if (resCol) {
                 arr3.push(pregTxtArea);
                 for (let j = 1; j < 5; ++j) {
                     let arr5 = [];
                                     
                     switch (j) {
-                        case 1: arr5.push("A"); break;
-                        case 2: arr5.push("B"); break;
-                        case 3: arr5.push("C"); break;
-                        case 4: arr5.push("D"); break;
+                        case 1: arr5.push(1); break;
+                        case 2: arr5.push(2); break;
+                        case 3: arr5.push(3); break;
+                        case 4: arr5.push(4); break;
                     }
                     let opXValue = document.getElementById("opcPregTxtInput" + n + "" + j).value;
                     arr5.push(opXValue);
@@ -277,7 +275,111 @@ $(document).ready(function ($) {
         return arr;
     }
 
+    verifyCRowsFields = () => {
+        let allInputs = $("#rowsContainer input:not(input[type=radio])");
+        let flag = false;
+        
+        $(allInputs).each(function () {
+            if (flag)
+                return;
+            if ($(this).val().length == 0) {
+                flag = true;
+                console.log($(this).val());
+                alert("Favor de llenar todos los campos para guardar cambios");
+                
+            }
+        });
+        if (!flag) {
+            let allTxtArea = $("#rowsContainer textarea");
+            $(allTxtArea).each(function () {
+                if (flag)
+                    return;
+                if ($(this).val().length == 0) {
+                    flag = true;
+                    alert("Favor de llenar todos los campos para guardar cambios");                    
+                }
+            });
 
-    $(".typeC").click(function (e) { checkTypeCToCreateRow(e); });
+            if (!flag) {
+                let allPondElem = $("#rowsContainer .ponderacionElemento");
+                let sumaPond = 0;
+                $(allPondElem).each(function () {
+                    sumaPond += parseInt($(this).val());
+                });
+                if (sumaPond != 100) {
+                    alert("La suma de las ponderaciones de cada pregunta debe ser estrictamente igual a 100. Favor de verificar las ponderaciones de cada pregunta.");
+                    return false;
+                } else if (sumaPond == 100) {
+                    return true;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+        
+    }
 
+    insertBuiltCRows = (builtRows) => {
+        for (let i = 0; i < builtRows.length; ++i) {
+            let typeC = parseInt(builtRows[i].TipoPregunta);
+            switch (typeC) {
+                case 1:
+                    addCMultipleRow(i + 1, typeC);
+                    break;           
+                case 2:
+                    addCCommonRow(i + 1, typeC);
+                    break;
+                case 3:
+                    addCCommonRow(i + 1, typeC);
+                    break;
+            }
+            fillBuiltCRows(i + 1, typeC, builtRows[i]);
+        }
+        return getArrayFormDataCRows(builtRows.length);
+    }
+
+        fillBuiltCRows = (index, typeC, builtRow) => {
+            let aspEvRadios = document.getElementsByName("aspEvRow" + index);
+            let sAspectoEv = builtRow.AspectoEv;
+            for (let i = 0; i < aspEvRadios.length; ++i) {
+                if (aspEvRadios[i].value == sAspectoEv) {
+                    aspEvRadios[i].checked = true;
+                }
+            }
+
+            let pregTxt = document.getElementById("pregTxtArea" + index);
+            pregTxt.value = builtRow.Pregunta;
+
+            let pondElem = document.getElementById("pondElem" + index);
+            pondElem.value = parseInt(builtRow.Ponderacion);
+
+            if (typeC == 1) {      
+                fillBuiltCMultipleType(index, builtRow);
+            } else if (typeC == 2) {
+                fillBuiltCCloseType(index, builtRow);
+            }
+        }
+
+            fillBuiltCMultipleType = (index, builtRow) => {
+                let correctOption = document.getElementsByName("correctOption" + index);
+                let ResCorrecta = builtRow.ResCorrecta;
+                for (let i = 0; i < correctOption.length; ++i) {
+                    let n = i + 1;
+                    let opcPregTxtInput = document.getElementById("opcPregTxtInput" + index + "" + n);
+                    opcPregTxtInput.value = builtRow.Opciones[i].Opcion;
+                    if (correctOption[i].value == ResCorrecta) {
+                        correctOption[i].checked = true;
+                    }
+                }
+            }
+
+            fillBuiltCCloseType = (index, builtRow) => {
+                let closePregRes = document.getElementById("closePregRes" + index);
+                closePregRes.value = builtRow.ResCorrecta;
+            }
+
+    $('body').on('click', '.typeC', function (e) { checkTypeCToCreateRow(e); });
+    
 });

@@ -22,21 +22,39 @@ $(document).ready(function ($) {
         }
 
     }
-    
-    getInstrumentData = () => {
-        var JSON_CreatedInstrData = JSON.parse(sessionStorage.getItem("createdInst"));
-        console.log(JSON_CreatedInstrData);
 
-        claveElemento = JSON_CreatedInstrData.ClaveElem;
-        creador = parseInt(JSON_CreatedInstrData.Creador);
+    getInstrumentData = () => {
+        
+        var JSON_CreatedInstrData = JSON.parse(sessionStorage.getItem("createdInst"));
         Id_Instrumento = parseInt(JSON_CreatedInstrData.Id_Instrumento);
-        InstruccLlenado = JSON_CreatedInstrData.InstruccLlenado;
-        Materia = parseInt(JSON_CreatedInstrData.Materia);
-        nombreElemento = JSON_CreatedInstrData.NombElem;
-        TipoEv = parseInt(JSON_CreatedInstrData.TipoEvaluacion);
-        tipoInstrumento = parseInt(JSON_CreatedInstrData.TipoInstrumento);
-       
-        setInstrumentTypeNameKey(tipoInstrumento, claveElemento, nombreElemento);
+        dataArray = {
+            purpose: 1,
+            Id_Instrumento: Id_Instrumento
+        };
+
+        $.ajax({
+            url: '../../index_ajax.php?controller=instrumento&action=readInstrumento',
+            type: 'POST',
+            dataType: 'json',
+            data: dataArray
+        }).done(function (resInstrData) {
+            if (resInstrData.built) {
+                let iRows = resInstrData.iRows[0];
+                console.log(iRows);
+
+                claveElemento = iRows.ClaveElem;
+                creador = parseInt(iRows.Creador);
+                InstruccLlenado = iRows.InstruccLlenado;
+                Materia = parseInt(iRows.Materia);
+                nombreElemento = iRows.NombElemento;
+                TipoEv = parseInt(iRows.TipoEvaluacion);
+                tipoInstrumento = parseInt(iRows.TipoInstrumento);
+
+                setInstrumentTypeNameKey(tipoInstrumento, claveElemento, nombreElemento);
+            }
+        }).fail(function () {
+            AJAXrequestFailed("Fallo en petición AJAX para obtener información de insturmento ");
+        })
     }
 
         setInstrumentTypeNameKey = (tipoInstrumento, claveElemento, nombreElemento) => {
@@ -57,6 +75,7 @@ $(document).ready(function ($) {
                 case 2:
                     typeInstrumentoLbl.textContent += "Lista de Cotejo";
                     URLHeadTable = '../../sourcephp/views/buildInst/LC/headRowLC.php';
+                    readInstrumentRowsURL = '../../index_ajax.php?controller=cuestionario&action=readCuestionario';
                     insertCommonTableHead(URLHeadTable, headTable);
                     break;
                 case 3:
@@ -129,10 +148,12 @@ $(document).ready(function ($) {
                     dataType: 'json',
                     data: dataArray
                 }).done(function (resReadRowsI) {
+                    console.log(resReadRowsI);
+
                     if (!resReadRowsI.error) {
                         if (resReadRowsI.built) {
-                            cuesRows = resReadRowsI.cuesRows;
-                            switch (cuesRows.tInst) {
+                            builtRows = resReadRowsI.builtRows;
+                            switch (resReadRowsI.tInst) {
                                 case 1:
                                     
                                     break;
@@ -143,7 +164,9 @@ $(document).ready(function ($) {
 
                                     break;
                                 case 4:
-
+                                    
+                                    //insertBuiltCRows(builtRows);
+                                    rowsInstrument = insertBuiltCRows(builtRows);
                                     break;
                             }
                         }
@@ -389,6 +412,7 @@ $(document).ready(function ($) {
     }
 
     checkContentAndSaveChanges = () => {
+        
         switch (tipoInstrumento) {
             case 1:
                 
@@ -399,12 +423,14 @@ $(document).ready(function ($) {
             case 3:
                 cleanAndSaveGO(rowsInstrument, Id_Instrumento);
                 break;
-            case 4:
-                cleanAndSaveC(rowsInstrument, Id_Instrumento);
+            case 4:                
+                if (verifyCRowsFields()) {
+                    cleanAndSaveC(rowsInstrument, Id_Instrumento);
+                    updateSaveChangesCookie();
+                }
                 break;
         }
 
-        updateSaveChangesCookie();
     }
 
         updateSaveChangesCookie = () => {
@@ -859,6 +885,7 @@ $(document).ready(function ($) {
         if (res == 1) {
             let iDec = Math.floor(indexRowChanged / 10) - 1;
             rowsInstrument[iDec][2][1][indSec][1] = strTxtAreaChanged;
+            setNewHashToCookieAfterAction();
         }
     }
 
@@ -892,6 +919,16 @@ $(document).ready(function ($) {
         }
     });
     $('#rowsContainer').disableSelection();
+
+    $('body').on('click', '#maincontainer', function (e) {
+        $("#questionTypeDropMenu").removeClass('active');
+    });
+    $('body').on('click', '#creatingLbl', function (e) {
+        $("#questionTypeDropMenu").removeClass('active');
+    });
+    $('body').on('click', '#saveChanges', function (e) {
+        $("#questionTypeDropMenu").removeClass('active');
+    });
 
     /** Event Triggers for Lista de Cotejo && Guia de Observación */
     $('body').on('input', '.indicadoresEv', function (e) { changeIndevTxt(e); });

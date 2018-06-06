@@ -29,7 +29,7 @@
     margin-top: .6em;
     flex-grow: 4;
     display: grid;
-    grid-template-columns: 1.2fr 1.8fr;
+    grid-template-columns: 1.8fr 1.2fr;
     grid-column-gap: 3em;
     height: 100%;
     width: 100%;
@@ -38,15 +38,15 @@
 
 #formCreateInstPart1 {
     display: grid;
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
     grid-row-gap: 1.5em;
     width: 100%;
 }
 
 #formCreateInstPart2 {
     display: grid;  
-    grid-template-rows: 1fr 1fr 2fr 1fr;
-    grid-row-gap: 1.5em;
+    grid-template-rows: 1fr 1fr 1.6fr;
+    grid-row-gap: 1em;
     width: 100%;
 }
 
@@ -130,3 +130,16 @@ textarea {
     font-size: 1vw;
     vertical-align: text-bottom;
 }
+
+#nombElemContainer>select {
+    /* for Firefox */
+    -moz-appearance: none;
+    /* for Chrome */
+    -webkit-appearance: none;
+    cursor: auto;
+}
+
+#nombElemContainer>select::-ms-expand {
+    display: none;
+}
+
