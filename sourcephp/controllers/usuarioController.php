@@ -166,6 +166,29 @@
 				echo json_encode(array('error' => true));
 		}
 
+		public function getUserForSimple () {
+			if (isset($_SESSION["userreg"])) {
+				$stmt = $this->pdo->prepare(
+					"SELECT * FROM usuario
+						WHERE Registro_U = ?"
+				);
+				$stmt->execute([
+					$_SESSION["userreg"]
+				]);
+				if ($stmt->rowCount() > 0) {
+					while ($u = $stmt->fetch(PDO::FETCH_ASSOC)) {
+						$user = new usuarioModel;
+						$user->setRegistro_U($_SESSION["userreg"]);
+						$user->setNombres($u["Nombres"]);
+						$user->setApellidos($u["Apellidos"]);
+						$user->setEmail($u["Email"]);
+					}
+					return $user;
+				}
+				return null;
+			}
+		}
+
 		public function getUserInfo() {
 			if(isset($_SESSION["userreg"]) && isset($_SESSION["usertype"])) {
 				

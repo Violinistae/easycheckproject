@@ -91,6 +91,116 @@
                 echo json_encode(array('error' => true));
             }
         }
+
+        public function getAcademiaById () {
+            if (isset($_POST["Id_Academia"])) {
+                $stmt = $this->pdo->prepare(
+                    "SELECT * FROM academia
+                        WHERE Id_Academia = ?"
+                );
+                $stmt->execute([
+                    $_POST["Id_Academia"]
+                ]);
+
+                if ($stmt->rowCount() > 0) {
+                    $acad = [];
+
+                    while ($a = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+                        $academia = new academiaModel();
+                        $academia->setId_Academia($_POST["Id_Academia"]);
+                        $academia->setAcademia($a["Academia"]);
+                        $academia->setLista_Prof($a["Lista_Prof"]);
+                        $academia->setClave_Acceso($a["Clave_Acceso"]);
+                        $academia->setCiclo_Periodo($a["Ciclo_Periodo"]);
+                        $academia->setCarrera($a["Carrera"]);
+                        $academia->setCoordinador_Acad($a["Coordinador_Acad"]);
+                        
+                        $ac = [
+                            'Id_Academia' => $academia->getId_Academia(),
+                            'Academia' => $academia->getAcademia(),
+                            'Lista_Prof' => $academia->getLista_Prof(),
+                            'Clave_Acceso' => $academia->getClave_Acceso(),
+                            'Ciclo_Periodo' => $academia->getCiclo_Periodo(),
+                            'Carrera' => $academia->getCarrera(),
+                            'Coordinador_Acad' => $academia->getCoordinador_Acad()
+                        ];
+                        $acad[] = $ac;
+                    }                    
+                    
+                    echo json_encode(['error' => false, 'built' => true, 'acad' => $acad]);
+                } else {
+                    echo json_encode (['error' => false, 'built' => false, 'x' => $stmt->rowCount()]);
+                }
+
+            } else {
+                echo json_encode(['error' => true]);
+            }
+        }
+
+        public function verifyRequestToAcad () {
+            if (isset($_POST["Id_Academia"])) {
+                $stmt = $this->pdo->prepare(
+                    "SELECT * FROM academia
+                        WHERE Id_Academia = ?"
+                );
+                $stmt->execute([
+                    $_POST["Id_Academia"]
+                ]);
+
+                if ($stmt->rowCount() > 0) {
+                    $acad = [];
+
+                    while ($a = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+                        $academia = new academiaModel();
+                        $academia->setId_Academia($_POST["Id_Academia"]);
+                        $academia->setAcademia($a["Academia"]);
+                        $academia->setLista_Prof($a["Lista_Prof"]);
+                        $academia->setClave_Acceso($a["Clave_Acceso"]);
+                        $academia->setCiclo_Periodo($a["Ciclo_Periodo"]);
+                        $academia->setCarrera($a["Carrera"]);
+                        $academia->setCoordinador_Acad($a["Coordinador_Acad"]);
+                        
+                    }                                                        
+
+                    if ($_POST["Academia"] == $academia->getAcademia()) {
+                        if (password_verify($_POST["Clave_Acceso"], $academia->getClave_Acceso())) {
+                            $userC = new usuarioController($this->pdo);
+                            $user = new usuarioModel();
+                            $user = $userC->getUserForSimple();
+
+                            $us = [
+                                $user->getRegistro_U(),
+                                $user->getNombres(),
+                                $user->getApellidos(),
+                                $user->getEmail()
+                            ];
+
+                            echo json_encode([
+                                'error' => false, 'built' => true,
+                                'nameV' => true, 'keyAccess' => true,
+                                'userData' => $us
+                            ]);
+                        } else {
+                            echo json_encode([
+                                'error' => false, 'built' => true, 
+                                'nameV' => true, 'keyAccess' => false
+                            ]);
+                        }
+                    } else {
+                        echo json_encode(['error' => false, 'built' => true, 'nameV' => false]);
+                    }                    
+                } else {
+                    echo json_encode (['error' => false, 'built' => false, 'x' => $stmt->rowCount()]);
+                }
+
+            } else {
+                echo json_encode(['error' => true]);
+            }
+        }
+
+
     }
     
 ?>

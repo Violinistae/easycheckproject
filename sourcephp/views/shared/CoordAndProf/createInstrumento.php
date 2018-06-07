@@ -12,8 +12,8 @@
 		</div>
 		<div>
 			<label class="subtitleLblField">Materia Evaluada</label>
-			<select class="createFormInput" id="materiasSelect" name="materiaEvaluada" autocomplete="off">
-				<option value="null" selected>- Seleccione primero una acadmeia -</option>
+			<select class="createFormInput" id="materiasSelect" name="materiaEvaluada" autocomplete="off" disabled>
+				<option value="null" selected>- Seleccione primero una academia -</option>
 			</select>
 		</div>	
 		<div id="instruccionesLlenado">
