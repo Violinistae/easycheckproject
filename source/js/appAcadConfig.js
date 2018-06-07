@@ -14,7 +14,7 @@ $(document).ready(function ($) {
             data: dataArray
         }).done(function (resAcademia) {
             let academia = resAcademia.academia;
-            console.log(academia);
+            //console.log(academia);
             updateXlsxListaProfes(academia);
         }).fail(function () {
             AJAXrequestFailed("No funciona petición AJAX para obtener academia anterior.");

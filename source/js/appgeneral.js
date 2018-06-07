@@ -199,6 +199,7 @@ $(document).ready(function ($) {
 	doConfirmAction = () => {
 		cookieName = "wArNinGbTn_AcTiOn";
 		var warningCookieValue = getCookie(cookieName);
+		//console.log(warningCookieValue);
 
 		//Switch for function calling
 		switch (warningCookieValue) {
@@ -247,7 +248,7 @@ $(document).ready(function ($) {
 				$("#createmateriabtn").prop("disabled", false);
 				break;
 			case "511":
-				window.location.href = "../../source/files/ejemplos/EjValoresParcialesMateria_easycheck.xlsx"
+				window.location.href = "../../source/files/ejemplos/EjListaProfesoresAcademia_easycheck.xlsx"
 				break;
 			default:
 				console.log("Acción inválida. Logout?");

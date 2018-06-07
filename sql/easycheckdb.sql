@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.8.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-06-2018 a las 10:28:55
+-- Tiempo de generación: 07-06-2018 a las 14:25:20
 -- Versión del servidor: 10.1.31-MariaDB
--- Versión de PHP: 7.1.15
+-- Versión de PHP: 7.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -43,7 +43,7 @@ CREATE TABLE `academia` (
 --
 
 INSERT INTO `academia` (`Id_Academia`, `Academia`, `Clave_Acceso`, `Ciclo_Periodo`, `Lista_Prof`, `Coordinador_Acad`, `Carrera`) VALUES
-(1, 'Informática', '$2y$10$MY5OmpcrBY3NIYsrL.w4teUryw7iV/jdNWauiXPaPwdhlxncPQJaO', 'Feb - Jun 2018', 'null', 123, 1);
+(1, 'Informática', '$2y$10$MY5OmpcrBY3NIYsrL.w4teUryw7iV/jdNWauiXPaPwdhlxncPQJaO', 'Feb - Jun 2018', 'listaProf4843ProfesInformatica', 123, 1);
 
 -- --------------------------------------------------------
 
@@ -92,7 +92,8 @@ INSERT INTO `acciones` (`Id_Acciones`, `Controlador`, `Metodo`) VALUES
 (28, 'instrumento', 'readInstrumento'),
 (29, 'opcionespregunta', 'readOpcionesPreg'),
 (30, 'listacotejo', 'readListaCotejo'),
-(31, 'guiadeobservacion', 'readGuiaObs');
+(31, 'guiadeobservacion', 'readGuiaObs'),
+(32, 'academia', 'updateAcademia');
 
 -- --------------------------------------------------------
 
@@ -173,7 +174,10 @@ INSERT INTO `cuestionario` (`Id_FilaCues`, `Instrumento`, `TipoPregunta`, `Aspec
 (77, 4, 3, 2, 3, 'Explica el proceso para crear una aplicación Java en NetBeans.', NULL, 29),
 (78, 4, 1, 2, 4, '¿Qué es Java en el mundo la informática?', '1', 12),
 (79, 4, 2, 1, 5, 'Una ___ es un elemento que permite crear objetos con determinados atributos y métodos.', 'Clase', 20),
-(80, 4, 3, 1, 6, 'Hola', NULL, 3);
+(80, 4, 3, 1, 6, 'Hola', NULL, 3),
+(84, 7, 3, 1, 1, 'Explica el proceso para subir una imagen', NULL, 33),
+(85, 7, 1, 1, 2, '10 + 1', '4', 34),
+(86, 7, 2, 1, 3, 'El lenguaje ___ se utiliza para generar consultas a una base de datos.', 'SQL', 33);
 
 -- --------------------------------------------------------
 
@@ -320,7 +324,9 @@ CREATE TABLE `instrumento` (
 INSERT INTO `instrumento` (`Id_Instrumento`, `Creador`, `TipoInstrumento`, `TipoEvaluacion`, `ClaveElem`, `NombElemento`, `InstruccLlenado`, `Materia`) VALUES
 (4, 123, 4, 2, 'P1.4', 'Examen', 'Prueba', 4),
 (5, 123, 2, 2, 'P1.2', 'Actividades en Clase', 'Prueba Lista Cotejo', 5),
-(6, 123, 3, 2, 'P3.3', 'Prácticas', 'GuiaObs prueba', 8);
+(6, 123, 3, 2, 'P3.3', 'Prácticas', 'GuiaObs prueba', 8),
+(7, 123, 4, 2, 'P1.4', 'Examen', 'hola examen', 4),
+(8, 123, 4, 2, 'P2.4', 'Examen', 'Hola', 4);
 
 -- --------------------------------------------------------
 
@@ -405,7 +411,7 @@ INSERT INTO `materia` (`Id_Materia`, `Materia`, `Semestre`, `Valores_Parciales`,
 (4, 'Programación Avanzada I', 7, 'valPar9337ParcialesPrograAvanzadaI', 1),
 (5, 'Seguridad en ITI', 8, 'valPar3554SeguridadenITI', 1),
 (8, 'POO', 4, 'valPar6365ValoresParcialesPOO', 1),
-(9, 'Sistemas Embebidos II', 8, 'valPar6832ValoresParcialesSEII', 1);
+(9, 'Sistemas Embebidos II', 8, 'valPar3490SistemasEmbebidosI', 1);
 
 -- --------------------------------------------------------
 
@@ -432,7 +438,11 @@ INSERT INTO `opcionespregunta` (`Id_OpcionesP`, `NumOpcion`, `Opcion`, `Pregunta
 (133, 1, 'Un café', 78),
 (134, 2, 'Una tecnología para desarrollar Software', 78),
 (135, 3, 'Solo un lenguaje de programación', 78),
-(136, 4, 'Nada importante', 78);
+(136, 4, 'Nada importante', 78),
+(141, 1, '9', 85),
+(142, 2, '6', 85),
+(143, 3, '16', 85),
+(144, 4, '11', 85);
 
 -- --------------------------------------------------------
 
@@ -884,7 +894,7 @@ ALTER TABLE `academia`
 -- AUTO_INCREMENT de la tabla `acciones`
 --
 ALTER TABLE `acciones`
-  MODIFY `Id_Acciones` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `Id_Acciones` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT de la tabla `aspectoevaluacion`
@@ -908,7 +918,7 @@ ALTER TABLE `criteriosfilarubrica`
 -- AUTO_INCREMENT de la tabla `cuestionario`
 --
 ALTER TABLE `cuestionario`
-  MODIFY `Id_FilaCues` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
+  MODIFY `Id_FilaCues` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT de la tabla `evaluacionfilaguiaobs`
@@ -962,7 +972,7 @@ ALTER TABLE `guiadeobservacion`
 -- AUTO_INCREMENT de la tabla `instrumento`
 --
 ALTER TABLE `instrumento`
-  MODIFY `Id_Instrumento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `Id_Instrumento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `instrumentoscompartidos`
@@ -998,7 +1008,7 @@ ALTER TABLE `materia`
 -- AUTO_INCREMENT de la tabla `opcionespregunta`
 --
 ALTER TABLE `opcionespregunta`
-  MODIFY `Id_OpcionesP` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=137;
+  MODIFY `Id_OpcionesP` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
 
 --
 -- AUTO_INCREMENT de la tabla `parciales`

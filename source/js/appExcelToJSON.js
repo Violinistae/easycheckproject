@@ -9,7 +9,7 @@ $(document).ready(function ($) {
         Request.open("GET", "../." + ExcelFile, true);
         Request.responseType = 'arraybuffer';
 
-        console.log(ExcelFile);
+        //console.log(ExcelFile);
              
         Request.onload = (e) => {
             if (Request.status === 200) {
@@ -22,7 +22,7 @@ $(document).ready(function ($) {
                         case 1:
                             showMessage("wArNinGbTn_AcTiOn", 501, mainmessage, secmessage);
                             break;
-                        case 2:
+                        case 2:                        
                             showMessage("wArNinGbTn_AcTiOn", 511, mainmessage, secmessage);
                             break;
                         case 3:
@@ -129,7 +129,7 @@ $(document).ready(function ($) {
         }
 
         checkNewUploadedFile = (purpose, elementUploadFile) => {
-            console.log("Hola");
+            //console.log("Hola");
             fileInput = document.getElementById(elementUploadFile);
 
             var splitedFileName = fileInput.value.split("\\");
