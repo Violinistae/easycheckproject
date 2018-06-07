@@ -1,6 +1,5 @@
 var clickedFileMateria;
 var realFileName;
-var fileType;
 var materia;
 $(document).ready(function ($) {
 
@@ -32,31 +31,6 @@ $(document).ready(function ($) {
             default:
                 break;
         }
-    } 
-
-    checkNewUploadedFile = () => {
-        fileInput = document.getElementById("inputValoresParciales");
-
-        var splitedFileName = fileInput.value.split("\\");
-        var originFileName = splitedFileName[2];
-        originFileName = originFileName.replace(/\s+/g, '');
-        var splitedOriginFileName = originFileName.split(".");
-
-        realFileName = splitedOriginFileName[0];
-        fileType = splitedOriginFileName[1];
-
-        if (fileType != "xlsx") {
-            var mainmessage = "Por favor adjunte un archivo de extenión .xlsx (archivo Excel).";
-            var secmessage = "Presione el botón para continuar";
-            showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
-            fileInput.value = null;
-            return;
-        }
-
-        var mainmessage = "¿Seguro que desea actualizar el archivo de valores parciales?";
-        var secmessage = "Al confirmar esta acción ???.";
-        showMessage("wArNinGbTn_AcTiOn", 2, mainmessage, secmessage);      
-
     }
 
         getMateriatoUpdateFile = () => {
@@ -221,7 +195,7 @@ $(document).ready(function ($) {
 
 
     $(".materiaBtn").click(function (e) { switchActionOnMateria(e); });
-    $("#inputValoresParciales").change(function (e) { checkNewUploadedFile(); });
+    $("#inputValoresParciales").change(function (e) { checkNewUploadedFile(1, "inputValoresParciales"); });
     $("#searchMateriaInput").on('input', function (e) { checkSearchedMaterias(e); });
 
 });

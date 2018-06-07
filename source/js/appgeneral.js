@@ -95,6 +95,7 @@ $(document).ready(function ($) {
 			case 0: choose = false;	break;
 			case 10: choose = false; break;
 			case 11: choose = false; break;
+			case 13: choose = false; break;
 
 
 			case 410: choose = false; break;
@@ -167,7 +168,7 @@ $(document).ready(function ($) {
 		}).done(function () {
 			//
 		}).fail(function () {
-			AJAXrequestFailed("No sirve petición AJAX para eliminar archivo xlsx");
+			AJAXrequestFailed("No sirve petición AJAX para eliminar archivo");
 		});
 	}
 
@@ -223,18 +224,30 @@ $(document).ready(function ($) {
 			case "11":
 				gotoMaterias();
 				break;
+			case "12":
+				getAcademiaToUpdateFile();
+				break;
+			case "13":
+				$("#modforactions").fadeOut("400");
+				document.getElementById("modalforactionscontainer").innerHTML = "";
+				actionsCookieName = "aiCoTndDtoO";
+				deleteCookie(actionsCookieName);
+				break;
 			case "410":
 				$("#createmateriabtn").prop("disabled", false);
 				break;
 			case "501":
 				$("#createmateriabtn").prop("disabled", false);
-				window.location.href ="../../source/files/ejemplos/EjemploValoresParcialesMateria.xlsx"
+				window.location.href ="../../source/files/ejemplos/EjValoresParcialesMateria_easycheck.xlsx"
 				break;
 			case "502":
 				$("#createmateriabtn").prop("disabled", false);
 				break;
 			case "503":
 				$("#createmateriabtn").prop("disabled", false);
+				break;
+			case "511":
+				window.location.href = "../../source/files/ejemplos/EjValoresParcialesMateria_easycheck.xlsx"
 				break;
 			default:
 				console.log("Acción inválida. Logout?");

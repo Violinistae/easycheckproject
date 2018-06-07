@@ -23,11 +23,10 @@ $(document).ready(function ($) {
     configAcad = () => {
         $(".buttonnewinst").removeClass('active');
         $(".subdropumen").removeClass('active');
-
+        
         actionsCookieName = "aiCoTndDtoO";
-        setCookie(actionsCookieName, "selectInstrument", 10);
+        setCookie(actionsCookieName, "configAcad", 13);
         $("#modforactions").fadeIn("400");
-        $("#modalforactionscontainer").fadeIn("400");
 
         $.ajax({
             url: '../../sourcephp/views/Users/coordinador/acadConfig.php',
@@ -54,7 +53,7 @@ $(document).ready(function ($) {
             }).done(function (resAcademia) {
                 setAcademiaForConfig(resAcademia);
             }).fail(function () {
-                AJAXrequestFailed("Fallo en petición AJAX para reaccionar a boton de academia en groups bar.");
+                AJAXrequestFailed("Fallo en petición AJAX para obtener academia para config de academia.");
             });
             
         }

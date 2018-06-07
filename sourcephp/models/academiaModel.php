@@ -24,13 +24,13 @@
             $this->Ciclo_Periodo = $Ciclo_Periodo;
         }
         public function setLista_Prof ($Lista_Prof) {
-            $this->$Lista_Prof = $Lista_Prof;
+            $this->Lista_Prof = $Lista_Prof;
         }
         public function setCoordinador_Acad ($Coordinador_Acad) {
-            $this->$Coordinador_Acad = $Coordinador_Acad;
+            $this->Coordinador_Acad = $Coordinador_Acad;
         }
         public function setCarrera ($Carrera) {
-            $this->$Carrera = $Carrera;
+            $this->Carrera = $Carrera;
         }
 
         public function getId_Academia (){
@@ -40,19 +40,19 @@
             return $this->Academia;
         }
         public function getClave_Acceso () {
-            return $this->Clave_Accceso;
+            return $this->Clave_Acceso;
         }
         public function getCiclo_Periodo () {
             return $this->Ciclo_Periodo;
         }
-        public function getLista_Prof ($Lista_Prof) {
-            return $this->$Lista_Prof;
+        public function getLista_Prof () {
+            return $this->Lista_Prof;
         }
         public function getCoordinador_Acad () {
-            return $this->$Coordinador_Acad;
+            return $this->Coordinador_Acad;
         }
         public function getCarrera () {
-            return $this->$Carrera;
+            return $this->Carrera;
         }
 
 

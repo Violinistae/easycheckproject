@@ -48,7 +48,6 @@
     outline: none;
     text-align: center;
     font-weight: bold;
-    cursor: pointer;
 
     transition: 300ms background ease-in-out;
     
@@ -60,12 +59,12 @@
 }
 
 #listaProfBtn [type=file] {
-    cursor: pointer;
     display: block;
     filter: alpha(opacity=0);
     opacity: 0;
     position: absolute;
     width: 100%;
+    padding: 1em 0em;
     text-align: right;
     top: 0;
 }

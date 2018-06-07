@@ -32,7 +32,7 @@ $("#groupbarcontent").ready(function ($) {
 
     // ------------------------------- Redirección a páginas ----------------------------------------------
 
-    $('#showacadbtn').click(function (e) { gotoAcademiaOverview(); });    
+    $('#showacadbtn').click(function (e) { gotoAcademiaOverview(); });
     $('#showmaterias').click(function (e) { gotoMaterias(e) });
     
     // --------------------------------- Cargar algún modal -----------------------------------------------

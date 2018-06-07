@@ -1,3 +1,4 @@
+var fileType;
 $(document).ready(function ($) {
 
     getXlsxFileCreateJSON = (path, fileName, purposeFile, saveTxtPath, updateFileAction, oldFileName, functionToDoInDB, paramFunctionToDoInDB) => {
@@ -7,6 +8,8 @@ $(document).ready(function ($) {
         var Request = new XMLHttpRequest();        
         Request.open("GET", "../." + ExcelFile, true);
         Request.responseType = 'arraybuffer';
+
+        console.log(ExcelFile);
              
         Request.onload = (e) => {
             if (Request.status === 200) {
@@ -20,7 +23,7 @@ $(document).ready(function ($) {
                             showMessage("wArNinGbTn_AcTiOn", 501, mainmessage, secmessage);
                             break;
                         case 2:
-
+                            showMessage("wArNinGbTn_AcTiOn", 511, mainmessage, secmessage);
                             break;
                         case 3:
 
@@ -72,7 +75,8 @@ $(document).ready(function ($) {
         return;
     }
 
-        doXlsxStuff = (xlsxResponse, purposeFile) => {                  
+        doXlsxStuff = (xlsxResponse, purposeFile) => {   
+
             var arraybuffer = xlsxResponse;
             /* Convert data to binary string */            
             var data = new Uint8Array(arraybuffer);
@@ -88,9 +92,10 @@ $(document).ready(function ($) {
             var first_sheet_name = workbook.SheetNames[0];
             /* Get Worksheet */
             var worksheet = workbook.Sheets[first_sheet_name];
-            var JSONStr = JSON.stringify(XLSX.utils.sheet_to_json(worksheet));  
+            var JSONStr = JSON.stringify(XLSX.utils.sheet_to_json(worksheet));
+            
             /* Get Column Headers (JSON Keys)  */
-            var xlsxKeys = Object.keys(XLSX.utils.sheet_to_json(worksheet)[0]);                 
+            var xlsxKeys = Object.keys(XLSX.utils.sheet_to_json(worksheet)[0]);
 
 
             //Checar própósito de archivo
@@ -105,7 +110,13 @@ $(document).ready(function ($) {
                         }
                     break;
                 case 2:
-
+                    if (xlsxKeys[0] == "No. Nómina" && xlsxKeys[1] == "Nombre(s)" && xlsxKeys[2] == "Apellidos" ) {
+                        XLSX.utils.sheet_to_json(worksheet).forEach(XlsxRow => {
+                            //console.log(XlsxRow);
+                        });
+                    } else {
+                        JSONStr = null;
+                    }
                     break;
                 case 3:
 
@@ -115,6 +126,41 @@ $(document).ready(function ($) {
             }
             
             return JSONStr;
+        }
+
+        checkNewUploadedFile = (purpose, elementUploadFile) => {
+            console.log("Hola");
+            fileInput = document.getElementById(elementUploadFile);
+
+            var splitedFileName = fileInput.value.split("\\");
+            var originFileName = splitedFileName[2];
+            originFileName = originFileName.replace(/\s+/g, '');
+            var splitedOriginFileName = originFileName.split(".");
+
+            realFileName = splitedOriginFileName[0];
+            fileType = splitedOriginFileName[1];
+
+            if (fileType != "xlsx") {
+                var mainmessage = "Por favor adjunte un archivo de extenión .xlsx (archivo Excel).";
+                var secmessage = "Presione el botón para continuar";
+                showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
+                fileInput.value = null;
+                return;
+            }
+
+            switch (purpose) {
+                case 1:
+                    var mainmessage = "¿Seguro que desea actualizar el archivo de valores parciales?";
+                    var secmessage = "Al confirmar esta acción ???.";
+                    showMessage("wArNinGbTn_AcTiOn", 2, mainmessage, secmessage);
+                    break;
+                case 2:
+                    var mainmessage = "¿Desea actualizar/cargar el archivo de lista de profesores?";
+                    var secmessage = "";
+                    showMessage("wArNinGbTn_AcTiOn", 12, mainmessage, secmessage);
+                    break;
+            }
+
         }
 
 

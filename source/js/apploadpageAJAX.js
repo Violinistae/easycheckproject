@@ -177,6 +177,10 @@ $(document).ready(function ($) {
 			loadAcademiasToTable = () => {
 				mainContainer = document.getElementById("submaincontainer");
 				getAndExecuteNewInsertedScript(mainContainer);
+
+				//Insert grupos academias a los que pertenece
+				//If resGetAcadPert.academias.length > 1  --> Load message no acads
+
 			}
 
 	gotoMaterias = (e) => {
@@ -195,11 +199,12 @@ $(document).ready(function ($) {
 
 		loadMateriasToTable = () => {
 			mainContainer = document.getElementById("submaincontainer");
+			getAndExecuteNewInsertedScript(mainContainer);
+
 			readMateriasData = {
 				purpose: 1
 			}
-
-			getAndExecuteNewInsertedScript(mainContainer);
+			
 			$.ajax({
 				url: '../../index_ajax.php?controller=materia&action=readMateria',
 				type: 'POST',
