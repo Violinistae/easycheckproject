@@ -14,7 +14,7 @@ $(document).ready(function ($) {
             type: 'POST'
         }).done(function (resRequestAcadFrom) {
             insertRequestAcademiaForm(resRequestAcadFrom);
-        }).fail(function (resRequestAcadFrom) {
+        }).fail(function () {
             AJAXrequestFailed("Fallo en petición AJAX para reaccionar a boton de academia en groups bar.");
         });
     }

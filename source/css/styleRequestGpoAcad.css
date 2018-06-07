@@ -1,0 +1,64 @@
+#modalforactionscontainer {
+    display: flex;
+    
+}
+
+#resquestAcadContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#instruccRequestAcad {
+    flex-grow: .5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#instruccRequestAcad > p {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#requestAcadForm {
+    flex-grow: 3;
+    display: grid;
+    padding: 4em 4em;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 6em);
+    grid-column-gap: 4em;
+    grid-row-gap: 6em;
+    font-size: 18px;
+}
+
+#requestAcadForm input[type=password], input[type=text]{
+    padding: 1em;
+    background-color: transparent;
+    border-top: transparent;
+    border-right: transparent;
+    border-left: transparent;
+    border-bottom: solid black 2px;
+    border-radius: 2px;
+}
+
+#requestAcadForm > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+#sendAcadRequest {
+    padding: 1em 0em;
+    cursor: pointer;
+    border: black solid 2px;
+    background-color: transparent;
+    border-radius: 10px;
+    transition: 300ms background ease-in-out;
+    font-size: 16px;
+}
+
+#sendAcadRequest:hover {
+    color: white;
+    background-color: rgb(55, 55, 55);
+}

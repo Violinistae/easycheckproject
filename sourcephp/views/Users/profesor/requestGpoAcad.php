@@ -1,7 +1,9 @@
 <link rel="stylesheet" href="../../source/css/styleRequestGpoAcad.css">
-<div>
-	<p>Solicitud a Grupo Academia</p>	
-	<div>
+<div id="resquestAcadContainer">
+	<div id="instruccRequestAcad">
+		<p>Solicitud a Grupo Academia</p>	
+	</div>
+	<form id="requestAcadForm" action="" method="post">
 		<div>	
 			<label>Clave Academia</label>
 			<input type="text" name="claveAcademia">
@@ -14,7 +16,9 @@
 			<label>Clave Única de Acceso</label>
 			<input type="password" name="claveAccesoAcad">
 		</div>
-		<button id="sendAcadRequest">Enviar</button>
-	</div>
+		<div>
+			<input id="sendAcadRequest" type="submit" value="Enviar">
+		</div>
+	</form>
 </div>
-<script type="text/javascript" src="./../source/js/appRequestGpoAcad.js"></script>
+<script type="text/javascript" src="../../source/js/appRequestGpoAcad.js"></script>

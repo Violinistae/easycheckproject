@@ -171,7 +171,7 @@ $(document).ready(function ($) {
             txtFileName = objJSON.Valores_Parciales;
             targetPath = "source/files/valoresParciales/";        
         } else if (purposeTxtFile == 3) {
-            
+            //Query to Db and then check
         }
 
         let targetFile = targetPath + txtFileName + ".txt";

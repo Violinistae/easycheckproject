@@ -42,17 +42,13 @@ $(document).ready(function ($) {
         });
         //$(".searcher input").addClass('yellowplaceholder');
         $(".searcher input").addClass('whiteplaceholder');
-        $('#modalwarningcontent').css({
-            "background-color": "white",
-            "color": "white"
-        });
         $('#confirmbtn').css({
             "color": "white",
-            "background-color": "white"
+            "background-color": "rgb(14, 161, 51)"
         });
         $('#continuebtn').css({
             "color": "white",
-            "background-color": "white"
+            "background-color": "rgb(14, 161, 51)"
         });
     }
 
