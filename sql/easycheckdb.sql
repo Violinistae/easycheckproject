@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-06-2018 a las 14:25:20
+-- Tiempo de generación: 08-06-2018 a las 02:03:07
 -- Versión del servidor: 10.1.31-MariaDB
 -- Versión de PHP: 7.2.4
 
@@ -93,7 +93,9 @@ INSERT INTO `acciones` (`Id_Acciones`, `Controlador`, `Metodo`) VALUES
 (29, 'opcionespregunta', 'readOpcionesPreg'),
 (30, 'listacotejo', 'readListaCotejo'),
 (31, 'guiadeobservacion', 'readGuiaObs'),
-(32, 'academia', 'updateAcademia');
+(32, 'academia', 'updateAcademia'),
+(33, 'academia', 'getAcademiaById'),
+(34, 'academia', 'verifyRequestToAcad');
 
 -- --------------------------------------------------------
 
@@ -894,7 +896,7 @@ ALTER TABLE `academia`
 -- AUTO_INCREMENT de la tabla `acciones`
 --
 ALTER TABLE `acciones`
-  MODIFY `Id_Acciones` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `Id_Acciones` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT de la tabla `aspectoevaluacion`
