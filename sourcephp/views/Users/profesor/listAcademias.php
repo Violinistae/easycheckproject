@@ -14,19 +14,103 @@
 		</ul>
 	</nav>
 		
-	<table id="academiasTableContent">
-		<tr id="topTableRow">
-			<th>
-				Clave Academia
-			</th>
-			<th>
-				Nombre Academia
-			</th>
-			<th>
-				Acciones Academia
-			</th>
-		</tr>
-    </table>
+	<div id="mainContainerListAcademias">
+		<div id="topTableRow">
+			<div class="headAcadsRowElem claveAcadColum">
+				<label>Clave Academia</label>
+			</div>
+			<div class="headAcadsRowElem nombAcadColum">
+				<label>Nombre Academia</label>
+			</div>
+			<div class="headAcadsRowElem actionsAcadColum">
+				<label>Acciones Academia</label>
+			</div>
+		</div>
+		<div id="submainContainerListAcademias">
+			<div id="academiasContainer">
+				<div class="academiaRow">
+					<div class="academiaRowElem">
+						
+					</div>
+					<div class="academiaRowElem">
+
+					</div>
+					<div class="academiaRowElem">
+
+					</div>
+				</div>
+				<div class="academiaRow">
+					<div class="academiaRowElem">
+						
+					</div>
+					<div class="academiaRowElem">
+
+					</div>
+					<div class="academiaRowElem">
+
+					</div>
+				</div>
+				<div class="academiaRow">
+					<div class="academiaRowElem">
+						
+					</div>
+					<div class="academiaRowElem">
+
+					</div>
+					<div class="academiaRowElem">
+
+					</div>
+				</div>
+				<div class="academiaRow">
+					<div class="academiaRowElem">
+						
+					</div>
+					<div class="academiaRowElem">
+
+					</div>
+					<div class="academiaRowElem">
+
+					</div>
+				</div>
+				<div class="academiaRow">
+					<div class="academiaRowElem">
+						
+					</div>
+					<div class="academiaRowElem">
+
+					</div>
+					<div class="academiaRowElem">
+
+					</div>
+				</div>
+				<div class="academiaRow">
+					<div class="academiaRowElem">
+						
+					</div>
+					<div class="academiaRowElem">
+
+					</div>
+					<div class="academiaRowElem">
+
+					</div>
+				</div>
+				<div class="academiaRow">
+					<div class="academiaRowElem">
+						
+					</div>
+					<div class="academiaRowElem">
+
+					</div>
+					<div class="academiaRowElem">
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+	
     
     <div id="noAcademiasAvailable">        
     </div>

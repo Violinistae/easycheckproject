@@ -115,7 +115,7 @@
                         $academia->setCiclo_Periodo($a["Ciclo_Periodo"]);
                         $academia->setCarrera($a["Carrera"]);
                         $academia->setCoordinador_Acad($a["Coordinador_Acad"]);
-                        /*
+                        
                             $ac = [
                                 'Id_Academia' => $academia->getId_Academia(),
                                 'Academia' => $academia->getAcademia(),
@@ -125,8 +125,8 @@
                                 'Carrera' => $academia->getCarrera(),
                                 'Coordinador_Acad' => $academia->getCoordinador_Acad()
                             ];
-                        */
-                        $acad[] = (array)$academia;
+                        
+                        $acad[] = $ac;
                     }                    
                     
                     echo json_encode(['error' => false, 'built' => true, 'acad' => $acad]);

@@ -65,15 +65,15 @@ $(document).ready(function ($) {
 
         sendDataForUpdateAcademia = (fileName, academia) => {
             academia.Lista_Prof = fileName;
-            console.log(academia);
+            //console.log(academia);
             $.ajax({
                 url: '../../index_ajax.php?controller=academia&action=updateAcademia',
                 type: 'POST',
                 dataType: 'json',
                 data: academia
-            }).done(function (resUpdateValParMateria) {
-                if (!resUpdateValParMateria.error) {
-                    var mainmessage = "Archivo actualizado exitosamente.";
+            }).done(function (resUpdateListaProfMateria) {
+                if (!resUpdateListaProfMateria.error) {
+                    var mainmessage = "Archivo creado/actualizado exitosamente.";
                     var secmessage = "Presione el botón para continuar";
                     showMessage("wArNinGbTn_AcTiOn", 13, mainmessage, secmessage);
                 }

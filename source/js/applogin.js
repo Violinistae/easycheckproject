@@ -295,30 +295,30 @@ function checkuserregist(type) {
 			if (this.readyState == 4 && this.status == 200) {	
 				document.getElementById('modalregmaincontent').innerHTML = this.responseText;
 				$("#mymodalreg").fadeIn('600', function() {});
+				if (type == 1) {
+					$.ajax({
+						url: "./index_ajax.php?controller=carrera&action=getCarreras",
+						type: 'POST',
+						dataType: 'json'
+					}).done(function insertCarrerasCombo(response) {
+						if (!response.error) {
+							combocarreras = document.getElementById("carrerascombo");
+							numcarreras = response.carreras.length;
+							for (i = 0; i < numcarreras + 1; ++i)
+								combocarreras.insertAdjacentHTML('beforeend', response.carreras[i]);
+						}
+						else
+							console.log(response.message);
+					}).fail(function () {
+						AJAXrequestFailed("Error al insertar carreras en combo registro de coordinador");
+					});
+				}
 			}
 		}
 
 		switch (type) {
 			case 1:
 				peticion_http.open('GET', './sourcephp/views/users/coordinador/formRegistroCoord.php', true);
-
-				$.ajax({
-					url: "./index_ajax.php?controller=carrera&action=getCarreras",
-					type: 'POST',
-					dataType: 'json'
-				}).done(function insertCarrerasCombo(response) {
-					if (!response.error) {
-						combocarreras = document.getElementById("carrerascombo");
-						numcarreras = response.carreras.length;
-						for (i = 0; i < numcarreras + 1; ++i)
-							combocarreras.insertAdjacentHTML('beforeend', response.carreras[i]);
-					}
-					else
-						console.log(response.message);
-				}).fail(function () {
-					AJAXrequestFailed("Error al insertar carreras en combo registro de coordinador");
-				});
-
 				$("#modalregitems").css({"color": "white"});
 				$("#modalregitems").css({"background-color": "rgb(90, 144, 232)"});
 				break;
@@ -336,7 +336,7 @@ function checkuserregist(type) {
 				return;
 				break;
 		}			
-		peticion_http.send();
+		peticion_http.send(type);
 	}, 350);
 }
 

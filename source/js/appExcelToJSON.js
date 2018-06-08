@@ -62,7 +62,7 @@ $(document).ready(function ($) {
                         deleteFile(ExcelFile);
                         functionToDoInDB(fileName, paramFunctionToDoInDB);
                     }
-                    console.log(resCreateWriteJSONtxt);
+                    //console.log(resCreateWriteJSONtxt);
                 }).fail(function () {
                     AJAXrequestFailed("No funciona petición AJAX para crear/sobreescribir JSON --> .txt.");
                 });                                        
@@ -164,16 +164,21 @@ $(document).ready(function ($) {
         }
 
 
-    getGeneratedTxt = (objJSON, purposeTxtFile, arrayToEval, functionToDoCreateInst, arrayForFunctionToDo) => {
+    getGeneratedTxt = (objJSON, purposeTxtFile, arrayToEval, functionToDo, arrayForFunctionToDo) => {
         let txtFileName;
         let targetPath;
         if (purposeTxtFile == 1 || purposeTxtFile == 2) {
             txtFileName = objJSON.Valores_Parciales;
             targetPath = "source/files/valoresParciales/";        
         } else if (purposeTxtFile == 3) {
-            console.log(objJSON);
             txtFileName = objJSON.Lista_Prof;
-            targetPath = "source/files/listasGruposAcademia/"
+            targetPath = "source/files/listasGruposAcademia/";
+            arrayForFunctionToDo.push(objJSON.Id_Academia);
+            arrayForFunctionToDo.push(objJSON.Academia);
+        }
+
+        if (txtFileName == "null") {
+            return false;
         }
 
         let targetFile = targetPath + txtFileName + ".txt";
@@ -189,7 +194,7 @@ $(document).ready(function ($) {
             data: dataGetTxtFile
         }).done(function (resFile) {
             if (!resFile.error) {
-                evalKeyWithGeneratedTxt(resFile.fileContent, purposeTxtFile, arrayToEval, functionToDoCreateInst, arrayForFunctionToDo);
+                evalKeyWithGeneratedTxt(resFile.fileContent, purposeTxtFile, arrayToEval, functionToDo, arrayForFunctionToDo);
             } else {
                 alert("Verificar error");
             }          
@@ -234,21 +239,24 @@ $(document).ready(function ($) {
                     return;
                 }
             } else if (purposeFile == 3) {
-                let flagUserNotOnFile = false;
-
-                txtFile_JSON.forEach(xlsxRow => {
-                    if (arrayToEval.Registro_U == xlsxRow.NumNomina &&
-                        arrayToEval.Nombres == xlsxRow.Nombres && 
-                        arrayToEval.Apellidos == xlsxRow.Apellidos) {
-                        flagKeyName_ValPar = true;
+                if (txtFile_JSON == null) {
+                    console.log("esperado este error siomon");
+                    return;
+                }
+                let flagUserNotOnFile = false;                
+                txtFile_JSON.forEach(xlsxRow => {                    
+                    if (arrayToEval[0] == xlsxRow.NumNomina &&
+                        arrayToEval[1] == xlsxRow.Nombres && 
+                        arrayToEval[2] == xlsxRow.Apellidos) {
+                        flagUserNotOnFile = true;
                         return;
                     }
                 });
 
-                if (flagKeyName_ValPar) {
+                if (flagUserNotOnFile) {
                     functionToDoAfter(arrayForFunctionToDo);
-                } else if (!flagKeyName_ValPar) {
-                    var mainmessage = "Usted no se encuentra en la lista de miembros de academia. Contacte a su coordinador de academia.";
+                } else if (!flagUserNotOnFile) {
+                    var mainmessage = "Lo sentimos, usted no se encuentra en la lista de miembros de esta academia. Contacte a su coordinador de academia.";
                     var secmessage = "Presione el boton para continuar.";
                     showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
                     return;

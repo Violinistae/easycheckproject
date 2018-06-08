@@ -178,9 +178,39 @@ $(document).ready(function ($) {
 				mainContainer = document.getElementById("submaincontainer");
 				getAndExecuteNewInsertedScript(mainContainer);
 
-				//Insert grupos academias a los que pertenece
-				//If resGetAcadPert.academias.length > 1  --> Load message no acads
+				$.ajax({
+					url: "../../index_ajax.php?controller=integrantesacademia&action=getAcadMembers",
+					type: 'POST',
+					dataType: 'json'
+				}).done(function (resAcadsMemberOf) {
+					if (!resAcadsMemberOf.error) {
+						if (resAcadsMemberOf.memberAcads) {
+							insertAcademiasProfMember(resAcadsMemberOf.acads);
+						} else {
+							setNoAcadsMemberInfo();
+						}
+					}
+				}).fail(function () {
+					AJAXrequestFailed("Fallo en petición para obtener academias miembro usuario");
+				})
 
+			}
+
+			setNoAcadsMemberInfo = () => {
+				let noAcademiasInfo = document.getElementById("noAcademiasAvailable");
+				
+				let p = document.createElement("p");
+				p.textContent = "No hay grupos Academia a los que pertenezca";
+				noAcademiasInfo.appendChild(p);
+				noAcademiasInfo.appendChild(document.createElement("BR"));
+
+				p = document.createElement("p");
+				p.textContent = "Presione el ícono de mensaje para realizar una petición a alguna";
+				noAcademiasInfo.appendChild(p);
+			}
+
+			insertAcademiasProfMember = (acads) => {
+				console.log(acads);
 			}
 
 	gotoMaterias = (e) => {

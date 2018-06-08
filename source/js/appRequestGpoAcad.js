@@ -53,19 +53,23 @@ $(document).ready(function ($) {
                 if (resRequestedAcad.built) {                    
                     if (resRequestedAcad.nameV) {
                         if (resRequestedAcad.keyAccess) {
-                            getGeneratedTxt(resRequestedAcad.Acad, 3, resRequestedAcad.userData, resRequestedAcad.userData);
+                            if (!getGeneratedTxt(resRequestedAcad.Acad, 3, resRequestedAcad.userData, insertNewAcadMember, resRequestedAcad.userData)) {
+                                var mainmessage = "El coordinador de academia aún no ha modificado la lista de profesores, favor de contactarlo.";
+                                var secmessage = "Presione boton para continuar.";
+                                showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
+                            }
                         } else {                            
-                            var mainmessage = "La clave de acceso a academia no es correcta. Contacte a su coordinador de academia.";
+                            var mainmessage = "La clave de acceso a academia no es correcta, por favor verifíquela.";
                             var secmessage = "Presione boton para continuar.";
                             showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
                         }
                     } else {
-                        var mainmessage = "La academia que a la que intentar realizar una solictud no existe. Verifice su clave de academia.";
+                        var mainmessage = "La academia que a la que intentar realizar una solictud no existe. Verifice el nombre de la academia.";
                         var secmessage = "Presione boton para continuar.";
                         showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
                     }                 
                 } else {
-                    var mainmessage = "La academia que a la que intentar realizar una solictud no existe. Verifice su clave de academia.";
+                    var mainmessage = "La academia que a la que intentar realizar una solictud no existe. Verifice la clave de la academia.";
                     var secmessage = "Presione boton para continuar.";
                     showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
                 }
@@ -73,8 +77,38 @@ $(document).ready(function ($) {
         }
 
             insertNewAcadMember = (arrayDataInsert) => {
-                console.log("verificar si ya pertenece a esa academia");
-                console.log("Insertar a Academia y llamar a función para cargar página de lista acads");
+                console.log(arrayDataInsert);
+                dataArray = {
+                    Id_Academia: parseInt(arrayDataInsert[4]),
+                    Registro_U: parseInt(arrayDataInsert[0]),
+                    Academia: arrayDataInsert[5]
+                };
+
+                $.ajax({
+                    url: '../../index_ajax.php?controller=integrantesacademia&action=verifyToInsertNewMember',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: dataArray
+                }).done(function (resCheckMemberIntoAcad) {
+                    if (!resCheckMemberIntoAcad.already) {
+                        if (!resCheckMemberIntoAcad.error) {
+                            var mainmessage = 'Felicidades! Su solicitud fué aprovada. Ahora es miembro de la Academia "' 
+                                    + resCheckMemberIntoAcad.nameAcad + '"';
+                            var secmessage = "Presione boton para continuar.";
+                            showMessage("wArNinGbTn_AcTiOn", 13, mainmessage, secmessage);
+                        } else {
+                            var mainmessage = "Lo sentimos, no se pudo procesar la petición, inténtelo más tarde.";
+                            var secmessage = "Presione boton para continuar.";
+                            showMessage("wArNinGbTn_AcTiOn", 13, mainmessage, secmessage);    
+                        }
+                    } else {
+                        var mainmessage = "Usted ya pertenece a esta academia.";
+                        var secmessage = "Presione boton para continuar.";
+                        showMessage("wArNinGbTn_AcTiOn", 13, mainmessage, secmessage);
+                    }
+                }).fail(function () {
+                    AJAXrequestFailed("Fallo en petición AJAX verificar miembro de academia.");
+                });   
             }
 
     $('body').on('submit', '#requestAcadForm', function (e) { checkFromAcadRequestFields(e); })
