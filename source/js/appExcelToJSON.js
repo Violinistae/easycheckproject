@@ -110,7 +110,7 @@ $(document).ready(function ($) {
                         }
                     break;
                 case 2:
-                    if (xlsxKeys[0] == "No. Nómina" && xlsxKeys[1] == "Nombre(s)" && xlsxKeys[2] == "Apellidos" ) {
+                    if (xlsxKeys[0] == "NumNomina" && xlsxKeys[1] == "Nombres" && xlsxKeys[2] == "Apellidos" ) {
                         XLSX.utils.sheet_to_json(worksheet).forEach(XlsxRow => {
                             //console.log(XlsxRow);
                         });
@@ -171,7 +171,9 @@ $(document).ready(function ($) {
             txtFileName = objJSON.Valores_Parciales;
             targetPath = "source/files/valoresParciales/";        
         } else if (purposeTxtFile == 3) {
-            //Query to Db and then check
+            console.log(objJSON);
+            txtFileName = objJSON.Lista_Prof;
+            targetPath = "source/files/listasGruposAcademia/"
         }
 
         let targetFile = targetPath + txtFileName + ".txt";
@@ -212,8 +214,7 @@ $(document).ready(function ($) {
                     }
                 }
                 functionToDoAfter(valParData);
-            }
-            if (purposeFile == 2) {                                 //Eval als ValPar                
+            } else if (purposeFile == 2) {                                 //Eval als ValPar                
                 let flagKeyName_ValPar = false;
 
                 txtFile_JSON.forEach(xlsxRow => {
@@ -232,7 +233,26 @@ $(document).ready(function ($) {
                     showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
                     return;
                 }
+            } else if (purposeFile == 3) {
+                let flagUserNotOnFile = false;
 
+                txtFile_JSON.forEach(xlsxRow => {
+                    if (arrayToEval.Registro_U == xlsxRow.NumNomina &&
+                        arrayToEval.Nombres == xlsxRow.Nombres && 
+                        arrayToEval.Apellidos == xlsxRow.Apellidos) {
+                        flagKeyName_ValPar = true;
+                        return;
+                    }
+                });
+
+                if (flagKeyName_ValPar) {
+                    functionToDoAfter(arrayForFunctionToDo);
+                } else if (!flagKeyName_ValPar) {
+                    var mainmessage = "Usted no se encuentra en la lista de miembros de academia. Contacte a su coordinador de academia.";
+                    var secmessage = "Presione el boton para continuar.";
+                    showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
+                    return;
+                }
             }
         }
     

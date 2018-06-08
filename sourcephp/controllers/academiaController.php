@@ -115,17 +115,18 @@
                         $academia->setCiclo_Periodo($a["Ciclo_Periodo"]);
                         $academia->setCarrera($a["Carrera"]);
                         $academia->setCoordinador_Acad($a["Coordinador_Acad"]);
-                        
-                        $ac = [
-                            'Id_Academia' => $academia->getId_Academia(),
-                            'Academia' => $academia->getAcademia(),
-                            'Lista_Prof' => $academia->getLista_Prof(),
-                            'Clave_Acceso' => $academia->getClave_Acceso(),
-                            'Ciclo_Periodo' => $academia->getCiclo_Periodo(),
-                            'Carrera' => $academia->getCarrera(),
-                            'Coordinador_Acad' => $academia->getCoordinador_Acad()
-                        ];
-                        $acad[] = $ac;
+                        /*
+                            $ac = [
+                                'Id_Academia' => $academia->getId_Academia(),
+                                'Academia' => $academia->getAcademia(),
+                                'Lista_Prof' => $academia->getLista_Prof(),
+                                'Clave_Acceso' => $academia->getClave_Acceso(),
+                                'Ciclo_Periodo' => $academia->getCiclo_Periodo(),
+                                'Carrera' => $academia->getCarrera(),
+                                'Coordinador_Acad' => $academia->getCoordinador_Acad()
+                            ];
+                        */
+                        $acad[] = (array)$academia;
                     }                    
                     
                     echo json_encode(['error' => false, 'built' => true, 'acad' => $acad]);
@@ -169,7 +170,7 @@
                             $userC = new usuarioController($this->pdo);
                             $user = new usuarioModel();
                             $user = $userC->getUserForSimple();
-
+                            
                             $us = [
                                 $user->getRegistro_U(),
                                 $user->getNombres(),
@@ -177,10 +178,16 @@
                                 $user->getEmail()
                             ];
 
+                            $ac = [
+                                'Id_Academia' => $academia->getId_Academia(),
+                                'Academia' => $academia->getAcademia(),
+                                'Lista_Prof' => $academia->getLista_Prof()
+                            ];
+
                             echo json_encode([
                                 'error' => false, 'built' => true,
                                 'nameV' => true, 'keyAccess' => true,
-                                'userData' => $us
+                                'userData' => $us, 'Acad' => $ac
                             ]);
                         } else {
                             echo json_encode([

@@ -53,8 +53,8 @@ $(document).ready(function ($) {
                 if (resRequestedAcad.built) {                    
                     if (resRequestedAcad.nameV) {
                         if (resRequestedAcad.keyAccess) {
-                            console.log(resRequestedAcad.userData);
-                        } else {
+                            getGeneratedTxt(resRequestedAcad.Acad, 3, resRequestedAcad.userData, resRequestedAcad.userData);
+                        } else {                            
                             var mainmessage = "La clave de acceso a academia no es correcta. Contacte a su coordinador de academia.";
                             var secmessage = "Presione boton para continuar.";
                             showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
@@ -71,6 +71,11 @@ $(document).ready(function ($) {
                 }
             }
         }
+
+            insertNewAcadMember = (arrayDataInsert) => {
+                console.log("verificar si ya pertenece a esa academia");
+                console.log("Insertar a Academia y llamar a función para cargar página de lista acads");
+            }
 
     $('body').on('submit', '#requestAcadForm', function (e) { checkFromAcadRequestFields(e); })
 });
