@@ -1,0 +1,20 @@
+#modalforactionscontainer {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1.6fr 8.4fr;
+    grid-row-gap: 2em;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+#createGpoPeriodoInstrucc {
+    color: black;
+    font-size: 2.4vw;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 1%;
+}
+
+#createGpoPeriodoInputs {
+    
+}

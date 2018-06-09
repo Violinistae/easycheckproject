@@ -25,6 +25,23 @@ $("#groupbarcontent").ready(function ($) {
             getAndExecuteNewInsertedScript(document.getElementById("modalforactionscontainer"));
         }
 
+    createGpoPeriodo = (e) => {
+        $(".buttonnewinst").removeClass('active');
+        $(".subdropumen").removeClass('active');
+        //Cookie name Action to do
+        actionsCookieName = "aiCoTndDtoO";
+        setCookie(actionsCookieName, "createMateria", 7);
+        $("#modforactions").fadeIn("400");
+
+        $.ajax({
+            url: "../../sourcephp/views/shared/CoordAndProf/createGpoPeriodo.php",
+            type: "POST"
+        }).done(function (resCreateGpoPeriodoForm) {
+            insertCreateGpoPeriodoForm(resCreateGpoPeriodoForm);
+        }).fail(function () {
+            AJAXrequestFailed("Fallo en petición AJAX para insertar formulario de creación de grupo periodo");
+        });
+    }
         
 // ---------------------------------------------------------------------------------------------------------------------------------
 // ------------------------------------------- USER INTERACTION TRIGGERS -----------------------------------------------------------
@@ -37,5 +54,6 @@ $("#groupbarcontent").ready(function ($) {
     
     // --------------------------------- Cargar algún modal -----------------------------------------------
     $('#createmateria').click(function (e) { createMateria(e) });
+    $('body').on('click', '#creategpoperiodobtn', function (e) { createGpoPeriodo(e); });
 
 });

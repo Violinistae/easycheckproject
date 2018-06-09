@@ -233,6 +233,7 @@ $(document).ready(function ($) {
 				document.getElementById("modalforactionscontainer").innerHTML = "";
 				actionsCookieName = "aiCoTndDtoO";
 				deleteCookie(actionsCookieName);
+				gotoAcademiaOverview();
 				break;
 			case "410":
 				$("#createmateriabtn").prop("disabled", false);

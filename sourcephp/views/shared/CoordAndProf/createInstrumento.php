@@ -7,7 +7,8 @@
 	<div id="formCreateInstPart2">
 		<div>
 			<label class="subtitleLblField">Academia de la Materia Evaluada</label>
-			<select class="createFormInput" id="academiaMateriaSelect" name="academiaMateriaEvaluada" autocomplete="off">
+			<select class="createFormInput" id="academiaMateriaSelect" name="academiaMateriaEvaluada" autocomplete="off" disabled>
+				<option value="null" selected>- Academias no disponibles -</option>
 			</select>
 		</div>
 		<div>

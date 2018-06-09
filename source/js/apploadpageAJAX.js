@@ -211,6 +211,33 @@ $(document).ready(function ($) {
 
 			insertAcademiasProfMember = (acads) => {
 				console.log(acads);
+				let academiasContainer = document.getElementById("academiasContainer");
+
+				for (i = 0; i < acads.length; ++i) {
+					let academiaRow = document.createElement("div");
+					academiaRow.classList.add("academiaRow");
+					let Column;
+					for (j = 0; j < 3; ++j) {
+						Column = document.createElement("div");
+						Column.classList.add("academiaRowElem");
+						n = j + 1;
+						let p = document.createElement("p");
+						switch (n) {
+							case 1:
+								p.textContent = acads[i][0];
+								break;
+							case 2:
+								p.textContent = acads[i][1];
+								break;
+							case 3:
+								p.textContent = "Hola";
+								break;
+						}
+						Column.appendChild(p);
+						academiaRow.appendChild(Column);
+					}
+					academiasContainer.appendChild(academiaRow);
+				}
 			}
 
 	gotoMaterias = (e) => {

@@ -95,7 +95,7 @@ $(document).ready(function ($) {
                             var mainmessage = 'Felicidades! Su solicitud fué aprovada. Ahora es miembro de la Academia "' 
                                     + resCheckMemberIntoAcad.nameAcad + '"';
                             var secmessage = "Presione boton para continuar.";
-                            showMessage("wArNinGbTn_AcTiOn", 13, mainmessage, secmessage);
+                            showMessage("wArNinGbTn_AcTiOn", 13, mainmessage, secmessage);                            
                         } else {
                             var mainmessage = "Lo sentimos, no se pudo procesar la petición, inténtelo más tarde.";
                             var secmessage = "Presione boton para continuar.";

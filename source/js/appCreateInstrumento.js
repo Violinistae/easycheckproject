@@ -212,8 +212,103 @@ $(document).ready(function ($) {
         claveElemInput.value = currentValue;
     }
 
+    selectedAcad = (e) => {
+        let idAcad = parseInt(e.currentTarget.value);
+        clearMateriasSelect();
+        console.log(idAcad);
+
+        if (/^([0-9])*$/.test(idAcad)) {
+            materiasSelect.disabled = false;            
+
+            readMateriasData = {
+                purpose: 2,
+                idAcademia: idAcad
+            }
+            $.ajax({
+                url: '../../index_ajax.php?controller=materia&action=readMateria',
+                type: 'POST',
+                dataType: 'json',
+                data: readMateriasData
+            }).done(function (materiasAcademia) {
+                insertMateriasIntoSelectAfterAcad(materiasAcademia);
+            }).fail(function () {
+                AJAXrequestFailed("Fallo en petición AJAX obtener materias de una academia");
+            }); 
+            
+        } else {            
+            let materiasSelect = document.getElementById("materiasSelect");
+            materiasSelect.disabled = true;
+            return;
+        }
+        
+    }
+
+        clearMateriasSelect = () => {
+            let materiasSelect = document.getElementById("materiasSelect");
+            for (i = materiasSelect.options.length - 1; i >= 0; i--) {
+                materiasSelect.remove(i);
+            }
+            let opc = document.createElement("option");
+            opc.textContent = "- Selecione una academia -"
+            opc.value = "null"
+            materiasSelect.add(opc);
+
+            let claveElemInput = document.getElementById("claveElemInput");
+            for (i = claveElemInput.options.length - 1; i >= 0; i--) {
+                claveElemInput.remove(i);
+            }
+            opc = document.createElement("option");
+            opc.textContent = "- Selecione una academia -"
+            opc.value = "null"
+            claveElemInput.add(opc);
+
+            let nombreElemInput = document.getElementById("nombreElemInput");
+            for (i = nombreElemInput.options.length - 1; i >= 0; i--) {
+                nombreElemInput.remove(i);
+            }
+            opc = document.createElement("option");
+            opc.textContent = "- Selecione una academia -"
+            opc.value = "null"
+            nombreElemInput.add(opc);
+
+            materiasSelect.disabled = true;
+            claveElemInput.disabled = true;
+            nombreElemInput.disabled = true;
+
+        }
+
+        insertMateriasIntoSelectAfterAcad = (materiasAcademia) => {
+            console.log(materiasAcademia);
+            if (!materiasAcademia.error) {
+                let materiasSelect = document.getElementById("materiasSelect");
+                let materiasForSelect = materiasAcademia.materias;
+                materiasSelect.remove(0);
+                materiasSelect.disabled = false;
+                let opc = document.createElement("option");
+                opc.value = "null";
+                opc.textContent = "- Seleccione una materia -";
+                materiasSelect.add(opc);
+
+                materiasForSelect.forEach(materia => {
+                    let optionMateria = document.createElement("option");
+                    optionMateria.value = materia.Id_Materia;
+                    optionMateria.text = materia.Materia;
+                    materiasSelect.add(optionMateria);
+                });
+            } else {       
+                let academiaMateriaSelect = document.getElementById("academiaMateriaSelect");         
+                let materiasSelect = document.getElementById("materiasSelect");
+                academiaMateriaSelect.options[0].selected = true;
+                materiasSelect.disabled = true;
+                let mainmessage = "Lo sentimos pero no hay materias disponibles por parte de la academia que seleccionó.";
+                let secmessage = "Presione el botón para continuar";
+                showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
+            }
+        }
+
     $("#createInstrumento").click(function (e) { verifyFromCreateInstrumento(); });
     $("#instruccLlenado").on('input', function (e) { updateLeftChars(e); });
     $("#materiasSelect").on('change', function (e) { updateNombreElemToEval(e); });
     $("#claveElemInput").on('change', function (e) { selectedNameElem(e); });
+    $("#academiaMateriaSelect").on('change', function (e) { selectedAcad(e); });
 });

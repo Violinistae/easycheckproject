@@ -117,7 +117,21 @@ $(document).ready(function ($) {false
                         AJAXrequestFailed("Fallo en petición AJAX para obtener materias de cuenta de coordinador de academia.");
                     })
                 } else if (sessionVariables.usertype == 2){                //Profesor, habilitar select academias a las que pertenece y selecionar materias de esa academia
-                    
+                    $.ajax({
+                        url: "../../index_ajax.php?controller=integrantesacademia&action=getAcadMembers",
+                        type: 'POST',
+                        dataType: 'json'
+                    }).done(function (resAcadsMemberOf) {
+                        if (!resAcadsMemberOf.error) {
+                            if (resAcadsMemberOf.memberAcads) {
+                                insertAcademiasProfMemberToSelect(resAcadsMemberOf.acads);
+                            } else {
+                                
+                            }
+                        }
+                    }).fail(function () {
+                        AJAXrequestFailed("Fallo en petición para obtener academias miembro usuario");
+                    })
                 }
             }
 
@@ -173,6 +187,26 @@ $(document).ready(function ($) {false
                         AJAXrequestFailed("Fallo en petición AJAX obtener materias de una academia");
                     });                    
                 }
+
+                insertAcademiasProfMemberToSelect = (acads) => {                    
+                    let academiaMateriaSelect = document.getElementById("academiaMateriaSelect");
+                    academiaMateriaSelect.remove(0);
+                    academiaMateriaSelect.disabled = false;
+
+                    let opc = document.createElement("option");
+                    opc.value = "null";
+                    opc.textContent = "- Seleccione una academia -";
+                    opc.selected = true;
+
+                    academiaMateriaSelect.add(opc);
+
+                    for (let i = 0; i < acads.length; ++i) {
+                        let op = document.createElement("option");
+                        op.value = acads[i][0];
+                        op.textContent = acads[i][1];
+                        academiaMateriaSelect.add(op);                        
+                    }
+                }
                     
                     insertMateriasIntoSelect = (materiasAcademia) => {
                         if (!materiasAcademia.error) {
@@ -194,5 +228,5 @@ $(document).ready(function ($) {false
                     
 //----------------------------------------------------------------------------------------------------
 
-    $(".typeInstrumento").click(function (e) { loadFormCreateInstr(e); });
+    $(".typeInstrumento").click(function (e) { loadFormCreateInstr(e); });  
 });
