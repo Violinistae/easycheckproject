@@ -18,7 +18,7 @@
 	</div>
 	<div class="rowLCElement indicadoresEvContainer">
 		<div class="lblsindicadoresEv">
-			<label id="countCharIndicadoresEv">260</label>
+			<label id="countCharIndicadoresEv">Caracteres restantes: 260</label>
 		</div>
 		<textarea class="indicadoresEv" id="indicadoresEv" name="indicadoresEv" autocomplete="off"></textarea>
 	</div>

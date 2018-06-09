@@ -275,36 +275,51 @@ $(document).ready(function ($) {
 		}		
 
 			insertMateriasToTable = (materiasAcademia) => {
-
+				console.log(materiasAcademia.numMaterias)
 				if (!materiasAcademia.error) {					
 
-					var tablaMaterias = document.getElementById("materiasTableContent");
-					
-					for (i = 0; i < materiasAcademia.numMaterias; ++i) {
-						var materiaRow = tablaMaterias.insertRow(-1);						
+					if (materiasAcademia.numMaterias > 0) {
+						var tablaMaterias = document.getElementById("materiasTableContent");
 
-						var fIcon = '<i id="f-' + materiasAcademia.materias[i].Id_Materia + '" title="Cambiar/Subir archivo" class="actionsIcon fas fa-file-excel"></i>';						
-						var tIcon = '<i id="t-' + materiasAcademia.materias[i].Id_Materia + '" title="Eliminar" class="actionsIcon fas fa-trash"></i>';
-						var eIcon = '<i id="e-' + materiasAcademia.materias[i].Id_Materia + '" title="Editar" class="actionsIcon fas fa-edit"></i>';
+						for (i = 0; i < materiasAcademia.numMaterias; ++i) {
+							var materiaRow = tablaMaterias.insertRow(-1);
 
-						var fbtn = '<button class="materiaBtn" id="f-' + materiasAcademia.materias[i].Id_Materia + '">' + fIcon + '</button>';
-						var tbtn = '<button class="materiaBtn" id="t-' + materiasAcademia.materias[i].Id_Materia + '">' + tIcon + '</button>';
-						var ebtn = '<button class="materiaBtn" id="e-' + materiasAcademia.materias[i].Id_Materia + '">' + eIcon + '</button>';
+							var fIcon = '<i id="f-' + materiasAcademia.materias[i].Id_Materia + '" title="Cambiar/Subir archivo" class="actionsIcon fas fa-file-excel"></i>';
+							var tIcon = '<i id="t-' + materiasAcademia.materias[i].Id_Materia + '" title="Eliminar" class="actionsIcon fas fa-trash"></i>';
+							var eIcon = '<i id="e-' + materiasAcademia.materias[i].Id_Materia + '" title="Editar" class="actionsIcon fas fa-edit"></i>';
 
-						var actionsDiv = '<div class="styleForIcons">' + ebtn + tbtn + '</div>'
-											
-						var cellClaveMateria = materiaRow.insertCell(0); cellClaveMateria.innerHTML = materiasAcademia.materias[i].Id_Materia;
-						var cellNombreMateria = materiaRow.insertCell(1); cellNombreMateria.innerHTML = materiasAcademia.materias[i].Materia;
-						var cellSemestre = materiaRow.insertCell(2); cellSemestre.innerHTML = materiasAcademia.materias[i].Semestre;
-						var cellArchivo = materiaRow.insertCell(3); cellArchivo.innerHTML = fbtn;
-						var cellAcciones = materiaRow.insertCell(4); cellAcciones.innerHTML = actionsDiv;
-						
-						materiaRow.classList.add("commonMateriaRow");			
-						
-					}
-				} else if (materiasAcademia.error) {
-				}				
+							var fbtn = '<button class="materiaBtn" id="f-' + materiasAcademia.materias[i].Id_Materia + '">' + fIcon + '</button>';
+							var tbtn = '<button class="materiaBtn" id="t-' + materiasAcademia.materias[i].Id_Materia + '">' + tIcon + '</button>';
+							var ebtn = '<button class="materiaBtn" id="e-' + materiasAcademia.materias[i].Id_Materia + '">' + eIcon + '</button>';
+
+							var actionsDiv = '<div class="styleForIcons">' + ebtn + tbtn + '</div>'
+
+							var cellClaveMateria = materiaRow.insertCell(0); cellClaveMateria.innerHTML = materiasAcademia.materias[i].Id_Materia;
+							var cellNombreMateria = materiaRow.insertCell(1); cellNombreMateria.innerHTML = materiasAcademia.materias[i].Materia;
+							var cellSemestre = materiaRow.insertCell(2); cellSemestre.innerHTML = materiasAcademia.materias[i].Semestre;
+							var cellArchivo = materiaRow.insertCell(3); cellArchivo.innerHTML = fbtn;
+							var cellAcciones = materiaRow.insertCell(4); cellAcciones.innerHTML = actionsDiv;
+
+							materiaRow.classList.add("commonMateriaRow");
+						}
+					} else {
+						setNoCreatedMaterias();
+					}		
+				}			
 			}
+
+				setNoCreatedMaterias = () => {
+					let noMateriasInformacion = document.getElementById("noMateriasAvailable");
+
+					let p = document.createElement("p");
+					p.textContent = "No existe alguna materia creada en su Academia";
+					noMateriasInformacion.appendChild(p);
+					noMateriasInformacion.appendChild(document.createElement("BR"));
+
+					p = document.createElement("p");
+					p.textContent = 'Presione la opción "Crear Materia" para generarla';
+					noMateriasInformacion.appendChild(p);
+				}
 
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++	

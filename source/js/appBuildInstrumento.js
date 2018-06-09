@@ -70,7 +70,9 @@ $(document).ready(function ($) {
                 case 1:
                     typeInstrumentoLbl.textContent += "Rúbrica";
                     URLHeadTable = '../../sourcephp/views/buildInst/R/headRowR.php';
-                    
+                    //Disable add btn
+                    //Add num criterios input para almacenar el numero de 3 - 5 en una variable y después se desactivará el input
+                    //en el momento de aceptar el número de filas, este ya no se puede modificar y todas las filas se crearan así
                     break;
                 case 2:
                     typeInstrumentoLbl.textContent += "Lista de Cotejo";
@@ -220,6 +222,7 @@ $(document).ready(function ($) {
         let auxRow = null;
         switch (tipoInstrumento) {
             case 1:
+                return;
                 auxRow = addRRow(rowsInstrument.length + 1);            
                 break;
             case 2:

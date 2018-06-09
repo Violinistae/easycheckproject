@@ -1,0 +1,121 @@
+#headRRow {
+    display: grid;
+    grid-template-columns: 1fr 2.2fr 2.5fr 3.5fr .8fr;
+}
+
+.headRCol {
+    text-align: center;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.RHeadLbl {
+    font-size: 18px;
+}
+
+.rowR {
+    height: 37em;
+    display: grid;
+    grid-template-columns: 1fr 2.2fr 2.5fr 3.5fr .8fr;
+}
+
+.rowRElement {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#criteriosEvHead {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    grid-column-gap: 1rem;
+}
+
+#numCriterios {
+    padding: .2em .2em .2em .5em;
+    font-size: 15px;
+    border-radius: 2px;
+    border-top: transparent;
+    border-left: transparent;
+    border-right: transparent;
+    border-bottom: black 2px solid;
+    background-color: transparent;
+}
+
+#numCriterios::placeholder {
+    color: black;
+}
+
+/* -------------------------------------------------------- */
+
+.criteriosEvContainer {
+    max-width: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.criterioEv {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: .35em;
+    border-bottom: solid 1.3px rgb(32, 32, 32);
+}
+
+.criteriosEvInputs {
+    flex-grow: 1;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1.2fr .8fr;
+    grid-column-gap: .7em;
+
+    align-items: center;
+    margin-bottom: .4em;
+}
+
+.identInput {
+    width: 100%;
+
+    border-radius: .2em;
+    padding: .3em .3em .3em .6em;
+    font-size: 14px;
+    width: 100%;
+    outline: none;
+    border: rgb(172, 171, 171) solid 1px;
+}
+
+.lblsCriteriosEv {
+    flex-grow: .5;
+    text-align: right;
+    width: 90%;
+}
+
+.criteriosEvSubContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.descripElemCol {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.descripIdent {
+    width: 100%;
+    border-radius: .2em;
+    padding: .5em;
+}

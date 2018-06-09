@@ -76,7 +76,7 @@
     cursor: pointer;
 }
 
-#fromCreateInst select, input{
+#fromCreateInst select, #fromCreateInst input{
     border-bottom: black solid 2px;
     border-top: none;
     border-right: none;

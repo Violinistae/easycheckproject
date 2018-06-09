@@ -18,7 +18,7 @@
 }
 
 #noMateriasAvailable {
-    display: none;
+    display: block;
     position: absolute;
     width: auto;
     top: 50%;

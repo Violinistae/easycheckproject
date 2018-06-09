@@ -36,6 +36,7 @@ $(document).ready(function ($) {
 					$(".mainnavbar").css({ "background-color": "rgb(171, 49, 49)" });
 					insertAlumnoStyles();
 				}
+				//insert username with ajax
 			} else if (sessionVariables.error) {
 				console.log("Cerrar Sesión");
 				window.location.replace("../../index.php");

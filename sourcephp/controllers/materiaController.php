@@ -94,7 +94,7 @@
 
                     echo json_encode(array('error' => false, 'materias' => $m, 'numMaterias' => $selectMatRows));
                 } else {
-                    echo json_encode(array('error' => true, 'message' => "No se pudo mostrar las materias creadas"));
+                    echo json_encode(array('error' => false, 'message' => "No se hay materias creadas en la academia", 'numMaterias' => $selectMatRows));
                 }
             } else {
                 echo json_encode(array('error' => true, 'message' => "No se pudo mostrar las materias creadas"));
