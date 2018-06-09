@@ -8,8 +8,10 @@ var TipoEv;
 var tipoInstrumento;
 
 var rowsInstrument = [];
+var numCriteriosR = 0;
 
 //Verify user session here
+//Verify there is no other place where is being modified
 
 $(document).ready(function ($) {
 
@@ -70,6 +72,8 @@ $(document).ready(function ($) {
                 case 1:
                     typeInstrumentoLbl.textContent += "Rúbrica";
                     URLHeadTable = '../../sourcephp/views/buildInst/R/headRowR.php';
+                    //readInstrumentRowsURL = '../../index_ajax.php?controller=rubrica&action=readRubrica';
+                    document.getElementById("addRowBtn").style.color = "rgb(220, 220, 220)";
                     //Disable add btn
                     //Add num criterios input para almacenar el numero de 3 - 5 en una variable y después se desactivará el input
                     //en el momento de aceptar el número de filas, este ya no se puede modificar y todas las filas se crearan así
@@ -222,8 +226,9 @@ $(document).ready(function ($) {
         let auxRow = null;
         switch (tipoInstrumento) {
             case 1:
-                return;
-                auxRow = addRRow(rowsInstrument.length + 1);            
+                if (numCriteriosR > 0) {
+                    auxRow = addRRow(numCriteriosR, rowsInstrument.length + 1);            
+                }
                 break;
             case 2:
                 auxRow = addLCRow(rowsInstrument.length + 1);            
@@ -841,16 +846,18 @@ $(document).ready(function ($) {
     }
 
         updateLeftCharstxtArea = (eTrigger) => {
+            let maxChars = 260;
             let txtArea = eTrigger;
             let indexTxtAreaChanged = parseInt(eTrigger.id.replace("indicadoresEv", ""));
             let lblLeftChars = document.getElementById("countCharIndicadoresEv" + indexTxtAreaChanged);
-            let leftChars = 260 - txtArea.value.length;
+            let leftChars = maxChars - txtArea.value.length;
 
             if (leftChars >= 0) {
                 lblLeftChars.textContent = "Caracteres restantes: " + leftChars;
                 return 1;
             } else {
-                txtArea.value = txtArea.value.substring(0, txtArea.value.length - 1);
+                let toSub = txtArea.value.length - maxChars;
+                txtArea.value = txtArea.value.substring(0, txtArea.value.length - toSub);
                 return 0;
             }
 
@@ -894,16 +901,18 @@ $(document).ready(function ($) {
     }
 
         updateLeftCharsPreg = (eTrigger) => {
+            let maxChars = 260;
             let txtArea = eTrigger;
             let indexTxtAreaChanged = parseInt(eTrigger.id.replace("pregTxtArea", ""));
             let lblLeftChars = document.getElementById("countCharPreg" + indexTxtAreaChanged);
-            let leftChars = 260 - txtArea.value.length;
+            let leftChars = maxChars - txtArea.value.length;
 
             if (leftChars >= 0) {
                 lblLeftChars.textContent = "Caracteres restantes: " + leftChars;
                 return 1;
             } else {
-                txtArea.value = txtArea.value.substring(0, txtArea.value.length - 1);
+                let toSub = txtArea.value.length - maxChars;
+                txtArea.value = txtArea.value.substring(0, txtArea.value.length - toSub);
                 return 0;
             }
 
@@ -923,16 +932,18 @@ $(document).ready(function ($) {
     }
 
         updateLeftCharsResClosePreg = (eTrigger) => {
+            let maxChars = 60;
             let txtArea = eTrigger;
             let indexTxtAreaChanged = parseInt(eTrigger.id.replace("closePregRes", ""));            
             let lblLeftChars = document.getElementById("countCharResClosePreg" + indexTxtAreaChanged);
-            let leftChars = 60 - txtArea.value.length;
+            let leftChars = maxChars - txtArea.value.length;
 
             if (leftChars >= 0) {
                 lblLeftChars.textContent = "Caracteres restantes: " + leftChars;
                 return 1;
             } else {
-                txtArea.value = txtArea.value.substring(0, txtArea.value.length - 1);
+                let toSub = txtArea.value.length - maxChars;
+                txtArea.value = txtArea.value.substring(0, txtArea.value.length - toSub);
                 return 0;
             }
 
@@ -952,20 +963,66 @@ $(document).ready(function ($) {
     }
 
         updateLeftCharsOption = (eTrigger) => {
+            let maxChars = 60;
             let txtArea = eTrigger;
             let indexTxtAreaChanged = parseInt(eTrigger.id.replace("opcPregTxtInput", ""));
             let lblLeftChars = document.getElementById("countCharPregOpc" + indexTxtAreaChanged);
-            let leftChars = 60 - txtArea.value.length;
+            let leftChars = maxChars - txtArea.value.length;
 
             if (leftChars >= 0) {
                 lblLeftChars.textContent = "Restantes: " + leftChars;
                 return 1;
             } else {
-                txtArea.value = txtArea.value.substring(0, txtArea.value.length - 1);
+                let toSub = txtArea.value.length - maxChars;
+                txtArea.value = txtArea.value.substring(0, txtArea.value.length - toSub);
                 return 0;
             }
 
         }
+
+/* --------------------------------------------------------------------------------------------------------------------- */
+
+    checkNumCriterios = (e) => {
+        let numCriterios = e.currentTarget.value;
+        let sendNumCriterios = document.getElementById("sendNumCriterios");
+        if (/^([0-9])*$/.test(numCriterios)) {
+            sendNumCriterios.disabled = false;
+            sendNumCriterios.style.color = "green";
+            sendNumCriterios.setAttribute("dataAvailable", "1");
+            numCriterios = parseInt(e.currentTarget.value);
+        } else {
+            sendNumCriterios.setAttribute("dataAvailable", "0");
+            e.currentTarget.value = e.currentTarget.value.substring(0, e.currentTarget.value.length - 1);
+        }
+
+        if (e.currentTarget.value.length < 1) {
+            sendNumCriterios.disabled = true;
+            sendNumCriterios.style.color = "gray";
+        } 
+
+    }
+
+    sendNumCriterios = (e) => {
+        let dataAvailable = parseInt(e.currentTarget.getAttribute("dataAvailable"));
+        if (dataAvailable == 1) {
+            let numCriterios = document.getElementById("numCriterios");
+            if (numCriterios.value > 2 && numCriterios.value < 6) {
+                let flag = confirm("¿Está seguro de establecer el número de criterios de evaluacíon para cada fila de este instrumento en "
+                + numCriterios.value + "? \n Al confirmar este número se aplicará a cada fila del instrumento de evaluación y NUNCA más podrá ser modificado.");
+
+                if (flag) {
+                    numCriteriosR = numCriterios.value;
+                    e.currentTarget.setAttribute("dataAvailable", "0");
+                    e.currentTarget.style.color = "gray";
+                    numCriterios.disabled = true;
+                    document.getElementById("addRowBtn").style.color = "white";
+                }
+                
+            } else {
+                alert("Solo se especificar un número de criterios de evaluación con rango de 3 a 5.");
+            }
+        }
+    } 
 
 /* --------------------------------------------------------------------------------------------------------------------- */
     
@@ -996,7 +1053,8 @@ $(document).ready(function ($) {
     $('body').on('input', '.indicadoresEv', function (e) { changeIndevTxt(e); });
 
     /** Event Triggers for Rubrica */
-
+    $('body').on('input', '#numCriterios', function (e) { checkNumCriterios(e); });
+    $('body').on('click', '#sendNumCriterios', function (e) { sendNumCriterios(e); });
 
     /** Event Triggers for Lista de Cotejo */
     //--
