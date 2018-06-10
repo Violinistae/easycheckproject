@@ -146,6 +146,13 @@ $(document).ready(function ($) {
 
     updateNombreElemToEval = (e) => {
         let materiasSelect = e.currentTarget;
+        let toTry = parseInt(materiasSelect.value);
+
+        if (!/^([0-9])*$/.test(toTry)) {
+            clearKeyNameElemSelects ();
+            return;
+        }
+
         dataMateria = {
             materiaID: parseInt(materiasSelect.value)
         };
@@ -191,6 +198,8 @@ $(document).ready(function ($) {
 
             nombreElemInput.add(firstOp);
 
+            claveElemInput.disabled = false;
+
             for (let i = 0; i < valParData.length; ++i) {
                 let newValParOptionKey = document.createElement("option");
                 let newValParOptionName = document.createElement("option");
@@ -204,6 +213,33 @@ $(document).ready(function ($) {
                 claveElemInput.add(newValParOptionKey);
                 nombreElemInput.add(newValParOptionName);  
             }
+        }
+
+        clearKeyNameElemSelects = () => {
+            let claveElemInput = document.getElementById("claveElemInput");
+            let firstOp = document.createElement("option");
+            firstOp.value = "null";
+            firstOp.text = "- Seleccione una materia -";
+
+            for (i = claveElemInput.options.length - 1; i >= 0; i--) {
+                claveElemInput.remove(i);
+            }
+
+            claveElemInput.add(firstOp);
+            claveElemInput.disabled = false;
+
+            let nombreElemInput = document.getElementById("nombreElemInput");
+            firstOp = document.createElement("option");
+            firstOp.value = "null";
+            firstOp.text = "- Seleccione una materia -";
+
+            for (i = nombreElemInput.options.length - 1; i >= 0; i--) {
+                nombreElemInput.remove(i);
+            }
+            nombreElemInput.add(firstOp);
+
+            claveElemInput.disabled = true;
+            nombreElemInput.disabled = true;
         }
 
     selectedNameElem = (e) => {

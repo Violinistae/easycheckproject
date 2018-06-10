@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-06-2018 a las 02:03:07
+-- Tiempo de generación: 11-06-2018 a las 01:38:25
 -- Versión del servidor: 10.1.31-MariaDB
--- Versión de PHP: 7.2.4
+-- Versión de PHP: 7.1.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -43,7 +43,8 @@ CREATE TABLE `academia` (
 --
 
 INSERT INTO `academia` (`Id_Academia`, `Academia`, `Clave_Acceso`, `Ciclo_Periodo`, `Lista_Prof`, `Coordinador_Acad`, `Carrera`) VALUES
-(1, 'Informática', '$2y$10$MY5OmpcrBY3NIYsrL.w4teUryw7iV/jdNWauiXPaPwdhlxncPQJaO', 'Feb - Jun 2018', 'listaProf4843ProfesInformatica', 123, 1);
+(1, 'Informática', '$2y$10$MY5OmpcrBY3NIYsrL.w4teUryw7iV/jdNWauiXPaPwdhlxncPQJaO', 'Feb - Jun 2018', 'listaProf6463ProfesInformatica', 123, 1),
+(2, 'Electrónica Analógica', '$2y$10$u9zwI/Bz0.l2vBf65NR.COqEy0oW42BPy/HP4.NaM99jrYHLTFdOe', 'Feb - Jun 2018', 'listaProf1943ProfesAnalógica', 60, 1);
 
 -- --------------------------------------------------------
 
@@ -95,7 +96,9 @@ INSERT INTO `acciones` (`Id_Acciones`, `Controlador`, `Metodo`) VALUES
 (31, 'guiadeobservacion', 'readGuiaObs'),
 (32, 'academia', 'updateAcademia'),
 (33, 'academia', 'getAcademiaById'),
-(34, 'academia', 'verifyRequestToAcad');
+(34, 'academia', 'verifyRequestToAcad'),
+(35, 'integrantesacademia', 'verifyToInsertNewMember'),
+(36, 'integrantesacademia', 'getAcadMembers');
 
 -- --------------------------------------------------------
 
@@ -316,19 +319,21 @@ CREATE TABLE `instrumento` (
   `ClaveElem` varchar(6) NOT NULL,
   `NombElemento` varchar(25) NOT NULL,
   `InstruccLlenado` varchar(260) NOT NULL,
-  `Materia` int(11) NOT NULL
+  `Materia` int(11) NOT NULL,
+  `NumCriterios` tinyint(4) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `instrumento`
 --
 
-INSERT INTO `instrumento` (`Id_Instrumento`, `Creador`, `TipoInstrumento`, `TipoEvaluacion`, `ClaveElem`, `NombElemento`, `InstruccLlenado`, `Materia`) VALUES
-(4, 123, 4, 2, 'P1.4', 'Examen', 'Prueba', 4),
-(5, 123, 2, 2, 'P1.2', 'Actividades en Clase', 'Prueba Lista Cotejo', 5),
-(6, 123, 3, 2, 'P3.3', 'Prácticas', 'GuiaObs prueba', 8),
-(7, 123, 4, 2, 'P1.4', 'Examen', 'hola examen', 4),
-(8, 123, 4, 2, 'P2.4', 'Examen', 'Hola', 4);
+INSERT INTO `instrumento` (`Id_Instrumento`, `Creador`, `TipoInstrumento`, `TipoEvaluacion`, `ClaveElem`, `NombElemento`, `InstruccLlenado`, `Materia`, `NumCriterios`) VALUES
+(4, 123, 4, 2, 'P1.4', 'Examen', 'Prueba', 4, NULL),
+(5, 123, 2, 2, 'P1.2', 'Actividades en Clase', 'Prueba Lista Cotejo', 5, NULL),
+(6, 123, 3, 2, 'P3.3', 'Prácticas', 'GuiaObs prueba', 8, NULL),
+(7, 123, 4, 2, 'P1.4', 'Examen', 'hola examen', 4, NULL),
+(8, 123, 4, 2, 'P2.4', 'Examen', 'Hola', 4, NULL),
+(9, 123, 1, 2, 'P1.3', 'Prácticas', 'Seleccione el criterio de evaluación más adecuado para cada elemento de cada práctica', 5, NULL);
 
 -- --------------------------------------------------------
 
@@ -354,6 +359,14 @@ CREATE TABLE `integrantesacademia` (
   `Academia` int(11) NOT NULL,
   `Integrante` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `integrantesacademia`
+--
+
+INSERT INTO `integrantesacademia` (`Id_IntegAcad`, `Academia`, `Integrante`) VALUES
+(1, 1, 12),
+(2, 2, 12);
 
 -- --------------------------------------------------------
 
@@ -413,7 +426,8 @@ INSERT INTO `materia` (`Id_Materia`, `Materia`, `Semestre`, `Valores_Parciales`,
 (4, 'Programación Avanzada I', 7, 'valPar9337ParcialesPrograAvanzadaI', 1),
 (5, 'Seguridad en ITI', 8, 'valPar3554SeguridadenITI', 1),
 (8, 'POO', 4, 'valPar6365ValoresParcialesPOO', 1),
-(9, 'Sistemas Embebidos II', 8, 'valPar3490SistemasEmbebidosI', 1);
+(9, 'Sistemas Embebidos II', 8, 'valPar3490SistemasEmbebidosI', 1),
+(10, 'Temas de Electrónica I', 4, 'valPar3083TEIValPar', 2);
 
 -- --------------------------------------------------------
 
@@ -630,6 +644,7 @@ CREATE TABLE `usuario` (
 
 INSERT INTO `usuario` (`Registro_U`, `Nombres`, `Apellidos`, `Email`, `Password`, `Escolaridad`, `Tipo_Usuario`, `Foto`, `Hash`) VALUES
 (12, 'Carlos', 'Molina Martínez', 'profesor@gmail.com', '$2y$10$5FQoGpWZ58BdE/.U7WUzLOyVV0eDD0JqCRzmL2ROiL9JYVoWM7nae', 'Ingeniería', 2, '', ''),
+(60, 'Alejandra', 'Alcaráz Torres', 'electronica@gmail.com', '$2y$10$dCEnoiy8JVt.FGeDx9Z42egnYwhe3kYOQx/ZSHt2095iYYy/Bok0m', 'Maestría', 1, '', ''),
 (123, 'Gustavo', 'Rojas', 'academia@gmail.com', '$2y$10$kbbnaMsfXIssgogx3IGPeOU8335k42dfFOP.Jr4O8M1hsynVTEAju', 'Maestría', 1, '', ''),
 (14300281, 'Emiliano', 'Moreno', 'ssbbemims@gmail.com', '$2y$10$Fnz9vMd6uHS5U3.ZCl4EM.Od3cJNUEMjLdUXlJBE8hs5ZZCJXeOKi', '', 3, '', '');
 
@@ -890,13 +905,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `academia`
 --
 ALTER TABLE `academia`
-  MODIFY `Id_Academia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Id_Academia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `acciones`
 --
 ALTER TABLE `acciones`
-  MODIFY `Id_Acciones` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `Id_Acciones` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT de la tabla `aspectoevaluacion`
@@ -974,7 +989,7 @@ ALTER TABLE `guiadeobservacion`
 -- AUTO_INCREMENT de la tabla `instrumento`
 --
 ALTER TABLE `instrumento`
-  MODIFY `Id_Instrumento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `Id_Instrumento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `instrumentoscompartidos`
@@ -986,7 +1001,7 @@ ALTER TABLE `instrumentoscompartidos`
 -- AUTO_INCREMENT de la tabla `integrantesacademia`
 --
 ALTER TABLE `integrantesacademia`
-  MODIFY `Id_IntegAcad` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_IntegAcad` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `listacotejo`
@@ -1004,7 +1019,7 @@ ALTER TABLE `listagrupo`
 -- AUTO_INCREMENT de la tabla `materia`
 --
 ALTER TABLE `materia`
-  MODIFY `Id_Materia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `Id_Materia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `opcionespregunta`

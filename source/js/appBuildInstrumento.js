@@ -416,7 +416,9 @@ $(document).ready(function ($) {
         
         switch (tipoInstrumento) {
             case 1:
-                
+                if (verifyCommonRowsFields()) {
+                    console.log("asd");
+                }
                 break;
             case 2:
                 if (verifyCommonRowsFields()){
@@ -976,6 +978,37 @@ $(document).ready(function ($) {
 
         }
 
+    changeDescripElem = (e) => {
+        let strTxtAreaChanged = e.currentTarget.value;
+        let indx = parseInt(e.currentTarget.id.replace("descripElem", "")) - 1;
+
+        let res = updateLeftCharsDescriptElem(e.currentTarget);
+
+        if (res == 1) {
+            rowsInstrument[indx][2] = e.currentTarget.value;
+            setNewHashToCookieAfterAction();
+        } 
+    }
+
+        updateLeftCharsDescriptElem = (eTrigger) => {
+            let maxChars = 40;
+            let txtArea = eTrigger;
+            let indexTxtAreaChanged = parseInt(eTrigger.id.replace("descripElem", ""));
+            let lblLeftChars = document.getElementById("countCharDescripElem" + indexTxtAreaChanged);
+            let leftChars = maxChars - txtArea.value.length;
+
+            if (leftChars >= 0) {
+                lblLeftChars.textContent = "Caracteres restantes: " + leftChars;
+                return 1;
+            } else {
+                let toSub = txtArea.value.length - maxChars;
+                txtArea.value = txtArea.value.substring(0, txtArea.value.length - toSub);
+                lblLeftChars.textContent = "Caracteres restantes: 0";
+                return 0;
+            }
+
+        }
+
     changeDescrpIdent = (e) => {
         let strTxtAreaChanged = e.currentTarget.value;
         let indexNoSplit = e.currentTarget.getAttribute("datadesci");
@@ -1015,13 +1048,16 @@ $(document).ready(function ($) {
         let indexA = parseInt(split[0]);
         let indexB = parseInt(split[1]);
     
-        let res = updateDescripIdent(e.currentTarget);
+        let res = updateIdentCriterio(e.currentTarget);
 
-
-
+        if (res == 1) {
+            rowsInstrument[indexA][3][indexB][0][0] = strTxtAreaChanged;
+            setNewHashToCookieAfterAction();
+        }
+        
     }
 
-        updateDescripIdent = (eTrigger) => {
+        updateIdentCriterio = (eTrigger) => {
             let maxChars = 15;    
             let leftChars = maxChars - eTrigger.value.length;
 
@@ -1034,6 +1070,21 @@ $(document).ready(function ($) {
             }
         }
 
+    changeValIdentCriterio = (e) => {
+        let strTxtAreaChanged = parseInt(e.currentTarget.value);
+        let indexNoSplit = e.currentTarget.getAttribute("datavalident");
+        let split = indexNoSplit.split("_");
+        let indexA = parseInt(split[0]);
+        let indexB = parseInt(split[1]);
+
+        if (/^([0-9])*$/.test(e.currentTarget.value)) {
+            rowsInstrument[indexA][3][indexB][0][1] = strTxtAreaChanged;
+        } else {
+            e.currentTarget.value = e.currentTarget.value.substring(0, e.currentTarget.value.length - 1);
+        }
+        setNewHashToCookieAfterAction();
+    }
+    
 /* --------------------------------------------------------------------------------------------------------------------- */
 
     checkNumCriterios = (e) => {
@@ -1103,6 +1154,8 @@ $(document).ready(function ($) {
         $("#questionTypeDropMenu").removeClass('active');
     });
 
+    /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Triggers for instrumento ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
     /** Event Triggers for Lista de Cotejo && Guia de Observación */
     $('body').on('input', '.indicadoresEv', function (e) { changeIndevTxt(e); });
 
@@ -1110,9 +1163,10 @@ $(document).ready(function ($) {
     $('body').on('input', '#numCriterios', function (e) { checkNumCriterios(e); });
     $('body').on('click', '#sendNumCriterios', function (e) { sendNumCriterios(e); });
 
+    $('body').on('input', '.descripElem', function (e) { changeDescripElem(e); });
     $('body').on('input', '.identCriterio', function (e) { changeIdentCriterio(e); });
+    $('body').on('input', '.valorIdent', function (e) { changeValIdentCriterio(e); });
     $('body').on('input', '.descripIdent', function (e) { changeDescrpIdent(e); });
-
     
     /** Event Triggers for Lista de Cotejo */
     //--

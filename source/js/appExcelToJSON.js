@@ -233,7 +233,7 @@ $(document).ready(function ($) {
                 if (flagKeyName_ValPar) {
                     functionToDoAfter(arrayForFunctionToDo);
                 } else if (!flagKeyName_ValPar) {
-                    var mainmessage = "Por favor ingrese una clave y/o nombre de elemento a evaluar válidos (contenidos dentro del archivo valores parciales).";
+                    var mainmessage = "Por favor seleccione una clave y/o nombre de elemento a evaluar válidos (contenidos dentro del archivo valores parciales).";
                     var secmessage = "Presione el boton para continuar.";
                     showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
                     return;

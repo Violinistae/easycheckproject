@@ -136,6 +136,7 @@ $(document).ready(function ($) {false
             }
 
                 setAcademiaOnSelectForCoord = (resAcademia) => {
+
                     let idAcad = parseInt(resAcademia.academia.Id_Academia);
                     let acad = resAcademia.academia.Academia;
 
@@ -152,6 +153,7 @@ $(document).ready(function ($) {false
                     let tonombreElemInput = document.createElement("option");
 
                     academiaSelect.disabled = true;
+                    academiaSelect.remove(0);
                     academiaCoordinada.text = acad;
                     academiaCoordinada.value = idAcad;
                     academiaSelect.add(academiaCoordinada);
