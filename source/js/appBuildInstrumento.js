@@ -145,7 +145,6 @@ $(document).ready(function ($) {
             }
 
             getBuiltInstrumentRows = (readInstrumentRowsURL) => {
-                var cuesRows = [];
 
                 dataArray = {
                     Id_Instrumento: Id_Instrumento
@@ -183,13 +182,6 @@ $(document).ready(function ($) {
                 });
 
             }                            
-
-        /**
-         *  When refresh, load or update buildinstrumento page --> verifyTheInstrument table
-         *  that for verifing existent rows and those rows push them to the rowsInstrument[]
-        */
-        //Verify changes --> if (saveCookie = newEditCookie)
-        //Set saveCookie = newEditCookie -->  Push SaveChanges
 
     setNewHashToCookieAfterAction = () => {
         let newEditID = generateUUID();
@@ -858,6 +850,7 @@ $(document).ready(function ($) {
             } else {
                 let toSub = txtArea.value.length - maxChars;
                 txtArea.value = txtArea.value.substring(0, txtArea.value.length - toSub);
+                lblLeftChars.textContent = "Caracteres restantes: 0";
                 return 0;
             }
 
@@ -913,6 +906,7 @@ $(document).ready(function ($) {
             } else {
                 let toSub = txtArea.value.length - maxChars;
                 txtArea.value = txtArea.value.substring(0, txtArea.value.length - toSub);
+                lblLeftChars.textContent = "Caracteres restantes: 0";
                 return 0;
             }
 
@@ -944,6 +938,7 @@ $(document).ready(function ($) {
             } else {
                 let toSub = txtArea.value.length - maxChars;
                 txtArea.value = txtArea.value.substring(0, txtArea.value.length - toSub);
+                lblLeftChars.textContent = "Caracteres restantes: 0";
                 return 0;
             }
 
@@ -975,9 +970,68 @@ $(document).ready(function ($) {
             } else {
                 let toSub = txtArea.value.length - maxChars;
                 txtArea.value = txtArea.value.substring(0, txtArea.value.length - toSub);
+                lblLeftChars.textContent = "Restantes: 0";
                 return 0;
             }
 
+        }
+
+    changeDescrpIdent = (e) => {
+        let strTxtAreaChanged = e.currentTarget.value;
+        let indexNoSplit = e.currentTarget.getAttribute("datadesci");
+        let split = indexNoSplit.split("_");
+        let indexA = parseInt(split[0]);
+        let indexB = parseInt(split[1]);
+
+        let res = updateDescripIdent(indexA + 1, indexB + 1, e.currentTarget);
+
+        if (res == 1) {
+            rowsInstrument[indexA][3][indexB][1] = strTxtAreaChanged;
+            setNewHashToCookieAfterAction();
+        } 
+        
+    }
+
+        updateDescripIdent = (iA , iB, eTrigger) => {
+            let maxChars = 260;    
+            let countCharCriteriosEv = document.getElementById("countCharCriteriosEv" + iA + "_" + iB);
+            let leftChars = maxChars - eTrigger.value.length;
+
+            if (leftChars >= 0) {
+                countCharCriteriosEv.textContent = "Caracteres Restantes: " + leftChars;
+                return 1;
+            } else {
+                let toSub = eTrigger.value.length - maxChars;
+                eTrigger.value = eTrigger.value.substring(0, eTrigger.value.length - toSub);
+                countCharCriteriosEv.textContent = "Caracteres Restantes: 0";
+                return 0;
+            }
+        }
+
+    changeIdentCriterio = (e) => {
+        let strTxtAreaChanged = e.currentTarget.value;
+        let indexNoSplit = e.currentTarget.getAttribute("dataident");
+        let split = indexNoSplit.split("_");
+        let indexA = parseInt(split[0]);
+        let indexB = parseInt(split[1]);
+    
+        let res = updateDescripIdent(e.currentTarget);
+
+
+
+    }
+
+        updateDescripIdent = (eTrigger) => {
+            let maxChars = 15;    
+            let leftChars = maxChars - eTrigger.value.length;
+
+            if (leftChars >= 0) {
+                return 1;
+            } else {
+                let toSub = eTrigger.value.length - maxChars;
+                eTrigger.value = eTrigger.value.substring(0, eTrigger.value.length - toSub);
+                return 0;
+            }
         }
 
 /* --------------------------------------------------------------------------------------------------------------------- */
@@ -1056,6 +1110,10 @@ $(document).ready(function ($) {
     $('body').on('input', '#numCriterios', function (e) { checkNumCriterios(e); });
     $('body').on('click', '#sendNumCriterios', function (e) { sendNumCriterios(e); });
 
+    $('body').on('input', '.identCriterio', function (e) { changeIdentCriterio(e); });
+    $('body').on('input', '.descripIdent', function (e) { changeDescrpIdent(e); });
+
+    
     /** Event Triggers for Lista de Cotejo */
     //--
 

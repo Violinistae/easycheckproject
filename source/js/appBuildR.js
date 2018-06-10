@@ -97,12 +97,14 @@ $(document).ready(function ($) {
             identInput.setAttribute("type", "text");
 
             if (i == 0) {
+                identInput.classList.add("identCriterio");
                 identInput.setAttribute("placeholder", "Identificador");
                 identInput.setAttribute("autocomplete", "off");
                 identInput.setAttribute("dataIdent", (rowIndex - 1) + "_" + (criterioIndex - 1));
                 identInput.id = "identCriterio" + rowIndex + "_" + criterioIndex;
                 identInput.name = "identCriterio" + rowIndex + "_" + criterioIndex;
-            } else if (i == 1) {                
+            } else if (i == 1) {
+                identInput.classList.add("valorIdent");           
                 identInput.setAttribute("placeholder", "Puntaje");
                 identInput.setAttribute("autocomplete", "off");
                 identInput.setAttribute("dataValIdent", (rowIndex - 1) + "_" + (criterioIndex - 1));
@@ -120,13 +122,14 @@ $(document).ready(function ($) {
         lblsCriteriosEv.classList.add("lblsCriteriosEv");
         let countCharCriteriosEv = document.createElement("label");
         countCharCriteriosEv.id = "countCharCriteriosEv" + rowIndex + "_" + criterioIndex;
-        lblsCriteriosEv.textContent = "Caracteres restantes: 260"
+        countCharCriteriosEv.textContent = "Caracteres restantes: 260"
         lblsCriteriosEv.appendChild(countCharCriteriosEv);
 
         let descripIdent = document.createElement("textarea");
         descripIdent.classList.add("descripIdent");
         descripIdent.setAttribute("placeholder", "Descripcion identificador");
         descripIdent.setAttribute("autocomplete", "off");
+        descripIdent.setAttribute("datadesci", (rowIndex - 1) + "_" + (criterioIndex - 1));
         descripIdent.id = "descripIdent" + rowIndex + "_" + criterioIndex;
         descripIdent.name = "descripIdent" + rowIndex + "_" + criterioIndex;
 
