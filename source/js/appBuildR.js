@@ -146,6 +146,104 @@ $(document).ready(function ($) {
 
     }
 
+    replaceIdsAndNamesRowsR = (parentElement, index, numCriteriosR) => {
+        let descripElemCol = parentElement.childNodes[2];
+
+        let leftCharsDescElemCont = descripElemCol.childNodes[0];
+        let leftCharsDescElem = leftCharsDescElemCont.childNodes[0];
+        leftCharsDescElem.id = "countCharDescripElem" + index;
+
+        let descripElem = descripElemCol.childNodes[1];
+        descripElem.id = "descripElem" + index;
+        descripElem.name = "descripElem" + index;
+
+        let criteriosEvContainer = parentElement.childNodes[3];
+
+        for (let i = 0; i < numCriteriosR; ++i) {
+            let criterioEvCont = criteriosEvContainer.childNodes[i];
+
+            let criteriosEvInputs = criterioEvCont.childNodes[0];
+
+                let divInput1 = criteriosEvInputs.childNodes[0];
+                let identCriterio = divInput1.childNodes[0];
+                identCriterio.id = "identCriterio" + index + "_" + (i + 1);
+                identCriterio.name = "identCriterio" + index + "_" + (i + 1);
+                identCriterio.setAttribute("dataident", (index - 1) + "_" + i);
+
+                let divInput2 = criteriosEvInputs.childNodes[1];
+                let valorIdent = divInput2.childNodes[0];
+                valorIdent.id = "valorIdent" + index + "_" + (i + 1);
+                valorIdent.name = "valorIdent" + index + "_" + (i + 1);
+                valorIdent.setAttribute("datavalident", (index - 1) + "_" + i);
+
+            let lblsCriteriosEv = criterioEvCont.childNodes[1];
+                let countCharCriteriosEv = lblsCriteriosEv.childNodes[0];
+                countCharCriteriosEv.id = "countCharCriteriosEv" + index + "_" + (i + 1);
+
+            let descripIdent = criterioEvCont.childNodes[2];
+            descripIdent.id = "descripIdent" + index + "_" + (i + 1);
+            descripIdent.name = "descripIdent" + index + "_" + (i + 1);
+            descripIdent.setAttribute("datadesci", (index - 1) + "_" + i);
+        }
+    }
+
+    getArrayFormDataRRows = (numRows, numCriteriosR) => {
+        let arr = [];
+        for (let i = 0; i < numRows; ++i) {
+            let n = i + 1;
+            let arr2 = [];
+
+            let numElem = document.getElementById("numElemento" + n).textContent;
+            let selectedAspEv = document.querySelector('input[name="aspEvRow' + n + '"]:checked').value;
+            let descripElem = document.getElementById("descripElem" + n).value;
+            let arr3 = [];
+
+            for (let j = 0; j < numCriteriosR; ++j) {
+                let arr4 = [];
+                let arr5 = [];
+
+                let identCriterio = document.getElementById("identCriterio" + n + "_" + (j + 1)).value;
+                let valorIdent = document.getElementById("valorIdent" + n + "_" + (j + 1)).value;
+                let descripIdent = document.getElementById("descripIdent" + n + "_" + (j + 1)).value;
+
+                arr5.push(identCriterio);
+                arr5.push(valorIdent);
+
+                arr4.push(arr5);
+                arr4.push(descripIdent);
+
+                arr3.push(arr4);
+
+            }            
+
+            arr2.push(numElem);
+            arr2.push(selectedAspEv);
+            arr2.push(descripElem);
+            arr2.push(arr3);
+
+            arr.push(arr2);
+        }
+        return arr;
+    }
+
+    verifyIdentValR = () => {
+        let flag = true;
+        //let hundertFlag = false;
+
+        let allCriteriosValues = $("input:text.valorIdent");
+        $(allCriteriosValues).each(function () {
+            if (!flag)
+                return;
+            if ($(this).val() < 1 || $(this).val() > 100) {
+                flag = false;
+                console.log($(this).val());
+                alert("Los valores de los criterios de cada fila de la rubrica deben encontrarse dentro del rango 1 a 100.");
+            }
+        });
+
+        return flag;
+    }
+
 
 /* ---------------------------------------------------------------------------------------------------- */
 

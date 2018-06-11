@@ -72,11 +72,9 @@ $(document).ready(function ($) {
                 case 1:
                     typeInstrumentoLbl.textContent += "Rúbrica";
                     URLHeadTable = '../../sourcephp/views/buildInst/R/headRowR.php';
-                    //readInstrumentRowsURL = '../../index_ajax.php?controller=rubrica&action=readRubrica';
+                    readInstrumentRowsURL = '../../index_ajax.php?controller=rubrica&action=readRubrica';
                     document.getElementById("addRowBtn").style.color = "rgb(220, 220, 220)";
-                    //Disable add btn
-                    //Add num criterios input para almacenar el numero de 3 - 5 en una variable y después se desactivará el input
-                    //en el momento de aceptar el número de filas, este ya no se puede modificar y todas las filas se crearan así
+                    getBuiltInstrumentRows(readInstrumentRowsURL);
                     break;
                 case 2:
                     typeInstrumentoLbl.textContent += "Lista de Cotejo";
@@ -122,7 +120,6 @@ $(document).ready(function ($) {
                     }
 
                     questionTypeDropMenu.appendChild(dropMenuContent);
-
                     getBuiltInstrumentRows(readInstrumentRowsURL);
 
                     break;
@@ -163,7 +160,7 @@ $(document).ready(function ($) {
                             builtRows = resReadRowsI.builtRows;
                             switch (resReadRowsI.tInst) {
                                 case 1:
-                                    
+                                    rowsInstrument = insertBuiltRRows(builtRows);
                                     break;
                                 case 2:
                                     rowsInstrument = insertBuiltLCRows(builtRows);
@@ -220,6 +217,8 @@ $(document).ready(function ($) {
             case 1:
                 if (numCriteriosR > 0) {
                     auxRow = addRRow(numCriteriosR, rowsInstrument.length + 1);            
+                } else {
+                    alert("Ingrese un determinado numero de criterios para cada fila de la rúbrica.");
                 }
                 break;
             case 2:
@@ -234,7 +233,7 @@ $(document).ready(function ($) {
         }
         
         if (auxRow != null && tipoInstrumento != 4) {
-            console.log(auxRow);
+            //console.log(auxRow);
             rowsInstrument.push(auxRow);
             setNewHashToCookieAfterAction();
             //console.log(rowsInstrument);
@@ -284,6 +283,7 @@ $(document).ready(function ($) {
             }
         }
 
+        //Set right option to each multiple option question
         if (tipoInstrumento == 4) {
             for (let i = 0; i < posAux.length; ++i) {
                 let n = i + 1;
@@ -300,13 +300,12 @@ $(document).ready(function ($) {
             }
         }
 
-
         let rowsContainer = document.getElementById("rowsContainer");
         for (let i = 1; i < rowsContainer.childNodes.length; ++i) {
             let elementToSort = rowsContainer.childNodes[i];
             switch (tipoInstrumento) {
                 case 1:
-                    
+                    elementToSort.id = "rowR" + (i - 1);
                     break;
                 case 2:
                     elementToSort.id = "rowLC" + (i - 1);
@@ -315,11 +314,9 @@ $(document).ready(function ($) {
                     elementToSort.id = "rowGO" + (i - 1);
                     break;
                 case 4:
-                    elementToSort.id = "rowC" + (i - 1);
-                    
+                    elementToSort.id = "rowC" + (i - 1);                    
                     break;
             }
-            
         }
 
         rowsInstrument = getArrayFromDataRows(posAux.length);
@@ -342,7 +339,7 @@ $(document).ready(function ($) {
             replaceIdsAndNamesRowsGeneral(elemento, newIndex);
             switch (tipoInstrumento) {
                 case 1:
-                
+                    replaceIdsAndNamesRowsR(elemento, newIndex, numCriteriosR);
                     break;
                 case 2:
                     replaceIdsAndNamesRowsLC(elemento, newIndex);
@@ -387,7 +384,7 @@ $(document).ready(function ($) {
             let auxArr = [];
             switch (tipoInstrumento) {
                 case 1:
-
+                    auxArr = getArrayFormDataRRows(numRows, numCriteriosR);
                     break;
                 case 2:
                     auxArr = getArrayFormDataLCRows(numRows);
@@ -399,9 +396,13 @@ $(document).ready(function ($) {
                     auxArr = getArrayFormDataCRows(numRows);
                     break;
             }
-            return auxArr;
+            if (auxArr.length > 0) {
+                return auxArr;
+            } else {
+                return rowsInstrument;
+            }
+            
         }
-
 
     deleteInstrumentRow = (e) => {
         let indexArrayRows = parseInt(e.currentTarget.getAttribute("dataq"));
@@ -417,7 +418,10 @@ $(document).ready(function ($) {
         switch (tipoInstrumento) {
             case 1:
                 if (verifyCommonRowsFields()) {
-                    console.log("asd");
+                    if (verifyIdentValR()) {
+                        cleanAndSaveR(rowsInstrument, Id_Instrumento, numCriteriosR);
+                        updateSaveChangesCookie();
+                    }
                 }
                 break;
             case 2:

@@ -1,5 +1,50 @@
 $(document).ready(function ($) {
 
+    /* ----------------------------- Rubrica ---------------------------------- */
+
+    cleanAndSaveR = (rowsI, idBuildingInst, numCrit) => {
+        let numCurrentRows = rowsI.length;
+
+        dataArray = {
+            Id_Instrumento: idBuildingInst
+        };
+
+        $.ajax({
+            url: '../../index_ajax.php?controller=rubrica&action=cleanRubrica',
+            type: 'POST',
+            dataType: 'json',
+            data: dataArray
+        }).done(function (resCleanRRows) {
+            saveRchanges(rowsI, idBuildingInst, numCurrentRows, numCrit);
+        }).fail(function () {
+            AJAXrequestFailed("Fallo en peticion AJAX para limpiar rubrica");
+        });
+    }
+
+        saveRchanges = (rowsI, idBuildingInst, numCurrentRows, numCrit) => {
+            dataArray = {
+                rowsI: rowsI,
+                Id_Instrumento: idBuildingInst,
+                numRowsI: numCurrentRows,
+                numCriterios: numCrit
+            }
+
+            $.ajax({
+                url: '../../index_ajax.php?controller=rubrica&action=saveRubrica',
+                type: 'POST',
+                dataType: 'json',
+                data: dataArray
+            }).done(function (resSaveLCchanges) {
+                if (!resSaveLCchanges.error) {
+                    alert("Cambios almacenados exitosamente");
+                } else {
+                    console.log("Error al almacenar los cambios en la BD");
+                }
+            }).fail(function () {
+                AJAXrequestFailed("Fallo en peticion AJAX para almacenar cambios en rubrica");
+            });
+        }
+
     /* -------------------------- Lista de Cotejo ----------------------------- */
 
     cleanAndSaveLC = (rowsI, idBuildingInst) => {
