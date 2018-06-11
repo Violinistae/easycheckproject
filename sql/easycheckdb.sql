@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.8.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-06-2018 a las 01:38:25
+-- Tiempo de generación: 11-06-2018 a las 23:19:26
 -- Versión del servidor: 10.1.31-MariaDB
--- Versión de PHP: 7.1.15
+-- Versión de PHP: 7.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -98,7 +98,10 @@ INSERT INTO `acciones` (`Id_Acciones`, `Controlador`, `Metodo`) VALUES
 (33, 'academia', 'getAcademiaById'),
 (34, 'academia', 'verifyRequestToAcad'),
 (35, 'integrantesacademia', 'verifyToInsertNewMember'),
-(36, 'integrantesacademia', 'getAcadMembers');
+(36, 'integrantesacademia', 'getAcadMembers'),
+(37, 'rubrica', 'cleanRubrica'),
+(38, 'rubrica', 'saveRubrica'),
+(39, 'rubrica', 'readRubrica');
 
 -- --------------------------------------------------------
 
@@ -151,6 +154,25 @@ CREATE TABLE `criteriosfilarubrica` (
   `DescripcionIdent` varchar(260) NOT NULL,
   `ValorIdent` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `criteriosfilarubrica`
+--
+
+INSERT INTO `criteriosfilarubrica` (`Id_CriterioFilaR`, `FilaRubrica`, `Identificador`, `DescripcionIdent`, `ValorIdent`) VALUES
+(49, 23, '9', '9', 9),
+(50, 23, '0', '0', 10),
+(51, 23, '4', '4', 4),
+(52, 23, '5', '5', 5),
+(78, 29, 'Excelente', 'Es perfecto', 100),
+(79, 29, 'Bueno', 'Casi es perfecto', 80),
+(80, 29, 'Suficiente', 'Puede mejorar', 70),
+(81, 29, 'Regular', 'Hay que mejorar mucho', 60),
+(82, 29, 'Malo', 'Es indispensable mejorar', 40),
+(83, 30, 'Excelente', 'Excelente', 100),
+(84, 30, 'Bueno', 'BUeno', 80),
+(85, 30, 'Regular', 'Regular', 60),
+(86, 30, 'Malo', 'Malo', 10);
 
 -- --------------------------------------------------------
 
@@ -319,21 +341,22 @@ CREATE TABLE `instrumento` (
   `ClaveElem` varchar(6) NOT NULL,
   `NombElemento` varchar(25) NOT NULL,
   `InstruccLlenado` varchar(260) NOT NULL,
-  `Materia` int(11) NOT NULL,
-  `NumCriterios` tinyint(4) DEFAULT NULL
+  `Materia` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `instrumento`
 --
 
-INSERT INTO `instrumento` (`Id_Instrumento`, `Creador`, `TipoInstrumento`, `TipoEvaluacion`, `ClaveElem`, `NombElemento`, `InstruccLlenado`, `Materia`, `NumCriterios`) VALUES
-(4, 123, 4, 2, 'P1.4', 'Examen', 'Prueba', 4, NULL),
-(5, 123, 2, 2, 'P1.2', 'Actividades en Clase', 'Prueba Lista Cotejo', 5, NULL),
-(6, 123, 3, 2, 'P3.3', 'Prácticas', 'GuiaObs prueba', 8, NULL),
-(7, 123, 4, 2, 'P1.4', 'Examen', 'hola examen', 4, NULL),
-(8, 123, 4, 2, 'P2.4', 'Examen', 'Hola', 4, NULL),
-(9, 123, 1, 2, 'P1.3', 'Prácticas', 'Seleccione el criterio de evaluación más adecuado para cada elemento de cada práctica', 5, NULL);
+INSERT INTO `instrumento` (`Id_Instrumento`, `Creador`, `TipoInstrumento`, `TipoEvaluacion`, `ClaveElem`, `NombElemento`, `InstruccLlenado`, `Materia`) VALUES
+(4, 123, 4, 2, 'P1.4', 'Examen', 'Prueba', 4),
+(5, 123, 2, 2, 'P1.2', 'Actividades en Clase', 'Prueba Lista Cotejo', 5),
+(6, 123, 3, 2, 'P3.3', 'Prácticas', 'GuiaObs prueba', 8),
+(7, 123, 4, 2, 'P1.4', 'Examen', 'hola examen', 4),
+(8, 123, 4, 2, 'P2.4', 'Examen', 'Hola', 4),
+(10, 123, 1, 2, 'P1.3', 'Prácticas', 'Seleccione el criterio más adecuado para describir el elemento a evaluar de cada práctica.', 4),
+(11, 123, 1, 2, 'P3.3', 'Prácticas', 'Prácticas POO', 8),
+(12, 12, 1, 2, 'P1.3', 'Prácticas', 'Seleccione el mejor criterio', 10);
 
 -- --------------------------------------------------------
 
@@ -512,8 +535,18 @@ CREATE TABLE `rubrica` (
   `Instrumento` int(11) NOT NULL,
   `AspectoEv` tinyint(4) NOT NULL,
   `NumElemento` tinyint(4) NOT NULL,
-  `Descripcion` varchar(40) NOT NULL
+  `Descripcion` varchar(40) NOT NULL,
+  `NumCriterios` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `rubrica`
+--
+
+INSERT INTO `rubrica` (`Id_FilaRubrica`, `Instrumento`, `AspectoEv`, `NumElemento`, `Descripcion`, `NumCriterios`) VALUES
+(23, 10, 1, 1, 'asdno', 4),
+(29, 11, 2, 1, 'Sabe medir resistencias', 5),
+(30, 12, 1, 1, 'Medir resistencias', 4);
 
 -- --------------------------------------------------------
 
@@ -911,7 +944,7 @@ ALTER TABLE `academia`
 -- AUTO_INCREMENT de la tabla `acciones`
 --
 ALTER TABLE `acciones`
-  MODIFY `Id_Acciones` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `Id_Acciones` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT de la tabla `aspectoevaluacion`
@@ -929,7 +962,7 @@ ALTER TABLE `carrera`
 -- AUTO_INCREMENT de la tabla `criteriosfilarubrica`
 --
 ALTER TABLE `criteriosfilarubrica`
-  MODIFY `Id_CriterioFilaR` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_CriterioFilaR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT de la tabla `cuestionario`
@@ -989,7 +1022,7 @@ ALTER TABLE `guiadeobservacion`
 -- AUTO_INCREMENT de la tabla `instrumento`
 --
 ALTER TABLE `instrumento`
-  MODIFY `Id_Instrumento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `Id_Instrumento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `instrumentoscompartidos`
@@ -1049,7 +1082,7 @@ ALTER TABLE `respuestacuestionario`
 -- AUTO_INCREMENT de la tabla `rubrica`
 --
 ALTER TABLE `rubrica`
-  MODIFY `Id_FilaRubrica` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_FilaRubrica` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `solicitudesacademia`
