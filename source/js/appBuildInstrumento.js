@@ -119,10 +119,11 @@ $(document).ready(function ($) {
                     readInstrumentRowsURL = '../../index_ajax.php?controller=rubrica&action=readRubrica';
                     document.getElementById("addRowBtn").style.color = "rgb(220, 220, 220)";
                     getBuiltInstrumentRows(readInstrumentRowsURL);
+                    insertCommonTableHead(URLHeadTable, headTable);
                     break;
                 case 2:
                     typeInstrumentoLbl.textContent += "Lista de Cotejo";
-                    URLHeadTable = '../../sourcephp/views/buildInst/LC/headRowLC.php';
+                    URLHeadTable = '../../sourcephp/views/buildInst/R/headRowR.php';
                     readInstrumentRowsURL = '../../index_ajax.php?controller=listacotejo&action=readListaCotejo';
                     insertCommonTableHead(URLHeadTable, headTable);
                     getBuiltInstrumentRows(readInstrumentRowsURL);
@@ -197,7 +198,7 @@ $(document).ready(function ($) {
                     dataType: 'json',
                     data: dataArray
                 }).done(function (resReadRowsI) {
-                    console.log(resReadRowsI);
+                    //console.log(resReadRowsI);
 
                     if (!resReadRowsI.error) {
                         if (resReadRowsI.built) {
@@ -206,7 +207,7 @@ $(document).ready(function ($) {
                                 case 1:
                                     let nC = builtRows[0].NumCriterios;
                                     numCriteriosR = nC;
-                                    rowsInstrument = insertBuiltRRows(builtRows, nC);
+                                    rowsInstrument = insertBuiltRRows(builtRows, numCriteriosR);
                                     if (numCriteriosR > 0) {
                                         let sendNumCriterios = document.getElementById("sendNumCriterios");
                                         sendNumCriterios.setAttribute("dataAvailable", "0");
@@ -216,15 +217,19 @@ $(document).ready(function ($) {
                                         numCriterios.disabled = true;
                                         document.getElementById("addRowBtn").style.color = "white";
                                     }
+                                    updateAllLeftCharsR(builtRows, numCriteriosR);
                                     break;
                                 case 2:
                                     rowsInstrument = insertBuiltLCRows(builtRows);
+                                    updateAllLeftCharsLC(builtRows);
                                     break;
                                 case 3:
                                     rowsInstrument = insertBuiltGORows(builtRows);
+                                    updateAllLeftCharsLC(builtRows);
                                     break;
                                 case 4:
                                     rowsInstrument = insertBuiltCRows(builtRows);
+                                    updateAllLeftCharsC(builtRows);
                                     break;
                             }
                         }
@@ -883,10 +888,10 @@ $(document).ready(function ($) {
     }
 
     changeIndevTxt = (e) => {
-        let strTxtAreaChanged = e.currentTarget.value;
-        let indexRowChanged = e.currentTarget.getAttribute('dataq');
+        let strTxtAreaChanged = e.value;
+        let indexRowChanged = e.getAttribute('dataq');
 
-        let res = updateLeftCharstxtArea(e.currentTarget);
+        let res = updateLeftCharstxtArea(e);
 
         if (res == 1) {
             rowsInstrument[indexRowChanged][2] = strTxtAreaChanged;   
@@ -915,8 +920,8 @@ $(document).ready(function ($) {
         }
 
     changePondElem = (e) => {
-        let pondElem = e.currentTarget;
-        let indexRowChanged = e.currentTarget.getAttribute('dataq');
+        let pondElem = e;
+        let indexRowChanged = e.getAttribute('dataq');
 
         if (/^([0-9])*$/.test(pondElem.value)){
             if (parseInt(pondElem.value) <= 100 && parseInt(pondElem.value) >= 1) {
@@ -935,10 +940,10 @@ $(document).ready(function ($) {
     }
     
     changePreg = (e) => {
-        let strTxtAreaChanged = e.currentTarget.value;
-        let indexRowChanged = parseInt(e.currentTarget.getAttribute('dataq'));
+        let strTxtAreaChanged = e.value;
+        let indexRowChanged = parseInt(e.getAttribute('dataq'));
         let indexTypeC = indexRowChanged + 1;
-        let res = updateLeftCharsPreg(e.currentTarget);
+        let res = updateLeftCharsPreg(e);
         let typeC = parseInt(document.getElementById("lblTypeC" + indexTypeC).getAttribute("dataCTy"));
 
         if (res == 1) {
@@ -971,10 +976,10 @@ $(document).ready(function ($) {
         }
 
     changeResClosePreg = (e) => {
-        let strTxtAreaChanged = e.currentTarget.value;
-        let indexRowChanged = parseInt(e.currentTarget.getAttribute('dataqcr'));
+        let strTxtAreaChanged = e.value;
+        let indexRowChanged = parseInt(e.getAttribute('dataqcr'));
 
-        let res = updateLeftCharsResClosePreg(e.currentTarget);
+        let res = updateLeftCharsResClosePreg(e);
 
         if (res == 1) {
             rowsInstrument[indexRowChanged][2][1] = strTxtAreaChanged;
@@ -1003,10 +1008,10 @@ $(document).ready(function ($) {
         }
 
     changeOpcPreg = (e) => {
-        let strTxtAreaChanged = e.currentTarget.value;
-        let indSec = e.currentTarget.getAttribute("dataqop");
-        let indexRowChanged = parseInt(e.currentTarget.id.replace("opcPregTxtInput", ""));
-        let res = updateLeftCharsOption(e.currentTarget);
+        let strTxtAreaChanged = e.value;
+        let indSec = e.getAttribute("dataqop");
+        let indexRowChanged = parseInt(e.id.replace("opcPregTxtInput", ""));
+        let res = updateLeftCharsOption(e);
         
         if (res == 1) {
             let iDec = Math.floor(indexRowChanged / 10) - 1;
@@ -1035,13 +1040,13 @@ $(document).ready(function ($) {
         }
 
     changeDescripElem = (e) => {
-        let strTxtAreaChanged = e.currentTarget.value;
-        let indx = parseInt(e.currentTarget.id.replace("descripElem", "")) - 1;
+        let strTxtAreaChanged = e.value;
+        let indx = parseInt(e.id.replace("descripElem", "")) - 1;
 
-        let res = updateLeftCharsDescriptElem(e.currentTarget);
+        let res = updateLeftCharsDescriptElem(e);
 
         if (res == 1) {
-            rowsInstrument[indx][2] = e.currentTarget.value;
+            rowsInstrument[indx][2] = e.value;
             setNewHashToCookieAfterAction();
         } 
     }
@@ -1066,13 +1071,13 @@ $(document).ready(function ($) {
         }
 
     changeDescrpIdent = (e) => {
-        let strTxtAreaChanged = e.currentTarget.value;
-        let indexNoSplit = e.currentTarget.getAttribute("datadesci");
+        let strTxtAreaChanged = e.value;
+        let indexNoSplit = e.getAttribute("datadesci");
         let split = indexNoSplit.split("_");
         let indexA = parseInt(split[0]);
         let indexB = parseInt(split[1]);
 
-        let res = updateDescripIdent(indexA + 1, indexB + 1, e.currentTarget);
+        let res = updateDescripIdent(indexA + 1, indexB + 1, e);
 
         if (res == 1) {
             rowsInstrument[indexA][3][indexB][1] = strTxtAreaChanged;
@@ -1140,7 +1145,46 @@ $(document).ready(function ($) {
         }
         setNewHashToCookieAfterAction();
     }
-    
+
+/* -+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+- */
+
+    updateAllLeftCharsLC = (builtRows) => {
+        for (let i = 0; i < builtRows.length; ++i) {
+            changeIndevTxt(document.getElementById("indicadoresEv" + (i + 1)));
+        }
+        updateSaveChangesCookie();
+    }
+
+    updateAllLeftCharsC = (builtRows) => {
+        for (let i = 0; i < builtRows.length; ++i) {
+            changePreg(document.getElementById("pregTxtArea" + (i + 1)));
+            switch (parseInt(builtRows[i].TipoPregunta)) {
+                case 1:
+                    for (let j = 0; j < 4; ++j) {
+                        changeOpcPreg(document.getElementById("opcPregTxtInput" + (i + 1) + "" + (j + 1)));
+                    }
+                    break;
+                case 2:
+                    changeResClosePreg(document.getElementById("closePregRes" + (i + 1)));                    
+                    break;
+            }
+        }
+        updateSaveChangesCookie();
+    }
+
+    updateAllLeftCharsR = (builtRows, numCriteriosR) => {
+        for (let i = 0; i < builtRows.length; ++i) {
+            changeDescripElem(document.getElementById("descripElem" + (i + 1)));
+
+            for (let j = 0; j < numCriteriosR; ++j) {
+                changeDescrpIdent(document.getElementById("descripIdent" + (i + 1) + "_" + (j + 1)));
+                
+            }
+        }
+        updateSaveChangesCookie();
+    }
+
+
 /* --------------------------------------------------------------------------------------------------------------------- */
 
     checkNumCriterios = (e) => {
@@ -1213,28 +1257,28 @@ $(document).ready(function ($) {
     /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Triggers for instrumento ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
     /** Event Triggers for Lista de Cotejo && Guia de Observación */
-    $('body').on('input', '.indicadoresEv', function (e) { changeIndevTxt(e); });
+    $('body').on('input', '.indicadoresEv', function (e) { changeIndevTxt(e.currentTarget); });
 
     /** Event Triggers for Rubrica */
     $('body').on('input', '#numCriterios', function (e) { checkNumCriterios(e); });
     $('body').on('click', '#sendNumCriterios', function (e) { sendNumCriterios(e); });
 
-    $('body').on('input', '.descripElem', function (e) { changeDescripElem(e); });
+    $('body').on('input', '.descripElem', function (e) { changeDescripElem(e.currentTarget); });
     $('body').on('input', '.identCriterio', function (e) { changeIdentCriterio(e); });
     $('body').on('input', '.valorIdent', function (e) { changeValIdentCriterio(e); });
-    $('body').on('input', '.descripIdent', function (e) { changeDescrpIdent(e); });
+    $('body').on('input', '.descripIdent', function (e) { changeDescrpIdent(e.currentTarget); });
     
     /** Event Triggers for Lista de Cotejo */
     //--
 
     /** Event Triggers for Guia de Observación */    
-    $('body').on('input', '.ponderacionElemento', function (e) { changePondElem(e); });
+    $('body').on('input', '.ponderacionElemento', function (e) { changePondElem(e.currentTarget); });
 
     /** Event Triggers for Cuestionario */
     $('body').on('change', '.correctOption', function (e) { changeCorrectOpc(e); });
-    $('body').on('input', '.pregTxtArea', function (e) { changePreg(e); });
-    $('body').on('input', '.opcPregTxtInput', function (e) { changeOpcPreg(e); });
-    $('body').on('input', '.closePregRes', function (e) { changeResClosePreg(e); });
+    $('body').on('input', '.pregTxtArea', function (e) { changePreg(e.currentTarget); });
+    $('body').on('input', '.opcPregTxtInput', function (e) { changeOpcPreg(e.currentTarget); });
+    $('body').on('input', '.closePregRes', function (e) { changeResClosePreg(e.currentTarget); });
 
 /* --------------------------------------------------------------------------------------------------------------------- */
 

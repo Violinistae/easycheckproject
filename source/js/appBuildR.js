@@ -199,6 +199,7 @@ $(document).ready(function ($) {
             let arr3 = [];
 
             for (let j = 0; j < numCriteriosR; ++j) {
+                
                 let arr4 = [];
                 let arr5 = [];
 
@@ -222,22 +223,22 @@ $(document).ready(function ($) {
             arr2.push(arr3);
 
             arr.push(arr2);
+            
         }
         return arr;
     }
 
     verifyIdentValR = () => {
         let flag = true;
-        //let hundertFlag = false;
 
         let allCriteriosValues = $("input:text.valorIdent");
         $(allCriteriosValues).each(function () {
             if (!flag)
                 return;
-            if ($(this).val() < 1 || $(this).val() > 100) {
+            if ($(this).val() < 0 || $(this).val() > 100) {
                 flag = false;
                 console.log($(this).val());
-                alert("Los valores de los criterios de cada fila de la rubrica deben encontrarse dentro del rango 1 a 100.");
+                alert("Los valores de los criterios de cada fila de la rubrica deben encontrarse dentro del rango 0 a 100.");
             }
         });
 
@@ -245,13 +246,13 @@ $(document).ready(function ($) {
     }
 
     insertBuiltRRows = (bulitRows, nC) => {
-        console.log(bulitRows);
+        //console.log(bulitRows);
         for (let i = 0; i < bulitRows.length; ++i) {
             addRRow(nC, i + 1);
             fillBuildRRows(nC, i + 1, bulitRows[i]);
         }
 
-        return getArrayFormDataRRows(bulitRows.length);
+        return getArrayFormDataRRows(bulitRows.length, numCriteriosR);
     }
 
     fillBuildRRows = (nC, index, builtRow) => {
