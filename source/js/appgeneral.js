@@ -1,3 +1,15 @@
+getSessionVariables = (methodToDo) => {
+	$.ajax({
+		url: '../../index_ajax.php?controller=usuario&action=getSessionVariables',
+		type: 'POST',
+		dataType: 'json'
+	}).done(function (sessionVariables) {
+		methodToDo(sessionVariables);
+	}).fail(function () {
+		AJAXrequestFailed("Fallo en Petición AJAX para obtener variables de sesión");
+	});
+}
+
 $(document).ready(function ($) { 
     /**
 	 * Método para mostrar en consola (para comodidad del desarrollador) un mensaje en caso de que una petición
@@ -50,17 +62,7 @@ $(document).ready(function ($) {
 		}	
 	}
 
-	getSessionVariables = (methodToDo) => {
-		$.ajax({
-			url: '../../index_ajax.php?controller=usuario&action=getSessionVariables',
-			type: 'POST',
-			dataType: 'json'
-		}).done(function (sessionVariables) {
-			methodToDo(sessionVariables);
-		}).fail(function () {
-			AJAXrequestFailed("Fallo en Petición AJAX para obtener variables de sesión");
-		});
-	}
+	
 
 	setCookie = (cookieName, cookieValue, exDays) => {
 		var d = new Date();

@@ -6,12 +6,15 @@ var Materia;
 var nombreElemento
 var TipoEv;
 var tipoInstrumento;
+var userreg;
 
 var rowsInstrument = [];
 var numCriteriosR = 0;
 
 //Verify user session here
 //Verify there is no other place where is being modified
+
+
 
 $(document).ready(function ($) {
 
@@ -25,10 +28,47 @@ $(document).ready(function ($) {
 
     }
 
+    verifyToBuild = (sessionVariables) => {
+        if (!sessionVariables.error) {
+            switch (parseInt(sessionVariables.usertype)) {
+                case 1:
+                    userreg = parseInt(sessionVariables.userreg);
+                    getInstrumentData();
+                    break;
+                case 2:
+                    userreg = parseInt(sessionVariables.userreg);
+                    getInstrumentData();
+                    break;
+                default:
+                    console.log("Cerrar Sesión");
+                    window.location.replace("../../index.php");
+                    break;
+            }
+        } else if (sessionVariables.error) {
+            console.log("Cerrar Sesión");
+            window.location.replace("../../index.php");
+        }
+    }
+
     getInstrumentData = () => {
         
-        var JSON_CreatedInstrData = JSON.parse(sessionStorage.getItem("createdInst"));
+        var JSON_CreatedInstrData = JSON.parse(sessionStorage.getItem("createdInst"));    
+
+        if (JSON_CreatedInstrData == null) {
+            console.log("Cerrar Sesión");
+            window.location.replace("../../index.php");
+            return;
+        }
+
         Id_Instrumento = parseInt(JSON_CreatedInstrData.Id_Instrumento);
+
+        if (JSON_CreatedInstrData == null) {
+            console.log("Cerrar Sesión");
+            window.location.replace("../../index.php");
+            return;
+        }
+        
+
         dataArray = {
             purpose: 1,
             Id_Instrumento: Id_Instrumento
@@ -51,6 +91,10 @@ $(document).ready(function ($) {
                 nombreElemento = iRows.NombElemento;
                 TipoEv = parseInt(iRows.TipoEvaluacion);
                 tipoInstrumento = parseInt(iRows.TipoInstrumento);
+
+                if (creador != userreg) {
+                    console.log("Cerrar y no dar permiso");
+                }
 
                 setInstrumentTypeNameKey(tipoInstrumento, claveElemento, nombreElemento);
             }
@@ -1194,6 +1238,7 @@ $(document).ready(function ($) {
 
 /* --------------------------------------------------------------------------------------------------------------------- */
 
-    getInstrumentData();    
+    getSessionVariables(verifyToBuild);
+    
 
 });
