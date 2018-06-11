@@ -244,6 +244,39 @@ $(document).ready(function ($) {
         return flag;
     }
 
+    insertBuiltRRows = (bulitRows, nC) => {
+        console.log(bulitRows);
+        for (let i = 0; i < bulitRows.length; ++i) {
+            addRRow(nC, i + 1);
+            fillBuildRRows(nC, i + 1, bulitRows[i]);
+        }
+
+        return getArrayFormDataRRows(bulitRows.length);
+    }
+
+    fillBuildRRows = (nC, index, builtRow) => {
+            let aspEvRadios = document.getElementsByName("aspEvRow" + index);
+            let sAspectoEv = builtRow.AspectoEv;
+            for (let i = 0; i < aspEvRadios.length; ++i) {
+                if (aspEvRadios[i].value == sAspectoEv) {
+                    aspEvRadios[i].checked = true;
+                }
+            }
+
+            let descripElem = document.getElementById("descripElem" + index);
+            descripElem.value = builtRow.Descripcion;
+            
+            for (let j = 0; j < nC; ++j) {
+                let identCriterio = document.getElementById("identCriterio" + index + "_" + (j + 1));
+                identCriterio.value = builtRow.Criterios[j].headIdentificador.Identificador;
+
+                let valorIdent = document.getElementById("valorIdent" + index + "_" + (j + 1));
+                valorIdent.value = builtRow.Criterios[j].headIdentificador.ValorIdent;
+
+                let descripIdent = document.getElementById("descripIdent" + index + "_" + (j + 1));
+                descripIdent.value = builtRow.Criterios[j].DescripcionIdent;
+            }
+        }
 
 /* ---------------------------------------------------------------------------------------------------- */
 

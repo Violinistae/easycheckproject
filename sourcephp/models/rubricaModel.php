@@ -28,6 +28,9 @@
             $this->NumCriterios = $NumCriterios;
         }
 
+        public function getId_FilaRubrica () {
+            return $this->Id_FilaRubrica;
+        }
         public function getInstrumento () {
             return $this->Instrumento;
         }

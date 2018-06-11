@@ -16,24 +16,30 @@
 
         public function saveRubrica () {
             if (isset($_POST["Id_Instrumento"])) {
+
+                if (!isset($_POST["rowsI"])) {
+                    echo json_encode (["error" => false]);
+                    return;
+                }
+
                 $numRowsI = $_POST["numRowsI"];
                 $Id_Instrumento = $_POST["Id_Instrumento"];
                 $rowsI = $_POST["rowsI"];
                 $numCriterios = $_POST["numCriterios"];
 
-                $rubricaCotejoRow;
+                $rubricaRow;
                 $cont = 0;
 
                 //echo json_encode (["x" => $rowsI, "length" => $numRowsI]);
                 
                 for ($i = 0; $i < $numRowsI; ++$i) {
                     $a = $rowsI[$i];
-                    $rubricaCotejoRow = new rubricaModel();
-                    $rubricaCotejoRow->setInstrumento(intval($Id_Instrumento));
-                    $rubricaCotejoRow->setAspectoEv(intval($a[1]));
-                    $rubricaCotejoRow->setNumElemento(intval($a[0]));
-                    $rubricaCotejoRow->setDescripcion($a[2]);
-                    $rubricaCotejoRow->setNumCriterios($numCriterios);
+                    $rubricaRow = new rubricaModel();
+                    $rubricaRow->setInstrumento(intval($Id_Instrumento));
+                    $rubricaRow->setAspectoEv(intval($a[1]));
+                    $rubricaRow->setNumElemento(intval($a[0]));
+                    $rubricaRow->setDescripcion($a[2]);
+                    $rubricaRow->setNumCriterios($numCriterios);
 
                     $stmt = $this->pdo->prepare (
                         "INSERT INTO rubrica (
@@ -48,11 +54,11 @@
                     );
 
                     $stmt->execute([
-                        $rubricaCotejoRow->getInstrumento(),
-                        $rubricaCotejoRow->getAspectoEv(),
-                        $rubricaCotejoRow->getNumElemento(),
-                        $rubricaCotejoRow->getDescripcion(),
-                        $rubricaCotejoRow->getNumCriterios()
+                        $rubricaRow->getInstrumento(),
+                        $rubricaRow->getAspectoEv(),
+                        $rubricaRow->getNumElemento(),
+                        $rubricaRow->getDescripcion(),
+                        $rubricaRow->getNumCriterios()
                     ]);
 
                     if ($stmt->rowCount() == 1) {
@@ -79,7 +85,44 @@
 
         public function readRubrica () {
             if (isset($_POST["Id_Instrumento"])) {
-                
+                $stmt = $this->pdo->prepare(
+                    "SELECT * FROM rubrica
+                        WHERE Instrumento = ?"
+                );
+                $stmt->execute([
+                    $_POST["Id_Instrumento"]
+                ]);
+
+                if ($stmt->rowCount() > 0) {
+                    $rRows = array();
+                    while ($rRow = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $r = new rubricaModel();
+                        $r->setId_FilaRubrica(intval($rRow["Id_FilaRubrica"]));
+                        $r->setInstrumento(intval($_POST["Id_Instrumento"]));
+                        $r->setAspectoEv(intval($rRow["AspectoEv"]));
+                        $r->setNumElemento(intval($rRow["NumElemento"]));
+                        $r->setDescripcion($rRow["Descripcion"]);
+                        $r->setNumCriterios(intval($rRow["NumCriterios"]));
+
+                        $criteriosCtlr = new criteriosfilarubricaController($this->pdo);
+                        $crit = $criteriosCtlr->readCriteriosFilaR(intval($rRow["Id_FilaRubrica"]));
+
+                        $row = ([
+                            'Id_FilaRubrica' => $r->getId_FilaRubrica(),
+                            'Instrumento' => $r->getInstrumento(),
+                            'AspectoEv' => $r->getAspectoEv(),
+                            'NumElemento' => $r->getNumElemento(),
+                            'Descripcion' => $r->getDescripcion(),
+                            'NumCriterios' => $r->getNumCriterios(),
+                            'Criterios' => $crit
+                        ]);
+
+                        $rRows[] = $row;
+                    }
+                    echo json_encode(['error' => false, 'built' => true, 'builtRows' => $rRows, 'tInst' => 1]);
+                } else {
+                    echo json_encode(['error' => false, 'built' => false]);
+                }            
             } else {
                 echo json_encode (['error' => true]);
             }

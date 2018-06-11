@@ -160,7 +160,18 @@ $(document).ready(function ($) {
                             builtRows = resReadRowsI.builtRows;
                             switch (resReadRowsI.tInst) {
                                 case 1:
-                                    rowsInstrument = insertBuiltRRows(builtRows);
+                                    let nC = builtRows[0].NumCriterios;
+                                    numCriteriosR = nC;
+                                    rowsInstrument = insertBuiltRRows(builtRows, nC);
+                                    if (numCriteriosR > 0) {
+                                        let sendNumCriterios = document.getElementById("sendNumCriterios");
+                                        sendNumCriterios.setAttribute("dataAvailable", "0");
+                                        sendNumCriterios.style.color = "gray";
+                                        let numCriterios = document.getElementById("numCriterios");
+                                        numCriterios.value = numCriteriosR;
+                                        numCriterios.disabled = true;
+                                        document.getElementById("addRowBtn").style.color = "white";
+                                    }
                                     break;
                                 case 2:
                                     rowsInstrument = insertBuiltLCRows(builtRows);
@@ -242,6 +253,7 @@ $(document).ready(function ($) {
 
     updateSorted = () => {
         let posAux = $('#rowsContainer').sortable('toArray');
+        console.log(posAux);
         let radiosValues = [];
         let mtx = [];
 
@@ -318,6 +330,7 @@ $(document).ready(function ($) {
                     break;
             }
         }
+        console.log(rowsInstrument);
 
         rowsInstrument = getArrayFromDataRows(posAux.length);
         setNewHashToCookieAfterAction();
@@ -396,12 +409,7 @@ $(document).ready(function ($) {
                     auxArr = getArrayFormDataCRows(numRows);
                     break;
             }
-            if (auxArr.length > 0) {
-                return auxArr;
-            } else {
-                return rowsInstrument;
-            }
-            
+            return auxArr;
         }
 
     deleteInstrumentRow = (e) => {
