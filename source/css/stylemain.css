@@ -298,3 +298,25 @@
     width: 100%;
     height: 100%;
 }
+
+/* ---------------------------------------------------------------- */
+.contextCostumMenu {
+    display: none;
+    z-index: 1000;
+    position: absolute;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    white-space: nowrap;
+    background: #fff;
+    border-radius: .3em;
+    padding: 0;
+    box-shadow: .35em .35em .4em #B8B8B8;
+}
+
+.contextCostumMenu>li {
+    padding: 1rem 3rem;
+    cursor: pointer;
+    list-style: none;
+    transition: all 300ms ease;
+    user-select: none;
+}

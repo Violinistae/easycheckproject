@@ -62,8 +62,6 @@ $(document).ready(function ($) {
 		}	
 	}
 
-	
-
 	setCookie = (cookieName, cookieValue, exDays) => {
 		var d = new Date();
 		d.setTime(d.getTime() + (exDays * 24 * 60 * 60 * 1000));

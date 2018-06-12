@@ -147,8 +147,56 @@
             }
         }
 
-        public function checkInstrumento () {
-            
+        public function readInstrumentoByCreador() {
+            if (isset($_SESSION["userreg"])) {
+                $stmt = $this->pdo->prepare(
+                    "SELECT * FROM instrumento
+                        WHERE Creador = ?"
+                );
+                $stmt->execute([
+                    $_SESSION["userreg"]
+                ]);
+
+                if ($stmt->rowCount() > 0) {
+
+                    $instR = array();
+                    while ($i = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $in = new instrumentoModel();
+                        $in->setId_Instrumento(intval($i["Id_Instrumento"]));
+                        $in->setCreador(intval($i["Creador"]));
+                        $in->setTipoInstrumento(intval($i["TipoInstrumento"]));
+                        $in->setTipoEvaluacion(intval($i["TipoEvaluacion"]));
+                        $in->setClaveElem($i["ClaveElem"]);
+                        $in->setNombElemento($i["NombElemento"]);
+                        $in->setInstruccLlenado($i["InstruccLlenado"]);
+                        $in->setMateria($i["Materia"]);
+
+                        $matCtrlr = new materiaController($this->pdo);
+                        $m = $matCtrlr->getMateriaByIdLocal($in->getMateria());
+
+                        $typeInCtrlr = new tipoinstrumentoController($this->pdo);
+                        $tInstr = $typeInCtrlr->readTipoInstrumentoById($in->getTipoInstrumento());
+                        
+                        $ins = ([
+                            'Id_Instrumento' => $in->getId_Instrumento(),
+                            'Creador' => $in->getCreador(),
+                            'TipoInstrumento' => $tInstr,
+                            'TipoEvaluacion' => $in->getTipoEvaluacion(),
+                            'ClaveElem' => $in->getClaveElem(),
+                            'NombElemento' => $in->getNombElemento(),
+                            'InstruccLlenado' => $in->getInstruccLlenado(),
+                            'Materia' => $m->getMateria()
+                        ]);
+
+                        $instR[] = $ins;
+                    }
+                    echo json_encode (['error' => false, 'built' => true, 'instrUser' => $instR]);
+                } else {
+                    echo json_encode(['error' => false, 'built' => false]);
+                }
+            } else {
+                echo json_encode(['error' => true]);
+            }
         }
 
     }

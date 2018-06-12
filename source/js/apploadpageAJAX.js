@@ -6,15 +6,84 @@ $(document).ready(function ($) {
 		setCookie("lOaDeDpAgE_ajax", "gotoMainPage", 7);
 		$(".subdropumen").removeClass('active');
 		$(".buttonnewinst").removeClass('active');
-		$.ajax({
-			url: "../../sourcephp/views/shared/forEveryone/principal.php",
-			type: "POST"
-		}).done(function (mainPage) {
-			maincontentFadeAnimation(mainPage, "null");
-		}).fail( function () {
-			AJAXrequestFailed("Fallo en petición AJAX para volver a página principal");
-		});
-	}	
+
+		getSessionVariables(insertContentToMainPage);
+	}
+
+		insertContentToMainPage = (sessionVariables) => {
+			if (!sessionVariables.error) {
+				let ut = parseInt(sessionVariables.usertype); 
+				if (ut == 1 || ut == 2) {
+					$.ajax({
+						url: "../../sourcephp/views/shared/CoordAndProf/principal.php",
+						type: "POST"
+					}).done(function (mainPage) {
+						maincontentFadeAnimation(mainPage, getProfCoordInstr);
+					}).fail(function () {
+						AJAXrequestFailed("Fallo en petición AJAX para volver a página principal");
+					});
+				} else if (ut == 3) {
+					insertMainPageAlumnoContent();
+				} else {
+					closeUserSession();
+				}
+			} else {
+				closeUserSession();
+			}
+		}
+
+		getProfCoordInstr = () => {
+			let mainContainer = document.getElementById("submaincontainer");
+			getAndExecuteNewInsertedScript(mainContainer);
+
+			$.ajax({
+				url: '../../index_ajax.php?controller=instrumento&action=readInstrumentoByCreador',
+				type: "POST",
+				dataType: 'json'
+			}).done(function (resUserBuiltInstr) {
+				insertBuiltUserInst(resUserBuiltInstr);
+			}).fail(function () {
+				AJAXrequestFailed("Fallo en petición AJAX para volver a página principal");
+			});
+		}
+
+		insertBuiltUserInst = (resUserBuiltInstr) => {
+			if (!resUserBuiltInstr.error) {
+				if (resUserBuiltInstr.built) {
+					let userInst = resUserBuiltInstr.instrUser;
+					let instrumentsContainerPpal = document.getElementsByClassName("instrumentsContainerPpal").item(0);
+					//console.log(instrumentsContainerPpal);
+
+					for (let i = 0; i < userInst.length; ++i) {
+						let instrumentDivPpal = document.createElement("div");
+						instrumentDivPpal.classList.add("instrumentDivPpal");
+						instrumentDivPpal.setAttribute("dataidins", userInst[i].Id_Instrumento);
+
+						let instrumentImg = document.createElement("span");
+						instrumentImg.classList.add("instrumentImg");
+						instrumentDivPpal.appendChild(instrumentImg);
+						//Añadir imagen
+
+						let instrumentTextPart = document.createElement("div");
+						instrumentTextPart.classList.add("instrumentTextPart");
+
+						let label = document.createElement("label");
+						label.classList.add("nomElemInstr");
+						label.textContent = userInst[i].TipoInstrumento + " ~ "
+							+ userInst[i].ClaveElem + " - " + userInst[i].NombElemento;
+						instrumentTextPart.appendChild(label);
+
+						label = document.createElement("label");
+						label.textContent = userInst[i].Materia;
+						instrumentTextPart.appendChild(label);
+
+						instrumentDivPpal.appendChild(instrumentTextPart);
+						instrumentsContainerPpal.appendChild(instrumentDivPpal);
+						
+					}
+				}
+			}
+		}
 
 	//Function to insert content on main page ?
         

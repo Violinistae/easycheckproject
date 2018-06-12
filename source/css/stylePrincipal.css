@@ -1,0 +1,7 @@
+#principalPgContainer {
+    max-height: 100%;
+    max-width: 100%;
+    overflow: auto;
+    padding: 1rem 1rem;
+    font-family: 'Noto Sans', sans-serif;
+}
