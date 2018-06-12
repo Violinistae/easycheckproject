@@ -25,17 +25,17 @@
                     ]);
 
                     if ($stmt2->rowCount() > 0) {
-                        echo json_encode(["error" => false, "message" => "Se elminiado el instrumento de evaluación."]);
+                        echo json_encode(["error" => false, "message" => "Se eliminado el instrumento de evaluación."]);
                     } else {
-                        echo json_encode(["error" => true, "message" => "No se ha podido eliminar el instrumento de evaluación."]);
+                        echo json_encode(["error" => true, "message" => "No se ha podido eliminar el instrumento de evalaución que seleccionó, inténtelo más tarde."]);
                     }
 
                 } else {
-                    echo json_encode(["error" => true, "message" => "Usted no tiene permiso para eliminar este instrumento de evaluación."]);
+                    echo json_encode(["error" => false, 'permition' => false, "message" => "Usted no tiene permiso para eliminar este instrumento de evaluación."]);
                 }
 
             } else {
-                echo json_encode(["error" => true, "message" => "Inténtelo más tarde"]);
+                echo json_encode(["error" => true, "message" => "No se ha podido eliminar el instrumento de evalaución, inténtelo más tarde"]);
             }
         }
 

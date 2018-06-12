@@ -57,10 +57,10 @@ $(document).ready(function ($) {
 					for (let i = 0; i < userInst.length; ++i) {
 						let instrumentDivPpal = document.createElement("div");
 						instrumentDivPpal.classList.add("instrumentDivPpal");
-						instrumentDivPpal.setAttribute("dataidins", userInst[i].Id_Instrumento);
 
 						let instrumentImg = document.createElement("span");
 						instrumentImg.classList.add("instrumentImg");
+						instrumentImg.setAttribute("dataidins", userInst[i].Id_Instrumento);
 						instrumentDivPpal.appendChild(instrumentImg);
 						//Añadir imagen
 
@@ -84,8 +84,6 @@ $(document).ready(function ($) {
 				}
 			}
 		}
-
-	//Function to insert content on main page ?
         
 	gotoPersonalProfilePage = () => {
 		setCookie("lOaDeDpAgE_ajax", "gotoPersonalProfilePage", 7);

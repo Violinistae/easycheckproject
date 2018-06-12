@@ -77,9 +77,9 @@
 	</div>
 
 	<ul class="contextCostumMenu">
-		<li dataowinsaction="1">Modificar instrumento</li>
-		<li dataowinsaction="2">Compartir instrumento</li>
-		<li dataowinsaction="3">Eliminar instrumento </li>
+		<li class="contextMenuItem" dataowinsaction="1">Compartir instrumento</li>
+		<li class="contextMenuItem" dataowinsaction="2">Modificar instrumento</li>
+		<li class="contextMenuItem" dataowinsaction="3">Eliminar instrumento </li>
 	</ul>
 </body>
 </html>

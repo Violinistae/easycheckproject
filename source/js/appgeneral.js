@@ -96,6 +96,7 @@ $(document).ready(function ($) {
 			case 10: choose = false; break;
 			case 11: choose = false; break;
 			case 13: choose = false; break;
+			case 15: choose = false; break;
 
 
 			case 410: choose = false; break;
@@ -234,6 +235,12 @@ $(document).ready(function ($) {
 				actionsCookieName = "aiCoTndDtoO";
 				deleteCookie(actionsCookieName);
 				gotoAcademiaOverview();
+				break;
+			case "14":
+				deleteInstrumentConfirmed();
+				break;
+			case "15":
+				gotoMainPage();
 				break;
 			case "410":
 				$("#createmateriabtn").prop("disabled", false);
