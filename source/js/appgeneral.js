@@ -46,6 +46,7 @@ $(document).ready(function ($) {
 
 	maincontentFadeAnimation = (responsePage, functionToDo) => {
 		$("#submaincontainer").fadeOut(180, function () { 
+			document.getElementById("submaincontainer").innerHTML = "";
 			document.getElementById("submaincontainer").innerHTML = responsePage;
 			$("#submaincontainer").fadeIn(180);
 			if (functionToDo != "null")

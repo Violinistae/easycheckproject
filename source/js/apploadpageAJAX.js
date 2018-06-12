@@ -49,7 +49,7 @@ $(document).ready(function ($) {
 
 		insertBuiltUserInst = (resUserBuiltInstr) => {
 			if (!resUserBuiltInstr.error) {
-				if (resUserBuiltInstr.built) {
+				if (resUserBuiltInstr.built) {				
 					let userInst = resUserBuiltInstr.instrUser;
 					let instrumentsContainerPpal = document.getElementsByClassName("instrumentsContainerPpal").item(0);
 					//console.log(instrumentsContainerPpal);
@@ -62,8 +62,24 @@ $(document).ready(function ($) {
 						instrumentImg.classList.add("instrumentImg");
 						instrumentImg.setAttribute("dataidins", userInst[i].Id_Instrumento);
 						instrumentImg.setAttribute("dataidmat", userInst[i].Id_Materia);
+
+						switch (parseInt(userInst[i].Id_TipoIn)) {
+							case 1:
+								instrumentImg.style.backgroundImage = "url('../../source/img/instrumentos/rubrica.jpg')";
+								break;
+							case 2:
+								instrumentImg.style.backgroundImage = "url('../../source/img/instrumentos/listacotejo.png')";
+								break;
+							case 3:
+								instrumentImg.style.backgroundImage = "url('../../source/img/instrumentos/guiaobs.png')";
+								break;
+							case 4:
+								instrumentImg.style.backgroundImage = "url('../../source/img/instrumentos/cuestionario.png')";
+								break;
+						}
+
 						instrumentDivPpal.appendChild(instrumentImg);
-						//Añadir imagen
+						
 
 						let instrumentTextPart = document.createElement("div");
 						instrumentTextPart.classList.add("instrumentTextPart");
@@ -235,11 +251,43 @@ $(document).ready(function ($) {
 			}
 		}
 
-			loadAcademiaOverviewCoord = () => {
+			loadAcademiaOverviewCoord= () => {
 				mainContainer = document.getElementById("submaincontainer");
 				getAndExecuteNewInsertedScript(mainContainer);
 
-				//Insert instrumentos compartidos
+				dataAcademiaFromJS = {
+					fromJS: 1
+				};
+				$.ajax({
+					url: '../../index_ajax.php?controller=academia&action=getAcademiaByCoordinador',
+					type: 'POST',
+					dataType: 'json',
+					data: dataAcademiaFromJS
+				}).done(function (resAcadInfo) {
+					dataForSharedInst = {
+						Id_Academia: resAcadInfo.academia.Id_Academia
+					};
+					console.log(dataForSharedInst);
+
+					$.ajax({
+						url: '../../index_ajax.php?controller=instrumentoscompartidos&action=readAcadSharedInstr',
+						type: 'POST',
+						dataType: 'json',
+						data: dataForSharedInst
+					}).done(function (resSharedInstr) { 
+						if (!resSharedInstr.error) {
+							if (resSharedInstr.built) {
+								insertSharedInsToContainer (resSharedInstr.sharedInst);
+							} else {
+								//Add sticky message there are no shared instruments
+							}
+						}
+					 }).fail(function () {
+						 AJAXrequestFailed("Fallo en petición AJAX para obtener e insertar instrumentos compartidos la academia");
+					 });
+				}).fail(function () {
+					AJAXrequestFailed("Fallo en petición AJAX para obtener información academia");
+				});
 			}
 
 			loadAcademiasToTable = () => {
@@ -263,6 +311,55 @@ $(document).ready(function ($) {
 				})
 
 			}
+
+
+				insertSharedInsToContainer = (sharedInstr) => {
+					let instrumentsContainer = document.getElementsByClassName("instrumentsContainer").item(0);
+
+					for (let i = 0; i <  sharedInstr.length; ++i) {
+						let instrumentDivPpal = document.createElement("div");
+						instrumentDivPpal.classList.add("instrumentDiv");
+
+						let instrumentImg = document.createElement("span");
+						instrumentImg.classList.add("instrumentImg");
+						instrumentImg.setAttribute("dataidins", sharedInstr[i].Id_Instrumento);
+						instrumentImg.setAttribute("dataidmat", sharedInstr[i].Id_Materia);						
+
+						switch (parseInt(sharedInstr[i].Id_TipoIn)) {
+							case 1:
+								instrumentImg.style.backgroundImage = "url('../../source/img/instrumentos/rubrica.jpg')";
+								break;
+							case 2:
+								instrumentImg.style.backgroundImage = "url('../../source/img/instrumentos/listacotejo.png')";
+								break;
+							case 3:
+								instrumentImg.style.backgroundImage = "url('../../source/img/instrumentos/guiaobs.png')";
+								break;
+							case 4:
+								instrumentImg.style.backgroundImage = "url('../../source/img/instrumentos/cuestionario.png')";
+								break;
+						}
+						instrumentDivPpal.appendChild(instrumentImg);
+
+						let instrumentTextPart = document.createElement("div");
+						instrumentTextPart.classList.add("instrumentTextPart");
+
+						let label = document.createElement("label");
+						label.classList.add("nomElemInstr");
+						label.textContent = sharedInstr[i].TipoInstrumento + " ~ "
+							+ sharedInstr[i].ClaveElem + " - " + sharedInstr[i].NombElemento;
+						instrumentTextPart.appendChild(label);
+
+						label = document.createElement("label");
+						label.textContent = sharedInstr[i].Materia;
+						instrumentTextPart.appendChild(label);
+
+						instrumentDivPpal.appendChild(instrumentTextPart);
+						instrumentsContainer.appendChild(instrumentDivPpal);
+					}
+				}
+
+
 
 			setNoAcadsMemberInfo = () => {
 				let noAcademiasInfo = document.getElementById("noAcademiasAvailable");
@@ -343,7 +440,7 @@ $(document).ready(function ($) {
 		}		
 
 			insertMateriasToTable = (materiasAcademia) => {
-				console.log(materiasAcademia.numMaterias)
+				//console.log(materiasAcademia.numMaterias)
 				if (!materiasAcademia.error) {					
 
 					if (materiasAcademia.numMaterias > 0) {

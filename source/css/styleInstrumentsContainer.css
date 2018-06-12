@@ -39,8 +39,10 @@
 }
 
 .instrumentImg {
-    border: black solid 2px;
+    border: transparent;
     border-radius: 8px;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .instrumentTextPart {

@@ -147,6 +147,56 @@
             }
         }
 
+        public function readInsturmentoByIdLocal($Id_I) {
+            if(isset($Id_I)) {
+                $stmt = $this->pdo->prepare(
+                    "SELECT * FROM instrumento
+                        where Id_Instrumento = ?"
+                );
+                $stmt->execute([
+                    $Id_I
+                ]);
+
+                if ($stmt->rowCount() > 0) {                    
+                    while ($i = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $in = new instrumentoModel();
+                        $in->setId_Instrumento(intval($i["Id_Instrumento"]));
+                        $in->setCreador(intval($i["Creador"]));
+                        $in->setTipoInstrumento(intval($i["TipoInstrumento"]));
+                        $in->setTipoEvaluacion(intval($i["TipoEvaluacion"]));
+                        $in->setClaveElem($i["ClaveElem"]);
+                        $in->setNombElemento($i["NombElemento"]);
+                        $in->setInstruccLlenado($i["InstruccLlenado"]);
+                        $in->setMateria($i["Materia"]);
+
+                        $matCtrlr = new materiaController($this->pdo);
+                        $m = $matCtrlr->getMateriaByIdLocal($in->getMateria());
+
+                        $typeInCtrlr = new tipoinstrumentoController($this->pdo);
+                        $tInstr = $typeInCtrlr->readTipoInstrumentoById($in->getTipoInstrumento());
+                        
+                        $ins = ([
+                            'Id_Instrumento' => $in->getId_Instrumento(),
+                            'Creador' => $in->getCreador(),
+                            'TipoInstrumento' => $tInstr,
+                            'Id_TipoIn' => $in->getTipoInstrumento(),
+                            'TipoEvaluacion' => $in->getTipoEvaluacion(),
+                            'ClaveElem' => $in->getClaveElem(),
+                            'NombElemento' => $in->getNombElemento(),
+                            'InstruccLlenado' => $in->getInstruccLlenado(),
+                            'Materia' => $m->getMateria(),
+                            'Id_Materia' => $in->getMateria()
+                        ]);                        
+                    }
+                    return $ins;                    
+                } else {
+                    return null;
+                }                
+            } else {
+                return null;
+            }
+        }
+
         public function readInstrumentoByCreador() {
             if (isset($_SESSION["userreg"])) {
                 $stmt = $this->pdo->prepare(
@@ -181,6 +231,7 @@
                             'Id_Instrumento' => $in->getId_Instrumento(),
                             'Creador' => $in->getCreador(),
                             'TipoInstrumento' => $tInstr,
+                            'Id_TipoIn' => $in->getTipoInstrumento(),
                             'TipoEvaluacion' => $in->getTipoEvaluacion(),
                             'ClaveElem' => $in->getClaveElem(),
                             'NombElemento' => $in->getNombElemento(),

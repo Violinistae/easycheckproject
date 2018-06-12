@@ -25,7 +25,7 @@ $(document).ready(function ($) {
 
     outContextMenuClick = (e) => {
         if (!$(e.target).parents(".contextCostumMenu").length>0) {
-            $(".contextCostumMenu").hide(80);
+            $(".contextCostumMenu").hide(50);
             $(".contextCostumMenu").attr("dataidins", "");
             $(".contextCostumMenu").attr("dataidmat", "");
         }
@@ -78,6 +78,7 @@ $(document).ready(function ($) {
     }
 
         goToEditBuiltIntr = (eTrigger) => {
+            //console.log(eTrigger);
             let o = {
                 Id_Instrumento: parseInt(eTrigger.getAttribute("dataidins"))
             };
@@ -137,8 +138,8 @@ $(document).ready(function ($) {
 
 
     $('body').bind('mousedown', function (e) { outContextMenuClick(e); })
-    $("body").on('contextmenu', '.instrumentImg', function (e) { showContextMenuOnInstrument(e); })
-    $('body').on('dblclick', '.instrumentImg', function (e) { goToEditBuiltIntr(e.currentTarget); });
+    $("body").on('contextmenu', '.instrumentImg', function (e) { console.log(e); showContextMenuOnInstrument(e); })
+    $('body').on('dblclick', '.instrumentImg', function (e) { console.log(e); goToEditBuiltIntr(e.currentTarget); });
     $("body").on('contextmenu', '#submaincontainer', function (e) { e.preventDefault(); })
     $('body').on('click', '.contextMenuItem', function (e) { checkClickedContextMenuItem(e); });
 });
