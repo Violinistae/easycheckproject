@@ -242,6 +242,9 @@ $(document).ready(function ($) {
 			case "15":
 				gotoMainPage();
 				break;
+			case "16":
+				shareInstrInAcad();
+				break;
 			case "410":
 				$("#createmateriabtn").prop("disabled", false);
 				break;

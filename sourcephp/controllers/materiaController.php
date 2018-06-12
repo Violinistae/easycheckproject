@@ -119,12 +119,18 @@
                     $mat->setValores_Parciales($materia[0]->Valores_Parciales);
                     $mat->setAcademia($materia[0]->Academia);
 
+
+                    $acadCtrlr = new academiaController($this->pdo);
+                    $acad = $acadCtrlr->getAcademiaByIdLocal($mat->getAcademia());
+
+
                     $matx = array(
                         'Id_Materia' => $mat->getId_Materia(), 
                         'Materia' => $mat->getMateria(), 
                         'Semestre' => $mat->getSemestre(), 
                         'Valores_Parciales' => $mat->getValores_Parciales(), 
-                        'Academia' => $mat->getAcademia() 
+                        'Academia' => $mat->getAcademia(),
+                        'Acad' => $acad->getAcademia()
                     );
 
                     echo json_encode (array('error' => false, 'materia' => $matx));

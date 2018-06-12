@@ -185,7 +185,8 @@
                             'ClaveElem' => $in->getClaveElem(),
                             'NombElemento' => $in->getNombElemento(),
                             'InstruccLlenado' => $in->getInstruccLlenado(),
-                            'Materia' => $m->getMateria()
+                            'Materia' => $m->getMateria(),
+                            'Id_Materia' => $in->getMateria()
                         ]);
 
                         $instR[] = $ins;

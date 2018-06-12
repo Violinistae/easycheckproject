@@ -1,4 +1,6 @@
 var IdAux;
+var IdMat;
+var IdAcad;
 $(document).ready(function ($) {
 
     showContextMenuOnInstrument = (e) => {
@@ -9,6 +11,7 @@ $(document).ready(function ($) {
         $("#modforactions").fadeOut("300");
 
         let instId = parseInt(e.currentTarget.getAttribute("dataidins"));
+        let matId = parseInt(e.currentTarget.getAttribute("dataidmat"));
  
         $(".contextCostumMenu").show(200).
         css({
@@ -16,6 +19,7 @@ $(document).ready(function ($) {
             left: event.pageX + "px"
         });
         $(".contextCostumMenu").attr("dataidins", instId);
+        $(".contextCostumMenu").attr("dataidmat", matId);
         
     }
 
@@ -23,6 +27,7 @@ $(document).ready(function ($) {
         if (!$(e.target).parents(".contextCostumMenu").length>0) {
             $(".contextCostumMenu").hide(80);
             $(".contextCostumMenu").attr("dataidins", "");
+            $(".contextCostumMenu").attr("dataidmat", "");
         }
     }
 
@@ -31,7 +36,32 @@ $(document).ready(function ($) {
         let firsttrigger = document.getElementsByClassName("contextCostumMenu");
         switch (action) {
             case 1:
+                IdAux = parseInt(firsttrigger.item(0).getAttribute("dataidins"));
+                IdMat = parseInt(firsttrigger.item(0).getAttribute("dataidmat"));
+                let arrdata = {
+                    materiaID: firsttrigger.item(0).getAttribute("dataidmat")
+                };
 
+                console.log(firsttrigger.item(0).getAttribute("dataidmat"));
+                $.ajax({
+                    url: '../../index_ajax.php?controller=materia&action=getMateriaById',
+                    type: "POST",
+                    dataType: 'json',
+                    data: arrdata
+                }).done(function (resInstrumAcad) {
+
+                    if (!resInstrumAcad.error) {
+                        let matData = resInstrumAcad.materia;
+                        IdAcad = matData.Academia;
+                        var mainmessage = '¿Está seguro que desea compartir el instrumento con toda la academia "' + matData.Acad + '"?';
+                        var secmessage = "Todos los integrantes podrán utilizarlo pero no modificarlo.";
+                        showMessage("wArNinGbTn_AcTiOn", 16, mainmessage, secmessage);
+                    }
+                   
+                }).fail(function () {
+                    AJAXrequestFailed("Fallo en petición AJAX para volver a página principal");
+                });
+                
                 break;
             case 2:
                 goToEditBuiltIntr(firsttrigger.item(0));
@@ -84,10 +114,31 @@ $(document).ready(function ($) {
 
         }
 
+        shareInstrInAcad = () => {
+            dataArray = {
+                Id_Instrumento: IdAux,
+                Id_Academia: IdAcad,
+                Id_Materia: IdMat
+            }
+
+            $.ajax({
+                url: '../../index_ajax.php?controller=instrumentoscompartidos&action=insertSharedInstr',
+                type: "POST",
+                dataType: 'json',
+                data: dataArray
+            }).done(function (resShareInstrToAcad) {
+                var mainmessage = resShareInstrToAcad.message;
+                var secmessage = "Presione el botón para continuar.";
+                showMessage("wArNinGbTn_AcTiOn", 15, mainmessage, secmessage);
+            }).fail(function () {
+                AJAXrequestFailed("Fallo en petición AJAX para volver a página principal");
+            });
+        }
+
 
     $('body').bind('mousedown', function (e) { outContextMenuClick(e); })
     $("body").on('contextmenu', '.instrumentImg', function (e) { showContextMenuOnInstrument(e); })
-    $('body').on('dblclick vclick', '.instrumentImg', function (e) { goToEditBuiltIntr(e.currentTarget); });
+    $('body').on('dblclick', '.instrumentImg', function (e) { goToEditBuiltIntr(e.currentTarget); });
     $("body").on('contextmenu', '#submaincontainer', function (e) { e.preventDefault(); })
     $('body').on('click', '.contextMenuItem', function (e) { checkClickedContextMenuItem(e); });
 });

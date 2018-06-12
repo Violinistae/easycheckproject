@@ -139,6 +139,41 @@
             }
         }
 
+        public function getAcademiaByIdLocal ($Id_Acad) {
+            if (isset($Id_Acad)) {
+                $stmt = $this->pdo->prepare(
+                    "SELECT * FROM academia
+                        WHERE Id_Academia = ?"
+                );
+                $stmt->execute([
+                    $Id_Acad
+                ]);
+
+                if ($stmt->rowCount() > 0) {
+
+                    while ($a = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+                        $academia = new academiaModel();
+                        $academia->setId_Academia($a["Id_Academia"]);
+                        $academia->setAcademia($a["Academia"]);
+                        $academia->setLista_Prof($a["Lista_Prof"]);
+                        $academia->setClave_Acceso($a["Clave_Acceso"]);
+                        $academia->setCiclo_Periodo($a["Ciclo_Periodo"]);
+                        $academia->setCarrera($a["Carrera"]);
+                        $academia->setCoordinador_Acad($a["Coordinador_Acad"]);
+                    }                    
+                    
+                    return $academia;
+                } else {
+                    return null;
+                }
+
+            } else {
+               return null;
+            }
+        }
+
+
         public function verifyRequestToAcad () {
             if (isset($_POST["Id_Academia"])) {
                 $stmt = $this->pdo->prepare(

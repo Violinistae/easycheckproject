@@ -61,6 +61,7 @@ $(document).ready(function ($) {
 						let instrumentImg = document.createElement("span");
 						instrumentImg.classList.add("instrumentImg");
 						instrumentImg.setAttribute("dataidins", userInst[i].Id_Instrumento);
+						instrumentImg.setAttribute("dataidmat", userInst[i].Id_Materia);
 						instrumentDivPpal.appendChild(instrumentImg);
 						//Añadir imagen
 
