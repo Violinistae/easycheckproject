@@ -441,7 +441,7 @@ $(document).ready(function ($) {
 
 			insertMateriasToTable = (materiasAcademia) => {
 				//console.log(materiasAcademia.numMaterias)
-				if (!materiasAcademia.error) {					
+				if (!materiasAcademia.error) {
 
 					if (materiasAcademia.numMaterias > 0) {
 						var tablaMaterias = document.getElementById("materiasTableContent");
@@ -486,6 +486,19 @@ $(document).ready(function ($) {
 					noMateriasInformacion.appendChild(p);
 				}
 
+	gotoGposPeriodo = () => {
+		setCookie("lOaDeDpAgE_ajax", "gotoGposPeriodo", 7);
+		$(".subdropumen").removeClass('active');
+		$(".buttonnewinst").removeClass('active');
+		$.ajax({
+			url: "../../sourcephp/views/Users/coordinador/listMaterias.php",
+			type: "POST"
+		}).done(function (mainPage) {
+			maincontentFadeAnimation(mainPage, loadMateriasToTable);
+		}).fail(function () {
+			AJAXrequestFailed("Fallo en petición AJAX para cargar página de lista de materias de academia.");
+		});
+	}
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++	
 

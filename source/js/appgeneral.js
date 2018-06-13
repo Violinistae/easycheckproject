@@ -182,8 +182,11 @@ $(document).ready(function ($) {
 			case "410":
 				$("#createmateriabtn").prop("disabled", false);
 				break;
+			case "420":
+				$("#creategpoperbtn").prop("disabled", false);
+				break;
 			case "501":
-				$("#createmateriabtn").prop("disabled", false);			
+				$("#createmateriabtn").prop("disabled", false);
 				break;
 			case "502":
 				$("#createmateriabtn").prop("disabled", false);
@@ -191,7 +194,9 @@ $(document).ready(function ($) {
 			case "503":
 				$("#createmateriabtn").prop("disabled", false);
 				break;
-			
+			case "521":
+				$("#creategpoperbtn").prop("disabled", false);
+				break;
 			default:
 				break;
 		}
@@ -246,12 +251,22 @@ $(document).ready(function ($) {
 			case "16":
 				shareInstrInAcad();
 				break;
+			case "20":
+				$("#modforactions").fadeOut("400");
+				document.getElementById("modalforactionscontainer").innerHTML = "";
+				actionsCookieName = "aiCoTndDtoO";
+				deleteCookie(actionsCookieName);
+				gotoMainPage();//Modificar a que sea por página de grupos periodo
+				break;
 			case "410":
 				$("#createmateriabtn").prop("disabled", false);
 				break;
+			case "420":
+				$("#creategpoperbtn").prop("disabled", false);
+				break;
 			case "501":
 				$("#createmateriabtn").prop("disabled", false);
-				window.location.href ="../../source/files/ejemplos/EjValoresParcialesMateria_easycheck.xlsx"
+				window.location.href ="../../source/files/ejemplos/EjValoresParcialesMateria_easycheck.xlsx";
 				break;
 			case "502":
 				$("#createmateriabtn").prop("disabled", false);
@@ -260,8 +275,12 @@ $(document).ready(function ($) {
 				$("#createmateriabtn").prop("disabled", false);
 				break;
 			case "511":
-				window.location.href = "../../source/files/ejemplos/EjListaProfesoresAcademia_easycheck.xlsx"
+				window.location.href = "../../source/files/ejemplos/EjListaProfesoresAcademia_easycheck.xlsx";
 				break;
+			case "521":
+				$("#creategpoperbtn").prop("disabled", false);
+				window.location.href = "../../source/files/ejemplos/EjListaAlumnosGpoPeriodo_easycheck.xlsx";
+
 			default:
 				console.log("Acción inválida. Logout?");
 			//closeUserSession();

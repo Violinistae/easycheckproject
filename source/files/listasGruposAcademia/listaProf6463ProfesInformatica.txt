@@ -1,1 +1,0 @@
-[{"NumNomina":"12","Nombres":"Carlos","Apellidos":"Molina Martínez"},{"NumNomina":"13","Nombres":"Ismael","Apellidos":"López Buenrostro"},{"NumNomina":"14","Nombres":"Luis René","Apellidos":"Durán Hernández"}]

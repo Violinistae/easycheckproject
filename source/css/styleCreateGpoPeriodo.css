@@ -9,12 +9,106 @@
 
 #createGpoPeriodoInstrucc {
     color: black;
-    font-size: 2.4vw;
+    font-size: 2vw;
     font-weight: bold;
     text-align: center;
     margin-top: 1%;
 }
 
 #createGpoPeriodoInputs {
-    
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 4em;
+    margin: 0 5em;
+    height: 100%;
+}
+
+#createGpoPeriodoInputs>div {
+    display: flex;
+    flex-direction: column;
+
+}
+
+#createGpoPeriodoInputs select {
+    cursor: pointer;
+}
+
+#createGpoPeriodoInputs select, #createGpoPeriodoInputs input[type="password"] {
+    padding: .4em 1.2em;
+    font-size: 14px;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom: black solid 2px;
+    border-radius: 2px;
+    background-color: transparent;
+    color: black;
+    margin-left: 5%;
+    text-indent: 2%;
+}
+
+#periodPart {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#periodPart select {
+    flex-grow: 1;
+    padding: .4em .6em;
+    font-size: 14px;
+}
+
+#listaAlumBtn {
+    margin-left: 5%;
+    padding: .3em 2em;
+    position: relative;
+    overflow: hidden;
+    border: solid black 2px;
+    border-radius: 10px;
+    background-color: transparent;
+    outline: none;
+
+    transition: 300ms background ease-in-out;
+}
+
+#listaAlumBtn:hover {
+    color: white;
+    background-color: rgb(55, 55, 55);
+}
+
+
+#listaAlumBtn [type=file] {
+    display: block;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    position: absolute;
+    left: 20%;
+    text-align: right;
+    top: 0;
+}
+
+#creategpoperiodosubmit {
+    display: flex;
+    align-items: center;
+}
+
+#creategpoperbtn {
+    padding: .6em .4em;
+    width: 100%;
+    font-size: 1.7vw;
+    justify-self: center;
+
+    background-color: transparent;
+    border: solid black 2px;
+    border-radius: 20px;
+    cursor: pointer;
+    outline: none;
+
+    transition: 300ms background ease-in-out;
+}
+#creategpoperbtn:hover {
+    color: white;
+    background-color: rgb(55, 55, 55);
 }
