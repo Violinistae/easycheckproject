@@ -1,3 +1,6 @@
+var IdAux;
+var IdMat;
+var IdAcad;
 $(document).ready(function ($) {
 // ---------------------------------------------------------------------------------------------------------------------------------
 // ------------------------------------------------ FUNCTIONS TO CALL --------------------------------------------------------------
@@ -298,7 +301,6 @@ $(document).ready(function ($) {
 
 		let actionPurpose = $(".contextCostumMenu").attr("dataPurpose");
 		let cntxtMenu = $(".contextCostumMenu")[0];
-
 		cntxtMenu.innerHTML = "";
 
 		switch (actionPurpose) {
@@ -322,12 +324,7 @@ $(document).ready(function ($) {
 							break;
 					}					
 					cntxtMenu.appendChild(liMenuItem);
-				}							
-
-				let instId = parseInt(e.currentTarget.getAttribute("dataidins"));
-				let matId = parseInt(e.currentTarget.getAttribute("dataidmat"));
-				$(".contextCostumMenu").attr("dataidins", instId);
-				$(".contextCostumMenu").attr("dataidmat", matId);
+				}											
 				break;
 			case "aSSi":
 				for (let i = 4; i < 6; ++i) {
@@ -335,7 +332,7 @@ $(document).ready(function ($) {
 					liMenuItem.classList.add("contextMenuItem");
 
 					switch (i) {
-						case 4:
+						case 4:					
 							liMenuItem.setAttribute("dataowinsaction", i);
 							liMenuItem.textContent = "Dejar de compartir";
 							break;
@@ -351,11 +348,68 @@ $(document).ready(function ($) {
 			default: return;
 		}
 
+		let instId = parseInt(e.currentTarget.getAttribute("dataidins"));
+		let matId = parseInt(e.currentTarget.getAttribute("dataidmat"));
+		$(".contextCostumMenu").attr("dataidins", instId);
+		$(".contextCostumMenu").attr("dataidmat", matId);
+
 		$(".contextCostumMenu").show(200).
 			css({
 				top: event.pageY + "px",
 				left: event.pageX + "px"
 		});
+	}
+
+	checkClickedContextMenuItem = (e) => {
+		let action = parseInt(e.currentTarget.getAttribute("dataowinsaction"));
+		let firsttrigger = document.getElementsByClassName("contextCostumMenu");
+		switch (action) {
+			case 1:
+				IdAux = parseInt(firsttrigger.item(0).getAttribute("dataidins"));
+				IdMat = parseInt(firsttrigger.item(0).getAttribute("dataidmat"));
+				let arrdata = {
+					materiaID: firsttrigger.item(0).getAttribute("dataidmat")
+				};
+
+				$.ajax({
+					url: '../../index_ajax.php?controller=materia&action=getMateriaById',
+					type: "POST",
+					dataType: 'json',
+					data: arrdata
+				}).done(function (resInstrumAcad) {
+
+					if (!resInstrumAcad.error) {
+						let matData = resInstrumAcad.materia;
+						IdAcad = matData.Academia;
+						var mainmessage = '¿Está seguro que desea compartir el instrumento con toda la academia "' + matData.Acad + '"?';
+						var secmessage = "Todos los integrantes podrán utilizarlo pero no modificarlo.";
+						showMessage("wArNinGbTn_AcTiOn", 16, mainmessage, secmessage);
+					}
+
+				}).fail(function () {
+					AJAXrequestFailed("Fallo en petición AJAX para volver a página principal");
+				});
+
+				break;
+			case 2:
+				goToEditBuiltIntr(firsttrigger.item(0));
+				break;
+			case 3:
+				IdAux = parseInt(firsttrigger.item(0).getAttribute("dataidins"));
+				var mainmessage = "¿Está completamente seguro de eliminar este instrumento de evaluación?";
+				var secmessage = "Todas las evaluaciones y demás información relacionadas serán eliminadas.";
+				showMessage("wArNinGbTn_AcTiOn", 14, mainmessage, secmessage);
+				break;
+			case 4:
+				IdAux = parseInt(firsttrigger.item(0).getAttribute("dataidins"));
+				IdMat = parseInt(firsttrigger.item(0).getAttribute("dataidmat"));
+				var mainmessage = "¿Está completamente seguro de dejar de compartir este instrumento de evaluación?";
+				var secmessage = "Favor de asegurarse que ningún profesor está utilizando este instrumento de evaluación.";
+				showMessage("wArNinGbTn_AcTiOn", 17, mainmessage, secmessage);
+				break;
+		}
+		$(".contextCostumMenu").hide(80);
+		$(".contextCostumMenu").attr("dataidins", "");
 	}
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

@@ -50,11 +50,11 @@
         text-align: center;
     }
     #warningprincipaltext {
-        font-size: 3.2vw; 
+        font-size: 2.5vw; 
         margin-bottom: 3vh;
     }
     #warningsecondaytext {
-        font-size: 1.6vw;
+        font-size: 2vw;
     }
 
     #confirmbtns {
@@ -175,23 +175,24 @@
         overflow: hidden;
         background-color: rgba(48, 45, 45, 0.651);
         font-family: 'Noto Sans', sans-serif;
+        font-size: 
     }
 
     #modalforactionscontent {
-            background-color: rgb(233, 233, 233);
-            color: black;
-            position: absolute;
-            margin: 4% auto;
-            width: 70%;
-            height: 83%;
-            border-radius: 20px;
-            top:42%;
-            left:50%;
-            transform:translate(-50%,-50%);
+        background-color: rgb(233, 233, 233);
+        color: black;
+        position: absolute;
+        margin: 4% auto;
+        width: 70%;
+        height: 83%;
+        border-radius: 20px;
+        top:42%;
+        left:50%;
+        transform:translate(-50%,-50%);
 
-            display: grid;
-            grid-template-rows: .5fr 1fr 7fr .5fr;
-            grid-template-columns: .3fr 9.4fr .3fr;
+        display: grid;
+        grid-template-rows: .5fr 1fr 7fr .5fr;
+        grid-template-columns: .3fr 9.4fr .3fr;
     }
 
     #modalforactionsmainbtns {

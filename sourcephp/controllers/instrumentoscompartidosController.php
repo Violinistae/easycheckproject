@@ -80,6 +80,33 @@
                 return false;
             }
         }
+
+        public function noShareInstr () {
+            if (isset($_POST["Id_Instrumento"])) {
+
+                if ($this->verifySharedInstr($_POST["Id_Instrumento"])) {
+                    
+                    $stmt = $this->pdo->prepare(
+                        "DELETE FROM instrumentoscompartidos
+                            WHERE Instrumento = ?"
+                    );
+                    $stmt->execute([
+                        $_POST["Id_Instrumento"]
+                    ]);
+
+                    if ($stmt->rowCount() > 0) {
+                        echo json_encode (['error' => false, 'built' => true]);
+                    } else {
+                        echo json_encode (['error' => true, 'x' => $stmt->errorInfo()]);
+                    }
+                    
+                } else {
+                    echo json_encode (['error' => true, 'built' => false]);
+                }                
+            } else {
+                echo json_encode (['error' => true]);
+            }
+        }
     }
     
 ?>

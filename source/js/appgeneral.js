@@ -99,7 +99,6 @@ $(document).ready(function ($) {
 			case 13: choose = false; break;
 			case 15: choose = false; break;
 
-
 			case 410: choose = false; break;
 
 			default: choose = true; break;
@@ -251,12 +250,19 @@ $(document).ready(function ($) {
 			case "16":
 				shareInstrInAcad();
 				break;
+			case "17":
+				$("#modforactions").fadeOut("400");
+				document.getElementById("modalforactionscontainer").innerHTML = "";
+				actionsCookieName = "aiCoTndDtoO";
+				deleteCookie(actionsCookieName);
+				noMoreShareInstr();
+				break;
 			case "20":
 				$("#modforactions").fadeOut("400");
 				document.getElementById("modalforactionscontainer").innerHTML = "";
 				actionsCookieName = "aiCoTndDtoO";
 				deleteCookie(actionsCookieName);
-				gotoMainPage();//Modificar a que sea por página de grupos periodo
+				gotoMainPage();   //Modificar a que sea por página de grupos periodo
 				break;
 			case "410":
 				$("#createmateriabtn").prop("disabled", false);

@@ -69,7 +69,42 @@ $(document).ready(function ($) {
             }
 
 
-/* --------------------------------------------------------------------------------------------- */        
+/* --------------------------------------------------------------------------------------------- */
+
+
+    noMoreShareInstr = () => {
+        let arrData = {
+            Id_Instrumento: IdAux
+        };
+
+        $.ajax({
+            url: '../../index_ajax.php?controller=instrumentoscompartidos&action=noShareInstr',
+            type: 'POST',
+            dataType: 'json',
+            data: arrData
+        }).done(function (resNoShareInstr) {
+            if (!resNoShareInstr.error) {
+                if (resNoShareInstr.built) {
+                    var mainmessage = "El instrumento seleccionado se dejó de compartir.";
+                } else {
+                    var mainmessage = "El instrumento seleccionado no está compartido con su academia, favor de cerrar sesión.";
+                }          
+            } else {
+                var mainmessage = "No se pudo realizar la acción solicitada, inténtelo más tarde."
+            }
+            var secmessage = "Presione el botón para continuar.";
+            showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
+            gotoAcademiaOverview();
+
+        }).fail(function () {
+            AJAXrequestFailed("Fallo en petición AJAX para dejar de compartir instrumento en academia.");
+        });
+
+    }
+
+
+
+/* --------------------------------------------------------------------------------------------- */
 
     $("#acadInfoBtn").click(function (e) { showAcadInfo(); });
     $("#acadConfigBtn").click(function (e) { configAcad(); });
