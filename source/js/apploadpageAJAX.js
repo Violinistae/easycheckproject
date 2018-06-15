@@ -486,19 +486,104 @@ $(document).ready(function ($) {
 					noMateriasInformacion.appendChild(p);
 				}
 
-	gotoGposPeriodo = () => {
+	gotoGposPeriodo = (e) => {
 		setCookie("lOaDeDpAgE_ajax", "gotoGposPeriodo", 7);
 		$(".subdropumen").removeClass('active');
 		$(".buttonnewinst").removeClass('active');
 		$.ajax({
-			url: "../../sourcephp/views/Users/coordinador/listMaterias.php",
+			url: "../../sourcephp/views/shared/CoordAndProf/listgruposperiodo.php",
 			type: "POST"
 		}).done(function (mainPage) {
-			maincontentFadeAnimation(mainPage, loadMateriasToTable);
+			maincontentFadeAnimation(mainPage, loadGposPToTable);
 		}).fail(function () {
 			AJAXrequestFailed("Fallo en petición AJAX para cargar página de lista de materias de academia.");
 		});
 	}
+
+		loadGposPToTable = () => {
+			mainContainer = document.getElementById("submaincontainer");
+			getAndExecuteNewInsertedScript(mainContainer);
+
+			readMateriasData = {
+				purpose: 1
+			}
+
+			$.ajax({
+				url: '../../index_ajax.php?controller=grupoperiodo&action=readGposPeriodoByProf',
+				type: 'POST',
+				dataType: 'json',
+				data: readMateriasData
+			}).done(function (resGposP) {
+				console.log(resGposP);
+				insertGposPToTable(resGposP);
+			}).fail(function () {
+				AJAXrequestFailed("Fallo en petición AJAX obtener grpos periodo");
+			});
+		}	
+
+			insertGposPToTable = (resGposP) => {
+				//console.log(resGposP.numMaterias)
+				if (!resGposP.error) {
+					
+					if (resGposP.built) {
+						let gsp = resGposP.gposP;						
+						var listGposP = document.getElementById("listGposPMainC");
+						for (let i = 0; i < gsp.length; ++i) {
+							let gpop = listGposP.insertRow(-1);
+
+							let clavelbl = document.createElement("label");							
+							let materialbl = document.createElement("label");							
+							let ciclolbl = document.createElement("label");							
+							let gpolbl = document.createElement("label");
+							
+							clavelbl.textContent = gsp[i].Id_GpoPeriodo;
+							materialbl.textContent = gsp[i].Materia;
+							ciclolbl.textContent = gsp[i].Periodo;
+							gpolbl.textContent = gsp[i].Grupo;
+
+							let fIcon = '<i id="f-' + gsp[i].Id_GpoPeriodo + '" title="Cambiar/Subir archivo" class="actionsIcon fas fa-file-excel"></i>';
+							let tIcon = '<i id="t-' + gsp[i].Id_GpoPeriodo + '" title="Eliminar" class="actionsIcon fas fa-trash"></i>';
+
+							let fdiv = document.createElement("div"); fdiv.innerHTML = fIcon;
+							let tdiv = document.createElement("div"); tdiv.innerHTML = tIcon;
+
+							let auxDiv = document.createElement("div");
+							auxDiv.classList.add("accionesTd");
+							auxDiv.appendChild(fdiv); auxDiv.appendChild(tdiv);
+
+							let claveCell = gpop.insertCell(0); claveCell.appendChild(clavelbl);
+							claveCell.classList.add("claveCol");
+							let materiaCell = gpop.insertCell(1); materiaCell.appendChild(materialbl);
+							materiaCell.classList.add("materiaCol");
+							let cicloCell = gpop.insertCell(2); cicloCell.appendChild(ciclolbl);
+							cicloCell.classList.add("cicloCol");
+							let gpoCell = gpop.insertCell(3); gpoCell.appendChild(gpolbl);
+							gpoCell.classList.add("grupoCol");
+							let accionesCell = gpop.insertCell(4); accionesCell.appendChild(auxDiv);
+							accionesCell.classList.add("accionesCol");
+
+							gpop.classList.add("commonGPRow");
+							
+						}
+
+					} else {
+						//Show cental message no gpos periodo
+					}	
+				}			
+			}
+
+				setNoCreatedGposP = () => {
+					let noMateriasInformacion = document.getElementById("noMateriasAvailable");
+
+					let p = document.createElement("p");
+					p.textContent = "No existe alguna materia creada en su Academia";
+					noMateriasInformacion.appendChild(p);
+					noMateriasInformacion.appendChild(document.createElement("BR"));
+
+					p = document.createElement("p");
+					p.textContent = 'Presione la opción "Crear Materia" para generarla';
+					noMateriasInformacion.appendChild(p);
+				}		
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++	
 

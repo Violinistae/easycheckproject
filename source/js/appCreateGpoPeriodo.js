@@ -214,7 +214,7 @@ $(document).ready(function ($) {
         newGpoPParam = {
             Materia: materiaSelect.value,
             Grupo: grupoSelect.value,
-            Periodo: periodoCiclo.value + periodoYear.value,
+            Periodo: periodoCiclo.value + " " + periodoYear.value,
             Lista_Alumnos: fileName,
             Clave_Acceso: claveAccesoInput.value
         };

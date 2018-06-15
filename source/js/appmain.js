@@ -278,6 +278,18 @@ $(document).ready(function ($) {
 			}
 		}
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	/*  */
+	outContextMenuClick = (e) => {
+		if (!$(e.target).parents(".contextCostumMenu").length > 0) {
+			$(".contextCostumMenu").hide(50);
+			$(".contextCostumMenu").attr("dataidins", "");
+			$(".contextCostumMenu").attr("dataidmat", "");
+		}
+	}
+
+	
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -311,6 +323,12 @@ $(document).ready(function ($) {
 			$('body').on('click', '#confirmbtn', function () { $('#modwarning').fadeOut('400'); doConfirmAction(); });
 			$('body').on('click', '#continuebtn', function () { $('#modinformation').fadeOut('400'); doConfirmAction(); });
 
+	$('body').bind('mousedown', function (e) { outContextMenuClick(e); })
+	$("body").on('contextmenu', '.instrumentImg', function (e) { showContextMenuOnInstrument(e); })
+	$('body').on('dblclick', '.instrumentImg', function (e) { goToEditBuiltIntr(e.currentTarget); });
+	$("body").on('contextmenu', '#principalPgContainer', function (e) { e.preventDefault(); })
+	$('body').on('click', '.contextMenuItem', function (e) { checkClickedContextMenuItem(e); });
+
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 // ----------------------------------------- MAIN PAGE ON LOAD/READY CALLS ---------------------------------------------------------
@@ -320,4 +338,5 @@ $(document).ready(function ($) {
 	openLastPage();
 
 	//Check cookie of last page and redirect to that page
+	
 });

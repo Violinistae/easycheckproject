@@ -6,6 +6,8 @@
     display: grid;
     grid-template-rows: .5fr 9.5fr;
     font-family: 'Noto Sans', sans-serif;
+
+    flex-grow: 1;
     
 }
 

@@ -35,4 +35,4 @@
 	<div id="noMateriasAvailable">
     </div>
 </div>
-<script type="text/javascript" src="../../source/js/appListMaterias.js"></script>	
+<script type="text/javascript" src="../../source/js/appListMaterias.js"></script>

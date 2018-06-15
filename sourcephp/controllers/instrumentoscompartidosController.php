@@ -64,6 +64,22 @@
                 echo json_encode(['error' => true]);
             }
         }
+
+        public function verifySharedInstr ($Id_Ins) {
+            $stmt = $this->pdo->prepare(
+                "SELECT * FROM instrumentoscompartidos
+                    WHERE Instrumento = ?"
+            );
+            $stmt->execute([
+                $Id_Ins
+            ]);
+
+            if ($stmt->rowCount() > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
     
 ?>

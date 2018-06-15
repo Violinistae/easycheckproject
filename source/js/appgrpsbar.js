@@ -204,6 +204,6 @@ $("#groupbarcontent").ready(function ($) {
     // --------------------------------- Cargar algún modal -----------------------------------------------
     $('#createmateria').click(function (e) { createMateria(e) });
     $('body').on('click', '#creategpoperiodobtn', function (e) { createGpoPeriodo(e); });
-    $('body').on('click', '#showgrposperiodobtn', function (e) {  });
+    $('body').on('click', '#showgrposperiodobtn', function (e) { gotoGposPeriodo(e); });
     
 });

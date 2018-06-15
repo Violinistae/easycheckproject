@@ -17,6 +17,7 @@
     ". groupActionsBar . mainContainerAcadOverView ."
     ". . . . .";
     font-family: 'Noto Sans', sans-serif;
+    flex-grow: 1;
 }
 
 #mainNavAcad {

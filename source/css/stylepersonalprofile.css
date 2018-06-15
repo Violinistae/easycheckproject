@@ -4,6 +4,7 @@
 	grid-template-rows: 1fr 7fr;
     font-family: 'Noto Sans', sans-serif;
     height: 100%;
+    flex-grow: 1;
 }
 
 .personalprofile>nav {

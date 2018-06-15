@@ -13,21 +13,41 @@
                     $_POST["Id_Instrumento"]
                 ]);
 
-                if ($stmt->rowCount() > 0) {
-                    
-                    $stmt2 = $this->pdo->prepare(
-                        "DELETE FROM instrumento
-                            WHERE Id_Instrumento = ?"
-                    );
-                    
-                    $stmt2->execute([
-                        $_POST["Id_Instrumento"]
-                    ]);
+                if ($stmt->rowCount() > 0) {                                
+                    $sharedInstrctrlr = new instrumentoscompartidosController($this->pdo);
+                    $flag = $sharedInstrctrlr->verifySharedInstr($_POST["Id_Instrumento"]);
+                    if ($flag) {
 
-                    if ($stmt2->rowCount() > 0) {
-                        echo json_encode(["error" => false, "message" => "Se eliminado el instrumento de evaluación."]);
+                        if ($_SESSION["usertype"] == 1) {
+                            echo json_encode([
+                                'error' => false, 
+                                'permition' => true,
+                                'shared' => true,
+                                'message' => "Detectamos que el instrumento que desea eliminar se encuentra compartido, por lo cuál aún no puede ser eliminado. \n Favor de eliminarlo de instrumentos compartidos en su academia para poder realizar esta acción."
+                            ]); 
+                        } else if ($_SESSION["usertype"] == 2) {
+                            echo json_encode([
+                                'error' => false, 
+                                'permition' => true,
+                                'shared' => true,
+                                'message' => "Detectamos que el instrumento que desea eliminar se encuentra compartido, por lo cuál aún no puede ser eliminado. Favor de notificar al coordinador de academia para manejar la situación."
+                            ]);                        
+                        }
                     } else {
-                        echo json_encode(["error" => true, "message" => "No se ha podido eliminar el instrumento de evalaución que seleccionó, inténtelo más tarde."]);
+                        $stmt3 = $this->pdo->prepare(
+                            "DELETE FROM instrumento
+                                WHERE Id_Instrumento = ?"
+                        );
+                        
+                        $stmt3->execute([
+                            $_POST["Id_Instrumento"]
+                        ]);
+    
+                        if ($stmt3->rowCount() > 0) {
+                            echo json_encode(["error" => false, "message" => "Se eliminado el instrumento de evaluación."]);
+                        } else {
+                            echo json_encode(["error" => true, "message" => "No se ha podido eliminar el instrumento de evalaución que seleccionó, inténtelo más tarde."]);
+                        }
                     }
 
                 } else {

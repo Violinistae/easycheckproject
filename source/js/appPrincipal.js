@@ -23,6 +23,7 @@ $(document).ready(function ($) {
         
     }
 
+    /*
     outContextMenuClick = (e) => {
         if (!$(e.target).parents(".contextCostumMenu").length>0) {
             $(".contextCostumMenu").hide(50);
@@ -30,6 +31,7 @@ $(document).ready(function ($) {
             $(".contextCostumMenu").attr("dataidmat", "");
         }
     }
+    */
 
     checkClickedContextMenuItem = (e) => {
         let action = parseInt(e.currentTarget.getAttribute("dataowinsaction"));
@@ -42,7 +44,7 @@ $(document).ready(function ($) {
                     materiaID: firsttrigger.item(0).getAttribute("dataidmat")
                 };
 
-                console.log(firsttrigger.item(0).getAttribute("dataidmat"));
+                //console.log(firsttrigger.item(0).getAttribute("dataidmat"));
                 $.ajax({
                     url: '../../index_ajax.php?controller=materia&action=getMateriaById',
                     type: "POST",
@@ -135,11 +137,4 @@ $(document).ready(function ($) {
                 AJAXrequestFailed("Fallo en petición AJAX para volver a página principal");
             });
         }
-
-
-    $('body').bind('mousedown', function (e) { outContextMenuClick(e); })
-    $("body").on('contextmenu', '.instrumentImg', function (e) { console.log(e); showContextMenuOnInstrument(e); })
-    $('body').on('dblclick', '.instrumentImg', function (e) { console.log(e); goToEditBuiltIntr(e.currentTarget); });
-    $("body").on('contextmenu', '#submaincontainer', function (e) { e.preventDefault(); })
-    $('body').on('click', '.contextMenuItem', function (e) { checkClickedContextMenuItem(e); });
 });
