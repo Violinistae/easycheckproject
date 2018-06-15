@@ -278,7 +278,7 @@ $(document).ready(function ($) {
 			}
 		}
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 	/*  */
 	outContextMenuClick = (e) => {
@@ -289,7 +289,74 @@ $(document).ready(function ($) {
 		}
 	}
 
-	
+	showContextMenuOnInstrument = (e) => {
+		e.preventDefault();
+
+		$(".subdropumen").removeClass('active');
+		$(".buttonnewinst").removeClass('active');
+		$("#modforactions").fadeOut("300");
+
+		let actionPurpose = $(".contextCostumMenu").attr("dataPurpose");
+		let cntxtMenu = $(".contextCostumMenu")[0];
+
+		cntxtMenu.innerHTML = "";
+
+		switch (actionPurpose) {
+			case "aWMp":
+				for (let i = 1; i < 4; ++i) {
+					let liMenuItem = document.createElement("li");
+					liMenuItem.classList.add("contextMenuItem");
+
+					switch (i) {
+						case 1:
+							liMenuItem.setAttribute("dataowinsaction", i);
+							liMenuItem.textContent = "Compartir instrumento";
+							break;
+						case 2:
+							liMenuItem.setAttribute("dataowinsaction", i);
+							liMenuItem.textContent = "Modificar instrumento";
+							break;
+						case 3:
+							liMenuItem.setAttribute("dataowinsaction", i);
+							liMenuItem.textContent = "Eliminar instrumento";
+							break;
+					}					
+					cntxtMenu.appendChild(liMenuItem);
+				}							
+
+				let instId = parseInt(e.currentTarget.getAttribute("dataidins"));
+				let matId = parseInt(e.currentTarget.getAttribute("dataidmat"));
+				$(".contextCostumMenu").attr("dataidins", instId);
+				$(".contextCostumMenu").attr("dataidmat", matId);
+				break;
+			case "aSSi":
+				for (let i = 4; i < 6; ++i) {
+					let liMenuItem = document.createElement("li");
+					liMenuItem.classList.add("contextMenuItem");
+
+					switch (i) {
+						case 4:
+							liMenuItem.setAttribute("dataowinsaction", i);
+							liMenuItem.textContent = "Dejar de compartir";
+							break;
+						case 5:
+							liMenuItem.setAttribute("dataowinsaction", i);
+							liMenuItem.textContent = "Otra opción que surga";
+							break;						
+					}
+					cntxtMenu.appendChild(liMenuItem);
+				}
+
+				break;
+			default: return;
+		}
+
+		$(".contextCostumMenu").show(200).
+			css({
+				top: event.pageY + "px",
+				left: event.pageX + "px"
+		});
+	}
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 

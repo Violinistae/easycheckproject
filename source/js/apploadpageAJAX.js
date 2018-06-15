@@ -33,6 +33,7 @@ $(document).ready(function ($) {
 		}
 
 		getProfCoordInstr = () => {
+			$(".contextCostumMenu").attr("dataPurpose", "aWMp");
 			let mainContainer = document.getElementById("submaincontainer");
 			getAndExecuteNewInsertedScript(mainContainer);
 
@@ -251,7 +252,8 @@ $(document).ready(function ($) {
 			}
 		}
 
-			loadAcademiaOverviewCoord= () => {
+			loadAcademiaOverviewCoord= () => {			
+
 				mainContainer = document.getElementById("submaincontainer");
 				getAndExecuteNewInsertedScript(mainContainer);
 
@@ -314,6 +316,7 @@ $(document).ready(function ($) {
 
 
 				insertSharedInsToContainer = (sharedInstr) => {
+					$(".contextCostumMenu").attr("dataPurpose", "aSSi");
 					let instrumentsContainer = document.getElementsByClassName("instrumentsContainer").item(0);
 
 					for (let i = 0; i <  sharedInstr.length; ++i) {
@@ -406,6 +409,10 @@ $(document).ready(function ($) {
 			}
 
 	gotoMaterias = (e) => {
+		if (e != null) {
+			e.currentTarget.disabled = true;
+		}
+		
         setCookie("lOaDeDpAgE_ajax", "gotoMaterias", 7);
 		$(".subdropumen").removeClass('active');
 		$(".buttonnewinst").removeClass('active');
@@ -466,6 +473,7 @@ $(document).ready(function ($) {
 							var cellAcciones = materiaRow.insertCell(4); cellAcciones.innerHTML = actionsDiv;
 
 							materiaRow.classList.add("commonMateriaRow");
+							document.getElementById("showmaterias").disabled = false;
 						}
 					} else {
 						setNoCreatedMaterias();
@@ -487,6 +495,10 @@ $(document).ready(function ($) {
 				}
 
 	gotoGposPeriodo = (e) => {
+		if (e != null) {
+			e.currentTarget.disabled = true;
+		}
+
 		setCookie("lOaDeDpAgE_ajax", "gotoGposPeriodo", 7);
 		$(".subdropumen").removeClass('active');
 		$(".buttonnewinst").removeClass('active');
@@ -541,8 +553,8 @@ $(document).ready(function ($) {
 							ciclolbl.textContent = gsp[i].Periodo;
 							gpolbl.textContent = gsp[i].Grupo;
 
-							let fIcon = '<i id="f-' + gsp[i].Id_GpoPeriodo + '" title="Cambiar/Subir archivo" class="actionsIcon fas fa-file-excel"></i>';
-							let tIcon = '<i id="t-' + gsp[i].Id_GpoPeriodo + '" title="Eliminar" class="actionsIcon fas fa-trash"></i>';
+							let fIcon = '<i id="f-' + gsp[i].Id_GpoPeriodo + '" title="Cambiar/Subir archivo" class="actionsGpoPIcon fas fa-file-excel"></i>';
+							let tIcon = '<i id="t-' + gsp[i].Id_GpoPeriodo + '" title="Eliminar" class="actionsGpoPIcon fas fa-trash"></i>';
 
 							let fdiv = document.createElement("div"); fdiv.innerHTML = fIcon;
 							let tdiv = document.createElement("div"); tdiv.innerHTML = tIcon;
@@ -563,6 +575,7 @@ $(document).ready(function ($) {
 							accionesCell.classList.add("accionesCol");
 
 							gpop.classList.add("commonGPRow");
+							document.getElementById("showgrposperiodobtn").disabled = false;
 							
 						}
 

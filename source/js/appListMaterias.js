@@ -171,6 +171,7 @@ $(document).ready(function ($) {
 
     checkSearchedMaterias = (e) => {
         var searchMateriaInput = e.currentTarget;
+        console.log(searchMateriaInput.value);
         if (searchMateriaInput == " ") {
             //Show materias
             return;
@@ -190,7 +191,6 @@ $(document).ready(function ($) {
                 AJAXrequestFailed("Fallo en petición AJAX para buscar materias");
              });
         }
-        console.log(searchMateriaInput.value);
     }
 
 

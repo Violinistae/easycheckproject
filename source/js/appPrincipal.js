@@ -1,37 +1,7 @@
 var IdAux;
 var IdMat;
 var IdAcad;
-$(document).ready(function ($) {
-
-    showContextMenuOnInstrument = (e) => {
-        e.preventDefault();
-
-        $(".subdropumen").removeClass('active');
-        $(".buttonnewinst").removeClass('active');
-        $("#modforactions").fadeOut("300");
-
-        let instId = parseInt(e.currentTarget.getAttribute("dataidins"));
-        let matId = parseInt(e.currentTarget.getAttribute("dataidmat"));
- 
-        $(".contextCostumMenu").show(200).
-        css({
-            top: event.pageY + "px",
-            left: event.pageX + "px"
-        });
-        $(".contextCostumMenu").attr("dataidins", instId);
-        $(".contextCostumMenu").attr("dataidmat", matId);
-        
-    }
-
-    /*
-    outContextMenuClick = (e) => {
-        if (!$(e.target).parents(".contextCostumMenu").length>0) {
-            $(".contextCostumMenu").hide(50);
-            $(".contextCostumMenu").attr("dataidins", "");
-            $(".contextCostumMenu").attr("dataidmat", "");
-        }
-    }
-    */
+$(document).ready(function ($) {    
 
     checkClickedContextMenuItem = (e) => {
         let action = parseInt(e.currentTarget.getAttribute("dataowinsaction"));
