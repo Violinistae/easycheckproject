@@ -133,7 +133,6 @@
                 } else {
                     echo json_encode (['error' => false, 'built' => false, 'x' => $stmt->rowCount()]);
                 }
-
             } else {
                 echo json_encode(['error' => true]);
             }

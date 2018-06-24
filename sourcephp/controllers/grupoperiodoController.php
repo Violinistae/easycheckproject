@@ -136,5 +136,68 @@
                 echo json_encode (['error' => true]);
             }
         }
+
+        public function getGpoPById () {
+            if (isset($_POST["Id_GpoPeriodo"])) {
+                $stmt = $this->pdo->prepare(
+                    "SELECT * FROM grupoperiodo
+                        WHERE Id_GpoPeriodo = ?"
+                );
+                $stmt->execute([
+                    $_POST["Id_GpoPeriodo"]
+                ]);
+
+                $grupoPeriodo = $stmt->fetchAll();
+
+                if (isset($grupoPeriodo[0])) {
+
+                    $grupop = new grupoperiodoModel();
+                    $grupop->setId_GpoPeriodo($_POST["Id_GpoPeriodo"]);
+                    $grupop->setMateria(intval($grupoPeriodo[0]->Materia));
+                    $grupop->setGrupo(intval($grupoPeriodo[0]->Grupo));
+                    $grupop->setPeriodo($grupoPeriodo[0]->Periodo);
+                    $grupop->setProfesor(intval($grupoPeriodo[0]->Profesor));
+                    $grupop->setLista_Alumnos($grupoPeriodo[0]->Lista_Alumnos);
+                    $grupop->setClave_Acceso($grupoPeriodo[0]->Clave_Acceso);
+                    
+                    $matCtrlr = new materiaController($this->pdo);
+                    $mat = $matCtrlr->getMateriaByIdLocal($grupop->getMateria());
+                    $m = [
+                        'Id_Materia' => $mat->getId_Materia(),
+                        'Materia' => $mat->getMateria(),
+                        'Semestre' => $mat->getSemestre()
+                    ];
+
+                    $gpoCtrlr = new grupoController($this->pdo);
+                    $gpo = $gpoCtrlr->readGrupoByIdLocal($grupop->getGrupo());
+                    $g = [
+                        'Grupo' => $gpo->getGrupo()
+                    ];
+
+                    $userCtrlr = new usuarioController($this->pdo);
+                    $prof = $userCtrlr->getUserForSimpleById($grupop->getProfesor());
+                    $profesor = [
+                        'Nombres' => $prof->getNombres(),
+                        'Apellidos' => $prof->getApellidos()
+                    ];
+
+                    $gp = [
+                        'Id_GrupoPeriodo' => $grupop->getId_GpoPeriodo(),
+                        'Materia' => $m,
+                        'Grupo' => $g,
+                        'Periodo' => $grupop->getPeriodo(),
+                        'Profesor' => $profesor,
+                        'Lista_Alumnos' => $grupop->getLista_Alumnos(),
+                        'Clave_Acceso'=> $grupop->getClave_Acceso()
+                    ];
+
+                    echo json_encode(['error'=> false, 'built' => true, 'gpoperiodo' => $gp]);
+                } else {
+                    echo json_encode (['error' => false, 'built' => false, 'x' => $stmt->errorInfo()]);
+                }
+            } else {
+                echo json_encode(['error' => true]);
+            }
+        }
     }
 ?>
