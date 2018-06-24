@@ -302,7 +302,7 @@ $(document).ready(function ($) {
 
     updateSorted = () => {
         let posAux = $('#rowsContainer').sortable('toArray');
-        console.log(posAux);
+        //console.log(posAux);
         let radiosValues = [];
         let mtx = [];
 
@@ -379,7 +379,7 @@ $(document).ready(function ($) {
                     break;
             }
         }
-        console.log(rowsInstrument);
+        //console.log(rowsInstrument);
 
         rowsInstrument = getArrayFromDataRows(posAux.length);
         setNewHashToCookieAfterAction();

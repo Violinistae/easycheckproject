@@ -450,6 +450,10 @@ $(document).ready(function ($) {
 	$("body").on('contextmenu', '#principalPgContainer', function (e) { e.preventDefault(); })
 	$('body').on('click', '.contextMenuItem', function (e) { checkClickedContextMenuItem(e); });
 
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Interacción con botones de acción en listas de grupos o materias ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	$('body').on('click', '.actionsGpoPIcon', function (e) { switchActionGpoP(e); });
+
 
 // ---------------------------------------------------------------------------------------------------------------------------------
 // ----------------------------------------- MAIN PAGE ON LOAD/READY CALLS ---------------------------------------------------------

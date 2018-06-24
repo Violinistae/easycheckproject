@@ -526,7 +526,7 @@ $(document).ready(function ($) {
 				dataType: 'json',
 				data: readMateriasData
 			}).done(function (resGposP) {
-				console.log(resGposP);
+				//console.log(resGposP);
 				insertGposPToTable(resGposP);
 			}).fail(function () {
 				AJAXrequestFailed("Fallo en petición AJAX obtener grpos periodo");
@@ -555,13 +555,15 @@ $(document).ready(function ($) {
 
 							let fIcon = '<i id="f-' + gsp[i].Id_GpoPeriodo + '" title="Cambiar/Subir archivo" class="actionsGpoPIcon fas fa-file-excel"></i>';
 							let tIcon = '<i id="t-' + gsp[i].Id_GpoPeriodo + '" title="Eliminar" class="actionsGpoPIcon fas fa-trash"></i>';
+							let sIcon = '<i id="s-' + gsp[i].Id_GpoPeriodo + '" title="Mostrar grupo periodo" class="actionsGpoPIcon fas fa-home"></i>';
 
 							let fdiv = document.createElement("div"); fdiv.innerHTML = fIcon;
 							let tdiv = document.createElement("div"); tdiv.innerHTML = tIcon;
+							let sdiv = document.createElement("div"); sdiv.innerHTML = sIcon;
 
 							let auxDiv = document.createElement("div");
 							auxDiv.classList.add("accionesTd");
-							auxDiv.appendChild(fdiv); auxDiv.appendChild(tdiv);
+							auxDiv.appendChild(fdiv); auxDiv.appendChild(tdiv); auxDiv.appendChild(sdiv);
 
 							let claveCell = gpop.insertCell(0); claveCell.appendChild(clavelbl);
 							claveCell.classList.add("claveCol");
@@ -589,12 +591,12 @@ $(document).ready(function ($) {
 					let noMateriasInformacion = document.getElementById("noMateriasAvailable");
 
 					let p = document.createElement("p");
-					p.textContent = "No existe alguna materia creada en su Academia";
+					p.textContent = "Usted no ha creado algún grupo de tipo periodo";
 					noMateriasInformacion.appendChild(p);
 					noMateriasInformacion.appendChild(document.createElement("BR"));
 
 					p = document.createElement("p");
-					p.textContent = 'Presione la opción "Crear Materia" para generarla';
+					p.textContent = 'Presione la opción "Crear Grupo Periodo" para generar uno';
 					noMateriasInformacion.appendChild(p);
 				}		
 
