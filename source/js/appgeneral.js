@@ -262,7 +262,12 @@ $(document).ready(function ($) {
 				document.getElementById("modalforactionscontainer").innerHTML = "";
 				actionsCookieName = "aiCoTndDtoO";
 				deleteCookie(actionsCookieName);
-				gotoMainPage();   //Modificar a que sea por página de grupos periodo
+				gotoGposPeriodo();   //Modificar a que sea por página de grupos periodo
+				break;
+			case "21": 
+				break;
+			case "22":
+				deleteSelectedGP();
 				break;
 			case "410":
 				$("#createmateriabtn").prop("disabled", false);

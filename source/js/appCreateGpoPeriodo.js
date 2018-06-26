@@ -91,7 +91,7 @@ $(document).ready(function ($) {
             if (flag)
                 return;
             if ($(this).val().length == 0) {
-                var mainmessage = "Por favor llene todos los campos del formulario para crear una materia.";
+                var mainmessage = "Por favor llene todos los campos del formulario para crear un Grupo Periodo.";
                 var secmessage = "Presione el botón para continuar";
                 showMessage("wArNinGbTn_AcTiOn", 420, mainmessage, secmessage);
                 flag = true;

@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href="../../source/css/styleCreateGpoPeriodo.css">
 <div id="createGpoPeriodoInstrucc">
-    <p>Ingrese los datos solicitados para crear un grupo Periodo</p>
+    <p>Ingrese los datos solicitados para crear un Grupo Periodo</p>
 </div>
 <form id="createGpoPeriodoInputs" action="">
     <div id="acadSelectContainer">

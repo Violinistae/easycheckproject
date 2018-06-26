@@ -16,7 +16,7 @@
                         'Clave_Acceso' => $_POST["Clave_Acceso"]
                     ]);
 
-                    if (verifyGpoPeriodo($gpoPData)) {
+                    if ($this->verifyGpoPeriodo($gpoPData)) {
                         echo json_encode(['error' => false, 'alreadyExists' => true]);
                         return;
                     }
@@ -34,13 +34,14 @@
                         )"
                     );
 
+                    $hashClave = password_hash($_POST["Clave_Acceso"], PASSWORD_DEFAULT);
                     $stmt->execute([
                         $_POST["Materia"],
                         $_POST["Grupo"],
                         $_POST["Periodo"],
                         $_SESSION["userreg"],
                         $_POST["Lista_Alumnos"],
-                        $_POST["Clave_Acceso"]
+                        $hashClave
                     ]);
 
                     if ($stmt->rowCount() ) {
@@ -64,18 +65,13 @@
                     WHERE
                 Materia = ? AND
                 Grupo = ? AND
-                Periodo = ? AND
-                Profesor = ? AND
-                Lista_Alumnos = ? AND
-                Clave_Acceso = ? "
+                Periodo = ?"
             );
 
             $stmt->execute([
                 $gpoPData["Materia"],
                 $gpoPData["Grupo"],
-                $gpoPData["Periodo"],
-                $gpoPData["Lista_Alumnos"],
-                $gpoPData["Clave_Acceso"]
+                $gpoPData["Periodo"]                                
             ]);
 
             if ($stmt->rowCount() > 0) {

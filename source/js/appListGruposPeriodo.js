@@ -19,17 +19,24 @@ $(document).ready(function ($) {
                 $("#inputListaAlumnos").trigger("click");
                 clickedGpoP = gpoPId;
                 break;
-            //case "e":
-                //Edit
-                //break;
             case "t":
                 //Delete
                 checkDeleteGP(gpoPId);
+                break;
+            case "s":
+                showGPInfo();
                 break;
             default:
                 break;
         }
     }
+
+
+    showGPInfo = () => {
+
+    }
+
+
     
     checkDeleteGP = (gpoPId) => {        
         dataGp = {
@@ -50,7 +57,7 @@ $(document).ready(function ($) {
 
                     var mainmessage = '¿Está seguro de eliminar el grupo periodo "' + mat + " " + period + '" ?';
                     var secmessage = "Ya no se podrá recuperar la información de este al confirmar la acción.";
-                    showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
+                    showMessage("wArNinGbTn_AcTiOn", 22, mainmessage, secmessage);
                 }
             }
         }).fail(function () {
@@ -63,6 +70,9 @@ $(document).ready(function ($) {
                 Id_GpoPeriodo: grupoPeriodo.Id_GrupoPeriodo
             };
             console.log(grupoPeriodo);
+
+            //Realizar respaldo?
+
         }
     
     /* ----------------------------------------------------------------------- */

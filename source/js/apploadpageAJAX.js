@@ -533,6 +533,10 @@ $(document).ready(function ($) {
 			});
 		}	
 
+		//VERIFICAR SI ES UN USUARIO DE TIPO ALUMNO PARA SOLO DEJAR VER EL GRUPO PERIODO
+		//VERIFICAR TIPO DE USUARIO PARA CAMBIAR DE COLOR EN LAS TABLAS Y OTROS CASOS NECESARIOS
+		//****************************************************************************** */
+
 			insertGposPToTable = (resGposP) => {
 				//console.log(resGposP.numMaterias)
 				if (!resGposP.error) {
@@ -555,7 +559,7 @@ $(document).ready(function ($) {
 
 							let fIcon = '<i id="f-' + gsp[i].Id_GpoPeriodo + '" title="Cambiar/Subir archivo" class="actionsGpoPIcon fas fa-file-excel"></i>';
 							let tIcon = '<i id="t-' + gsp[i].Id_GpoPeriodo + '" title="Eliminar" class="actionsGpoPIcon fas fa-trash"></i>';
-							let sIcon = '<i id="s-' + gsp[i].Id_GpoPeriodo + '" title="Mostrar grupo periodo" class="actionsGpoPIcon fas fa-home"></i>';
+							let sIcon = '<i id="s-' + gsp[i].Id_GpoPeriodo + '" title="Mostrar grupo periodo" class="actionsGpoPIcon fas fa-search"></i>';
 
 							let fdiv = document.createElement("div"); fdiv.innerHTML = fIcon;
 							let tdiv = document.createElement("div"); tdiv.innerHTML = tIcon;
@@ -582,22 +586,22 @@ $(document).ready(function ($) {
 						}
 
 					} else {
-						//Show cental message no gpos periodo
+						setNoCreatedGposP();						
 					}	
 				}			
 			}
 
 				setNoCreatedGposP = () => {
-					let noMateriasInformacion = document.getElementById("noMateriasAvailable");
+					let noGPInfo = document.getElementById("noGposPAvailable");
 
 					let p = document.createElement("p");
-					p.textContent = "Usted no ha creado algún grupo de tipo periodo";
-					noMateriasInformacion.appendChild(p);
-					noMateriasInformacion.appendChild(document.createElement("BR"));
+					p.textContent = "Usted no ha creado algún Grupo de tipo Periodo";
+					noGPInfo.appendChild(p);
+					noGPInfo.appendChild(document.createElement("BR"));
 
 					p = document.createElement("p");
 					p.textContent = 'Presione la opción "Crear Grupo Periodo" para generar uno';
-					noMateriasInformacion.appendChild(p);
+					noGPInfo.appendChild(p);
 				}		
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++	
