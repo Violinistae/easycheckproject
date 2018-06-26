@@ -1,10 +1,4 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-#acadOverview {
+#CreatorGPOverview {
     height: 100%;
     width: 100%;
     position: relative;
@@ -12,31 +6,53 @@
     grid-template-columns: 2fr 25fr 3fr 68fr 2fr;
     grid-template-rows: 9fr 2fr 84fr 5fr;
     grid-template-areas: 
-    "mainnavbar mainnavbar mainnavbar mainnavbar mainnavbar"
+    "mainNavGP mainNavGP mainNavGP mainNavGP mainNavGP"
     ". . . . ."
-    ". groupActionsBar . mainContainerAcadOverView ."
+    ". groupActionsBar . mainContainerCreatorGPOverview ."
     ". . . . .";
     font-family: 'Noto Sans', sans-serif;
     flex-grow: 1;
 }
 
-#acadOverview > nav {
+#CreatorGPOverview > nav {
+    grid-area: mainNavGP;
     width: 100%;
     height: 100%;
-    grid-area: mainnavbar;
 }
 
-#mainNavAcad {
+#mainNavGP {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    padding: 1.4em;
-    font-size: 1.4vw;
+    padding: 1em;
+    font-size: 1.2vw;
     list-style: none;
 }
 
-.lblNavDivAcadOver {
+#backToGPListBtn {
+    font-size: 2.2vw;
+    cursor: pointer;
+}
+
+.backToGPList {
+    flex-grow: .5;
+}
+
+.lblGPOverview {
     flex-grow: 1;
+    display: flex;
+    align-items: center;
+}
+
+#groupActionsBar {
+    grid-area: groupActionsBar;
+}
+
+#mainContainerCreatorGPOverview {
+    grid-area: mainContainerCreatorGPOverview;
+    overflow: auto;
+    max-width: 100%;
+    padding: .2em .2em;
 }
 
 #groupActionsBar {
@@ -51,7 +67,7 @@
     height: 15rem;
 }
 
-.acadOverbtn {
+.gpOverviewBtn {
     border-radius: 5px;
     cursor: pointer;
     background-color: transparent;
@@ -62,13 +78,6 @@
     font-size: 1.1vw;
 }
 
-.acadOverbtn:hover {
+.gpOverviewBtn:hover {
     background-color: aliceblue;
-}
-
-#mainContainerAcadOverview {
-    grid-area: mainContainerAcadOverView;
-    overflow: auto;
-    max-width: 100%;
-    padding: .2em .2em;
 }

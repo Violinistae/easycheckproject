@@ -74,6 +74,7 @@
     border: rgb(90, 144, 232) solid 2px;
     padding: 1.2rem 0%;
     color: white;
+    border-radius: 2px;
 }
 
 .commonMateriaRow > td {
@@ -84,6 +85,7 @@
     padding-bottom: 1rem;
     padding-left: 1.5rem;
     font-size: 1.3vw;
+    border-radius: 2px;
 }
 
 #materiasTableContent tr:nth-child(even) > td {

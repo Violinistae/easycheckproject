@@ -200,7 +200,7 @@
 			if ($stmt->rowCount() > 0) {
 				while ($u = $stmt->fetch(PDO::FETCH_ASSOC)) {
 					$user = new usuarioModel;
-					$user->setRegistro_U($_SESSION["userreg"]);
+					$user->setRegistro_U($u["Registro_U"]);
 					$user->setNombres($u["Nombres"]);
 					$user->setApellidos($u["Apellidos"]);
 					$user->setEmail($u["Email"]);

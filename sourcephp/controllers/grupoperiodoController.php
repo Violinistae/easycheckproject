@@ -173,6 +173,7 @@
                     $userCtrlr = new usuarioController($this->pdo);
                     $prof = $userCtrlr->getUserForSimpleById($grupop->getProfesor());
                     $profesor = [
+                        'Registro_U' => $prof->getRegistro_U(),
                         'Nombres' => $prof->getNombres(),
                         'Apellidos' => $prof->getApellidos()
                     ];

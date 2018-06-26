@@ -85,6 +85,7 @@
     border: rgb(90, 144, 232) solid 2px;
     padding: 1.2rem 0%;
     color: white;
+    border-radius: 2px;
 }
 
 .claveCol {
