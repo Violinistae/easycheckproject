@@ -1,16 +1,15 @@
-getSessionVariables = (methodToDo) => {
-	$.ajax({
-		url: '../../index_ajax.php?controller=usuario&action=getSessionVariables',
-		type: 'POST',
-		dataType: 'json'
-	}).done(function (sessionVariables) {
-		methodToDo(sessionVariables);
-	}).fail(function () {
-		AJAXrequestFailed("Fallo en Petición AJAX para obtener variables de sesión");
-	});
-}
-
 $(document).ready(function ($) { 
+	getSessionVariables = (methodToDo) => {
+		$.ajax({
+			url: '../../index_ajax.php?controller=usuario&action=getSessionVariables',
+			type: 'POST',
+			dataType: 'json'
+		}).done(function (sessionVariables) {
+			methodToDo(sessionVariables);
+		}).fail(function () {
+			AJAXrequestFailed("Fallo en Petición AJAX para obtener variables de sesión");
+		});
+	}
     /**
 	 * Método para mostrar en consola (para comodidad del desarrollador) un mensaje en caso de que una petición
 	 * $.ajax falle.
@@ -265,6 +264,7 @@ $(document).ready(function ($) {
 				gotoGposPeriodo();   //Modificar a que sea por página de grupos periodo
 				break;
 			case "21": 
+				
 				break;
 			case "22":
 				deleteSelectedGP();

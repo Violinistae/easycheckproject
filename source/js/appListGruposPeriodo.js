@@ -24,7 +24,7 @@ $(document).ready(function ($) {
                 checkDeleteGP(gpoPId);
                 break;
             case "s":
-                showGPInfo();
+                getSessionVariables(showGPInfo);
                 break;
             default:
                 break;
@@ -32,8 +32,13 @@ $(document).ready(function ($) {
     }
 
 
-    showGPInfo = () => {
+    showGPInfo = (sessionVariables) => {
+        console.log(sessionVariables);
+        if (sessionVariables.usertype == 1 || sessionVariables.usertype == 2) {
+            
+        } else if (sessionVariables.usertype == 3) {
 
+        }
     }
 
 

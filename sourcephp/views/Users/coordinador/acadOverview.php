@@ -1,10 +1,13 @@
 <link rel="stylesheet" type="text/css" href="../../source/css/styleAcadOvewview.css">
 <div id="acadOverview">
-	<nav id="mainNavAcad">
-		<ul>
-			<li>
+	<nav>
+		<ul id="mainNavAcad">
+			<li class="lblNavDivAcadOver">
 				<label id="academiaNamelbl">Nombre Academia</label>
 			</li>			
+			<li class="lblNavDivAcadOver">
+				<label>Instrumentos Compartidos en la Academia</label>
+			</li>
 		</ul>
 	</nav>
 	<div id="groupActionsBar">

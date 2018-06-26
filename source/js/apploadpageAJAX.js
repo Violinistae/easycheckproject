@@ -269,7 +269,10 @@ $(document).ready(function ($) {
 					dataForSharedInst = {
 						Id_Academia: resAcadInfo.academia.Id_Academia
 					};
-					console.log(dataForSharedInst);
+					
+					let academiaNamelbl = document.getElementById("academiaNamelbl");
+					academiaNamelbl.textContent = "Academia: " + resAcadInfo.academia.Academia;
+					
 
 					$.ajax({
 						url: '../../index_ajax.php?controller=instrumentoscompartidos&action=readAcadSharedInstr',
@@ -458,7 +461,7 @@ $(document).ready(function ($) {
 
 							var fIcon = '<i id="f-' + materiasAcademia.materias[i].Id_Materia + '" title="Cambiar/Subir archivo" class="actionsIcon fas fa-file-excel"></i>';
 							var tIcon = '<i id="t-' + materiasAcademia.materias[i].Id_Materia + '" title="Eliminar" class="actionsIcon fas fa-trash"></i>';
-							var eIcon = '<i id="e-' + materiasAcademia.materias[i].Id_Materia + '" title="Editar" class="actionsIcon fas fa-edit"></i>';
+							var eIcon = '<i id="e-' + materiasAcademia.materias[i].Id_Materia + '" title="Editar" class="actionsIcon fa fa-edit"></i>';
 
 							var fbtn = '<button class="materiaBtn" id="f-' + materiasAcademia.materias[i].Id_Materia + '">' + fIcon + '</button>';
 							var tbtn = '<button class="materiaBtn" id="t-' + materiasAcademia.materias[i].Id_Materia + '">' + tIcon + '</button>';
@@ -559,7 +562,7 @@ $(document).ready(function ($) {
 
 							let fIcon = '<i id="f-' + gsp[i].Id_GpoPeriodo + '" title="Cambiar/Subir archivo" class="actionsGpoPIcon fas fa-file-excel"></i>';
 							let tIcon = '<i id="t-' + gsp[i].Id_GpoPeriodo + '" title="Eliminar" class="actionsGpoPIcon fas fa-trash"></i>';
-							let sIcon = '<i id="s-' + gsp[i].Id_GpoPeriodo + '" title="Mostrar grupo periodo" class="actionsGpoPIcon fas fa-search"></i>';
+							let sIcon = '<i id="s-' + gsp[i].Id_GpoPeriodo + '" title="Mostrar grupo periodo" class="actionsGpoPIcon fas fa-sign-in-alt"></i>';
 
 							let fdiv = document.createElement("div"); fdiv.innerHTML = fIcon;
 							let tdiv = document.createElement("div"); tdiv.innerHTML = tIcon;
