@@ -34,7 +34,7 @@ $(document).ready(function ($) {
             "border-top": "transparent",
             "border-right": "transparent",
             "border-left": "transparent",
-            "border-bottom": "solid (14, 161, 51) 2px",
+            "border-bottom": "solid rgb(14, 161, 51) 2px",
             "border-top": "transparent",
             "color": "white",
             "border-radius": "2px",

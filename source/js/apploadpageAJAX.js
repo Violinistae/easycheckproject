@@ -583,14 +583,15 @@ $(document).ready(function ($) {
 							let accionesCell = gpop.insertCell(4); accionesCell.appendChild(auxDiv);
 							accionesCell.classList.add("accionesCol");
 
-							gpop.classList.add("commonGPRow");
-							document.getElementById("showgrposperiodobtn").disabled = false;
+							gpop.classList.add("commonGPRow");							
 							
 						}
-
 					} else {
 						setNoCreatedGposP();						
 					}	
+					document.getElementById("showgrposperiodobtn").disabled = false;
+					
+					getSessionVariables(setColorToTable);
 				}			
 			}
 
@@ -606,6 +607,30 @@ $(document).ready(function ($) {
 					p.textContent = 'Presione la opción "Crear Grupo Periodo" para generar uno';
 					noGPInfo.appendChild(p);
 				}		
+
+				setColorToTable = (sessionVariables) => {
+					let tableHeads = document.getElementsByClassName("headColGP");				
+					switch (sessionVariables.usertype) {
+						case "1":							
+							for (let i = 0; i < tableHeads.length; ++i) {
+								tableHeads.item(i).style.borderColor = "rgb(90, 144, 232)";
+								tableHeads.item(i).style.backgroundColor = "rgb(90, 144, 232)";
+							}
+							break;
+						case "2":											
+							for (let i = 0; i < tableHeads.length; ++i) {
+								tableHeads.item(i).style.borderColor = "rgb(14, 161, 51)";
+								tableHeads.item(i).style.backgroundColor = "rgb(14, 161, 51)";
+							}								
+							break;
+						case "3":
+							for (let i = 0; i < tableHeads.length; ++i) {
+								tableHeads.item(i).style.borderColor = "rgb(171, 49, 49)";
+								tableHeads.item(i).style.backgroundColor = "rgb(171, 49, 49)";
+							}								
+							break;
+					}
+				}
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++	
 

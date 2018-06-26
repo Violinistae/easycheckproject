@@ -80,12 +80,17 @@
     height: 100%;
 }
 
-#topTableRow > th{
-    background-color: rgb(90, 144, 232);
-    border: rgb(90, 144, 232) solid 2px;
+
+
+#topTableRow > th{    
     padding: 1.2rem 0%;
     color: white;
     border-radius: 2px;
+}
+
+.headColGP {
+    background-color: rgb(90, 144, 232);
+    border: rgb(90, 144, 232) solid 2px;
 }
 
 .claveCol {

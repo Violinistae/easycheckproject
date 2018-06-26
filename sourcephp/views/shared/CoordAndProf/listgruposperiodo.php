@@ -17,19 +17,19 @@
             <td>
                 <table id="headGpTable">
                      <tr id="topTableRow">
-                        <th class="claveCol">
+                        <th class="headColGP claveCol">
                             Clave
                         </th>
-                        <th class="materiaCol">
+                        <th class="headColGP materiaCol">
                             Materia
                         </th>
-                        <th class="cicloCol">
+                        <th class="headColGP cicloCol">
                             Ciclo Escolar
                         </th>
-                        <th class="grupoCol">
+                        <th class="headColGP grupoCol">
                             Grupo
                         </th>
-                        <th class="accionesGpo">
+                        <th class="headColGP accionesGpo">
                             Acciones Gpo Periodo
                         </th>
                     </tr>        
