@@ -23,22 +23,22 @@ $(document).ready(function ($) {
 
 		setStyleAndInfoToNavbar = (sessionVariables) => {
 			if (!sessionVariables.error) {
+				insertgroupsbar(sessionVariables.usertype);
 				if (sessionVariables.usertype == 1) {
 					$(".mainnavbar").css({ "background-color": "rgb(90, 144, 232)" });
 					insertnewbuttondiv();
-					insertgroupsbar();
 					sleep(50);
 					insertMateriapart();
 					insertCoordStyles();
 				} else if (sessionVariables.usertype == 2) {
 					$(".mainnavbar").css({ "background-color": "rgb(14, 161, 51)" });
-					insertnewbuttondiv();
-					insertgroupsbar();
+					insertnewbuttondiv();			
 					insertProfStyles();
 				} else if (sessionVariables.usertype == 3) {
 					$(".mainnavbar").css({ "background-color": "rgb(171, 49, 49)" });
 					insertAlumnoStyles();
 				}
+				
 				//insert username with ajax
 			} else if (sessionVariables.error) {
 				console.log("Cerrar Sesión");
@@ -78,22 +78,42 @@ $(document).ready(function ($) {
 					}
 				}
 			
-			insertgroupsbar = () => {
+			insertgroupsbar = (usertype) => {
 				$.ajax({
 					url: '../../sourcephp/views/shared/CoordAndProf/groupsBar.php',
 					type: 'POST'
 				}).done(function (gpsBarRes) {
-					insgroupsbar(gpsBarRes);
+					insgroupsbar(gpsBarRes, usertype);
 					
 				}).fail(function () {
 					AJAXrequestFailed("Fallo en petición AJAX para insertar 'GROUPS BAR'");
 				});
 			}
 
-				insgroupsbar = (gpsBarRes) => {
+				insgroupsbar = (gpsBarRes, usertype) => {
 					groupsbar = document.getElementById('groupsbar');
 					groupsbar.innerHTML = gpsBarRes;
-					getAndExecuteNewInsertedScript(groupsbar);
+					getAndExecuteNewInsertedScript(groupsbar);				
+					let groupbarcontent = document.getElementById("groupbarcontent");				
+
+					let aux; let gppart;
+
+					switch (usertype) {
+						case "2":
+							aux = groupbarcontent.childNodes[3];
+							gppart = groupbarcontent.childNodes[5];
+							groupbarcontent.insertBefore(gppart, aux);									
+							break;
+						case "3":
+							aux = groupbarcontent.childNodes[1];
+							aux.innerHTML = "";
+							gppart = groupbarcontent.childNodes[5];
+							groupbarcontent.insertBefore(gppart, aux);	
+							
+							gppart.removeChild(gppart.childNodes[3]);
+							break;
+					}					
+
 				}
 
 			insertMateriapart = () => {

@@ -4,7 +4,7 @@
     <nav>
         <ul id="listGposPNav">
             <li id="pathPage">
-                <label>Grupos periodo creados</label>
+                <label>Grupos Periodo a los que pertenezco</label>
             </li>
             <li id="inputNavGposP">
                 <input type="text" id ="searchGpoPInput" name="searchGpoPInput" placeholder="Buscar materia">

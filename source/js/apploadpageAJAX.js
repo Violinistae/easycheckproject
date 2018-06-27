@@ -514,7 +514,7 @@ $(document).ready(function ($) {
 		$(".subdropumen").removeClass('active');
 		$(".buttonnewinst").removeClass('active');
 		$.ajax({
-			url: "../../sourcephp/views/shared/CoordAndProf/listgruposperiodo.php",
+			url: "../../sourcephp/views/shared/forEveryone/listgruposperiodo.php",
 			type: "POST"
 		}).done(function (mainPage) {
 			maincontentFadeAnimation(mainPage, loadGposPToTable);
@@ -538,13 +538,13 @@ $(document).ready(function ($) {
 				data: readMateriasData
 			}).done(function (resGposP) {
 				//console.log(resGposP);
-				insertGposPToTable(resGposP);
+				insertGposPToTable(resGposP, true);
 			}).fail(function () {
 				AJAXrequestFailed("Fallo en petición AJAX obtener grpos periodo");
 			});
 		}			
 
-			insertGposPToTable = (resGposP) => {
+			insertGposPToTable = (resGposP, flagCreator) => {
 				//console.log(resGposP.numMaterias)
 				if (!resGposP.error) {
 					
@@ -564,22 +564,21 @@ $(document).ready(function ($) {
 							ciclolbl.textContent = gsp[i].Periodo;
 							gpolbl.textContent = gsp[i].Grupo;
 
-
-							//if es de tipo profesor o coordinador
-
-							let fIcon = '<i id="f-' + gsp[i].Id_GpoPeriodo + '" title="Cambiar/Subir archivo" class="actionsGpoPIcon fas fa-file-excel"></i>';
-							let tIcon = '<i id="t-' + gsp[i].Id_GpoPeriodo + '" title="Eliminar" class="actionsGpoPIcon fas fa-trash"></i>';
-
-
-							let sIcon = '<i id="s-' + gsp[i].Id_GpoPeriodo + '" title="Mostrar grupo periodo" class="actionsGpoPIcon fas fa-sign-in-alt"></i>';
-
-							let fdiv = document.createElement("div"); fdiv.innerHTML = fIcon;
-							let tdiv = document.createElement("div"); tdiv.innerHTML = tIcon;
-							let sdiv = document.createElement("div"); sdiv.innerHTML = sIcon;
-
 							let auxDiv = document.createElement("div");
 							auxDiv.classList.add("accionesTd");
-							auxDiv.appendChild(fdiv); auxDiv.appendChild(tdiv); auxDiv.appendChild(sdiv);
+							
+							if (flagCreator) {
+								let fIcon = '<i id="f-' + gsp[i].Id_GpoPeriodo + '" title="Cambiar/Subir archivo" class="actionsGpoPIcon fas fa-file-excel"></i>';
+								let tIcon = '<i id="t-' + gsp[i].Id_GpoPeriodo + '" title="Eliminar" class="actionsGpoPIcon fas fa-trash"></i>';
+								
+								var fdiv = document.createElement("div"); fdiv.innerHTML = fIcon;
+								var tdiv = document.createElement("div"); tdiv.innerHTML = tIcon;
+								auxDiv.appendChild(fdiv); auxDiv.appendChild(tdiv);
+							}			
+
+							let sIcon = '<i id="s-' + gsp[i].Id_GpoPeriodo + '" title="Mostrar grupo periodo" class="actionsGpoPIcon fas fa-sign-in-alt"></i>';
+							let sdiv = document.createElement("div"); sdiv.innerHTML = sIcon;
+							auxDiv.appendChild(sdiv);
 
 							let claveCell = gpop.insertCell(0); claveCell.appendChild(clavelbl);
 							claveCell.classList.add("claveCol");

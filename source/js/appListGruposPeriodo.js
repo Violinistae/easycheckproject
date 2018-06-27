@@ -11,7 +11,6 @@ $(document).ready(function ($) {
     
         var splitedAttr = attr.split("-")
     
-    
         var action = splitedAttr[0];
         var gpoPId = parseInt(splitedAttr[1]);
     
