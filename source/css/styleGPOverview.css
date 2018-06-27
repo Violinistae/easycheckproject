@@ -62,9 +62,10 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto;
-    width: 85%;
+    width: 90%;
     grid-row-gap: 3.3vh;
     height: 15rem;
+    border-radius: 8px;
 }
 
 .gpOverviewBtn {

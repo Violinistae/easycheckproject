@@ -497,7 +497,15 @@ $(document).ready(function ($) {
 					noMateriasInformacion.appendChild(p);
 				}
 
+
+//REESTRUCTURACION DE ESTE MÉTODO
+
 	gotoGposPeriodo = (e) => {
+
+		//Modificar para verificar el tipo de usuario para cargar el contenido determinado
+		//Llamar a un sessionVariables para obtener la variable de sesión y 
+		//determinar que contenido cargar
+
 		if (e != null) {
 			e.currentTarget.disabled = true;
 		}
@@ -534,11 +542,7 @@ $(document).ready(function ($) {
 			}).fail(function () {
 				AJAXrequestFailed("Fallo en petición AJAX obtener grpos periodo");
 			});
-		}	
-
-		//VERIFICAR SI ES UN USUARIO DE TIPO ALUMNO PARA SOLO DEJAR VER EL GRUPO PERIODO
-		//VERIFICAR TIPO DE USUARIO PARA CAMBIAR DE COLOR EN LAS TABLAS Y OTROS CASOS NECESARIOS
-		//****************************************************************************** */
+		}			
 
 			insertGposPToTable = (resGposP) => {
 				//console.log(resGposP.numMaterias)
@@ -560,8 +564,13 @@ $(document).ready(function ($) {
 							ciclolbl.textContent = gsp[i].Periodo;
 							gpolbl.textContent = gsp[i].Grupo;
 
+
+							//if es de tipo profesor o coordinador
+
 							let fIcon = '<i id="f-' + gsp[i].Id_GpoPeriodo + '" title="Cambiar/Subir archivo" class="actionsGpoPIcon fas fa-file-excel"></i>';
 							let tIcon = '<i id="t-' + gsp[i].Id_GpoPeriodo + '" title="Eliminar" class="actionsGpoPIcon fas fa-trash"></i>';
+
+
 							let sIcon = '<i id="s-' + gsp[i].Id_GpoPeriodo + '" title="Mostrar grupo periodo" class="actionsGpoPIcon fas fa-sign-in-alt"></i>';
 
 							let fdiv = document.createElement("div"); fdiv.innerHTML = fIcon;
@@ -586,11 +595,10 @@ $(document).ready(function ($) {
 							gpop.classList.add("commonGPRow");							
 							
 						}
-					} else {
-						setNoCreatedGposP();						
+					} else {						
+						setNoCreatedGposP();			
 					}	
-					document.getElementById("showgrposperiodobtn").disabled = false;
-					
+					document.getElementById("showgrposperiodobtn").disabled = false;					
 					getSessionVariables(setColorToTable);
 				}			
 			}
@@ -607,6 +615,8 @@ $(document).ready(function ($) {
 					p.textContent = 'Presione la opción "Crear Grupo Periodo" para generar uno';
 					noGPInfo.appendChild(p);
 				}		
+
+				//Esta función debe ir en otro lado
 
 				setColorToTable = (sessionVariables) => {
 					let tableHeads = document.getElementsByClassName("headColGP");				

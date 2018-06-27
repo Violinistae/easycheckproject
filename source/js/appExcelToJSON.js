@@ -2,14 +2,14 @@ var fileType;
 $(document).ready(function ($) {
 
     getXlsxFileCreateJSON = (path, fileName, purposeFile, saveTxtPath, updateFileAction, oldFileName, functionToDoInDB, paramFunctionToDoInDB) => {
-        console.log("Hola");
+        //console.log("Hola");
         var ExcelFile = path + fileName + ".xlsx";
 
         var Request = new XMLHttpRequest();        
         Request.open("GET", "../." + ExcelFile, true);
         Request.responseType = 'arraybuffer';
 
-        console.log(ExcelFile);
+        //console.log(ExcelFile);
              
         Request.onload = (e) => {
             if (Request.status === 200) {
@@ -97,7 +97,7 @@ $(document).ready(function ($) {
             /* Get Column Headers (JSON Keys)  */
             var xlsxKeys = Object.keys(XLSX.utils.sheet_to_json(worksheet)[0]);
 
-            console.log(JSONStr);
+            //console.log(JSONStr);
 
             //Checar própósito de archivo
             switch (purposeFile) {
@@ -122,7 +122,7 @@ $(document).ready(function ($) {
                 case 3:
                     if (xlsxKeys[0] == "NumRegistro" && xlsxKeys[1] == "Nombres" && xlsxKeys[2] == "Apellidos") {
                         XLSX.utils.sheet_to_json(worksheet).forEach(XlsxRow => {
-                            console.log(XlsxRow);
+                            //console.log(XlsxRow);
                         });
                     } else {
                         JSONStr = null;

@@ -73,7 +73,7 @@ $(document).ready(function ($) {
         checkUserForGPOverviewContent = () => {
             let groupActionsBar = document.getElementById("groupActionsBar");    
             if (creatorFlag) {
-                for (let i = 0; i < 3; ++i) {
+                for (let i = 0; i < 4; ++i) {
                     let btnAction = document.createElement("button");
                     btnAction.classList.add("gpOverviewBtn");
 
@@ -86,7 +86,10 @@ $(document).ready(function ($) {
                             break;
                         case 2:
                             btnAction.id = "gpAdminIntegBtn"; btnAction.textContent = "Administrar integrantes";
-                            break;                                            
+                            break;           
+                        case 3:
+                            btnAction.id = "gpShowCreatorCalf"; btnAction.textContent = "Mostrar calificaciones";
+                            break;                                                                             
                     }
                     groupActionsBar.appendChild(btnAction);
                 }
@@ -107,11 +110,11 @@ $(document).ready(function ($) {
 
                     switch (i) {
                         case 0:
-                            btnAction.id = "gpRespaldo";
+                            btnAction.id = "gpShowIntegCalf"; btnAction.textContent = "Mostrar calificaciones";
                             break;
                         case 1:
-                            btnAction.id = "gpConfigBtn";
-                            break;                        
+                            btnAction.id = "gpShowInteg"; btnAction.textContent = "Mostrar compañeros";
+                            break;         
                     }
                     groupActionsBar.appendChild(btnAction);
                 }

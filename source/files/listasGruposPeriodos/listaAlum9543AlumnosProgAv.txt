@@ -1,1 +1,0 @@
-[{"NumRegistro":"14300281","Nombres":"Emiliano","Apellidos":"Moreno Salazar"},{"NumRegistro":"14300143","Nombres":"Jesús Eduardo","Apellidos":"Fuentes Rangel"},{"NumRegistro":"14300080","Nombres":"Juan Antonio","Apellidos":"Castillo Rebolledo"}]

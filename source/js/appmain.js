@@ -455,6 +455,7 @@ $(document).ready(function ($) {
 	$('body').on('click', '.actionsGpoPIcon', function (e) { switchActionGpoP(e); });
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Interacción con botones de Overview de grupos ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	$('body').on('click', '#backToGPListBtn', function (e) { gotoGposPeriodo(e); });
 
 
 // ---------------------------------------------------------------------------------------------------------------------------------

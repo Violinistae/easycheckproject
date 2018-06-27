@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.8.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-06-2018 a las 11:04:35
+-- Tiempo de generación: 27-06-2018 a las 23:03:22
 -- Versión del servidor: 10.1.31-MariaDB
--- Versión de PHP: 7.1.15
+-- Versión de PHP: 7.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -43,8 +43,8 @@ CREATE TABLE `academia` (
 --
 
 INSERT INTO `academia` (`Id_Academia`, `Academia`, `Clave_Acceso`, `Ciclo_Periodo`, `Lista_Prof`, `Coordinador_Acad`, `Carrera`) VALUES
-(1, 'Informática', '$2y$10$MY5OmpcrBY3NIYsrL.w4teUryw7iV/jdNWauiXPaPwdhlxncPQJaO', 'Feb - Jun 2018', 'listaProf6463ProfesInformatica', 123, 1),
-(2, 'Electrónica Analógica', '$2y$10$u9zwI/Bz0.l2vBf65NR.COqEy0oW42BPy/HP4.NaM99jrYHLTFdOe', 'Feb - Jun 2018', 'listaProf1943ProfesAnalógica', 60, 1);
+(1, 'Informática', '$2y$10$MY5OmpcrBY3NIYsrL.w4teUryw7iV/jdNWauiXPaPwdhlxncPQJaO', 'Feb - Jun 2018', 'listaProf5676ProfesInformatica', 123, 1),
+(2, 'Electrónica Analógica', '$2y$10$u9zwI/Bz0.l2vBf65NR.COqEy0oW42BPy/HP4.NaM99jrYHLTFdOe', 'Feb - Jun 2018', 'listaProf7793ProfesAnalógica', 60, 1);
 
 -- --------------------------------------------------------
 
@@ -104,7 +104,13 @@ INSERT INTO `acciones` (`Id_Acciones`, `Controlador`, `Metodo`) VALUES
 (39, 'rubrica', 'readRubrica'),
 (40, 'instrumento', 'readInstrumentoByCreador'),
 (41, 'instrumento', 'deleteInstrumento'),
-(42, 'instrumentoscompartidos', 'insertSharedInstr');
+(42, 'instrumentoscompartidos', 'insertSharedInstr'),
+(43, 'instrumentoscompartidos', 'readAcadSharedInstr'),
+(44, 'grupo', 'readGrupos'),
+(45, 'grupoperiodo', 'insertGrupoPeriodo'),
+(46, 'grupoperiodo', 'readGposPeriodoByProf'),
+(47, 'instrumentoscompartidos', 'noShareInstr'),
+(48, 'grupoperiodo', 'getGpoPById');
 
 -- --------------------------------------------------------
 
@@ -203,19 +209,15 @@ CREATE TABLE `cuestionario` (
 --
 
 INSERT INTO `cuestionario` (`Id_FilaCues`, `Instrumento`, `TipoPregunta`, `AspectoEv`, `NumPregunta`, `Pregunta`, `ResCorrecta`, `PonderacionPreg`) VALUES
-(75, 4, 3, 1, 1, '¿Qué es un POCO en programación orientada a objetos en C#?', NULL, 2),
-(76, 4, 1, 1, 2, 'Cuál es la contraparte de Microsoft a Java', '1', 34),
-(77, 4, 3, 2, 3, 'Explica el proceso para crear una aplicación Java en NetBeans.', NULL, 29),
-(78, 4, 1, 2, 4, '¿Qué es Java en el mundo la informática?', '1', 12),
-(79, 4, 2, 1, 5, 'Una ___ es un elemento que permite crear objetos con determinados atributos y métodos.', 'Clase', 20),
-(80, 4, 3, 1, 6, 'Hola', NULL, 3),
-(84, 7, 3, 1, 1, 'Explica el proceso para subir una imagen', NULL, 33),
-(85, 7, 1, 1, 2, '10 + 1', '4', 34),
-(86, 7, 2, 1, 3, 'El lenguaje ___ se utiliza para generar consultas a una base de datos.', 'SQL', 33),
 (96, 15, 2, 1, 1, 'Hola', 'afdios', 33),
 (97, 15, 1, 1, 2, 'No', '1', 34),
 (98, 15, 3, 1, 3, 'Esto es prueba', NULL, 33),
-(99, 8, 1, 3, 1, 'Esta es una prueba de ....', '4', 100);
+(111, 4, 3, 1, 1, '¿Qué es un POCO en programación orientada a objetos en C#?', NULL, 2),
+(112, 4, 1, 1, 2, 'Cuál es la contraparte de Microsoft a Java', '4', 34),
+(113, 4, 3, 2, 3, 'Explica el proceso para crear una aplicación Java en NetBeans.', NULL, 29),
+(114, 4, 1, 2, 4, '¿Qué es Java en el mundo la informática?', '2', 12),
+(115, 4, 3, 1, 5, 'Hola', NULL, 3),
+(116, 4, 2, 1, 6, 'Una ___ es un elemento que permite crear objetos con determinados atributos y métodos.', 'Clase', 20);
 
 -- --------------------------------------------------------
 
@@ -297,6 +299,22 @@ CREATE TABLE `grupo` (
   `Grupo` char(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `grupo`
+--
+
+INSERT INTO `grupo` (`Id_Grupo`, `Grupo`) VALUES
+(1, 'A'),
+(2, 'B'),
+(3, 'C'),
+(4, 'D'),
+(5, 'E'),
+(6, 'F'),
+(7, 'G'),
+(8, 'H'),
+(9, 'I'),
+(10, 'J');
+
 -- --------------------------------------------------------
 
 --
@@ -312,6 +330,15 @@ CREATE TABLE `grupoperiodo` (
   `Lista_Alumnos` varchar(70) NOT NULL,
   `Clave_Acceso` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `grupoperiodo`
+--
+
+INSERT INTO `grupoperiodo` (`Id_GpoPeriodo`, `Materia`, `Grupo`, `Periodo`, `Profesor`, `Lista_Alumnos`, `Clave_Acceso`) VALUES
+(9, 4, 3, 'Feb-Jun 2018', 123, 'listaAlum6877AlumnosProgAv', '$2y$10$xrqsdJ66Lrl2fC6fd2dJxepmbSRwLLNriPh5A08xdKzfQoKHcPyR6'),
+(10, 4, 1, 'Feb-Jun 2018', 123, 'listaAlum7867AlumnosProgAv', '$2y$10$Q/PpTxlDv95cg89cc3QKg.zaLBCY9Tk4ZWnggmrZDHrSMKyMo3Mae'),
+(11, 4, 2, 'Feb-Jun 2018', 123, 'listaAlum3970AlumnosProgAv', '$2y$10$eItWbIbP3JZnnmM12piZhOMgOA2lIoLp7fIqDYERGMqfd.NNDOA9C');
 
 -- --------------------------------------------------------
 
@@ -359,8 +386,6 @@ CREATE TABLE `instrumento` (
 INSERT INTO `instrumento` (`Id_Instrumento`, `Creador`, `TipoInstrumento`, `TipoEvaluacion`, `ClaveElem`, `NombElemento`, `InstruccLlenado`, `Materia`) VALUES
 (4, 123, 4, 2, 'P1.4', 'Examen', 'Prueba', 4),
 (5, 123, 2, 2, 'P1.2', 'Actividades en Clase', 'Prueba Lista Cotejo', 5),
-(7, 123, 4, 2, 'P1.4', 'Examen', 'hola examen', 4),
-(8, 123, 4, 2, 'P2.4', 'Examen', 'Hola', 4),
 (10, 123, 1, 2, 'P1.3', 'Prácticas', 'Seleccione el criterio más adecuado para describir el elemento a evaluar de cada práctica.', 4),
 (11, 123, 1, 2, 'P3.3', 'Prácticas', 'Prácticas POO', 8),
 (12, 12, 1, 2, 'P1.3', 'Prácticas', 'Seleccione el mejor criterio', 10),
@@ -387,8 +412,9 @@ CREATE TABLE `instrumentoscompartidos` (
 --
 
 INSERT INTO `instrumentoscompartidos` (`Id_SharedInstr`, `Materia`, `Instrumento`, `Academia`) VALUES
-(1, 4, 4, 1),
-(2, 5, 5, 1);
+(5, 4, 4, 1),
+(7, 5, 5, 1),
+(8, 10, 13, 2);
 
 -- --------------------------------------------------------
 
@@ -490,26 +516,18 @@ CREATE TABLE `opcionespregunta` (
 --
 
 INSERT INTO `opcionespregunta` (`Id_OpcionesP`, `NumOpcion`, `Opcion`, `Pregunta`) VALUES
-(129, 1, 'JavaScript', 76),
-(130, 2, 'Entity Framework', 76),
-(131, 3, 'C++', 76),
-(132, 4, 'C#', 76),
-(133, 1, 'Un café', 78),
-(134, 2, 'Una tecnología para desarrollar Software', 78),
-(135, 3, 'Solo un lenguaje de programación', 78),
-(136, 4, 'Nada importante', 78),
-(141, 1, '9', 85),
-(142, 2, '6', 85),
-(143, 3, '16', 85),
-(144, 4, '11', 85),
 (157, 1, 'algo', 97),
 (158, 2, 'b', 97),
 (159, 3, 'c', 97),
 (160, 4, 'd', 97),
-(161, 1, 'nada', 99),
-(162, 2, 'nada de nuevo', 99),
-(163, 3, 'Solo interfaz', 99),
-(164, 4, 'funcionalidad editar instrumento', 99);
+(177, 1, 'JavaScript', 112),
+(178, 2, 'Entity Framework', 112),
+(179, 3, 'C++', 112),
+(180, 4, 'C#', 112),
+(181, 1, 'Un café', 114),
+(182, 2, 'Una tecnología para desarrollar Software', 114),
+(183, 3, 'Solo un lenguaje de programación', 114),
+(184, 4, 'Nada importante', 114);
 
 -- --------------------------------------------------------
 
@@ -973,7 +991,7 @@ ALTER TABLE `academia`
 -- AUTO_INCREMENT de la tabla `acciones`
 --
 ALTER TABLE `acciones`
-  MODIFY `Id_Acciones` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `Id_Acciones` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT de la tabla `aspectoevaluacion`
@@ -997,7 +1015,7 @@ ALTER TABLE `criteriosfilarubrica`
 -- AUTO_INCREMENT de la tabla `cuestionario`
 --
 ALTER TABLE `cuestionario`
-  MODIFY `Id_FilaCues` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+  MODIFY `Id_FilaCues` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
 
 --
 -- AUTO_INCREMENT de la tabla `evaluacionfilaguiaobs`
@@ -1033,13 +1051,13 @@ ALTER TABLE `evaluacionrespuestacues`
 -- AUTO_INCREMENT de la tabla `grupo`
 --
 ALTER TABLE `grupo`
-  MODIFY `Id_Grupo` tinyint(4) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Grupo` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `grupoperiodo`
 --
 ALTER TABLE `grupoperiodo`
-  MODIFY `Id_GpoPeriodo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_GpoPeriodo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `guiadeobservacion`
@@ -1057,7 +1075,7 @@ ALTER TABLE `instrumento`
 -- AUTO_INCREMENT de la tabla `instrumentoscompartidos`
 --
 ALTER TABLE `instrumentoscompartidos`
-  MODIFY `Id_SharedInstr` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id_SharedInstr` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `integrantesacademia`
@@ -1087,7 +1105,7 @@ ALTER TABLE `materia`
 -- AUTO_INCREMENT de la tabla `opcionespregunta`
 --
 ALTER TABLE `opcionespregunta`
-  MODIFY `Id_OpcionesP` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=165;
+  MODIFY `Id_OpcionesP` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=185;
 
 --
 -- AUTO_INCREMENT de la tabla `parciales`

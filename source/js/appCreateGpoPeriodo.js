@@ -226,10 +226,16 @@ $(document).ready(function ($) {
             data: newGpoPParam
         }).done(function (insertMateriaRes) {
             if (!insertMateriaRes.error) {
-                var mainmessage = "Grupo periodo creado exitosamente";
-                var secmessage = "Presione el botón para continuar";
-                showMessage("wArNinGbTn_AcTiOn", 20, mainmessage, secmessage);
-            } else {
+                if (!insertMateriaRes.alreadyExists) {
+                    var mainmessage = "Grupo periodo creado exitosamente";
+                    var secmessage = "Presione el botón para continuar";
+                    showMessage("wArNinGbTn_AcTiOn", 20, mainmessage, secmessage);
+                } else {
+                    var mainmessage = "El grupo periodo que desea crear ya existe, intentelo con información diferente.";
+                    var secmessage = "Presione el botón para continuar";
+                    showMessage("wArNinGbTn_AcTiOn", 420, mainmessage, secmessage);
+                }
+            } else {                
                 var mainmessage = insertMateriaRes.message;
                 var secmessage = "Presione el botón para continuar";
                 showMessage("wArNinGbTn_AcTiOn", 420, mainmessage, secmessage);

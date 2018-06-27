@@ -99,6 +99,7 @@ $(document).ready(function ($) {
 			case 15: choose = false; break;
 
 			case 410: choose = false; break;
+			case 420: choose = false; break;
 
 			default: choose = true; break;
 		}
