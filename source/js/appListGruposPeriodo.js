@@ -25,13 +25,19 @@ $(document).ready(function ($) {
                 break;
             case "s":
                 clickedGpoP = gpoPId;
-                getSessionVariables(showGPInfo);
+                goToShowGPInfo(clickedGpoP);
                 break;
             default:
                 break;
         }
     }
 
+    goToShowGPInfo = (gpoPId) => {
+        getSessionVariables(showGPInfo);
+        clickedGpoP = gpoPId;
+
+        //Save cookie for return to gpo periodo
+    }
 
     showGPInfo = (sessionVariables) => {
         dataGP = {

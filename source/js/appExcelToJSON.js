@@ -10,7 +10,6 @@ $(document).ready(function ($) {
         Request.responseType = 'arraybuffer';
 
         //console.log(ExcelFile);
-             
         Request.onload = (e) => {
             if (Request.status === 200) {
                 JSONStr = doXlsxStuff(Request.response, purposeFile);

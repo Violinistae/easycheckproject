@@ -73,6 +73,10 @@ $(document).ready(function ($) {
                                     console.log(userData);
                                     console.log(gpoPData);
 
+                                    let dataForInsertnewGPMember = [];
+                                    dataForInsertnewGPMember.push(userData);
+                                    dataForInsertnewGPMember.push(gpoPData);
+
                                     //Verficar con la lista de alumnos
 
                                 } else {
@@ -105,6 +109,13 @@ $(document).ready(function ($) {
                 var secmessage = "Presione boton para continuar.";
                 showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
             }
+        }
+
+        insertNewGpoPMember = (dataForInsertnewGPMember) => {
+            
+            //Ir al método para getGenetratedTxt
+
+
         }
 
 });
