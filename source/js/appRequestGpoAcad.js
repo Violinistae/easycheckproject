@@ -39,7 +39,7 @@ $(document).ready(function ($) {
                     checkDataRequestAcad(resRequestedAcad);
                 }).fail(function () {
                     AJAXrequestFailed("Fallo en petición AJAX obtener academia por ID");
-                });                
+                });
             } else {
                 var mainmessage = "La clave de academia debe ser estrictamente un número.";
                 var secmessage = "Presione boton para continuar.";

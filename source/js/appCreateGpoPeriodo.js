@@ -132,6 +132,11 @@ $(document).ready(function ($) {
                 var secmessage = "Presione el botón para continuar";
                 showMessage("wArNinGbTn_AcTiOn", 420, mainmessage, secmessage);
                 return;
+            } if (grupoSelect.value == "null") {
+                var mainmessage = "Por favor seleccione un grupo.";
+                var secmessage = "Presione el botón para continuar";
+                showMessage("wArNinGbTn_AcTiOn", 420, mainmessage, secmessage);
+                return;
             } if (periodoCiclo.value != "Feb-Jun" && periodoCiclo.value != "Ago-Dic") {
                 var mainmessage = "Seleccione un periodo válido para el ciclo escolar.";
                 var secmessage = "Presione el botón para continuar";

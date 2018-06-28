@@ -166,6 +166,32 @@
             }
         }
 
+        public function getMateriaByNameLocal($nameMateria) {
+            if (isset($nameMateria)) {
+				$stmt = $this->pdo->prepare(
+					"SELECT * FROM materia WHERE Materia = ?"
+				);
+				$stmt->execute([$nameMateria]);
+
+                $materia = $stmt->fetchAll();
+                
+                if (isset($materia[0])) {
+                    $mat = new materiaModel();
+                    $mat->setId_Materia($materia[0]->Id_Materia);
+                    $mat->setMateria($materia[0]->Materia);                
+                    $mat->setSemestre($materia[0]->Semestre);
+                    $mat->setValores_Parciales($materia[0]->Valores_Parciales);
+                    $mat->setAcademia($materia[0]->Academia);
+
+                    return $mat;
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+        }
+
         public function updateMateria () {
 
             if (isset($_POST["Id_Materia"])) {

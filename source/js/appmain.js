@@ -474,6 +474,7 @@ $(document).ready(function ($) {
 
 	$('body').on('click', '.actionsGpoPIcon', function (e) { switchActionGpoP(e); });
 	$('body').on('click', '#requestGPBtn', function (e) { insertModalRequestGpoP(e); });
+	$('body').on('submit', '#requestGpoPForm', function (e) { verifyRequestGpoP(e); });
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Interacción con botones de Overview de grupos ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	$('body').on('click', '#backToGPListBtn', function (e) { gotoGposPeriodo(e); });

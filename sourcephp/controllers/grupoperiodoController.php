@@ -240,5 +240,99 @@
                 echo json_encode(['error' => true]);
             }
         }
+
+        public function verifyRequestToGpoP () {
+            if (isset($_POST["Id_GpoPeriodo"])) {
+                $stmt = $this->pdo->prepare(
+                    "SELECT * FROM grupoperiodo
+                        WHERE Id_GpoPeriodo = ?"
+                );
+                $stmt->execute([
+                    $_POST["Id_GpoPeriodo"]
+                ]);
+
+                if ($stmt->rowCount() > 0) {
+
+                    $gp = new grupoperiodoModel();
+
+                    while ($aux = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $gp->setId_GpoPeriodo(intval($aux["Id_GpoPeriodo"]));
+                        $gp->setMateria(intval($aux["Materia"]));
+                        $gp->setGrupo(intval($aux["Grupo"]));
+                        $gp->setPeriodo($aux["Periodo"]);
+                        $gp->setProfesor(intval($aux["Profesor"]));
+                        $gp->setLista_Alumnos($aux["Lista_Alumnos"]);
+                        $gp->setClave_Acceso($aux["Clave_Acceso"]);
+                    }
+
+                    $matCtrlr = new materiaController($this->pdo);
+                    $mat = $matCtrlr->getMateriaByNameLocal($_POST["Materia"]);
+                    if ($mat == null) {
+                        echo json_encode([
+                            'error' => false, 'built' => true, 'builtMat' => false
+                        ]);
+                        return;
+                    } else {
+                        if ($mat->getId_Materia() == $gp->getMateria()) {
+                            if ($gp->getGrupo() == $_POST["Grupo"]) {
+                                if (password_verify($_POST["Clave_Acceso"], $gp->getClave_Acceso())) {
+                                    $userC = new usuarioController($this->pdo);
+                                    $user = new usuarioModel();
+                                    $user = $userC->getUserForSimple();
+                                    
+                                    $us = [
+                                        $user->getRegistro_U(),
+                                        $user->getNombres(),
+                                        $user->getApellidos(),
+                                        $user->getEmail()
+                                    ];
+
+                                    $gpoCtrlr = new grupoController($this->pdo);
+                                    $gpo = $gpoCtrlr->readGrupoByIdLocal($gp->getGrupo());
+                                    $g = [
+                                        'Grupo' => $gpo->getGrupo()
+                                    ];
+
+                                    $grupoperiodoData = [
+                                        'Id_GpoPeriodo' => $gp->getId_GpoPeriodo(),
+                                        'Materia' => $mat->getMateria(),
+                                        'Grupo' => $g["Grupo"],
+                                        'Periodo' => $gp->getPeriodo(),
+                                        'Lista_Alumnos' => $gp->getLista_Alumnos()
+                                    ];
+
+                                    echo json_encode([
+                                        'error' => false, 'built' => true, 'builtMat' => true,
+                                        'correctMateria' => true, 'correctGpo' => true, 'keyAccess' => true,
+                                        'userData' => $us, 'gpoPeriodo' => $grupoperiodoData
+                                    ]);
+
+                                } else {
+                                    echo json_encode([
+                                        'error' => false, 'built' => true, 'builtMat' => true,
+                                        'correctMateria' => true, 'correctGpo' => true, 'keyAccess' => false
+                                    ]);
+                                }
+                            } else {
+                                echo json_encode([
+                                    'error' => false, 'built' => true, 'builtMat' => true,
+                                    'correctMateria' => true, 'correctGpo' => false
+                                ]);
+                            }                            
+                        } else {
+                            echo json_encode([
+                                'error' => false, 'built' => true, 'builtMat' => true,
+                                'correctMateria' => false
+                            ]);
+                        }
+                    }
+                } else {
+                    echo json_encode(['error' => false, 'bulit' => false]);
+                }
+            } else {
+                echo json_encode(['error' => true]);
+            }
+        }
+
     }
 ?>
