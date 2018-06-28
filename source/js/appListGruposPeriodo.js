@@ -49,7 +49,6 @@ $(document).ready(function ($) {
             creatorFlag = false;
             console.log(grupoPeriodo);
 
-
             if (sessionVariables.userreg == profGP) {
                 creatorFlag = true;
                 console.log("Soy el creador");
@@ -102,6 +101,7 @@ $(document).ready(function ($) {
                 gplblName.textContent = mat + " ~~ " + semestre + "°" + grupo + " ~~ " + period;
 
                 //Insertar instrumentos para realizar evaluación
+
             } else {
                 for (let i = 0; i < 2; ++i) {
                     let btnAction = document.createElement("button");
@@ -118,11 +118,9 @@ $(document).ready(function ($) {
                     groupActionsBar.appendChild(btnAction);
                 }
 
-                //Insertar instrnumentos que se pueden contestar
+                //Insertar instrumentos que se pueden contestar
             }
         }
-
-
     
     checkDeleteGP = (gpoPId) => {        
         dataGp = {
@@ -156,8 +154,34 @@ $(document).ready(function ($) {
                 Id_GpoPeriodo: grupoPeriodo.Id_GrupoPeriodo
             };
             console.log(grupoPeriodo);
-
+            //volver a confirmar en el switch maestro
         }
     
-    /* ----------------------------------------------------------------------- */
+    /* ---------------------------------------------------------------------------------------------------------------- */
+
+    insertModalRequestGpoP = (e) => {
+        $(".buttonnewinst").removeClass('active');
+        $(".subdropumen").removeClass('active');
+
+        actionsCookieName = "aiCoTndDtoO";
+        setCookie(actionsCookieName, "insertModalRequestGpoP", 20);
+        $("#modforactions").fadeIn("400");
+        $("#modalforactionscontainer").fadeIn("400");
+
+        $.ajax({
+            url: '../../sourcephp/views/Users/alumno/requestGpoP.php',
+            type: 'POST'
+        }).done(function (resRequestGpoPForm) {
+            insertRequestGpoPForm(resRequestGpoPForm);
+        }).fail(function () {
+            AJAXrequestFailed("Fallo en petición AJAX para reaccionar boton para realizar pertición a grupo periodo.");
+        });
+    }
+
+        insertRequestGpoPForm = (resRequestGpoPForm) => {
+            document.getElementById("modalforactionscontainer").innerHTML = resRequestGpoPForm;
+            getAndExecuteNewInsertedScript(document.getElementById("modalforactionscontainer"));
+
+            insertGrpsOnSelect();
+        }
 });

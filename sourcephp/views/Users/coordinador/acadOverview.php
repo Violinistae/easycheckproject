@@ -16,7 +16,9 @@
 		<button class="acadOverbtn" id="acadAdminIntegBtn">Administrar integrantes</button>
 	</div>
 	<div id="mainContainerAcadOverview">
-		<div class="instrumentsContainer">			
+		<div class="instrumentsContainer">
+			<div id="noInstrCompAvailable">
+			</div>
 		</div>
 	</div>
 </div>

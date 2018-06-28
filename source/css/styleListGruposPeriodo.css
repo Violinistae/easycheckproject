@@ -41,6 +41,14 @@
     flex-grow: 1;
 }
 
+#sendRqstGP {
+    flex-grow: .4;
+}
+
+#requestGPBtn {
+    cursor: pointer;
+}
+
 #inputNavGposP {
     flex-grow: 1;
 }
@@ -80,8 +88,6 @@
     height: 100%;
 }
 
-
-
 #topTableRow > th{    
     padding: 1.2rem 0%;
     color: white;
@@ -89,8 +95,8 @@
 }
 
 .headColGP {
-    background-color: rgb(90, 144, 232);
-    border: rgb(90, 144, 232) solid 2px;
+    background-color: transparent;
+    border: transparent solid 2px;
 }
 
 .claveCol {
@@ -125,7 +131,7 @@
     text-align: center;
     padding-top: 1rem;
     padding-bottom: 1rem;
-    font-size: 1.3vw;
+    font-size: 1.2vw;
 }
 
 #listGposPMainC tr:nth-child(even) > td {

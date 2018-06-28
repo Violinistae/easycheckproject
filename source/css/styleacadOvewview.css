@@ -72,3 +72,15 @@
     max-width: 100%;
     padding: .2em .2em;
 }
+
+#noInstrCompAvailable {
+    display: block;
+    position: absolute;
+    width: auto;
+    top: 50%;
+    left: 63%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2vw;
+}

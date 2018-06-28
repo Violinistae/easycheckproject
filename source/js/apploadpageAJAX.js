@@ -284,7 +284,16 @@ $(document).ready(function ($) {
 							if (resSharedInstr.built) {
 								insertSharedInsToContainer (resSharedInstr.sharedInst);
 							} else {
-								//Add sticky message there are no shared instruments
+								let noCompInstr = document.getElementById("noInstrCompAvailable");
+
+								let p = document.createElement("p");
+								p.textContent = "No existe algún instrumento compartido en la academia: " + resAcadInfo.academia.Academia;
+								noCompInstr.appendChild(p);
+								noCompInstr.appendChild(document.createElement("BR"));
+
+								p = document.createElement("p");
+								p.textContent = 'Para compartir uno elija la opción "Compartir Instrumento" en su pagina principal';
+								noCompInstr.appendChild(p);
 							}
 						}
 					 }).fail(function () {
@@ -381,7 +390,7 @@ $(document).ready(function ($) {
 			}
 
 			insertAcademiasProfMember = (acads) => {
-				console.log(acads);
+				//console.log(acads);
 				let academiasContainer = document.getElementById("academiasContainer");
 
 				for (i = 0; i < acads.length; ++i) {
@@ -447,7 +456,7 @@ $(document).ready(function ($) {
 			}).fail(function () {
 				AJAXrequestFailed("Fallo en petición AJAX obtener materias de una academia");
 			});
-		}		
+		}
 
 			insertMateriasToTable = (materiasAcademia) => {
 				//console.log(materiasAcademia.numMaterias)
@@ -497,14 +506,7 @@ $(document).ready(function ($) {
 					noMateriasInformacion.appendChild(p);
 				}
 
-
-//REESTRUCTURACION DE ESTE MÉTODO
-
 	gotoGposPeriodo = (e) => {
-
-		//Modificar para verificar el tipo de usuario para cargar el contenido determinado
-		//Llamar a un sessionVariables para obtener la variable de sesión y 
-		//determinar que contenido cargar
 
 		if (e != null) {
 			e.currentTarget.disabled = true;
@@ -516,8 +518,8 @@ $(document).ready(function ($) {
 		$.ajax({
 			url: "../../sourcephp/views/shared/forEveryone/listgruposperiodo.php",
 			type: "POST"
-		}).done(function (mainPage) {
-			maincontentFadeAnimation(mainPage, loadGposPToTable);
+		}).done(function (gpospPage) {
+			maincontentFadeAnimation(gpospPage, loadGposPToTable);
 		}).fail(function () {
 			AJAXrequestFailed("Fallo en petición AJAX para cargar página de lista de materias de academia.");
 		});
@@ -527,22 +529,45 @@ $(document).ready(function ($) {
 			mainContainer = document.getElementById("submaincontainer");
 			getAndExecuteNewInsertedScript(mainContainer);
 
-			readMateriasData = {
-				purpose: 1
+			getSessionVariables(verifyLoadGposPToTable);
+		}
+
+		verifyLoadGposPToTable = (sessionVariables) => {
+			let flagToLoad = true;
+			let AJAXURL;
+			if (sessionVariables.usertype == 1 || sessionVariables.usertype == 2) {
+				AJAXURL = '../../index_ajax.php?controller=grupoperiodo&action=readGposPeriodoByProf';
+			} else if (sessionVariables.usertype == 3) {
+				AJAXURL = '../../index_ajax.php?controller=listagrupo&action=getGposPByMember';
+				flagToLoad = false;
+
+				let listGposPNav = document.getElementById("listGposPNav");
+
+				let newliForEnvelope = document.createElement("li");
+				newliForEnvelope.id = "sendRqstGP";
+				let envelopeIco = '<i id="requestGPBtn" class="far fa-envelope" title="Realizar peticion a Grupo Periodo"></i>';
+				newliForEnvelope.innerHTML = envelopeIco;
+				let lastElemt = listGposPNav.childNodes[3];
+				listGposPNav.insertBefore(newliForEnvelope, lastElemt);
+			} else {
+				return;
 			}
 
 			$.ajax({
-				url: '../../index_ajax.php?controller=grupoperiodo&action=readGposPeriodoByProf',
+				url: AJAXURL,
 				type: 'POST',
-				dataType: 'json',
-				data: readMateriasData
+				dataType: 'json'
 			}).done(function (resGposP) {
 				//console.log(resGposP);
-				insertGposPToTable(resGposP, true);
+				if (flagToLoad) {
+					insertGposPToTable(resGposP, true);
+				} else {
+					insertGposPToTable(resGposP, false);
+				}
 			}).fail(function () {
 				AJAXrequestFailed("Fallo en petición AJAX obtener grpos periodo");
 			});
-		}			
+		}
 
 			insertGposPToTable = (resGposP, flagCreator) => {
 				//console.log(resGposP.numMaterias)
@@ -594,8 +619,11 @@ $(document).ready(function ($) {
 							gpop.classList.add("commonGPRow");							
 							
 						}
-					} else {						
-						setNoCreatedGposP();			
+					} else {			
+						if (flagCreator)		
+							setNoCreatedGposP();
+						else 
+							setNoPartnerGposP();
 					}	
 					document.getElementById("showgrposperiodobtn").disabled = false;					
 					getSessionVariables(setColorToTable);
@@ -614,6 +642,19 @@ $(document).ready(function ($) {
 					p.textContent = 'Presione la opción "Crear Grupo Periodo" para generar uno';
 					noGPInfo.appendChild(p);
 				}		
+
+				setNoPartnerGposP = () => {
+					let noGPInfo = document.getElementById("noGposPAvailable");
+
+					let p = document.createElement("p");
+					p.textContent = "Usted no es parte de algún grupo de tipo periodo";
+					noGPInfo.appendChild(p);
+					noGPInfo.appendChild(document.createElement("BR"));
+
+					p = document.createElement("p");
+					p.textContent = 'Presione el ícono de mensaje para realizar una petición a alguno';
+					noGPInfo.appendChild(p);
+				}
 
 				//Esta función debe ir en otro lado
 

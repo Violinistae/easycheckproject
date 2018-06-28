@@ -7,7 +7,7 @@
                 <label>Grupos Periodo a los que pertenezco</label>
             </li>
             <li id="inputNavGposP">
-                <input type="text" id ="searchGpoPInput" name="searchGpoPInput" placeholder="Buscar materia">
+                <input type="text" id ="searchGpoPInput" name="searchGpoPInput" placeholder="Buscar grupo periodo">
             </li>
         </ul>
     </nav>

@@ -133,6 +133,50 @@
             }
         }
 
+        public function readGpoPeriodoByIdLocal($Id_GpoP) {
+            $stmt = $this->pdo->prepare(
+                "SELECT * FROM grupoperiodo
+                    WHERE Id_GpoPeriodo = ?"
+            );
+            $stmt->execute([
+                $Id_GpoP
+            ]);
+
+            if ($stmt->countRow() > 0) { 
+                $gposP = [];
+                while ($gpRow = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $gpOj = new grupoperiodoModel($this->pdo);
+                    $gpOj->setId_GpoPeriodo(intval($gpRow["Id_GpoPeriodo"]));
+                    $gpOj->setMateria(intval($gpRow["Materia"]));
+                    $gpOj->setGrupo(intval($gpRow["Grupo"]));
+                    $gpOj->setPeriodo($gpRow["Periodo"]);
+                    $gpOj->setProfesor(intval($gpRow["Profesor"]));
+                    $gpOj->setLista_Alumnos($gpRow["Lista_Alumnos"]);
+                    $gpOj->setClave_Acceso($gpRow["Clave_Acceso"]);
+
+                    $matctrlr = new materiaController($this->pdo);
+                    $mat = $matctrlr->getMateriaByIdLocal($gpRow["Materia"]);
+                    $gpoCtrlr = new grupoController($this->pdo);
+                    $gpo = $gpoCtrlr->readGrupoByIdLocal($gpRow["Grupo"]);                        
+                    
+                    $gpA = ([
+                        'Id_GpoPeriodo' => $gpOj->getId_GpoPeriodo(),
+                        'Materia' => $mat->getMateria(),
+                        'Grupo' => $gpo->getGrupo(),
+                        'Periodo' => $gpOj->getPeriodo(),
+                        'Profesor' => $gpOj->getProfesor(),
+                        'Lista_Alumnos' => $gpOj->getLista_Alumnos(),
+                        'Clave_Acceso' => $gpOj->getClave_Acceso()
+                    ]);
+
+                    $gposP [] = $gpA;
+                }
+                return $gposP;
+            } else {
+                return null;
+            }
+        }
+
         public function getGpoPById () {
             if (isset($_POST["Id_GpoPeriodo"])) {
                 $stmt = $this->pdo->prepare(

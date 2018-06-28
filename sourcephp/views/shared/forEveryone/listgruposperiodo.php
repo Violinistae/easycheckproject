@@ -7,7 +7,7 @@
                 <label id="pathGP">Grupos Periodo creados</label>
             </li>
             <li id="inputNavGposP">
-                <input type="text" id ="searchGpoPInput" name="searchGpoPInput" placeholder="Buscar materia">
+                <input type="text" id ="searchGpoPInput" name="searchGpoPInput" placeholder="Buscar grupo periodo">
             </li>
         </ul>
     </nav>

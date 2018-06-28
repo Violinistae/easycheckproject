@@ -2,36 +2,36 @@
     display: flex;
 }
 
-#resquestAcadContainer {
-    width: 100%;
+#resquestGpoPContainer {
+    width: 100%; 
     display: flex;
     flex-direction: column;
 }
 
-#instruccRequestAcad {
+#instruccRequestGpoP {
     flex-grow: .5;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#instruccRequestAcad > p {
+#instruccRequestGpoP > p {
     font-weight: bold;
     font-size: 24px;
 }
 
-#requestAcadForm {
+#requestGpoPForm {
     flex-grow: 3;
     display: grid;
     padding: 4em 4em;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 6em);
+    grid-template-rows: repeat(3, 1fr);
     grid-column-gap: 4em;
-    grid-row-gap: 6em;
+    grid-row-gap: 4em;
     font-size: 18px;
 }
 
-#requestAcadForm input[type=password], #requestAcadForm input[type=text]{
+#requestGpoPForm input[type=password], #requestGpoPForm input[type=text], #requestGpoPForm select{
     padding: 1em;
     background-color: transparent;
     border-top: transparent;
@@ -41,23 +41,27 @@
     border-radius: 2px;
 }
 
-#requestAcadForm > div {
+#requestGpoPForm > div {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
 }
 
-#sendAcadRequest {
+#sendRequesGPDiv {
+    grid-column-start: span 2;
+}
+
+#sendGpoPRequest {
     padding: 1em 0em;
     cursor: pointer;
     border: black solid 2px;
     background-color: transparent;
     border-radius: 10px;
     transition: 300ms background ease-in-out;
-    font-size: 16px;
+    font-size: 19px;
 }
 
-#sendAcadRequest:hover {
+#sendGpoPRequest:hover {
     color: white;
     background-color: rgb(55, 55, 55);
 }

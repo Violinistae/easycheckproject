@@ -473,6 +473,7 @@ $(document).ready(function ($) {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Interacción con botones de acción en listas de grupos o materias ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 	$('body').on('click', '.actionsGpoPIcon', function (e) { switchActionGpoP(e); });
+	$('body').on('click', '#requestGPBtn', function (e) { insertModalRequestGpoP(e); });
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Interacción con botones de Overview de grupos ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	$('body').on('click', '#backToGPListBtn', function (e) { gotoGposPeriodo(e); });
