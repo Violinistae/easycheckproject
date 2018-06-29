@@ -41,6 +41,10 @@
     border-radius: 2px;
 }
 
+#requestGpoPForm select {
+    cursor: pointer;
+}
+
 #requestGpoPForm > div {
     display: flex;
     flex-direction: column;

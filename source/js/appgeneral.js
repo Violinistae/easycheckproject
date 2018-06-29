@@ -97,6 +97,7 @@ $(document).ready(function ($) {
 			case 11: choose = false; break;
 			case 13: choose = false; break;
 			case 15: choose = false; break;
+			case 30: choose = false; break;
 
 			case 410: choose = false; break;
 			case 420: choose = false; break;
@@ -269,6 +270,13 @@ $(document).ready(function ($) {
 				break;
 			case "22":
 				deleteSelectedGP();
+				break;
+			case "30":
+				$("#modforactions").fadeOut("400");
+				document.getElementById("modalforactionscontainer").innerHTML = "";
+				actionsCookieName = "aiCoTndDtoO";
+				deleteCookie(actionsCookieName);
+				gotoGposPeriodo();
 				break;
 			case "410":
 				$("#createmateriabtn").prop("disabled", false);

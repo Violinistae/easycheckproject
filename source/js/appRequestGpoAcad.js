@@ -77,7 +77,7 @@ $(document).ready(function ($) {
         }
 
             insertNewAcadMember = (arrayDataInsert) => {
-                console.log(arrayDataInsert);
+                //console.log(arrayDataInsert);
                 dataArray = {
                     Id_Academia: parseInt(arrayDataInsert[4]),
                     Registro_U: parseInt(arrayDataInsert[0]),

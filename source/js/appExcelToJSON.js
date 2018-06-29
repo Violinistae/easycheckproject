@@ -181,6 +181,9 @@ $(document).ready(function ($) {
             targetPath = "source/files/listasGruposAcademia/";
             arrayForFunctionToDo.push(objJSON.Id_Academia);
             arrayForFunctionToDo.push(objJSON.Academia);
+        } else if (purposeTxtFile == 4) {
+            txtFileName = objJSON.Lista_Alumnos;
+            targetPath = "source/files/listasGruposPeriodos/"
         }
 
         if (txtFileName == "null") {
@@ -246,7 +249,6 @@ $(document).ready(function ($) {
                 }
             } else if (purposeFile == 3) {
                 if (txtFile_JSON == null) {
-                    console.log("esperado este error siomon");
                     return;
                 }
                 let flagUserNotOnFile = false;                
@@ -262,7 +264,30 @@ $(document).ready(function ($) {
                 if (flagUserNotOnFile) {
                     functionToDoAfter(arrayForFunctionToDo);
                 } else if (!flagUserNotOnFile) {
-                    var mainmessage = "Lo sentimos, usted no se encuentra en la lista de miembros de esta academia. Contacte a su coordinador de academia.";
+                    var mainmessage = "Lo sentimos, usted no se encuentra en la lista de miembros de esta academia. Favor de contactar a su coordinador de academia.";
+                    var secmessage = "Presione el boton para continuar.";
+                    showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
+                    return;
+                }
+            } else if (purposeFile == 4) {
+                if (txtFile_JSON == null) {
+                    return;
+                }
+                let flagUserNotOnFile = false;
+                txtFile_JSON.forEach(xlsxRow => {
+                    console.log(xlsxRow);
+                    if (arrayToEval[0] == xlsxRow.NumRegistro &&
+                        arrayToEval[1] == xlsxRow.Nombres &&
+                        arrayToEval[2] == xlsxRow.Apellidos) {
+                        flagUserNotOnFile = true;
+                        return;
+                    }
+                });
+
+                if (flagUserNotOnFile) {
+                    functionToDoAfter(arrayForFunctionToDo);
+                } else if (!flagUserNotOnFile) {
+                    var mainmessage = "Lo sentimos, usted no se encuentra en la lista de miembros de este Grupo Periodo. Favor de contar a su profesor.";
                     var secmessage = "Presione el boton para continuar.";
                     showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
                     return;

@@ -69,16 +69,15 @@ $(document).ready(function ($) {
                             if (resRequestedGpoP.correctGpo) {
                                 if (resRequestedGpoP.keyAccess) {
                                     let userData = resRequestedGpoP.userData;
-                                    let gpoPData = resRequestedGpoP.gpoPeriodo;
-                                    console.log(userData);
-                                    console.log(gpoPData);
+                                    let gpoPData = resRequestedGpoP.gpoPeriodo;                                                                        
 
                                     let dataForInsertnewGPMember = [];
                                     dataForInsertnewGPMember.push(userData);
                                     dataForInsertnewGPMember.push(gpoPData);
 
-                                    //Verficar con la lista de alumnos
-
+                                    //console.log(dataForInsertnewGPMember);
+                                    getGeneratedTxt(gpoPData, 4, userData, insertNewGpoPMember, dataForInsertnewGPMember);
+                                    
                                 } else {
                                     var mainmessage = "La clave de acceso al grupo que ingresó no es la correcta, favor de verificarla.";
                                     var secmessage = "Presione boton para continuar.";
@@ -112,9 +111,44 @@ $(document).ready(function ($) {
         }
 
         insertNewGpoPMember = (dataForInsertnewGPMember) => {
-            
-            //Ir al método para getGenetratedTxt
+            console.log(dataForInsertnewGPMember);
+            dataArray = {
+                Id_GpoPeriodo: dataForInsertnewGPMember[1].Id_GpoPeriodo,
+                Registro_U: dataForInsertnewGPMember[0][0]
+            };
 
+            $.ajax({
+                url: '../../index_ajax.php?controller=listagrupo&action=verifytoInsertNewGpoPMember',
+                type: 'POST',
+                dataType: 'json',
+                data: dataArray
+            }).done(function (resCheckMemberIntoAcad) {
+                if (!resCheckMemberIntoAcad.already) {
+                    if (!resCheckMemberIntoAcad.error) {
+
+                        let grupo = dataForInsertnewGPMember[1].Grupo + " ~~ ";
+                        let semestre = dataForInsertnewGPMember[1].Semestre + "° ";
+
+                        let mater = dataForInsertnewGPMember[1].Materia + " ~~ ";
+                        let periodo = dataForInsertnewGPMember[1].Periodo;
+
+                        var mainmessage = 'Felicidades! Su solicitud fué aprovada. Ahora es miembro del Grupo "'
+                            + semestre + grupo + mater + periodo + '"';
+                        var secmessage = "Presione boton para continuar.";
+                        showMessage("wArNinGbTn_AcTiOn", 30, mainmessage, secmessage);
+                    } else {
+                        var mainmessage = "Lo sentimos, no se pudo procesar la petición, inténtelo más tarde.";
+                        var secmessage = "Presione boton para continuar.";
+                        showMessage("wArNinGbTn_AcTiOn", 30, mainmessage, secmessage);
+                    }
+                } else {
+                    var mainmessage = "Usted ya pertenece a este Grupo Periodo.";
+                    var secmessage = "Presione boton para continuar.";
+                    showMessage("wArNinGbTn_AcTiOn", 30, mainmessage, secmessage);
+                }
+            }).fail(function () {
+                AJAXrequestFailed("Fallo en petición AJAX verificar miembro de GpoP.");
+            }); 
 
         }
 

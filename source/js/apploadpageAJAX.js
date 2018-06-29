@@ -574,7 +574,7 @@ $(document).ready(function ($) {
 				if (!resGposP.error) {
 					
 					if (resGposP.built) {
-						let gsp = resGposP.gposP;						
+						let gsp = resGposP.gposP;											
 						var listGposP = document.getElementById("listGposPMainC");
 						for (let i = 0; i < gsp.length; ++i) {
 							let gpop = listGposP.insertRow(-1);

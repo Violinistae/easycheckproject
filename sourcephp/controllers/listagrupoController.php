@@ -2,10 +2,10 @@
     class listagrupoController extends BaseController {
         public function verifytoInsertNewGpoPMember () {
             if (isset($_POST["Id_GpoPeriodo"]) && isset($_POST["Registro_U"])) {
-                $stmt = $this->pdo->prepare([
+                $stmt = $this->pdo->prepare(
                     "SELECT * FROM listagrupo
                         WHERE Alumno = ? AND GpoPeriodo = ?"
-                ]);
+                );
                 $stmt->execute([
                     $_POST["Registro_U"],
                     $_POST["Id_GpoPeriodo"]
@@ -51,13 +51,13 @@
                     $gposP = [];
                     $gpCtrlr = new grupoperiodoController($this->pdo);
                     while ($gpRow = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                        $aux = $gpCtrlr->readGpoPeriodoByIdLocal($gpRow["Id_ListaGrupo"]);
+                        $aux = $gpCtrlr->readGpoPeriodoByIdLocal(intval($gpRow["GpoPeriodo"]));
                         $gposP[] = $aux[0];
                     }
 
-                    echo json_encode(['error' => false, 'bulit' => true, 'gposP' => $gposP]);
+                    echo json_encode(['error' => false, 'built' => true, 'gposP' => $gposP]);
                 } else {
-                    echo json_encode (['error' => false, 'bulit' => false]);
+                    echo json_encode (['error' => false, 'built' => false]);
                 }
             } else {
                 echo json_encode(['error' => true]);

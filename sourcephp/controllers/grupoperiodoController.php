@@ -142,7 +142,7 @@
                 $Id_GpoP
             ]);
 
-            if ($stmt->countRow() > 0) { 
+            if ($stmt->rowCount() > 0) { 
                 $gposP = [];
                 while ($gpRow = $stmt->fetch(PDO::FETCH_ASSOC)) {
                     $gpOj = new grupoperiodoModel($this->pdo);
@@ -298,7 +298,8 @@
                                         'Materia' => $mat->getMateria(),
                                         'Grupo' => $g["Grupo"],
                                         'Periodo' => $gp->getPeriodo(),
-                                        'Lista_Alumnos' => $gp->getLista_Alumnos()
+                                        'Lista_Alumnos' => $gp->getLista_Alumnos(),
+                                        'Semestre' => $mat->getSemestre()
                                     ];
 
                                     echo json_encode([

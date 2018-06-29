@@ -97,19 +97,11 @@ $(document).ready(function ($) {
                     }
                     groupActionsBar.appendChild(btnAction);
                 }
-                
-                let mat = grupoPeriodo.Materia.Materia;
-                let semestre = grupoPeriodo.Materia.Semestre;
-                let grupo = grupoPeriodo.Grupo.Grupo;
-                let period = grupoPeriodo.Periodo;
-
-                let gplblName = document.getElementById("gplblName");
-                gplblName.textContent = mat + " ~~ " + semestre + "°" + grupo + " ~~ " + period;
 
                 //Insertar instrumentos para realizar evaluación
 
             } else {
-                for (let i = 0; i < 2; ++i) {
+                for (let i = 0; i < 3; ++i) {
                     let btnAction = document.createElement("button");
                     btnAction.classList.add("gpOverviewBtn");
 
@@ -119,13 +111,27 @@ $(document).ready(function ($) {
                             break;
                         case 1:
                             btnAction.id = "gpShowInteg"; btnAction.textContent = "Mostrar compañeros";
-                            break;         
+                            break;
+                        case 2:
+                            btnAction.id = "gpLeave"; btnAction.textContent = "Abandonar Grupo Periodo";
+                            break;   
                     }
                     groupActionsBar.appendChild(btnAction);
+
+                    let mainGPLbl = document.getElementById("mainGPLbl");
+                    mainGPLbl.textContent = "Instrumentos por contestar"
                 }
 
                 //Insertar instrumentos que se pueden contestar
             }
+
+            let mat = grupoPeriodo.Materia.Materia;
+            let semestre = grupoPeriodo.Materia.Semestre;
+            let grupo = grupoPeriodo.Grupo.Grupo;
+            let period = grupoPeriodo.Periodo;
+
+            let gplblName = document.getElementById("gplblName");
+            gplblName.textContent = mat + " ~~ " + semestre + "°" + grupo + " ~~ " + period;
         }
     
     checkDeleteGP = (gpoPId) => {        
