@@ -1,7 +1,14 @@
 <link rel="stylesheet" type="text/css" href="../../source/css/stylePersonalProfile.css">
 <div class="personalprofile">
 	<nav>
-		<p>Perfil</p>
+		<ul id="personalProfileNav">
+			<li id="pathPage">
+				<label>Perfil personal</label>
+			</li>
+			<li id="userTypeNavPart">
+				<label id="usertypelbl">Tipo de usuario: </label>
+			</li>
+		</ul>		
 	</nav>
 	<form id="profileform" action="" method="post">
 		<div class="profilegrid">

@@ -39,7 +39,10 @@ $(document).ready(function ($) {
                     var oldExcelTargetFile = path + oldFileName + ".xlsx";
                     var oldTxtTargetFile = saveTxtPath + oldFileName + ".txt";
 
-                    deleteFile(oldExcelTargetFile); deleteFile(oldTxtTargetFile);
+                    //console.log(oldExcelTargetFile); console.log(oldTxtTargetFile);
+
+                    //deleteFile(oldExcelTargetFile); 
+                    deleteFile(oldTxtTargetFile);
                 }
 
                 var splitedfileName = fileName.split(".");
@@ -157,13 +160,18 @@ $(document).ready(function ($) {
             switch (purpose) {
                 case 1:
                     var mainmessage = "¿Seguro que desea actualizar el archivo de valores parciales?";
-                    var secmessage = "Al confirmar esta acción ???.";
+                    var secmessage = "";
                     showMessage("wArNinGbTn_AcTiOn", 2, mainmessage, secmessage);
                     break;
                 case 2:
                     var mainmessage = "¿Desea actualizar/cargar el archivo de lista de profesores?";
                     var secmessage = "";
                     showMessage("wArNinGbTn_AcTiOn", 12, mainmessage, secmessage);
+                    break;
+                case 3: 
+                    var mainmessage = "¿Seguro que desea actualizar el archivo de lista de alumnos?";
+                    var secmessage = "";
+                    showMessage("wArNinGbTn_AcTiOn", 31, mainmessage, secmessage);
                     break;
             }
 

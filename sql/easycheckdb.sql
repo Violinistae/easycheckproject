@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0
+-- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-06-2018 a las 23:11:17
+-- Tiempo de generación: 29-06-2018 a las 19:19:08
 -- Versión del servidor: 10.1.31-MariaDB
--- Versión de PHP: 7.2.4
+-- Versión de PHP: 7.1.15
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -110,7 +110,11 @@ INSERT INTO `acciones` (`Id_Acciones`, `Controlador`, `Metodo`) VALUES
 (45, 'grupoperiodo', 'insertGrupoPeriodo'),
 (46, 'grupoperiodo', 'readGposPeriodoByProf'),
 (47, 'instrumentoscompartidos', 'noShareInstr'),
-(48, 'grupoperiodo', 'getGpoPById');
+(48, 'grupoperiodo', 'getGpoPById'),
+(49, 'listagrupo', 'getGposPByMember'),
+(50, 'grupoperiodo', 'verifyRequestToGpoP'),
+(51, 'listagrupo', 'verifytoInsertNewGpoPMember'),
+(52, 'grupoperiodo', 'updateGpoP');
 
 -- --------------------------------------------------------
 
@@ -336,7 +340,7 @@ CREATE TABLE `grupoperiodo` (
 --
 
 INSERT INTO `grupoperiodo` (`Id_GpoPeriodo`, `Materia`, `Grupo`, `Periodo`, `Profesor`, `Lista_Alumnos`, `Clave_Acceso`) VALUES
-(9, 4, 3, 'Feb-Jun 2018', 123, 'listaAlum6877AlumnosProgAv', '$2y$10$xrqsdJ66Lrl2fC6fd2dJxepmbSRwLLNriPh5A08xdKzfQoKHcPyR6'),
+(9, 4, 3, 'Feb-Jun 2018', 123, 'listaAlum9424AlumnosProgAv', '$2y$10$xrqsdJ66Lrl2fC6fd2dJxepmbSRwLLNriPh5A08xdKzfQoKHcPyR6'),
 (10, 4, 1, 'Feb-Jun 2018', 123, 'listaAlum7867AlumnosProgAv', '$2y$10$Q/PpTxlDv95cg89cc3QKg.zaLBCY9Tk4ZWnggmrZDHrSMKyMo3Mae'),
 (11, 4, 2, 'Feb-Jun 2018', 123, 'listaAlum3970AlumnosProgAv', '$2y$10$eItWbIbP3JZnnmM12piZhOMgOA2lIoLp7fIqDYERGMqfd.NNDOA9C');
 
@@ -413,8 +417,7 @@ CREATE TABLE `instrumentoscompartidos` (
 
 INSERT INTO `instrumentoscompartidos` (`Id_SharedInstr`, `Materia`, `Instrumento`, `Academia`) VALUES
 (5, 4, 4, 1),
-(7, 5, 5, 1),
-(8, 10, 13, 2);
+(7, 5, 5, 1);
 
 -- --------------------------------------------------------
 
@@ -473,6 +476,13 @@ CREATE TABLE `listagrupo` (
   `GpoPeriodo` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `listagrupo`
+--
+
+INSERT INTO `listagrupo` (`Id_ListaGrupo`, `Alumno`, `GpoPeriodo`) VALUES
+(3, 14300281, 10);
+
 -- --------------------------------------------------------
 
 --
@@ -493,7 +503,7 @@ CREATE TABLE `materia` (
 
 INSERT INTO `materia` (`Id_Materia`, `Materia`, `Semestre`, `Valores_Parciales`, `Academia`) VALUES
 (4, 'Programación Avanzada I', 7, 'valPar9337ParcialesPrograAvanzadaI', 1),
-(5, 'Seguridad en ITI', 8, 'valPar3554SeguridadenITI', 1),
+(5, 'Seguridad en ITI', 8, 'valPar9372SeguridadenITI', 1),
 (8, 'POO', 4, 'valPar6365ValoresParcialesPOO', 1),
 (9, 'Sistemas Embebidos II', 8, 'valPar3490SistemasEmbebidosI', 1),
 (10, 'Temas de Electrónica I', 4, 'valPar3083TEIValPar', 2);
@@ -726,7 +736,7 @@ INSERT INTO `usuario` (`Registro_U`, `Nombres`, `Apellidos`, `Email`, `Password`
 (12, 'Carlos', 'Molina Martínez', 'profesor@gmail.com', '$2y$10$5FQoGpWZ58BdE/.U7WUzLOyVV0eDD0JqCRzmL2ROiL9JYVoWM7nae', 'Ingeniería', 2, '', ''),
 (60, 'Alejandra', 'Alcaráz Torres', 'electronica@gmail.com', '$2y$10$dCEnoiy8JVt.FGeDx9Z42egnYwhe3kYOQx/ZSHt2095iYYy/Bok0m', 'Maestría', 1, '', ''),
 (123, 'Gustavo', 'Rojas', 'academia@gmail.com', '$2y$10$kbbnaMsfXIssgogx3IGPeOU8335k42dfFOP.Jr4O8M1hsynVTEAju', 'Maestría', 1, '', ''),
-(14300281, 'Emiliano', 'Moreno', 'ssbbemims@gmail.com', '$2y$10$Fnz9vMd6uHS5U3.ZCl4EM.Od3cJNUEMjLdUXlJBE8hs5ZZCJXeOKi', '', 3, '', '');
+(14300281, 'Emiliano', 'Moreno Salazar', 'ssbbemims@gmail.com', '$2y$10$Fnz9vMd6uHS5U3.ZCl4EM.Od3cJNUEMjLdUXlJBE8hs5ZZCJXeOKi', '', 3, '', '');
 
 --
 -- Índices para tablas volcadas
@@ -991,7 +1001,7 @@ ALTER TABLE `academia`
 -- AUTO_INCREMENT de la tabla `acciones`
 --
 ALTER TABLE `acciones`
-  MODIFY `Id_Acciones` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `Id_Acciones` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT de la tabla `aspectoevaluacion`
@@ -1075,7 +1085,7 @@ ALTER TABLE `instrumento`
 -- AUTO_INCREMENT de la tabla `instrumentoscompartidos`
 --
 ALTER TABLE `instrumentoscompartidos`
-  MODIFY `Id_SharedInstr` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `Id_SharedInstr` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `integrantesacademia`
@@ -1093,7 +1103,7 @@ ALTER TABLE `listacotejo`
 -- AUTO_INCREMENT de la tabla `listagrupo`
 --
 ALTER TABLE `listagrupo`
-  MODIFY `Id_ListaGrupo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_ListaGrupo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `materia`

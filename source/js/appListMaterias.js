@@ -193,8 +193,6 @@ $(document).ready(function ($) {
         }
     }
 
-
-    $(".materiaBtn").click(function (e) { switchActionOnMateria(e); });
     $("#inputValoresParciales").change(function (e) { checkNewUploadedFile(1, "inputValoresParciales"); });
     $("#searchMateriaInput").on('input', function (e) { checkSearchedMaterias(e); });
 

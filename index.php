@@ -1,4 +1,11 @@
 <?php
+	if (session_status() == PHP_SESSION_NONE) {
+		session_start();
+	}
+	 
+	if (isset($_SESSION["userreg"]) && isset($_SESSION["usertype"])) {
+		header("location: ./sourcephp/views/main.php");
+	}
 
 	require_once('./sourcephp/config/Security.php');
 	require_once('./sourcephp/requires.php');

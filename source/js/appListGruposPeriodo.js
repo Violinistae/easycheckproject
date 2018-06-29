@@ -1,5 +1,6 @@
 var clickedGpoP;
 var grupoPeriodo;
+var realFileName;
 var creatorFlag;
 $(document).ready(function ($) {
     switchActionGpoP = (e) => {
@@ -32,11 +33,97 @@ $(document).ready(function ($) {
         }
     }
 
+    getGpoPtoUpdateFile = () => {
+        let dataGP = {
+            Id_GpoPeriodo: clickedGpoP
+        };
+
+        $.ajax({
+            url: '../../index_ajax.php?controller=grupoperiodo&action=getGpoPById',
+            type: 'POST',
+            dataType: 'json',
+            data: dataGP
+        }).done(function (resOldGP) {
+            if (!resOldGP.error) {
+                if (resOldGP.built) {
+                    updateXlsxListaAlumnos(resOldGP.gpoperiodo);
+                } else {
+                    alert("Favor de recargar la página");
+                }
+            }
+        }).fail(function () {
+            AJAXrequestFailed("Fallo en petición AJAX para obtener Gpo Periodo anterior");
+        })
+    }
+
+        updateXlsxListaAlumnos = (oldGP) => {
+
+            let num = Math.random() * 10000;
+            let numForFile = Math.round(num);
+            newRealFileName = "listaAlum" + numForFile.toString() + realFileName;
+
+            var oldListaAlFileName = oldGP.Lista_Alumnos;
+            oldGP.Lista_Alumnos = newRealFileName;
+
+            let dataUpdateFile = new FormData;
+            dataUpdateFile.append('fileType', fileType);
+            dataUpdateFile.append('file', fileInput.files[0]);
+            dataUpdateFile.append('fileName', newRealFileName);
+            dataUpdateFile.append('targetPath', "./source/files/temp/");
+            dataUpdateFile.append('targetPathTxt', "./source/files/listasGruposPeriodos/");
+
+            $.ajax({
+                url: '../../index_ajax.php?controller=file&action=saveFile_getPathForJS',
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                data: dataUpdateFile
+            }).done(function (resUpdateExcelFile) {
+                try {
+                    var JSONres = JSON.parse(resUpdateExcelFile);
+                    if (!JSONres.error) {
+                        var saveTxtPath = "source/files/listasGruposPeriodos/";
+                        getXlsxFileCreateJSON(JSONres.filePath, JSONres.fileName, 3, saveTxtPath, true, oldListaAlFileName, sendDataForUpdateGP, oldGP);
+                    } else {
+                        var mainmessage = JSONres.message;
+                        var secmessage = "Presione el botón para continuar";
+                        showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
+                    }
+                } catch (Exception) {
+                    var mainmessage = "Error JSON inesperado. Inténtelo más tarde.";
+                    var secmessage = "Presione el botón para continuar";
+                    showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
+                }
+            }).fail(function () {
+                AJAXrequestFailed("No funciona petición AJAX para actualizar archivo Lista Alumnos.");
+            });
+
+        }
+
+        sendDataForUpdateGP = (fileName, NewGP) => {
+            NewGP.Valores_Parciales = fileName;
+
+            $.ajax({
+                url: '../../index_ajax.php?controller=grupoperiodo&action=updateGpoP',
+                type: 'POST',
+                data: NewGP
+            }).done(function (resUpdateListaAlumnos) {
+                if (!resUpdateListaAlumnos.error) {
+                    var mainmessage = "Archivo actualizado exitosamente.";
+                    var secmessage = "Presione el botón para continuar";
+                    showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
+                }
+            }).fail(function () {
+                AJAXrequestFailed("No funciona petición AJAX para actualizar nombre ListaAlumnos en BD.");
+            });
+        }
+
+    //Usar variable global --> clickedGpoP
     goToShowGPInfo = (gpoPId) => {
         getSessionVariables(showGPInfo);
         clickedGpoP = gpoPId;
 
-        //Save cookie for return to gpo periodo
+        //Save var for return to gpo periodo
     }
 
     showGPInfo = (sessionVariables) => {
@@ -53,7 +140,7 @@ $(document).ready(function ($) {
             let profGP = resGpSelected.gpoperiodo.Profesor.Registro_U;
             grupoPeriodo = resGpSelected.gpoperiodo;
             creatorFlag = false;
-            console.log(grupoPeriodo);
+            //console.log(grupoPeriodo);
 
             if (sessionVariables.userreg == profGP) {
                 creatorFlag = true;
@@ -152,7 +239,7 @@ $(document).ready(function ($) {
                     let mat = resGpSelected.gpoperiodo.Materia.Materia;
 
                     var mainmessage = '¿Está seguro de eliminar el grupo periodo "' + mat + " " + period + '" ?';
-                    var secmessage = "Recomendamos realice un respaldo, ya que al confirmar la acción no se podrá recuperar la información de este.";
+                    var secmessage = "Recomendamos realice un respaldo, ya que al confirmar esta acción no se podrá recuperar la información de este.";
                     showMessage("wArNinGbTn_AcTiOn", 22, mainmessage, secmessage);
                 }
             }

@@ -3,7 +3,9 @@
 	 * Este controllador contiene todos los métodos que se necesiten realizar
 	 * cuando el usuario ineractue con el sistema
 	 */
-	session_start();
+	if (session_status() == PHP_SESSION_NONE) {
+		session_start();
+	}
 	class usuarioController extends BaseController
 	{
 	    /**

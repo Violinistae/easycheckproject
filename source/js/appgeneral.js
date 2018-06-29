@@ -278,6 +278,9 @@ $(document).ready(function ($) {
 				deleteCookie(actionsCookieName);
 				gotoGposPeriodo();
 				break;
+			case "31":
+				getGpoPtoUpdateFile();
+				break;
 			case "410":
 				$("#createmateriabtn").prop("disabled", false);
 				break;

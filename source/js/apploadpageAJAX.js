@@ -136,6 +136,19 @@ $(document).ready(function ($) {
 			document.getElementById("nombresp").innerHTML = userinfoRes.userinfo.Nombres;
 			document.getElementById("apellidosp").innerHTML = userinfoRes.userinfo.Apellidos;
 
+			let usertypelbl = document.getElementById("usertypelbl");
+			switch (parseInt(userinfoRes.userinfo.Tipo_Usuario)) {
+				case 1:
+					usertypelbl.textContent += "Coordinador de Academia";
+					break;
+				case 2:
+					usertypelbl.textContent += "Profesor";
+					break;
+				case 3:
+					usertypelbl.textContent += "Alumno ";
+					break;
+			}
+
 			//Insertar escolaridad en caso de que el usuario se de tipo Coordinador o profesor
 			if (userinfoRes.userinfo.Tipo_Usuario == 2 || userinfoRes.userinfo.Tipo_Usuario == 1) {
 				$.ajax({
@@ -570,7 +583,7 @@ $(document).ready(function ($) {
 		}
 
 			insertGposPToTable = (resGposP, flagCreator) => {
-				//console.log(resGposP.numMaterias)
+				//console.log(resGposP)
 				if (!resGposP.error) {
 					
 					if (resGposP.built) {
@@ -587,7 +600,7 @@ $(document).ready(function ($) {
 							clavelbl.textContent = gsp[i].Id_GpoPeriodo;
 							materialbl.textContent = gsp[i].Materia;
 							ciclolbl.textContent = gsp[i].Periodo;
-							gpolbl.textContent = gsp[i].Grupo;
+							gpolbl.textContent = gsp[i].Semestre + "°" + gsp[i].Grupo;
 
 							let auxDiv = document.createElement("div");
 							auxDiv.classList.add("accionesTd");

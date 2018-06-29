@@ -27,7 +27,7 @@
                             Ciclo Escolar
                         </th>
                         <th class="headColGP grupoCol">
-                            Grupo
+                            Grado / Grupo
                         </th>
                         <th class="headColGP accionesGpo">
                             Acciones Gpo Periodo

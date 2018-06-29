@@ -472,9 +472,14 @@ $(document).ready(function ($) {
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Interacción con botones de acción en listas de grupos o materias ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+	//Materias
+	$("body").on('click', '.actionsIcon', function (e) { switchActionOnMateria(e); });
+
+	//Grupos periodo
 	$('body').on('click', '.actionsGpoPIcon', function (e) { switchActionGpoP(e); });
 	$('body').on('click', '#requestGPBtn', function (e) { insertModalRequestGpoP(e); });
 	$('body').on('submit', '#requestGpoPForm', function (e) { verifyRequestGpoP(e); });
+	$("body").on('change', '#inputListaAlumnos', function (e) { checkNewUploadedFile(3, "inputListaAlumnos"); });
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Interacción con botones de Overview de grupos ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	$('body').on('click', '#backToGPListBtn', function (e) { gotoGposPeriodo(e); });

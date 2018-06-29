@@ -113,6 +113,7 @@
                         $gpA = ([
                             'Id_GpoPeriodo' => $gpOj->getId_GpoPeriodo(),
                             'Materia' => $mat->getMateria(),
+                            'Semestre' => $mat->getSemestre(),
                             'Grupo' => $gpo->getGrupo(),
                             'Periodo' => $gpOj->getPeriodo(),
                             'Profesor' => $gpOj->getProfesor(),
@@ -162,6 +163,7 @@
                     $gpA = ([
                         'Id_GpoPeriodo' => $gpOj->getId_GpoPeriodo(),
                         'Materia' => $mat->getMateria(),
+                        'Semestre'=> $mat->getSemestre(),
                         'Grupo' => $gpo->getGrupo(),
                         'Periodo' => $gpOj->getPeriodo(),
                         'Profesor' => $gpOj->getProfesor(),
@@ -211,6 +213,7 @@
                     $gpoCtrlr = new grupoController($this->pdo);
                     $gpo = $gpoCtrlr->readGrupoByIdLocal($grupop->getGrupo());
                     $g = [
+                        'Id_Gpo' => $gpo->getId_Grupo(),
                         'Grupo' => $gpo->getGrupo()
                     ];
 
@@ -334,6 +337,44 @@
                 echo json_encode(['error' => true]);
             }
         }
+
+        public function updateGpoP () {
+            if (isset($_POST["Id_GrupoPeriodo"])) {
+
+                $Id_Mat = $_POST["Materia"]["Id_Materia"];
+                $Id_Gpo = $_POST["Grupo"]["Id_Gpo"];
+                $Id_Prof = $_POST["Profesor"]["Registro_U"];
+
+                $stmt = $this->pdo->prepare(
+                    "UPDATE grupoperiodo
+                        SET Materia = ?,
+                        Grupo = ?,
+                        Periodo = ?,
+                        Profesor = ?,
+                        Lista_Alumnos = ?,
+                        Clave_Acceso = ?
+                        WHERE Id_GpoPeriodo = ?"
+                );
+
+                $stmt->execute([
+                    $Id_Mat,
+                    $Id_Gpo,                    
+                    $_POST["Periodo"],
+                    $Id_Prof,
+                    $_POST["Lista_Alumnos"],
+                    $_POST["Clave_Acceso"],
+                    $_POST["Id_GrupoPeriodo"]
+                ]);
+
+                if ($stmt->rowCount() == 1) {
+                    echo json_encode(array('error' => false));
+                } else {
+                    echo json_encode(array('error' => true));
+                }
+
+            }
+        }
+
 
     }
 ?>
