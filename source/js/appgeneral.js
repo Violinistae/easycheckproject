@@ -44,6 +44,8 @@ $(document).ready(function ($) {
 	}
 
 	maincontentFadeAnimation = (responsePage, functionToDo) => {
+		$(".subdropumen").removeClass('active');
+		$(".buttonnewinst").removeClass('active');
 		$("#submaincontainer").fadeOut(180, function () { 
 			document.getElementById("submaincontainer").innerHTML = "";
 			document.getElementById("submaincontainer").innerHTML = responsePage;
@@ -97,6 +99,7 @@ $(document).ready(function ($) {
 			case 11: choose = false; break;
 			case 13: choose = false; break;
 			case 15: choose = false; break;
+			case 20: choose = false; break;
 			case 30: choose = false; break;
 
 			case 410: choose = false; break;
@@ -263,14 +266,20 @@ $(document).ready(function ($) {
 				document.getElementById("modalforactionscontainer").innerHTML = "";
 				actionsCookieName = "aiCoTndDtoO";
 				deleteCookie(actionsCookieName);
-				gotoGposPeriodo();   //Modificar a que sea por página de grupos periodo
+				gotoGposPeriodo(); 
 				break;
 			case "21": 
 				
 				break;
 			case "22":
-				deleteSelectedGP();
+				$("#modwarning").fadeOut("400", function () {
+					var mainmessage = '¿Está realmente seguro de realizar esta acción?';
+					var secmessage = "Recomendamos realice un respaldo, ya que al confirmar esta acción no se podrá recuperar la información de este.";
+					showMessage("wArNinGbTn_AcTiOn", 23, mainmessage, secmessage);
+				});
 				break;
+			case "23":
+				deleteSelectedGP();
 			case "30":
 				$("#modforactions").fadeOut("400");
 				document.getElementById("modalforactionscontainer").innerHTML = "";
@@ -287,6 +296,8 @@ $(document).ready(function ($) {
 			case "420":
 				$("#creategpoperbtn").prop("disabled", false);
 				break;
+			case "430":
+				break; 
 			case "501":
 				$("#createmateriabtn").prop("disabled", false);
 				window.location.href ="../../source/files/ejemplos/EjValoresParcialesMateria_easycheck.xlsx";

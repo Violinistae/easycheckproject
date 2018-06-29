@@ -20,4 +20,4 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript" src="../../source/js/appCreatorGPOverview.js"></script>
+<script type="text/javascript" src="../../source/js/appGPOverview.js"></script>

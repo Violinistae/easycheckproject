@@ -375,6 +375,25 @@
             }
         }
 
+        public function deleteGpoP () {
+            if (isset($_POST["Id_GpoPeriodo"])) {
+                $stmt = $this->pdo->prepare(
+                    "DELETE FROM grupoperiodo
+                        WHERE Id_GpoPeriodo = ?"
+                );
+                $stmt->execute([
+                    $_POST["Id_GpoPeriodo"]
+                ]);
+
+                if ($stmt->rowCount() == 1) {
+                    echo json_encode (array('error' => false));
+                } else {
+                    echo json_encode (array('error' => true));
+                } 
+            } else {
+                echo json_encode(['error' => true]);
+            }
+        }
 
     }
 ?>

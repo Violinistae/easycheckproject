@@ -2,6 +2,7 @@ var clickedGpoP;
 var grupoPeriodo;
 var realFileName;
 var creatorFlag;
+profGP = 0;
 $(document).ready(function ($) {
     switchActionGpoP = (e) => {
         var attr = e.originalEvent.path[1].getAttribute("id");
@@ -137,7 +138,7 @@ $(document).ready(function ($) {
             dataType: 'json',
             data: dataGP
         }).done(function (resGpSelected) {            
-            let profGP = resGpSelected.gpoperiodo.Profesor.Registro_U;
+            profGP = resGpSelected.gpoperiodo.Profesor.Registro_U;
             grupoPeriodo = resGpSelected.gpoperiodo;
             creatorFlag = false;
             //console.log(grupoPeriodo);
@@ -148,7 +149,7 @@ $(document).ready(function ($) {
             }
 
             $.ajax({
-                url: '../../sourcephp/views/shared/CoordAndProf/gpoPeriodoOverview.php',
+                url: '../../sourcephp/views/shared/forEveryone/gpoPeriodoOverview.php',
                 type: 'POST',
             }).done(function (gpoPeriodoOverview) { 
                 maincontentFadeAnimation(gpoPeriodoOverview, checkUserForGPOverviewContent);
@@ -162,6 +163,9 @@ $(document).ready(function ($) {
     }
 
         checkUserForGPOverviewContent = () => {
+            let mainContainer = document.getElementById("submaincontainer");
+            getAndExecuteNewInsertedScript(mainContainer);
+
             let groupActionsBar = document.getElementById("groupActionsBar");    
             if (creatorFlag) {
                 for (let i = 0; i < 4; ++i) {
@@ -252,8 +256,29 @@ $(document).ready(function ($) {
             dataGpP = {
                 Id_GpoPeriodo: grupoPeriodo.Id_GrupoPeriodo
             };
-            console.log(grupoPeriodo);
-            //volver a confirmar en el switch maestro
+
+            $.ajax({
+                url: '../../index_ajax.php?controller=grupoperiodo&action=deletegpop',
+                type: 'POST',
+                dataType: 'json',
+                data: dataGpP
+            }).done(function (resDeletedGP) {
+                $("#modwarning").fadeOut("300", function () { 
+                    if (!resDeletedGP.error) {
+                        deleteFile('./source/files/listasGruposPeriodos/' + grupoPeriodo.Lista_Alumnos + '.txt');
+
+                        var mainmessage = "Grupo Periodo eliminado exitosamente.";
+                        var secmessage = "Presione el botón para continuar";
+                        showMessage("wArNinGbTn_AcTiOn", 20, mainmessage, secmessage);
+                    } else {
+                        var mainmessage = "No se pudo eliminar el Grupo Periodo, favor de intentarlo más tarde.";
+                        var secmessage = "Presione el botón para continuar";
+                        showMessage("wArNinGbTn_AcTiOn", 20, mainmessage, secmessage);
+                    }
+                });
+            }).fail(function () {
+                AJAXrequestFailed("Petición AJAX para eliminar grupo periodo ha fallado");
+            });
         }
     
     /* ---------------------------------------------------------------------------------------------------------------- */

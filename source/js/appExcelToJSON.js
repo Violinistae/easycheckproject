@@ -15,23 +15,25 @@ $(document).ready(function ($) {
                 JSONStr = doXlsxStuff(Request.response, purposeFile);
 
                 if (JSONStr == null) {
-                    var mainmessage = "El formato del archivo cargado no es el correcto.";
-                    var secmessage = "Presione aceptar para descargar un ejemplo, para regresar sin descarga presione cancelar.";
-                    switch (purposeFile) {
-                        case 1:
-                            showMessage("wArNinGbTn_AcTiOn", 501, mainmessage, secmessage);
-                            break;
-                        case 2:                        
-                            showMessage("wArNinGbTn_AcTiOn", 511, mainmessage, secmessage);
-                            break;
-                        case 3:
-                            showMessage("wArNinGbTn_AcTiOn", 521, mainmessage, secmessage);
-                            break;
-                        default:
-                            showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
-                            break;
-                    }                    
-                    deleteFile(ExcelFile);
+                    $("#modwarning").fadeOut("400", function (){
+                        var mainmessage = "El formato del archivo cargado no es el correcto.";
+                        var secmessage = "Presione aceptar para descargar un ejemplo, para regresar sin descarga presione cancelar.";
+                        switch (purposeFile) {
+                            case 1:
+                                showMessage("wArNinGbTn_AcTiOn", 501, mainmessage, secmessage);
+                                break;
+                            case 2:
+                                showMessage("wArNinGbTn_AcTiOn", 511, mainmessage, secmessage);
+                                break;
+                            case 3:
+                                showMessage("wArNinGbTn_AcTiOn", 521, mainmessage, secmessage);
+                                break;
+                            default:
+                                showMessage("wArNinGbTn_AcTiOn", 410, mainmessage, secmessage);
+                                break;
+                        }
+                        deleteFile(ExcelFile);
+                    });
                     return;
                 }
                 
