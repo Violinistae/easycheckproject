@@ -166,6 +166,14 @@ $(document).ready(function ($) {
             let mainContainer = document.getElementById("submaincontainer");
             getAndExecuteNewInsertedScript(mainContainer);
 
+            let mat = grupoPeriodo.Materia.Materia;
+            let semestre = grupoPeriodo.Materia.Semestre;
+            let grupo = grupoPeriodo.Grupo.Grupo;
+            let period = grupoPeriodo.Periodo;
+
+            let gplblName = document.getElementById("gplblName");
+            gplblName.textContent = mat + " ~~ " + semestre + "°" + grupo + " ~~ " + period;
+
             let groupActionsBar = document.getElementById("groupActionsBar");    
             if (creatorFlag) {
                 for (let i = 0; i < 4; ++i) {
@@ -189,7 +197,24 @@ $(document).ready(function ($) {
                     groupActionsBar.appendChild(btnAction);
                 }
 
-                //Insertar instrumentos para realizar evaluación
+                let dataArray = {
+                    Id_Materia: grupoPeriodo.Materia.Id_Materia
+                };
+
+                $.ajax({
+                    url: '../../index_ajax.php?controller=instrumentoscompartidos&action=readMateriaSharedInst',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: dataArray
+                }).done(function (InstrumentsToInsert) {
+                    if (!InstrumentsToInsert.error) {
+                        if (InstrumentsToInsert.built) {
+                            insertInstrumentsIntoGPOverview(InstrumentsToInsert.sharedInst);
+                        }
+                    }                
+                }).fail(function () {
+                    AJAXrequestFailed("Fallo en petición AJAX para obtener instrumentos compartidos para una materia");
+                });
 
             } else {
                 for (let i = 0; i < 3; ++i) {
@@ -215,15 +240,13 @@ $(document).ready(function ($) {
 
                 //Insertar instrumentos que se pueden contestar
             }
-
-            let mat = grupoPeriodo.Materia.Materia;
-            let semestre = grupoPeriodo.Materia.Semestre;
-            let grupo = grupoPeriodo.Grupo.Grupo;
-            let period = grupoPeriodo.Periodo;
-
-            let gplblName = document.getElementById("gplblName");
-            gplblName.textContent = mat + " ~~ " + semestre + "°" + grupo + " ~~ " + period;
         }
+
+            insertInstrumentsIntoGPOverview = (InstrumentsToInsert) => {
+                console.log(InstrumentsToInsert);
+                
+            }
+
     
     checkDeleteGP = (gpoPId) => {        
         dataGp = {
