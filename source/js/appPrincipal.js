@@ -12,6 +12,9 @@ $(document).ready(function ($) {
             $(".buttonnewinst").removeClass('active');
             $("#modforactions").fadeOut("300");
 
+            //Verificar id usuario para saber si puede modificar
+            //*******
+
             let buildInstrURL = "../../sourcephp/views/buildInstrumento.php";
             sessionStorage.setItem("createdInst", str);
             window.open(buildInstrURL, "_blank");

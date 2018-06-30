@@ -187,15 +187,19 @@ $(document).ready(function ($) {
                     switch (i) {
                         case 0:
                             btnAction.id = "gpRespaldo"; btnAction.textContent = "Crear respaldo";
+                            btnAction.setAttribute("dataActGP", "gpRespaldo");
                             break;
                         case 1:
                             btnAction.id = "gpConfigBtn"; btnAction.textContent = "Configuración de grupo";
+                            btnAction.setAttribute("dataActGP", "gpConfigBtn");
                             break;
                         case 2:
-                            btnAction.id = "gpAdminIntegBtn"; btnAction.textContent = "Administrar integrantes";
+                            btnAction.id = "gpAdminIntegBtn"; btnAction.textContent = "Mostrar integrantes/alumnos";
+                            btnAction.setAttribute("dataActGP", "gpAdminIntegBtn");
                             break;           
                         case 3:
                             btnAction.id = "gpShowCreatorCalf"; btnAction.textContent = "Mostrar calificaciones";
+                            btnAction.setAttribute("dataActGP", "gpShowCreatorCalf");
                             break;                                                                             
                     }
                     groupActionsBar.appendChild(btnAction);
@@ -239,12 +243,15 @@ $(document).ready(function ($) {
                     switch (i) {
                         case 0:
                             btnAction.id = "gpShowIntegCalf"; btnAction.textContent = "Mostrar calificaciones";
+                            btnAction.setAttribute("dataActGP", "gpShowIntegCalf");
                             break;
                         case 1:
                             btnAction.id = "gpShowInteg"; btnAction.textContent = "Mostrar compañeros";
+                            btnAction.setAttribute("dataActGP", "gpShowInteg");
                             break;
                         case 2:
                             btnAction.id = "gpLeave"; btnAction.textContent = "Abandonar Grupo Periodo";
+                            btnAction.setAttribute("dataActGP", "gpLeave");
                             break;   
                     }
                     groupActionsBar.appendChild(btnAction);
