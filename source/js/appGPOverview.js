@@ -1,18 +1,18 @@
-var flagCForAction = false;
+var actionGPOverview; 
 $(document).ready(function ($) {
 
-    verifyCreatorAndUserId = (sessionVariables) => {
-        if (profGP == sessionVariables.userreg) flagCForAction = true;
-        else flagCForAction = false;
-        return;
-    }
-
     checkActionForSwitchOnGPOverview = (e) => {
-        console.log(profGP);
         let triggerElement = e.currentTarget;
-        let actionGPOverview = triggerElement.getAttribute("dataActGP");
+        actionGPOverview = triggerElement.getAttribute("dataActGP");
 
         getSessionVariables(verifyCreatorAndUserId);
+    }
+
+    verifyCreatorAndUserId = (sessionVariables) => {
+        let flagCForAction = false;
+        if (profGP == parseInt(sessionVariables.userreg)) { flagCForAction = true; }
+        else { flagCForAction = false; }
+
         if (flagCForAction) {
             switch (actionGPOverview) {
                 case "gpRespaldo":
@@ -22,7 +22,7 @@ $(document).ready(function ($) {
 
                     break;
                 case "gpAdminIntegBtn":
-                    getIntegGPPageModal(grupoPeriodo.Id_GrupoPeriodo, true);                    
+                    getIntegGPPageModal(grupoPeriodo.Id_GrupoPeriodo, true);
                     break;
                 case "gpShowCreatorCalf":
 
@@ -41,13 +41,13 @@ $(document).ready(function ($) {
                     break;
             }
         }
-
     }
     
 
         getIntegGPPageModal = (Id_GrupoPeriodo, profF) => {
+            $("#modforactions").fadeIn("400");
             $.ajax({
-                url: "../../sourcephp/views/shared/CoordAndProf/createGpoPeriodo.php",
+                url: "../../sourcephp/views/shared/forEveryone/GPIntegList.php",
                 type: "POST"
             }).done(function (IntegGPModal) {
                 insertIntetgGPModalAndContent(IntegGPModal, Id_GrupoPeriodo, profF);
@@ -55,13 +55,20 @@ $(document).ready(function ($) {
                 AJAXrequestFailed("Petición AJAX insertar modal de integrantes de GP");
             });
 
-            let integMainLbl;
         }
 
             insertIntetgGPModalAndContent = (IntegGPModal, Id_GrupoPeriodo, profF) => {
-                document.getElementById("modalforactionscontainer").innerHTML = resCreateGpoPeriodoForm;
+                document.getElementById("modalforactionscontainer").innerHTML = IntegGPModal;
                 getAndExecuteNewInsertedScript(document.getElementById("modalforactionscontainer"));
 
+                let mat = grupoPeriodo.Materia.Materia;
+                let semestre = grupoPeriodo.Materia.Semestre;
+                let grupo = grupoPeriodo.Grupo.Grupo;
+                let period = grupoPeriodo.Periodo;
+
+                let integMainLbl = document.getElementById("integMainLbl");
+                integMainLbl.textContent += mat + " ~~ " + semestre + "°" + grupo + " ~~ " + period;
+                
                 //seguir en este método y se puede utilizar para insertar a los alumnos para
                 // mostrar las calificaciones en una lista pero en el main container en vez de un modal
             }
