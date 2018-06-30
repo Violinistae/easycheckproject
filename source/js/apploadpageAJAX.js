@@ -81,7 +81,6 @@ $(document).ready(function ($) {
 
 						instrumentDivPpal.appendChild(instrumentImg);
 						
-
 						let instrumentTextPart = document.createElement("div");
 						instrumentTextPart.classList.add("instrumentTextPart");
 

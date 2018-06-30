@@ -1,5 +1,5 @@
 <link rel="stylesheet" type="text/css" href="../../source/css/styleGPOverview.css">
-<div id="CreatorGPOverview">
+<div id="GPOverview">
 	<nav>
 		<ul id="mainNavGP">
 			<li class="backToGPList">
@@ -15,8 +15,11 @@
 	</nav>
 	<div id="groupActionsBar">		
 	</div>
-	<div id="mainContainerCreatorGPOverview">
+	<div id="mainContainerGPOverview">
 		<div class="instrumentsContainer">
+			<div id="noInstrCompAvailable">
+
+			</div>
 		</div>
 	</div>
 </div>

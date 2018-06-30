@@ -68,9 +68,11 @@
         public function readMateriaSharedInst () {
             if (isset($_POST["Id_Materia"])) {
                 $stmt= $this->pdo->prepare(
-                    "SELECT * FROM instrumentoscompartidos
-                        WHERE Materia = ?"
+                    "SELECT * FROM instrumentoscompartidos JOIN instrumento 
+                        ON instrumentoscompartidos.Instrumento = instrumento.Id_Instrumento
+                        WHERE instrumentoscompartidos.Materia = ? ORDER BY instrumento.ClaveElem"
                 );
+                
                 $stmt->execute([
                     $_POST["Id_Materia"]
                 ]);

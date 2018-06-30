@@ -360,11 +360,42 @@ $(document).ready(function ($) {
 						case 5:
 							liMenuItem.setAttribute("dataowinsaction", i);
 							liMenuItem.textContent = "Otra opción que surga";
-							break;						
+							break;
 					}
 					cntxtMenu.appendChild(liMenuItem);
 				}
+				break;
+			case "mPfGsP":
+				for (let i = 6; i < 8; ++i) {
+					let liMenuItem = document.createElement("li");
+					liMenuItem.classList.add("contextMenuItem");
 
+					switch (i) {
+						case 6:
+							liMenuItem.setAttribute("dataowinsaction", i);
+							liMenuItem.textContent = "Utilizar para evaluar";
+							break;
+						case 7:
+							liMenuItem.setAttribute("dataowinsaction", i);
+							liMenuItem.textContent = "Otra opción que surga";
+							break;
+					}
+					cntxtMenu.appendChild(liMenuItem);
+				}
+				break;
+			case "mAlGsP":
+				for (let i = 8; i < 9; ++i) {
+					let liMenuItem = document.createElement("li");
+					liMenuItem.classList.add("contextMenuItem");
+
+					switch (i) {
+						case 8:
+							liMenuItem.setAttribute("dataowinsaction", i);
+							liMenuItem.textContent = "Contestar instrumento";
+							break;					
+					}
+					cntxtMenu.appendChild(liMenuItem);
+				}
 				break;
 			default: return;
 		}
@@ -469,6 +500,8 @@ $(document).ready(function ($) {
 	$("body").on('contextmenu', '.instrumentImg', function (e) { showContextMenuOnInstrument(e); })
 	$('body').on('dblclick', '.instrumentImg', function (e) { goToEditBuiltIntr(e.currentTarget); });
 	$("body").on('contextmenu', '#principalPgContainer', function (e) { e.preventDefault(); })
+	$("body").on('contextmenu', '#acadOverview', function (e) { e.preventDefault(); })
+	$("body").on('contextmenu', '#GPOverview', function (e) { e.preventDefault(); })
 	$('body').on('click', '.contextMenuItem', function (e) { checkClickedContextMenuItem(e); });
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Interacción con botones de acción en listas de grupos o materias ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

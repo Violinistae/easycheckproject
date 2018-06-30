@@ -128,6 +128,7 @@ $(document).ready(function ($) {
     }
 
     showGPInfo = (sessionVariables) => {
+        
         dataGP = {
             Id_GpoPeriodo: clickedGpoP
         };
@@ -144,8 +145,11 @@ $(document).ready(function ($) {
             //console.log(grupoPeriodo);
 
             if (sessionVariables.userreg == profGP) {
+                $(".contextCostumMenu").attr("dataPurpose", "mPfGsP");
                 creatorFlag = true;
                 console.log("Soy el creador");
+            } else {
+                $(".contextCostumMenu").attr("dataPurpose", "mAlGsP");
             }
 
             $.ajax({
@@ -210,6 +214,17 @@ $(document).ready(function ($) {
                     if (!InstrumentsToInsert.error) {
                         if (InstrumentsToInsert.built) {
                             insertInstrumentsIntoGPOverview(InstrumentsToInsert.sharedInst);
+                        } else {
+                            let noCompInstr = document.getElementById("noInstrCompAvailable");
+
+                            let p = document.createElement("p");
+                            p.textContent = "No existe algún instrumento compartido para la materia de este Grupo Periodo";
+                            noCompInstr.appendChild(p);
+                            noCompInstr.appendChild(document.createElement("BR"));
+
+                            p = document.createElement("p");
+                            p.textContent = 'Para compartir uno en su academia correspondiente, elija la opción "Compartir Instrumento" en su pagina principal';
+                            noCompInstr.appendChild(p);
                         }
                     }                
                 }).fail(function () {
@@ -243,8 +258,52 @@ $(document).ready(function ($) {
         }
 
             insertInstrumentsIntoGPOverview = (InstrumentsToInsert) => {
-                console.log(InstrumentsToInsert);
-                
+                let instrumentsContainerGPOverview = document.getElementsByClassName("instrumentsContainer").item(0);
+
+                for (let i = 0; i < InstrumentsToInsert.length; ++i) {
+                    let instrumentDivGP = document.createElement("div");
+                    instrumentDivGP.classList.add("instrumentDiv");
+
+                    let instrumentImg = document.createElement("span");
+                    instrumentImg.classList.add("instrumentImg");
+                    instrumentImg.setAttribute("dataidins", InstrumentsToInsert[i].Id_Instrumento);
+                    instrumentImg.setAttribute("dataidmat", InstrumentsToInsert[i].Id_Materia);
+
+                    switch (parseInt(InstrumentsToInsert[i].Id_TipoIn)) {
+                        case 1:
+                            instrumentImg.style.backgroundImage = "url('../../source/img/instrumentos/rubrica.jpg')";
+                            break;
+                        case 2:
+                            instrumentImg.style.backgroundImage = "url('../../source/img/instrumentos/listacotejo.png')";
+                            break;
+                        case 3:
+                            instrumentImg.style.backgroundImage = "url('../../source/img/instrumentos/guiaobs.png')";
+                            break;
+                        case 4:
+                            instrumentImg.style.backgroundImage = "url('../../source/img/instrumentos/cuestionario.png')";
+                            break;
+                    }
+
+                    instrumentDivGP.appendChild(instrumentImg);
+
+                    let instrumentTextPart = document.createElement("div");
+                    instrumentTextPart.classList.add("instrumentTextPart");
+
+                    let label = document.createElement("label");
+                    label.classList.add("nomElemInstr");
+                    label.textContent = InstrumentsToInsert[i].TipoInstrumento + " ~ "
+                        + InstrumentsToInsert[i].ClaveElem + " - " + InstrumentsToInsert[i].NombElemento;
+                    instrumentTextPart.appendChild(label);
+
+                    label = document.createElement("label");
+                    label.textContent = InstrumentsToInsert[i].Materia;
+                    instrumentTextPart.appendChild(label);
+
+                    instrumentDivGP.appendChild(instrumentTextPart);
+                    instrumentsContainerGPOverview.appendChild(instrumentDivGP);
+                    
+                }
+
             }
 
     

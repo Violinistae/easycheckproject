@@ -1,4 +1,4 @@
-#CreatorGPOverview {
+#GPOverview {
     height: 100%;
     width: 100%;
     position: relative;
@@ -8,13 +8,13 @@
     grid-template-areas: 
     "mainNavGP mainNavGP mainNavGP mainNavGP mainNavGP"
     ". . . . ."
-    ". groupActionsBar . mainContainerCreatorGPOverview ."
+    ". groupActionsBar . mainContainerGPOverview ."
     ". . . . .";
     font-family: 'Noto Sans', sans-serif;
     flex-grow: 1;
 }
 
-#CreatorGPOverview > nav {
+#GPOverview > nav {
     grid-area: mainNavGP;
     width: 100%;
     height: 100%;
@@ -48,8 +48,8 @@
     grid-area: groupActionsBar;
 }
 
-#mainContainerCreatorGPOverview {
-    grid-area: mainContainerCreatorGPOverview;
+#mainContainerGPOverview {
+    grid-area: mainContainerGPOverview;
     overflow: auto;
     max-width: 100%;
     padding: .2em .2em;
@@ -81,4 +81,16 @@
 
 .gpOverviewBtn:hover {
     background-color: aliceblue;
+}
+
+#noInstrCompAvailable {
+    display: block;
+    position: absolute;
+    width: auto;
+    top: 50%;
+    left: 63%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2vw;
 }
