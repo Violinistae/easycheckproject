@@ -1,3 +1,15 @@
+<?php
+	if (session_status() == PHP_SESSION_NONE) {
+		session_start();
+	}
+	 
+	if (isset($_SESSION["userreg"]) && isset($_SESSION["usertype"])) {
+		
+	} else {
+		header("location: ../../sourcephp/views/main.php");
+	}
+
+?>
 <html>
 <head>
 	<title>Easy Check - Utilizar Instrumento</title>

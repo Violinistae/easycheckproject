@@ -183,7 +183,7 @@ $(document).ready(function ($) {
     getGeneratedTxt = (objJSON, purposeTxtFile, arrayToEval, functionToDo, arrayForFunctionToDo) => {
         let txtFileName;
         let targetPath;
-        if (purposeTxtFile == 1 || purposeTxtFile == 2) {
+        if (purposeTxtFile == 0 || purposeTxtFile == 1 || purposeTxtFile == 2) {
             txtFileName = objJSON.Valores_Parciales;
             targetPath = "source/files/valoresParciales/";        
         } else if (purposeTxtFile == 3) {
@@ -226,10 +226,24 @@ $(document).ready(function ($) {
         evalKeyWithGeneratedTxt = (resFileContent, purposeFile, arrayToEval, functionToDoAfter, arrayForFunctionToDo) => {
             let txtFile_JSON = JSON.parse(resFileContent);
 
-            if (purposeFile == 1) {
+            if (purposeFile == 0) {
                 let valParData = [];
 
                 for (let i = 0; i < txtFile_JSON.length; ++i) {
+                    //To lower case para hacer la comprovacion
+                    if (txtFile_JSON[i]["Nombre"] != "Parcial" && txtFile_JSON[i]["Clave"] != "parcial") {
+                        let auxArr = [];
+                        auxArr.push(txtFile_JSON[i]["Nombre"]);         //nombre
+                        auxArr.push(txtFile_JSON[i]["Clave"]);          //clave
+                        valParData.push(auxArr);
+                    }
+                }
+                functionToDoAfter(valParData, arrayForFunctionToDo);
+            } else if (purposeFile == 1) {
+                let valParData = [];
+
+                for (let i = 0; i < txtFile_JSON.length; ++i) {
+                    //To lower case para hacer la comprovacion
                     if (txtFile_JSON[i]["Nombre"] != "Parcial" && txtFile_JSON[i]["Clave"] != "parcial") {
                         let auxArr = [];
                         auxArr.push(txtFile_JSON[i]["Nombre"]);         //nombre

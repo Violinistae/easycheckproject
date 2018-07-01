@@ -405,10 +405,12 @@ $(document).ready(function ($) {
 		$(".contextCostumMenu").attr("dataidins", instId);
 		$(".contextCostumMenu").attr("dataidmat", matId);
 
-		$(".contextCostumMenu").show(200).
-			css({
-				top: event.pageY + "px",
-				left: event.pageX + "px"
+		let posYMenu;
+		let posXMenu;
+
+		$(".contextCostumMenu").show(200).css({
+			top: event.pageY + "px",
+			left: event.pageX + "px"
 		});
 	}
 
@@ -464,7 +466,6 @@ $(document).ready(function ($) {
 				break;
 		}
 		$(".contextCostumMenu").hide(80);
-		$(".contextCostumMenu").attr("dataidins", "");
 	}
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

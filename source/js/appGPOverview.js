@@ -25,7 +25,7 @@ $(document).ready(function ($) {
                     getIntegGPPageModal(grupoPeriodo.Id_GrupoPeriodo, true, false);
                     break;
                 case "gpShowCreatorCalf":
-                    getIntegGPForCalf(grupoPeriodo.Id_GrupoPeriodo, true, true, grupoPeriodo.Id_Materia);
+                    getIntegGPForCalf(grupoPeriodo.Id_GrupoPeriodo, true, true, grupoPeriodo.Materia.Id_Materia);
                     break;
             }
         } else if (!flagCForAction) {
@@ -37,7 +37,7 @@ $(document).ready(function ($) {
                     getIntegGPPageModal(grupoPeriodo.Id_GrupoPeriodo, false, false);
                     break;
                 case "gpLeave":
-                    getIntegGPForCalf(grupoPeriodo.Id_GrupoPeriodo, true, true, grupoPeriodo.Id_Materia);
+                    getIntegGPForCalf(grupoPeriodo.Id_GrupoPeriodo, true, true, grupoPeriodo.Materia.Id_Materia);
                     break;
             }
         }
@@ -247,7 +247,7 @@ $(document).ready(function ($) {
             }).done(function (resAlumnosGP) {
                 if (!resAlumnosGP.error) {
                     if (resAlumnosGP.built) {
-                        insertIntegGPCalfInfo(resAlumnosGP.alumnosGP, profF, calf, Materia);
+                        getMateriaForValParForCalf(resAlumnosGP.alumnosGP, profF, calf, Materia);
                     } else {
                         //No hay alumnos en el grupo periodo --> hacer al final esto
                     }
@@ -257,15 +257,81 @@ $(document).ready(function ($) {
             });
         }
 
-        insertIntegGPCalfInfo = (alumnosGP, profF, calf, Materia) => {
+        getMateriaForValParForCalf = (alumnosGP, profF, calf, Materia) => {
+            dataMateria = {
+                materiaID: parseInt(Materia)
+            };
+
+            $.ajax({
+                url: '../../index_ajax.php?controller=materia&action=getMateriaById',
+                type: 'POST',
+                dataType: 'json',
+                data: dataMateria
+            }).done(function (resMateria) {
+                if (!resMateria.error) {
+                    let mat = resMateria.materia;
+                    let purpuseTxtFile = 0;
+                    let dataForCalfTable = {
+                        alumnosGP: alumnosGP,
+                        profF: profF,
+                        calf: calf
+                    };
+                    
+                    getGeneratedTxt(mat, purpuseTxtFile, null, insertDataIntoCalfsTable, dataForCalfTable);
+                }
+            }).fail(function () {
+                AJAXrequestFailed("Fallo en peticion AJAX para obtener materia");
+            });
             //get materia -> get txt file para Valores Parciales -> obtener calificaciones de instrumentos
         }
+
+//********************************************************************* */
+
+
+insertDataIntoCalfsTable = (valParData, dataForCalfTable) => {
+    console.log(valParData);
+    console.log(dataForCalfTable);
+
+    let alumnosGP = dataForCalfTable.alumnosGP;
+
+    let calfSubcontainer = document.getElementsByClassName("calfSubcontainer").item(0);
+    let divHeadCalf = document.createElement("div")
+    divHeadCalf.classList.add("calfCommonRow"); divHeadCalf.classList.add("headCalfRow");
+    for (let i = 0; i < valParData.length; ++i) {
+        let div = document.createElement("div");
+        div.textContent = valParData[i][1];
+        divHeadCalf.appendChild(div);
+    }
+    calfSubcontainer.appendChild(divHeadCalf);
+
+    let integSubcontainer = document.getElementsByClassName("integSubcontainer").item(0);
+    for (let i = 0; i < alumnosGP.length; ++i) {
+        let divInteg = document.createElement("div");
+        divInteg.classList.add("alumnoCalfCommonRow");
+
+        for (let j = 0; j < 3; ++j) {
+            let auxDiv = document.createElement("div");
+            let p = document.createElement("p");
+
+            switch (j) {
+                case 0: p.textContent = alumnosGP[i].Registro_U; break;
+                case 1: p.textContent = alumnosGP[i].Apellidos; break;
+                case 2: p.textContent = alumnosGP[i].Nombres; break;
+            }
+            auxDiv.appendChild(p);
+            divInteg.appendChild(auxDiv);
+        }
+        integSubcontainer.appendChild(divInteg);
+
+        //Ver si seguir aqui o hacer una funcion para insertar calificaciones del men
+    }
+}
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
     verifyGPIntegToEval = (eTrigger) => {
         let dataArrayGP = {
-            Id_GpoPeriodo: Id_GrupoPeriodo
+            Id_GpoPeriodo: parseInt(grupoPeriodo.Id_GrupoPeriodo)
         };
 
         $.ajax({
@@ -276,7 +342,7 @@ $(document).ready(function ($) {
         }).done(function (resAlumnosGP) {
             if (!resAlumnosGP.error) {
                 if (resAlumnosGP.built) {
-                    useInstrToEval(eTrigger);
+                    useInstrToEval(eTrigger, resAlumnosGP.alumnosGP);
                 } else {
                     var mainmessage = "Lo sentimos pero no hay alumnos que evaluar en su Grupo Periodo, favor de ponerse en contacto con los estudiantes.";
                     var secmessage = "Presione el botón para continuar.";
@@ -289,11 +355,13 @@ $(document).ready(function ($) {
 
     }
 
-        useInstrToEval = (eTrigger) => {
+        useInstrToEval = (eTrigger, alumnosGP) => {
             let o = {
-                Id_Instrumento: parseInt(eTrigger.getAttribute("dataidins"))
+                Id_Instrumento: parseInt(eTrigger.getAttribute("dataidins")),
+                alumnosGP: alumnosGP
             };
 
+            console.log(o);
             let str = JSON.stringify(o);
 
             $(".subdropumen").removeClass('active');
@@ -301,7 +369,7 @@ $(document).ready(function ($) {
             $("#modforactions").fadeOut("300");
 
             /*
-            let useInstrToEvalURL = "../../sourcephp/views/buildInstrumento.php";
+            let useInstrToEvalURL = "../../sourcephp/views/useInstrumento.php";
             sessionStorage.setItem("usedInstrForEval", str);
             window.open(useInstrToEvalURL, "_blank");
             */

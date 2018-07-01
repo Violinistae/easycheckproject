@@ -26,86 +26,9 @@
            <div class="integSubcontainer">
                <div class="alumnoCalfCommonRow">
                 </div>
-                <div class="alumnoCalfCommonRow">
-                    <div>
-                        <p>Registro</p>
-                    </div>
-                    <div>
-                        <p>Apellidos</p>
-                    </div>
-                    <div>
-                        <p>Nombres</p>
-                    </div>
-                </div>
            </div>
            <div class="calfSubcontainer">
-               <div class="calfCommonRow headCalfRow">
-                   <div>
-                       P1.1
-                   </div>
-                   <div>
-                       P2.1
-                   </div>
-                   <div>
-                       P2.1
-                   </div>
-                   <div>
-                       P2.1
-                   </div>
-                   <div>
-                       P2.1
-                   </div>
-                   <div>
-                       P2.1
-                   </div>
-                   <div>
-                       P2.1
-                   </div>
-                   <div>
-                       P2.1
-                   </div>
-                   <div>
-                       P2.1
-                   </div>
-               </div>
-               <div class="calfCommonRow">
-                   <div>
-                       <p>90</p>
-                       <p>100</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>100</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>100</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>100</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>100</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>100</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>100</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>100</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>100</p>
-                   </div>
-               </div>
+               
            </div>
         </div>
     </div>
