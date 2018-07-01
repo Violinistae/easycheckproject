@@ -82,7 +82,7 @@ $(document).ready(function ($) {
         }).done(function (resInstrData) {
             if (resInstrData.built) {
                 let iRows = resInstrData.iRows[0];
-                console.log(iRows);
+                //console.log(iRows);
 
                 claveElemento = iRows.ClaveElem;
                 creador = parseInt(iRows.Creador);
@@ -111,6 +111,7 @@ $(document).ready(function ($) {
 
             let URLHeadTable;
             let readInstrumentRowsURL;
+            //console.log(tipoInstrumento);
 
             switch (tipoInstrumento) {
                 case 1:
@@ -123,7 +124,7 @@ $(document).ready(function ($) {
                     break;
                 case 2:
                     typeInstrumentoLbl.textContent += "Lista de Cotejo";
-                    URLHeadTable = '../../sourcephp/views/buildInst/R/headRowR.php';
+                    URLHeadTable = '../../sourcephp/views/buildInst/LC/headRowLC.php';
                     readInstrumentRowsURL = '../../index_ajax.php?controller=listacotejo&action=readListaCotejo';
                     insertCommonTableHead(URLHeadTable, headTable);
                     getBuiltInstrumentRows(readInstrumentRowsURL);

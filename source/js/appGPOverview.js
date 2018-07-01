@@ -192,4 +192,52 @@ $(document).ready(function ($) {
                     IntegContainer.appendChild(integDiv);
                 }
             }
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    verifyGPIntegToEval = (eTrigger) => {
+        let dataArrayGP = {
+            Id_GpoPeriodo: Id_GrupoPeriodo
+        };
+
+        $.ajax({
+            url: '../../index_ajax.php?controller=listagrupo&action=getMembersByGP',
+            type: 'POST',
+            dataType: 'json',
+            data: dataArrayGP
+        }).done(function (resAlumnosGP) {
+            if (!resAlumnosGP.error) {
+                if (resAlumnosGP.built) {
+                    useInstrToEval(eTrigger);
+                } else {
+                    var mainmessage = "Lo sentimos pero no hay alumnos que evaluar en su Grupo Periodo, favor de ponerse en contacto con los estudiantes.";
+                    var secmessage = "Presione el botón para continuar.";
+                    showMessage("wArNinGbTn_AcTiOn", 0, mainmessage, secmessage);
+                }
+            }
+        }).fail(function () {
+            AJAXrequestFailed("Peticion AJAX obtener alumnos de un GP");
+        });
+
+    }
+
+        useInstrToEval = (eTrigger) => {
+            let o = {
+                Id_Instrumento: parseInt(eTrigger.getAttribute("dataidins"))
+            };
+
+            let str = JSON.stringify(o);
+
+            $(".subdropumen").removeClass('active');
+            $(".buttonnewinst").removeClass('active');
+            $("#modforactions").fadeOut("300");
+
+            /*
+            let useInstrToEvalURL = "../../sourcephp/views/buildInstrumento.php";
+            sessionStorage.setItem("usedInstrForEval", str);
+            window.open(useInstrToEvalURL, "_blank");
+            */
+
+        }
+
 });

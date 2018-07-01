@@ -459,6 +459,9 @@ $(document).ready(function ($) {
 				var secmessage = "Favor de asegurarse que ningún profesor está utilizando este instrumento de evaluación.";
 				showMessage("wArNinGbTn_AcTiOn", 17, mainmessage, secmessage);
 				break;
+			case 6:
+				verifyGPIntegToEval(firsttrigger.item(0));
+				break;
 		}
 		$(".contextCostumMenu").hide(80);
 		$(".contextCostumMenu").attr("dataidins", "");
@@ -503,6 +506,7 @@ $(document).ready(function ($) {
 	$("body").on('contextmenu', '#acadOverview', function (e) { e.preventDefault(); })
 	$("body").on('contextmenu', '#GPOverview', function (e) { e.preventDefault(); })
 	$('body').on('click', '.contextMenuItem', function (e) { checkClickedContextMenuItem(e); });
+	$('body').on('contextmenu', '.contextCostumMenu', function (e) { e.preventDefault(); })
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Interacción con botones de acción en listas de grupos o materias ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

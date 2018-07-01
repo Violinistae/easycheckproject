@@ -29,8 +29,12 @@
         public function readAcadSharedInstr() {
             if (isset($_POST["Id_Academia"])) {
                 $stmt= $this->pdo->prepare(
-                    "SELECT * FROM instrumentoscompartidos
-                        WHERE Academia = ?"
+                    "SELECT Id_SharedInstr, instrumentoscompartidos.Materia, 
+                    instrumentoscompartidos.Instrumento, instrumentoscompartidos.Academia 
+                        FROM instrumentoscompartidos JOIN instrumento 
+                        ON instrumentoscompartidos.Instrumento = instrumento.Id_Instrumento 
+                        WHERE Academia = ? 
+                        ORDER BY instrumentoscompartidos.Materia, instrumento.ClaveElem"
                 );
                 $stmt->execute([
                     $_POST["Id_Academia"]
