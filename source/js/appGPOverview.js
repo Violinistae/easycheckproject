@@ -121,7 +121,15 @@ $(document).ready(function ($) {
 
                 if (profF) {
                     if (calf) {
+                        headRowIntegrantes.classList.add("IntegRowAdmin");
+                        numCols = 4;
 
+                        let div = document.createElement("div");
+                        let p = document.createElement("p");
+                        div.classList.add("actionsAdminCol");
+                        p.textContent = "Acciones";
+                        div.appendChild(p);
+                        headRowIntegrantes.appendChild(div);
                     } else {
                         headRowIntegrantes.classList.add("IntegRowAdmin");
                         numCols = 4;

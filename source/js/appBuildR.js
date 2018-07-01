@@ -39,7 +39,7 @@ $(document).ready(function ($) {
                     lblsDescripElem.classList.add("lblsDescripElem");
                     let countCharDescripElem = document.createElement("label");
                     countCharDescripElem.id = "countCharDescripElem" + newIndexArray;
-                    countCharDescripElem.textContent = "Caracteres restantes: 40"
+                    countCharDescripElem.textContent = "Caracteres restantes: 80"
                     lblsDescripElem.appendChild(countCharDescripElem);
 
                     let descripElem = document.createElement("textarea");

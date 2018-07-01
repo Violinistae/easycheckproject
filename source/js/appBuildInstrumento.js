@@ -1053,7 +1053,7 @@ $(document).ready(function ($) {
     }
 
         updateLeftCharsDescriptElem = (eTrigger) => {
-            let maxChars = 40;
+            let maxChars = 80;
             let txtArea = eTrigger;
             let indexTxtAreaChanged = parseInt(eTrigger.id.replace("descripElem", ""));
             let lblLeftChars = document.getElementById("countCharDescripElem" + indexTxtAreaChanged);

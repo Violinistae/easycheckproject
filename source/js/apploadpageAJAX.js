@@ -246,7 +246,7 @@ $(document).ready(function ($) {
 							AJAXrequestFailed("Fallo en petición AJAX para reaccionar a boton de academia en groups bar.");
 						});
 						break;
-					case 2:					
+					case 2:
 						$.ajax({
 							url: '../../sourcephp/views/Users/profesor/listAcademias.php',
 							type: 'POST'
