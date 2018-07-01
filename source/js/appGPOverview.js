@@ -25,7 +25,7 @@ $(document).ready(function ($) {
                     getIntegGPPageModal(grupoPeriodo.Id_GrupoPeriodo, true, false);
                     break;
                 case "gpShowCreatorCalf":
-                    getIntegGPPageModal(grupoPeriodo.Id_GrupoPeriodo, true, true);
+                    getIntegGPForCalf(grupoPeriodo.Id_GrupoPeriodo, true, true, grupoPeriodo.Id_Materia);
                     break;
             }
         } else if (!flagCForAction) {
@@ -37,7 +37,7 @@ $(document).ready(function ($) {
                     getIntegGPPageModal(grupoPeriodo.Id_GrupoPeriodo, false, false);
                     break;
                 case "gpLeave":
-                    getIntegGPPageModal(grupoPeriodo.Id_GrupoPeriodo, true, true);
+                    getIntegGPForCalf(grupoPeriodo.Id_GrupoPeriodo, true, true, grupoPeriodo.Id_Materia);
                     break;
             }
         }
@@ -203,6 +203,63 @@ $(document).ready(function ($) {
                     IntegContainer.appendChild(integDiv);
                 }
             }
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    getIntegGPForCalf = (Id_GrupoPeriodo, profF, calf, Materia) => {
+        $("#modforactions").fadeIn("400");
+        $.ajax({
+            url: "../../sourcephp/views/shared/forEveryone/GPIntegListCalf.php",
+            type: "POST"
+        }).done(function (IntegGPModal) {
+            insertIntegGPCalfModalContent(IntegGPModal, Id_GrupoPeriodo, profF, calf, Materia);
+        }).fail(function () {
+            AJAXrequestFailed("Petición AJAX insertar modal de integrantes de GP");
+        });
+    }
+
+        insertIntegGPCalfModalContent = (IntegGPModal, Id_GrupoPeriodo, profF, calf, Materia) => {
+            document.getElementById("modalforactionscontainer").innerHTML = IntegGPModal;
+            getAndExecuteNewInsertedScript(document.getElementById("modalforactionscontainer"));
+
+            let mat = grupoPeriodo.Materia.Materia;
+            let semestre = grupoPeriodo.Materia.Semestre;
+            let grupo = grupoPeriodo.Grupo.Grupo;
+            let period = grupoPeriodo.Periodo;
+
+            let integMainLbl = document.getElementById("integMainLbl");
+
+            if (calf) {
+                integMainLbl.textContent = "Calificaciones ";
+            }
+            integMainLbl.textContent += mat + " ~~ " + semestre + "°" + grupo + " ~~ " + period;
+
+            let dataArrayGP = {
+                Id_GpoPeriodo: Id_GrupoPeriodo
+            };
+
+            $.ajax({
+                url: '../../index_ajax.php?controller=listagrupo&action=getMembersByGP',
+                type: 'POST',
+                dataType: 'json',
+                data: dataArrayGP
+            }).done(function (resAlumnosGP) {
+                if (!resAlumnosGP.error) {
+                    if (resAlumnosGP.built) {
+                        insertIntegGPCalfInfo(resAlumnosGP.alumnosGP, profF, calf, Materia);
+                    } else {
+                        //No hay alumnos en el grupo periodo --> hacer al final esto
+                    }
+                }
+            }).fail(function () {
+                AJAXrequestFailed("Peticion AJAX obtener alumnos de un GP");
+            });
+        }
+
+        insertIntegGPCalfInfo = (alumnosGP, profF, calf, Materia) => {
+            //get materia -> get txt file para Valores Parciales -> obtener calificaciones de instrumentos
+        }
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
