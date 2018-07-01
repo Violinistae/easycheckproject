@@ -63,5 +63,39 @@
                 echo json_encode(['error' => true]);
             }
         }
+
+        public function getMembersByGP () {
+            if (isset($_POST["Id_GpoPeriodo"])) {
+                $stmt = $this->pdo->prepare(
+                    "SELECT listagrupo.Alumno, usuario.Nombres, usuario.Apellidos
+                        FROM listagrupo JOIN usuario ON listagrupo.Alumno = usuario.Registro_U
+                        WHERE GpoPeriodo = ? ORDER BY Alumno"
+                );
+
+                $stmt->execute([
+                    $_POST["Id_GpoPeriodo"]
+                ]);
+
+                if ($stmt->rowCount() > 0) {
+                    $alumnosGP = [];
+
+                    while ($al = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $alumno = [
+                            'Registro_U' => intval($al["Alumno"]),
+                            'Nombres' => $al["Nombres"],
+                            'Apellidos' => $al["Apellidos"]
+                        ];
+
+                        $alumnosGP [] = $alumno;
+                    }
+                    echo json_encode(['error' => false, 'built' => true, 'alumnosGP' => $alumnosGP]);
+
+                } else {
+                    echo json_encode(['error' => false, 'built' => false]);
+                }
+            } else {
+                echo json_encode(['error' => true]);
+            }
+        }
     }
 ?>
