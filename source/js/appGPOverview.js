@@ -25,7 +25,7 @@ $(document).ready(function ($) {
                     getIntegGPPageModal(grupoPeriodo.Id_GrupoPeriodo, true, false);
                     break;
                 case "gpShowCreatorCalf":
-
+                    getIntegGPPageModal(grupoPeriodo.Id_GrupoPeriodo, true, true);
                     break;
             }
         } else if (!flagCForAction) {
@@ -37,7 +37,7 @@ $(document).ready(function ($) {
                     getIntegGPPageModal(grupoPeriodo.Id_GrupoPeriodo, false, false);
                     break;
                 case "gpLeave":
-
+                    getIntegGPPageModal(grupoPeriodo.Id_GrupoPeriodo, true, true);
                     break;
             }
         }
@@ -67,6 +67,10 @@ $(document).ready(function ($) {
                 let period = grupoPeriodo.Periodo;
 
                 let integMainLbl = document.getElementById("integMainLbl");
+
+                if (calf) {
+                    integMainLbl.textContent = "Calificaciones alumnos";
+                }
                 integMainLbl.textContent += mat + " ~~ " + semestre + "°" + grupo + " ~~ " + period;
 
                 let dataArrayGP = {
@@ -91,7 +95,6 @@ $(document).ready(function ($) {
                 });
 
                 //seguir en este método y se puede utilizar para insertar a los alumnos para
-                // mostrar las calificaciones en una lista pero en el main container en vez de un modal
             }
 
             insertAlumnosGPIntoInteg = (alumnosGP, profF, calf) => {

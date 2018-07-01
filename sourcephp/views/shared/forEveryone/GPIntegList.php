@@ -147,305 +147,39 @@
                <div class="calfCommonRow">
                    <div>
                        <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-               </div>
-               <div class="calfCommonRow">
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-               </div>
-               <div class="calfCommonRow">
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-               </div>
-               <div class="calfCommonRow">
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-               </div>
-               <div class="calfCommonRow">
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-               </div>
-               <div class="calfCommonRow">
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-               </div>
-               <div class="calfCommonRow">
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
-                   </div>
-               </div>
-               <div class="calfCommonRow">
-                   <div>
-                       <p>90</p>
-                       <p>90</p>
+                       <p>100</p>
                    </div>
                    <div>
-                       <p>90</p>
                        <p>90</p>
+                       <p>100</p>
                    </div>
                    <div>
                        <p>90</p>
-                       <p>90</p>
+                       <p>100</p>
                    </div>
                    <div>
-                       <p>90</p>
                        <p>90</p>
+                       <p>100</p>
                    </div>
                    <div>
                        <p>90</p>
-                       <p>90</p>
+                       <p>100</p>
                    </div>
                    <div>
-                       <p>90</p>
                        <p>90</p>
+                       <p>100</p>
                    </div>
                    <div>
                        <p>90</p>
-                       <p>90</p>
+                       <p>100</p>
                    </div>
                    <div>
                        <p>90</p>
-                       <p>90</p>
+                       <p>100</p>
                    </div>
                    <div>
-                       <p>90</p>
                        <p>90</p>
+                       <p>100</p>
                    </div>
                </div>
            </div>
