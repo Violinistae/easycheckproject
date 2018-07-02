@@ -107,6 +107,41 @@
                 echo json_encode(['error' => true]);
             }
         }
+
+        public function readListaCotejoData() {
+            if (isset($_POST["Id_Instrumento"])) {
+                $stmt = $this->pdo->prepare(
+                    "SELECT Id_FilaListaC, aspectoevaluacion.Descripcion, NumElemento, IndicadoresEv 
+                    FROM listacotejo JOIN aspectoevaluacion 
+                        ON listacotejo.AspectoEv = aspectoevaluacion.Id_Aspecto
+                        WHERE instrumento = ? ORDER BY NumElemento;"
+                );
+
+                $stmt->execute([
+                    $_POST["Id_Instrumento"]
+                ]);
+
+                if ($stmt->rowCount() > 0) {
+                    $contentLC = [];
+
+                    while ($rowLC = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $LC = [
+                            'Id_ListaC' => $rowLC["Id_FilaListaC"],
+                            'AspectoEv' => $rowLC["Descripcion"],
+                            'NumElemento' => $rowLC["NumElemento"],
+                            'IndicadoresEv' => $rowLC["IndicadoresEv"]
+                        ];
+                        $contentLC [] = $LC;
+                    }
+
+                    echo json_encode (['error' => false, 'built' => true, 'contentInst' => $contentLC]);
+                } else {
+                    echo json_encode (['error' => false, 'built' => false]);
+                }
+            } else {
+                echo json_encode(['error' => true]);
+            }
+        }
     }
     
 ?>

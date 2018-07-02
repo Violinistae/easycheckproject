@@ -8,7 +8,6 @@
 	} else {
 		header("location: ../../sourcephp/views/main.php");
 	}
-
 ?>
 <html>
 <head>
@@ -39,11 +38,11 @@
                 </select>
 			</div>
             <div id="infoAlumnoEval">
-                <div id="nombsAlumDiv">
-                    <p id="nombsAlumForEval"></p>
+				<div id="appsAlumDiv">
+                    <p id="appsAlumForEval">APELLIDOS: Seleccione un alumno</p>
                 </div>
-                <div id="appsAlumDiv">
-                    <p id="appsAlumForEval"></p>
+                <div id="nombsAlumDiv">
+                    <p id="nombsAlumForEval">NOMBRE(S): Seleccione un alumno</p>
                 </div>
             </div>
 			<div id="saveChanges">
@@ -53,8 +52,7 @@
 		<div class="maincontainer" id="maincontainer">
 
 			<div id="tableInstrumentHead">
-				<div id="headRRow">
-				</div>
+				
 			</div>
 
 			<div id="submaincontainer">

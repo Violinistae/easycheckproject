@@ -358,7 +358,8 @@ insertDataIntoCalfsTable = (valParData, dataForCalfTable) => {
         useInstrToEval = (eTrigger, alumnosGP) => {
             let o = {
                 Id_Instrumento: parseInt(eTrigger.getAttribute("dataidins")),
-                alumnosGP: alumnosGP
+                alumnosGP: alumnosGP,
+                MateriaN: grupoPeriodo.Materia.Materia
             };
 
             console.log(o);
@@ -368,11 +369,9 @@ insertDataIntoCalfsTable = (valParData, dataForCalfTable) => {
             $(".buttonnewinst").removeClass('active');
             $("#modforactions").fadeOut("300");
 
-            /*
             let useInstrToEvalURL = "../../sourcephp/views/useInstrumento.php";
             sessionStorage.setItem("usedInstrForEval", str);
             window.open(useInstrToEvalURL, "_blank");
-            */
 
         }
 

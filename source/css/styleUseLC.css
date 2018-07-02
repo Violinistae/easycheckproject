@@ -1,0 +1,37 @@
+#headLCRow {
+    display: grid;
+    grid-template-columns: 1fr 2fr 3fr 3fr;
+}
+
+.headLCCol {
+    text-align: center;
+    font-weight: bold;
+}
+
+.LCHeadLbl {
+    font-size: 18px;
+}
+
+.rowLC {
+    display: grid;
+    grid-template-columns: 1fr 2fr 3fr 3fr;
+}
+
+.rowLCElement {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.resRowLC {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.resRowLC > div {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
