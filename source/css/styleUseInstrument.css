@@ -73,13 +73,14 @@
     /* ------------------------------------------------- */
 
     #infoAlumnoEval {
-        flex-grow: 2;
-        font-size: 17px;
+        flex-grow: 2.5;
+        font-size: 16px;
         color: white;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: space-evenly;
+        text-align: center;
     }
 
     #infoAlumnoEval > div {
@@ -90,7 +91,7 @@
     /* ------------------------------------------------- */
 
     #saveChanges {
-        flex-grow: .6;
+        flex-grow: .4;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -99,7 +100,7 @@
     #saveChangesBtn {
         border: white solid .2em;
         border-radius: 1em;
-        padding: .7em 2em;
+        padding: .8em 1em;
         background-color: transparent;
         color: white;
         font-size: 16px;

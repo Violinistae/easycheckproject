@@ -110,6 +110,61 @@
             }
         }
 
+        public function readMateriaSharedInstByClave () {
+            if (isset($_POST["Materia"]) && isset($_POST["ValParData"]) && isset($_POST["Alumno"])) {
+
+                $Califiaciones = [];
+                $InstrData = [];
+                for ($i = 0; $i < $_POST["ValParLeng"]; ++$i) {
+                    $stmt = $this->pdo->prepare(
+                        "SELECT instrumentoscompartidos.Materia, instrumento.Id_Instrumento, 
+                        instrumento.TipoInstrumento FROM instrumentoscompartidos JOIN instrumento 
+                            ON instrumentoscompartidos.Instrumento = instrumento.Id_Instrumento
+                        WHERE instrumentoscompartidos.Materia = ? AND instrumento.ClaveElem = ? "
+                    );
+                    $stmt->execute([
+                        $_POST["Materia"],
+                        $_POST["ValParData"][$i][1]
+                    ]);
+
+                    if ($stmt->rowCount() == 1) {
+                        $In = [];
+                        while ($res = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                            $In = [
+                                'Id_Instrumento' => intval($res["Id_Instrumento"]),
+                                'Materia' => intval($res["Materia"]),
+                                'TipoInstrumento' => intval($res["TipoInstrumento"])
+                            ];
+                        }
+
+                        switch ($In["TipoInstrumento"]) {
+                            case 1:
+                                $Califiaciones;
+                                break;
+                            case 2:
+                                $evLCctrlr = new evaluacionfilalistacController($this->pdo);
+                                $Califiaciones [] = $evLCctrlr->getEvalLCByAlumnoLocal($_POST["Alumno"], $In["Id_Instrumento"]);
+                                break;
+                            case 3:
+                                # code...
+                                break;
+                            case 4:
+                                # code...
+                                break;
+                        }
+
+                    } else {
+                        $Califiaciones [] = [
+                            "000", "00"
+                        ];
+                    }
+                }
+                echo json_encode(['error' => false, 'Calf' => $Califiaciones]);
+            } else {
+                echo json_encode(['error' => true]);
+            }
+        }
+
         public function verifySharedInstr ($Id_Ins) {
             $stmt = $this->pdo->prepare(
                 "SELECT * FROM instrumentoscompartidos
@@ -118,6 +173,8 @@
             $stmt->execute([
                 $Id_Ins
             ]);
+
+                //Verificar si ya hay un instrumento con la misma clave y la misma materia
 
             if ($stmt->rowCount() > 0) {
                 return true;

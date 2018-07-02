@@ -235,6 +235,7 @@ $(document).ready(function ($) {
                         let auxArr = [];
                         auxArr.push(txtFile_JSON[i]["Nombre"]);         //nombre
                         auxArr.push(txtFile_JSON[i]["Clave"]);          //clave
+                        auxArr.push(txtFile_JSON[i]["Valor Parcial"]);          //clave
                         valParData.push(auxArr);
                     }
                 }

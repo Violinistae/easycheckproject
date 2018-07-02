@@ -101,6 +101,7 @@ $(document).ready(function ($) {
             opc.textContent = alumnosGP[i].Registro_U;
             opc.setAttribute("dataaleval", alumnosGP[i].Registro_U);
             opc.setAttribute("dataselectal", i);
+            opc.id = alumnosGP[i].Registro_U;
             opc.value = alumnosGP[i].Registro_U;
             selectAlumnEval.appendChild(opc);
         }
@@ -166,7 +167,7 @@ $(document).ready(function ($) {
                 if (!resInstrInfo.error) {
                     if (resInstrInfo.built) {
                         instContent = resInstrInfo.contentInst;
-                        console.log(instContent);
+                        //console.log(instContent);
                     } else {
                         //No hay contenido en el instrumento para realizar evaluaciones
                     }
@@ -183,7 +184,10 @@ $(document).ready(function ($) {
         if (getCookie('s&b!pd?_#d') != getCookie("&lxaAdCs3_¡#dl")) {
             if (confirm("Se han detectado algunos cambios. Para cambiar de alumno por evaluar es necesario almacenar los cambios realizados. ¿Desea guardar los cambios?")) {
                 //guardar cambios
+                checkContentAndSaveChanges();
                 setInfoSelectedAlToEval(e);
+            } else {
+                e.currentTarget.value = actualAlumnoEval;
             }
         } else {
             setInfoSelectedAlToEval(e);
@@ -217,11 +221,11 @@ $(document).ready(function ($) {
 
             switch (tipoInstrumento) {
                 case 1:
-
+                    
                     break;
                 case 2:
-                    addLCRowsForEval(instContent);
-                    //Load evaluacion anterior de alumno
+                    uncommitedChanges = addLCRowsForEval(instContent);
+                    getAndSetLCEvalRows(actualAlumnoEval, Id_Instrumento);
                     break;
                 case 3:
 
@@ -231,6 +235,25 @@ $(document).ready(function ($) {
                     break;
             }
         }   
+    }
+
+
+    checkContentAndSaveChanges = () => {
+        switch (tipoInstrumento) {
+            case 1:
+                
+                break;
+            case 2:
+                cleanAndSaveEvalLC(uncommitedChanges, actualAlumnoEval, Id_Instrumento);
+                updateSaveChangesCookie();
+                break;
+            case 3:
+
+                break;
+            case 4:
+
+                break;
+        }
     }
 
 // ++++++++ Funciones comunes (Agregar No Elemento, Aspecto de Evaluacion, Indicadores de Ev) ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -317,7 +340,12 @@ $(document).ready(function ($) {
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
+    $("#saveChangesBtn").click(function (e) { checkContentAndSaveChanges(); });
     $('body').on('change', '#selectAlumnEval', function (e) { setSelectedAlToEval(e); });
+
+    // Event triggers for Lista de Cotejo
+    $('body').on('change', '.resLCInput', function (e) { changeEvRowLC(e); });
+    
 
 
 /* --------------------------------------------------------------------------------------------------------------------- */

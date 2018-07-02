@@ -299,10 +299,12 @@ insertDataIntoCalfsTable = (valParData, dataForCalfTable) => {
     divHeadCalf.classList.add("calfCommonRow"); divHeadCalf.classList.add("headCalfRow");
     for (let i = 0; i < valParData.length; ++i) {
         let div = document.createElement("div");
+        div.classList.add("CalfSubHead");
         div.textContent = valParData[i][1];
         divHeadCalf.appendChild(div);
     }
     calfSubcontainer.appendChild(divHeadCalf);
+
 
     let integSubcontainer = document.getElementsByClassName("integSubcontainer").item(0);
     for (let i = 0; i < alumnosGP.length; ++i) {
@@ -323,9 +325,75 @@ insertDataIntoCalfsTable = (valParData, dataForCalfTable) => {
         }
         integSubcontainer.appendChild(divInteg);
 
-        //Ver si seguir aqui o hacer una funcion para insertar calificaciones del men
+
+        let dataArray = {
+            Materia: grupoPeriodo.Materia.Id_Materia,
+            ValParData: valParData,
+            ValParLeng: valParData.length,
+            Alumno: alumnosGP[i].Registro_U
+        };
+
+        $.ajax({
+            url: '../../index_ajax.php?controller=instrumentoscompartidos&action=readMateriaSharedInstByClave',
+            type: 'POST',
+            dataType: 'json',
+            data: dataArray
+        }).done(function (resCalf) {
+            let calf = resCalf.Calf;
+            console.log(calf);
+            for (let j = 0; j < calf.length; ++j) {
+                if (calf[j][0] != "000") {
+                    let promedioA = parseInt(calf[j][0]);
+                    let puntaje = promedioA / 100 * parseInt(valParData[i][2]);
+                    calf[j][1] = puntaje;
+                } else {
+
+                }
+            }
+            let calfSubcontainer = document.getElementsByClassName("calfSubcontainer").item(0);
+            insertCalf(calf, calfSubcontainer);
+        }).fail(function () {
+            AJAXrequestFailed("No sirve");
+        });
+
     }
+    
 }
+
+    insertCalf = (calf, calfSubcontainer) => {
+        let div = document.createElement("div");
+        div.classList.add("calfCommonRow");
+        for (let k = 0; k < calf.length; ++k) {
+            let diva = document.createElement("div");
+            let p = document.createElement("p");
+
+            if (calf[k][0] == "000") {
+                p.textContent = calf[k][0];
+            } else if (calf[k][0] < 100) {
+                p.textContent = "_" + calf[k][0];
+            } else if (calf[k][0] < 10) {
+                p.textContent = "__" + calf[k][0];
+            } else {
+                p.textContent = calf[k][0];
+            }
+            diva.appendChild(p);
+
+            p = document.createElement("p");
+
+            if (calf[k][1] == "00") {
+                p.textContent = calf[k][1];
+            } else if (calf[k][1] < 10) {
+                p.textContent = "_" + calf[k][1];
+            } else {
+                p.textContent = calf[k][1];
+            }
+            diva.appendChild(p);
+
+            div.appendChild(diva);
+        }
+        calfSubcontainer.appendChild(div);
+    }
+    
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

@@ -1,5 +1,6 @@
 $(document).ready(function ($) {
     addLCRowsForEval = (instContent) => {
+        let evalForLC = [];
         let parentRowsDiv = document.getElementById("rowsContainer");
         for (let j = 0; j < instContent.length; ++j) {
 
@@ -29,14 +30,16 @@ $(document).ready(function ($) {
                         rowLCElem.id = "resRowLC" + instContent[j].Id_ListaC;
 
                         let div = document.createElement("div");
-                        div.innerHTML = '<input type="radio" checked class="resLCInput" name="resLC-' + instContent[j].Id_ListaC + '" value="1">' +
+                        div.innerHTML = '<input type="radio" checked class="resLCInput" name="resLC-' + instContent[j].Id_ListaC + '" datarowInst="' + (instContent[j].NumElemento - 1) +'" value="1">' +
                             '<p>Cumplido</p>';
                         rowLCElem.appendChild(div);
 
                         div = document.createElement("div");
-                        div.innerHTML = '<input type="radio" class="resLCInput" name="resLC-' + instContent[j].Id_ListaC + '" value="0">' +
+                        div.innerHTML = '<input type="radio" class="resLCInput" name="resLC-' + instContent[j].Id_ListaC + '" datarowInst="' + (instContent[j].NumElemento - 1) +'" value="0">' +
                             '<p>No Cumplido</p>';
                         rowLCElem.appendChild(div);
+                        //La evaluación no es necesaria guardarla por todos los alumnos, solo el que se esta evaluando
+                        //Al momento de cambiar de men se reasigna a la variable global los nuevos datos
                         break;
                 }
 
@@ -44,5 +47,25 @@ $(document).ready(function ($) {
                 parentRowsDiv.appendChild(instumentLCRow);
             }
         }
+
+        for (let i = 0; i < instContent.length; ++i) {
+            let arr = [];
+            let evalRow = parseInt(document.querySelector('input[name="resLC-' + instContent[i].Id_ListaC + '"]:checked').value);
+
+            arr.push(instContent[i].Id_ListaC);
+            arr.push(evalRow);            
+            evalForLC.push(arr);
+        }
+
+        return evalForLC;
+    }
+
+    changeEvRowLC = (e) => {
+        let selectedRadio = e.currentTarget;
+        let inputEvalRow = selectedRadio.name.replace("resLC-", "");
+        let numElemForArray = selectedRadio.getAttribute("datarowInst");
+
+        uncommitedChanges[numElemForArray][1] = parseInt(selectedRadio.value);
+        setNewHashToCookieAfterAction();
     }
 });
