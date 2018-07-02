@@ -31,13 +31,13 @@ $(document).ready(function ($) {
         } else if (!flagCForAction) {
             switch (actionGPOverview) {
                 case "gpShowIntegCalf":
-
+                    getIntegGPForCalf(grupoPeriodo.Id_GrupoPeriodo, true, true, grupoPeriodo.Materia.Id_Materia);
                     break;
                 case "gpShowInteg":
                     getIntegGPPageModal(grupoPeriodo.Id_GrupoPeriodo, false, false);
                     break;
                 case "gpLeave":
-                    getIntegGPForCalf(grupoPeriodo.Id_GrupoPeriodo, true, true, grupoPeriodo.Materia.Id_Materia);
+                    
                     break;
             }
         }

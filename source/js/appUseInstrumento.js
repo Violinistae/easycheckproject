@@ -126,7 +126,7 @@ $(document).ready(function ($) {
             case 3:
                 typeInstrumentoLbl.textContent += "Guía de Observación";
                 URLHeadTable = '../../sourcephp/views/buildInst/GO/headRowGO.php';
-                readInstrumentRowsURL = '../../index_ajax.php?controller=guiadeobservacion&action=readGuiaObs';
+                readInstrumentRowsURL = '../../index_ajax.php?controller=guiadeobservacion&action=readGuiaObsData';
                 break;
             case 4:
                 typeInstrumentoLbl.textContent += "Cuestionario";
@@ -167,7 +167,7 @@ $(document).ready(function ($) {
                 if (!resInstrInfo.error) {
                     if (resInstrInfo.built) {
                         instContent = resInstrInfo.contentInst;
-                        //console.log(instContent);
+                        console.log(resInstrInfo);
                     } else {
                         //No hay contenido en el instrumento para realizar evaluaciones
                     }
@@ -206,6 +206,7 @@ $(document).ready(function ($) {
 
         let parentRowsDiv = document.getElementById("rowsContainer");
         parentRowsDiv.innerHTML = "";
+        uncommitedChanges = null;
 
         if (!/^([0-9])*$/.test(indexGPAlumnos)) {
             appsAlumForEval.textContent = "APELLIDOS: Seleccione un alumno";
@@ -228,7 +229,8 @@ $(document).ready(function ($) {
                     getAndSetLCEvalRows(actualAlumnoEval, Id_Instrumento);
                     break;
                 case 3:
-
+                    uncommitedChanges = addGORowsForEval(instContent);
+                    getAndSetGOEvalRows(actualAlumnoEval, Id_Instrumento);
                     break;
                 case 4:
 
@@ -248,7 +250,8 @@ $(document).ready(function ($) {
                 updateSaveChangesCookie();
                 break;
             case 3:
-
+                updateSaveChangesCookie();
+                cleanAndSaveEvalGO(uncommitedChanges, actualAlumnoEval, Id_Instrumento);
                 break;
             case 4:
 
@@ -284,7 +287,15 @@ $(document).ready(function ($) {
         
         rowElem.appendChild(auxCol);
     }
+    
+    createIndicadoresEv = (rowElem, PonderacionElem, Id_GuiadeO) => {
+        auxCol = document.createElement("p");
+        auxCol.classList.add("rowLCElement");
+        auxCol.id = "pondElem" + Id_GuiadeO;
+        auxCol.textContent = PonderacionElem;
 
+        rowElem.appendChild(auxCol);
+    }
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -345,6 +356,7 @@ $(document).ready(function ($) {
 
     // Event triggers for Lista de Cotejo
     $('body').on('change', '.resLCInput', function (e) { changeEvRowLC(e); });
+    $('body').on('change', '.resGOInput', function (e) { changeEvRowLC(e); });
     
 
 

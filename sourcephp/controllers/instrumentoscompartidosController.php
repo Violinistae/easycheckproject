@@ -147,6 +147,8 @@
                                 break;
                             case 3:
                                 # code...
+                                $evGOCtrlr = new evaluacionfilaguiaobsController($this->pdo);
+                                $Califiaciones [] = $evGOCtrlr->getEvalGOByAlumnoLocal($_POST["Alumno"], $In["Id_Instrumento"]);
                                 break;
                             case 4:
                                 # code...

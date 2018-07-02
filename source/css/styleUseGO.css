@@ -1,0 +1,37 @@
+#headGORow {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 2.5fr 1fr 3fr;
+}
+
+.GOHeadCol {
+    text-align: center;
+    font-weight: bold;
+}
+
+.GOHeadLbl {
+    font-size: 18px;
+}
+
+.rowGO {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr 2.5fr 1fr 3fr;
+}
+
+.rowGOElement {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.resRowGO {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.resRowGO > div {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}

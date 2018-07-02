@@ -111,6 +111,42 @@
                 echo json_encode(['error' => true]);
             }
         }
+
+        public function readGuiaObsData () {
+            if (isset($_POST["Id_Instrumento"])) {
+                $stmt = $this->pdo->prepare(
+                    "SELECT Id_FilaGuiadO, aspectoevaluacion.Descripcion, NumElemento, AccionesEv, PonderacionElem 
+                    FROM guiadeobservacion JOIN aspectoevaluacion 
+                        ON guiadeobservacion.AspectoEv = aspectoevaluacion.Id_Aspecto
+                        WHERE instrumento = ? ORDER BY NumElemento"
+                );
+
+                $stmt->execute([
+                    $_POST["Id_Instrumento"]
+                ]);
+
+                if ($stmt->rowCount() > 0) {
+                    $contentGO = [];
+
+                    while ($rowGO = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        $GO = [
+                            'Id_GuiadeO' => $rowGO["Id_FilaGuiadO"],
+                            'AspectoEv' => $rowGO["Descripcion"],
+                            'NumElemento' => $rowGO["NumElemento"],
+                            'AccionesEv' => $rowGO["AccionesEv"],
+                            'PonderacionElem' => $rowGO["PonderacionElem"]
+                        ];
+                        $contentGO [] = $GO;
+                    }
+
+                    echo json_encode (['error' => false, 'built' => true, 'contentInst' => $contentGO]);
+                } else {
+                    echo json_encode (['error' => false, 'built' => false]);
+                }
+            } else {
+                echo json_encode(['error' => true]);
+            }
+        }
     }
     
 ?>
