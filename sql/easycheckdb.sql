@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-06-2018 a las 19:19:08
+-- Tiempo de generación: 02-07-2018 a las 12:14:53
 -- Versión del servidor: 10.1.31-MariaDB
 -- Versión de PHP: 7.1.15
 
@@ -114,7 +114,19 @@ INSERT INTO `acciones` (`Id_Acciones`, `Controlador`, `Metodo`) VALUES
 (49, 'listagrupo', 'getGposPByMember'),
 (50, 'grupoperiodo', 'verifyRequestToGpoP'),
 (51, 'listagrupo', 'verifytoInsertNewGpoPMember'),
-(52, 'grupoperiodo', 'updateGpoP');
+(52, 'grupoperiodo', 'updateGpoP'),
+(53, 'grupoperiodo', 'deletegpop'),
+(54, 'instrumentoscompartidos', 'readMateriaSharedInst'),
+(55, 'listagrupo', 'getMembersByGP'),
+(56, 'listacotejo', 'readListaCotejoData'),
+(57, 'evaluacionfilalistac', 'cleanAlumnoEvLCByFilaLC'),
+(58, 'evaluacionfilalistac', 'saveAlumnoEvLC'),
+(59, 'evaluacionfilalistac', 'getEvalLCByAlumno'),
+(60, 'instrumentoscompartidos', 'readMateriaSharedInstByClave'),
+(61, 'guiadeobservacion', 'readGuiaObsData'),
+(62, 'evaluacionfilaguiaobs', 'cleanAlumnoEvLCByFilaGO'),
+(63, 'evaluacionfilaguiaobs', 'saveAlumnoEvGO'),
+(64, 'evaluacionfilaguiaobs', 'getEvalGOByAlumno');
 
 -- --------------------------------------------------------
 
@@ -173,10 +185,6 @@ CREATE TABLE `criteriosfilarubrica` (
 --
 
 INSERT INTO `criteriosfilarubrica` (`Id_CriterioFilaR`, `FilaRubrica`, `Identificador`, `DescripcionIdent`, `ValorIdent`) VALUES
-(49, 23, '9', '9', 9),
-(50, 23, '0', '0', 10),
-(51, 23, '4', '4', 4),
-(52, 23, '5', '5', 5),
 (78, 29, 'Excelente', 'Es perfecto', 100),
 (79, 29, 'Bueno', 'Casi es perfecto', 80),
 (80, 29, 'Suficiente', 'Puede mejorar', 70),
@@ -189,7 +197,17 @@ INSERT INTO `criteriosfilarubrica` (`Id_CriterioFilaR`, `FilaRubrica`, `Identifi
 (87, 31, 'Excelente', 'Excelente', 100),
 (88, 31, 'Bueno', 'Bueno', 80),
 (89, 31, 'Regular', 'Regular', 60),
-(90, 31, 'Nada', 'Nada', 1);
+(90, 31, 'Nada', 'Nada', 1),
+(91, 32, 'Muy bien', 'El robot sumo se mueve sin problemas, no se traba, no patina ni se vuelca.', 100),
+(92, 32, 'Bien', 'El robot sumo se mueve con facilidad soportando su propio peso sin trabarse, sin embargo las ruedas patinan al momento de girar.', 90),
+(93, 32, 'Suficiente', 'El robot sumo se mueve soportando su propio peso, pero se traba al momento de dar vuelta o de seguir rodando.', 70),
+(94, 32, 'Malo', 'El robot sumo se mueve con gran dificultad, ya que no soporta su propio peso.', 60),
+(95, 32, 'Muy malo', 'El robot no se mueve para nada.', 50),
+(96, 33, 'Muy bien', 'El robot sumo empuja con gran facilidad a sus contrincantes, sin patinar ni voltearse.', 100),
+(97, 33, 'Bien', 'Compentente', 90),
+(98, 33, 'Suficiente', 'Falta destacar', 70),
+(99, 33, 'Malo', 'no es competente', 60),
+(100, 33, 'Pesimo', 'Nada competente', 20);
 
 -- --------------------------------------------------------
 
@@ -238,6 +256,20 @@ CREATE TABLE `evaluacionfilaguiaobs` (
   `Puntaje` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `evaluacionfilaguiaobs`
+--
+
+INSERT INTO `evaluacionfilaguiaobs` (`Id_EvFilaGuiaObs`, `Evaluador`, `Evaluado`, `FilaGuiaObs`, `Cumplimiento`, `Puntaje`) VALUES
+(9, 123, 14300281, 13, 1, 0),
+(10, 123, 14300281, 14, 0, 0),
+(11, 123, 14300281, 15, 1, 0),
+(12, 123, 14300281, 16, 1, 0),
+(17, 123, 14300143, 13, 1, 0),
+(18, 123, 14300143, 14, 1, 0),
+(19, 123, 14300143, 15, 1, 0),
+(20, 123, 14300143, 16, 1, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -251,6 +283,22 @@ CREATE TABLE `evaluacionfilalistac` (
   `Evaluador` int(11) NOT NULL,
   `Cumplimiento` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `evaluacionfilalistac`
+--
+
+INSERT INTO `evaluacionfilalistac` (`Id_EvFilaListaCot`, `FilaListaCotejo`, `Evaluado`, `Evaluador`, `Cumplimiento`) VALUES
+(16, 26, 14300143, 123, 1),
+(17, 27, 14300143, 123, 0),
+(18, 28, 14300143, 123, 1),
+(19, 29, 14300143, 123, 0),
+(20, 30, 14300143, 123, 1),
+(21, 26, 14300281, 123, 1),
+(22, 27, 14300281, 123, 0),
+(23, 28, 14300281, 123, 0),
+(24, 29, 14300281, 123, 1),
+(25, 30, 14300281, 123, 0);
 
 -- --------------------------------------------------------
 
@@ -340,9 +388,10 @@ CREATE TABLE `grupoperiodo` (
 --
 
 INSERT INTO `grupoperiodo` (`Id_GpoPeriodo`, `Materia`, `Grupo`, `Periodo`, `Profesor`, `Lista_Alumnos`, `Clave_Acceso`) VALUES
-(9, 4, 3, 'Feb-Jun 2018', 123, 'listaAlum9424AlumnosProgAv', '$2y$10$xrqsdJ66Lrl2fC6fd2dJxepmbSRwLLNriPh5A08xdKzfQoKHcPyR6'),
 (10, 4, 1, 'Feb-Jun 2018', 123, 'listaAlum7867AlumnosProgAv', '$2y$10$Q/PpTxlDv95cg89cc3QKg.zaLBCY9Tk4ZWnggmrZDHrSMKyMo3Mae'),
-(11, 4, 2, 'Feb-Jun 2018', 123, 'listaAlum3970AlumnosProgAv', '$2y$10$eItWbIbP3JZnnmM12piZhOMgOA2lIoLp7fIqDYERGMqfd.NNDOA9C');
+(11, 4, 2, 'Feb-Jun 2018', 123, 'listaAlum3970AlumnosProgAv', '$2y$10$eItWbIbP3JZnnmM12piZhOMgOA2lIoLp7fIqDYERGMqfd.NNDOA9C'),
+(12, 4, 3, 'Feb-Jun 2018', 123, 'listaAlum149AlumnosProgAv', '$2y$10$fyZXdrzNGNswOpXA938Lcu6lGAPdFbT9BXU3dCdQAJi23.CI1Lg1m'),
+(13, 4, 4, 'Feb-Jun 2018', 12, 'listaAlum7662AlumnosProgAv', '$2y$10$iZdRhCf8VwWomKGAqNopw.5ihV1V/.b4pb9s2eWWUqnjAmL.Wtrle');
 
 -- --------------------------------------------------------
 
@@ -364,7 +413,11 @@ CREATE TABLE `guiadeobservacion` (
 --
 
 INSERT INTO `guiadeobservacion` (`Id_FilaGuiadO`, `AspectoEv`, `Instrumento`, `NumElemento`, `AccionesEv`, `PonderacionElem`) VALUES
-(12, 2, 13, 1, 'Hola mundo. Esto es prueba que después se eliminará.', 100);
+(12, 2, 13, 1, 'Hola mundo. Esto es prueba que después se eliminará.', 100),
+(13, 2, 20, 1, 'a', 30),
+(14, 3, 20, 2, 'b', 20),
+(15, 1, 20, 3, 'c', 40),
+(16, 2, 20, 4, 'd', 10);
 
 -- --------------------------------------------------------
 
@@ -390,13 +443,15 @@ CREATE TABLE `instrumento` (
 INSERT INTO `instrumento` (`Id_Instrumento`, `Creador`, `TipoInstrumento`, `TipoEvaluacion`, `ClaveElem`, `NombElemento`, `InstruccLlenado`, `Materia`) VALUES
 (4, 123, 4, 2, 'P1.4', 'Examen', 'Prueba', 4),
 (5, 123, 2, 2, 'P1.2', 'Actividades en Clase', 'Prueba Lista Cotejo', 5),
-(10, 123, 1, 2, 'P1.3', 'Prácticas', 'Seleccione el criterio más adecuado para describir el elemento a evaluar de cada práctica.', 4),
 (11, 123, 1, 2, 'P3.3', 'Prácticas', 'Prácticas POO', 8),
 (12, 12, 1, 2, 'P1.3', 'Prácticas', 'Seleccione el mejor criterio', 10),
 (13, 60, 3, 2, 'P1.2', 'Actividades en Clase', 'Prueba para actualizar campos', 10),
 (14, 60, 2, 2, 'P1.1', 'Tareas', 'Prueba contra bugs', 10),
 (15, 60, 4, 2, 'P3.4', 'Examen', 'Prueba anti bugs cuestionario', 10),
-(16, 60, 1, 2, 'P2.3', 'Prácticas', 'Prueba anti bugs rubrica', 10);
+(16, 60, 1, 2, 'P2.3', 'Prácticas', 'Prueba anti bugs rubrica', 10),
+(17, 123, 1, 2, 'P1.3', 'Prácticas', 'Seleccione el criterio que mejor califique al elemento evaluado.', 9),
+(18, 123, 2, 2, 'P1.2', 'Actividades en Clase', 'Instrucciones', 4),
+(20, 123, 3, 2, 'P1.1', 'Tareas', 'Instrucciones\n', 4);
 
 -- --------------------------------------------------------
 
@@ -416,8 +471,9 @@ CREATE TABLE `instrumentoscompartidos` (
 --
 
 INSERT INTO `instrumentoscompartidos` (`Id_SharedInstr`, `Materia`, `Instrumento`, `Academia`) VALUES
-(5, 4, 4, 1),
-(7, 5, 5, 1);
+(7, 5, 5, 1),
+(11, 4, 18, 1),
+(12, 4, 20, 1);
 
 -- --------------------------------------------------------
 
@@ -462,7 +518,12 @@ INSERT INTO `listacotejo` (`Id_FilaListaC`, `Instrumento`, `AspectoEv`, `NumElem
 (12, 5, 1, 2, 'Las respuestas de las actividades son correctas'),
 (13, 5, 3, 3, 'Las actividades fueron realizadas en tiempo y forma'),
 (14, 5, 1, 4, 'fg'),
-(15, 14, 2, 1, 'Hola esto es contra bugs');
+(15, 14, 2, 1, 'Hola esto es contra bugs'),
+(26, 18, 1, 1, 'El trabajo fue entregado a tiempo.'),
+(27, 18, 2, 2, 'El programa es funcional y tiene muy pocos fallos (bugs)'),
+(28, 18, 2, 3, 'La interfaz gráfica de la aplicación es \"amigable\" e \"intuitiva\".'),
+(29, 18, 1, 4, 'Las interfaces de usuario cuentan con 3 o menos faltas de ortografía y las frases escritas tienen sentido.'),
+(30, 18, 2, 5, 'La documentación de la aplicación está completa: definición de la problemática, manual de usuario y diagrama de clases.');
 
 -- --------------------------------------------------------
 
@@ -481,7 +542,8 @@ CREATE TABLE `listagrupo` (
 --
 
 INSERT INTO `listagrupo` (`Id_ListaGrupo`, `Alumno`, `GpoPeriodo`) VALUES
-(3, 14300281, 10);
+(3, 14300281, 10),
+(4, 14300143, 10);
 
 -- --------------------------------------------------------
 
@@ -591,7 +653,7 @@ CREATE TABLE `rubrica` (
   `Instrumento` int(11) NOT NULL,
   `AspectoEv` tinyint(4) NOT NULL,
   `NumElemento` tinyint(4) NOT NULL,
-  `Descripcion` varchar(40) NOT NULL,
+  `Descripcion` varchar(80) NOT NULL,
   `NumCriterios` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -600,10 +662,11 @@ CREATE TABLE `rubrica` (
 --
 
 INSERT INTO `rubrica` (`Id_FilaRubrica`, `Instrumento`, `AspectoEv`, `NumElemento`, `Descripcion`, `NumCriterios`) VALUES
-(23, 10, 1, 1, 'asdno', 4),
 (29, 11, 2, 1, 'Sabe medir resistencias', 5),
 (30, 12, 1, 1, 'Medir resistencias', 4),
-(31, 16, 1, 1, 'nada', 4);
+(31, 16, 1, 1, 'nada', 4),
+(32, 17, 2, 1, 'Movimiento del robot sumo', 5),
+(33, 17, 2, 2, 'Capacidad de competencia', 5);
 
 -- --------------------------------------------------------
 
@@ -736,6 +799,7 @@ INSERT INTO `usuario` (`Registro_U`, `Nombres`, `Apellidos`, `Email`, `Password`
 (12, 'Carlos', 'Molina Martínez', 'profesor@gmail.com', '$2y$10$5FQoGpWZ58BdE/.U7WUzLOyVV0eDD0JqCRzmL2ROiL9JYVoWM7nae', 'Ingeniería', 2, '', ''),
 (60, 'Alejandra', 'Alcaráz Torres', 'electronica@gmail.com', '$2y$10$dCEnoiy8JVt.FGeDx9Z42egnYwhe3kYOQx/ZSHt2095iYYy/Bok0m', 'Maestría', 1, '', ''),
 (123, 'Gustavo', 'Rojas', 'academia@gmail.com', '$2y$10$kbbnaMsfXIssgogx3IGPeOU8335k42dfFOP.Jr4O8M1hsynVTEAju', 'Maestría', 1, '', ''),
+(14300143, 'Jesús Eduardo', 'Fuentes Rangel', 'eduardo@gmail.com', '$2y$10$aumS5XRU./vrjmG5mCw18.kWVil73zQKfUgCA..O3Un5jUPmabx76', '', 3, '', ''),
 (14300281, 'Emiliano', 'Moreno Salazar', 'ssbbemims@gmail.com', '$2y$10$Fnz9vMd6uHS5U3.ZCl4EM.Od3cJNUEMjLdUXlJBE8hs5ZZCJXeOKi', '', 3, '', '');
 
 --
@@ -1001,7 +1065,7 @@ ALTER TABLE `academia`
 -- AUTO_INCREMENT de la tabla `acciones`
 --
 ALTER TABLE `acciones`
-  MODIFY `Id_Acciones` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `Id_Acciones` smallint(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT de la tabla `aspectoevaluacion`
@@ -1019,7 +1083,7 @@ ALTER TABLE `carrera`
 -- AUTO_INCREMENT de la tabla `criteriosfilarubrica`
 --
 ALTER TABLE `criteriosfilarubrica`
-  MODIFY `Id_CriterioFilaR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `Id_CriterioFilaR` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
 -- AUTO_INCREMENT de la tabla `cuestionario`
@@ -1031,13 +1095,13 @@ ALTER TABLE `cuestionario`
 -- AUTO_INCREMENT de la tabla `evaluacionfilaguiaobs`
 --
 ALTER TABLE `evaluacionfilaguiaobs`
-  MODIFY `Id_EvFilaGuiaObs` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_EvFilaGuiaObs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `evaluacionfilalistac`
 --
 ALTER TABLE `evaluacionfilalistac`
-  MODIFY `Id_EvFilaListaCot` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_EvFilaListaCot` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `evaluacionfilarubrica`
@@ -1067,25 +1131,25 @@ ALTER TABLE `grupo`
 -- AUTO_INCREMENT de la tabla `grupoperiodo`
 --
 ALTER TABLE `grupoperiodo`
-  MODIFY `Id_GpoPeriodo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `Id_GpoPeriodo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `guiadeobservacion`
 --
 ALTER TABLE `guiadeobservacion`
-  MODIFY `Id_FilaGuiadO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `Id_FilaGuiadO` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `instrumento`
 --
 ALTER TABLE `instrumento`
-  MODIFY `Id_Instrumento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `Id_Instrumento` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `instrumentoscompartidos`
 --
 ALTER TABLE `instrumentoscompartidos`
-  MODIFY `Id_SharedInstr` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `Id_SharedInstr` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `integrantesacademia`
@@ -1097,13 +1161,13 @@ ALTER TABLE `integrantesacademia`
 -- AUTO_INCREMENT de la tabla `listacotejo`
 --
 ALTER TABLE `listacotejo`
-  MODIFY `Id_FilaListaC` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `Id_FilaListaC` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `listagrupo`
 --
 ALTER TABLE `listagrupo`
-  MODIFY `Id_ListaGrupo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Id_ListaGrupo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `materia`
@@ -1139,7 +1203,7 @@ ALTER TABLE `respuestacuestionario`
 -- AUTO_INCREMENT de la tabla `rubrica`
 --
 ALTER TABLE `rubrica`
-  MODIFY `Id_FilaRubrica` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `Id_FilaRubrica` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de la tabla `solicitudesacademia`
